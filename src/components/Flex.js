@@ -9,7 +9,6 @@ import {
   Stack,
   HStack,
   VStack,
-  Image,
   StackDivider,
   Input,
   InputGroup,
@@ -19,7 +18,9 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
-import Image1 from "../Mask Group.png"
+import SignUpImage from "../assets/images/SignUp.png"
+import Logo from "../assets/images/Logo.webp"
+import Image from 'next/image'
 
 export default function Flexeg() {
   const [show, setShow] = React.useState(false);
@@ -41,10 +42,8 @@ export default function Flexeg() {
 
   return (
     <>
-      <HStack w="1000px"  border="2px solid red" >
+      <HStack h="100vh" w="1200px" border="2px solid red" >
         <Flex
-
-
           border="2px solid red"
           flexDirection="column"
           width="50%"
@@ -53,6 +52,7 @@ export default function Flexeg() {
           justifyContent="center"
           alignItems="center"
         >
+          <Image src={Logo} height="80" width="320" />
           <Text
             fontSize={{ base: "36px", md: "40px", lg: "48px" }}
             marginBottom={45}
@@ -121,9 +121,8 @@ export default function Flexeg() {
             </Text>
           </Flex>
         </Flex>
-        <Box h="full">
-          <Image src={Image1}  />
-
+        <Box>
+          <Image src={SignUpImage} height="800" />
         </Box>
       </HStack>
     </>
