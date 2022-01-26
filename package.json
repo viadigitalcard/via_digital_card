@@ -11,6 +11,7 @@
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@next-auth/mongodb-adapter": "^1.0.1",
+    "bcryptjs": "^2.4.3",
     "framer-motion": "^4.0.3",
     "mongodb": "^4.3.1",
     "mongoose": "^6.1.7",

@@ -92,9 +92,7 @@ export default function Header() {
             </Link>
           </li>
           <li className={styles.navItem}>
-            <Link href="/middleware-protected">
-              <a>Middleware protected</a>
-            </Link>
+            <div></div>
           </li>
         </ul>
       </nav>
