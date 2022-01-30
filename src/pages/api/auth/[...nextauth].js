@@ -13,7 +13,6 @@ export default NextAuth({
           const user = await db.collection("users").findOne({
             email: credentials.email,
           });
-          console.log("og data", user);
 
           if (!user) throw new Error("No user found");
 
@@ -56,12 +55,12 @@ export default NextAuth({
   callbacks: {
     jwt: async ({ token, user }) => {
       user && (token.user = user);
-      console.log(user, token);
+      // console.log(user, token);
       return token;
     },
     session: async ({ session, token }) => {
       session.user = token.user;
-      console.log(session, token);
+      // console.log(session, token);
       return session;
     },
   },

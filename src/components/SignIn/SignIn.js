@@ -10,7 +10,6 @@ export const SignIn = () => {
   });
 
   const { data: session } = useSession();
-  console.log(session);
   const router = useRouter();
   const { email, password } = userCredentials;
 

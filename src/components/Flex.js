@@ -42,9 +42,8 @@ export default function Flexeg() {
 
   return (
     <>
-      <HStack h="100vh" w="1200px" border="2px solid red" >
+      <HStack h="100vh" w="1200px"  >
         <Flex
-          border="2px solid red"
           flexDirection="column"
           width="50%"
           height="100vh"

@@ -18,8 +18,8 @@ import Flex from "../components/Flex";
 const Index = () => (
   <Container height="100vh">
 
-    {/* <Header /> */}
-    <Flex/>
+    <Header />
+    {/* <Flex/> */}
     <DarkModeSwitch />
   </Container>
 );

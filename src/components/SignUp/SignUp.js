@@ -105,6 +105,7 @@ export default function SignUp() {
           required
         />
         <input
+        
           type="password"
           placeholder="Confirm Password"
           value={confirmPassword}
