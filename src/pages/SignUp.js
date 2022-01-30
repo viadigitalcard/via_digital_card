@@ -73,31 +73,33 @@ export default function SignUp() {
       <FormControl>
       <DarkModeSwitch />
       <HStack backgroundColor={color} width={{sm:"1px", md: "50%", lg: "100%" }} h="100vh"  >
-      <Box  >
+      <Box width={{ base:"hidden", md:"50%", lg:"50%"}} >
             <Image h="100vh" w="100%" px="70" objectFit='cover' src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643134864/digital%20card/SignUp/Mask_mg0oj2.svg' />
         </Box>
         
         <Flex
           flexDirection="column"
-          width="50%"
-          height="100vh"
+          width={{base:"full" , md:"50%" , lg:"50%"}}
+          height="full"
           justifyContent="center"
           alignItems="center"
         >
          
-          <Image width={{ base: "150px", md: "200px", lg: "300px"}}  marginBottom={2} src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp" /> 
+          <Image width={{ base: "200px", md: "200px", lg: "300px"}}  marginBottom={2} src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp" /> 
           <Text
             fontSize={{ base: "36px", md: "40px", lg: "45px" }}
             py={5}
             fontFamily="Margot"
             color={textColor}
+            textAlign="center"
+            alignSelf="center"
           >
             Sign Up
           </Text>
 
           <Input
             placeholder="Name"
-            width={{ base: "300px", md: "300px", lg: "400px" }}
+            width={{ base: "200px", md: "300px", lg: "400px" }}
             marginTop={15}
             size="lg"
             variant="outline"
