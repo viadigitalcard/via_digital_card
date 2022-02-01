@@ -19,7 +19,7 @@ export default function Form () {
   })
   return (
     <HStack  w="full" h="100vh" bg="#77C208" overflowY="scroll" maxHeight="100vh" >
-      <Image objectFit="contain"  w="full" h="90%" src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643549357/digital%20card/form/Profile/Group_17_wu2yen.svg' />    
+      <Image objectFit="contain"  w="50%" h="90%" src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643549357/digital%20card/form/Profile/Group_17_wu2yen.svg' />    
       <VStack w="full" >
         <Image  objectFit='cover' mt={"50%"} mr={"100%"} w="80%" h="full"  src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg' />  
       </VStack>
@@ -28,7 +28,7 @@ export default function Form () {
       <Box width={{sm:"hidden", md: "visible", lg: "visible" }} h="100vh" overflow="visible">
       <Image  objectFit='fit' mt={"10%"} w="full" h="full"  src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg' />
       </Box> */}
-    <Flex flexDirection="column" mr={"50%"} w={{sm:"visible", md:"visible", lg:"visible"}} h="90%" p='20' bg="whiteAlpha.900" borderRadius={20} >
+    <Flex flexDirection="column" mr="20%" w="50%" h="90%" p='20' bg="whiteAlpha.900" borderRadius={20} >
       <Box w="full" h="full"   justifyContent="center"  >
       <Text
             fontSize={{ base: "30px", md: "34px", lg: "36px" }}
