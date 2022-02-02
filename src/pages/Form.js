@@ -1,90 +1,186 @@
-import React from 'react';
-
-import { Step, Steps, useSteps } from "chakra-ui-steps"
-import { VStack, Flex, Box, Button, Heading, Avatar, Text, Input, HStack, Image  } from "@chakra-ui/react";
-import Profile from '../components/Profile';
-import About from '../components/About';
-import Links from '../components/Links';
+import React from "react";
+import { Step, Steps, useSteps } from "chakra-ui-steps";
+import {
+  VStack,
+  Flex,
+  Box,
+  Button,
+  Heading,
+  Avatar,
+  Text,
+  Input,
+  HStack,
+  Image,
+  Center,
+  Spacer,
+} from "@chakra-ui/react";
+import Profile from "../components/Profile";
+import About from "../components/About";
+import Links from "../components/Links";
 
 const steps = [
-  { label: "Profile",  },
-  { label: "About",  },
-  { label: "Links",  },
-]
+  {
+    label: "Profile",
+    jsx: <Profile />,
+  },
+  {
+    label: "About",
+    jsx: <About />,
+  },
+  {
+    label: "Links",
+    jsx: <Links />,
+  },
+];
 
-export default function Form () {
-  
+const image1 =
+  "https://cdn.pocket-lint.com/r/s/1200x/assets/images/151442-cameras-feature-stunning-photos-from-the-national-sony-world-photography-awards-2020-image1-evuxphd3mr.jpg";
+const image2 =
+  "https://www.pandasecurity.com/en/mediacenter/src/uploads/2013/11/pandasecurity-facebook-photo-privacy.jpg";
+const image3 =
+  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg";
+
+export default function Form() {
   const { nextStep, prevStep, reset, activeStep } = useSteps({
     initialStep: 0,
-  })
+  });
+  const ImgSrc =
+    activeStep == 0
+      ? image1
+      : activeStep == 1
+      ? image2
+      : activeStep == 2
+      ? image3
+      : image1;
+  // console.log(ImgSrc);
   return (
-    <HStack  w="full" h="100vh" bg="#77C208" overflowY="scroll" maxHeight="100vh" >
-      <Image objectFit="contain"  w="50%" h="90%" src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643549357/digital%20card/form/Profile/Group_17_wu2yen.svg' />    
-      <VStack w="full" >
-        <Image  objectFit='cover' mt={"50%"} mr={"100%"} w="80%" h="full"  src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg' />  
-      </VStack>
-      {/* <Box width={{sm:"hidden", md: "visible", lg: "visible" }} h="100vh" overflow="visible" >
-              </Box>
-      <Box width={{sm:"hidden", md: "visible", lg: "visible" }} h="100vh" overflow="visible">
-      <Image  objectFit='fit' mt={"10%"} w="full" h="full"  src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg' />
-      </Box> */}
-    <Flex flexDirection="column" mr="20%" w="50%" h="90%" p='20' bg="whiteAlpha.900" borderRadius={20} >
-      <Box w="full" h="full"   justifyContent="center"  >
-      <Text
-            fontSize={{ base: "30px", md: "34px", lg: "36px" }}
-            fontFamily="Margot"
-            textAlign="center"
-          >
-            Via Digital Card
-          </Text>
-      <Steps labelOrientation="vertical" activeStep={activeStep} color="#88E000"  >
-      <Step   color="#88E000"> 
-          <Profile/>
-      </Step>
-      <Step>
-          <About/>   
-      </Step>
-      <Step>
-          <Links/>   
-      </Step>
-        {/* {steps.map(({ label, }, index) => (
-          
-        ))} */}
-      </Steps>
+    <HStack h="100vh" bg={["white", "white", "#77C208"]}>
+      <Image
+        className="background"
+        display={["none", "none", "flex"]}
+        pl="100px"
+        h="100vh"
+        pos="absolute"
+        src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643549357/digital%20card/form/Profile/Group_17_wu2yen.svg"
+      />
+      <Box
+        display={["none", "none", "flex"]}
+        pos="relative"
+        h="full"
+        w="40%"
+        as={Flex}
+        justifyContent="end"
+        flexDirection="column"
+      >
+        <Box
+          h="full"
+          as={Flex}
+          flexDirection="column"
+          justifyContent="flex-end"
+        >
+          <Image
+            h="95%"
+            minHeight="90%"
+            src={ImgSrc}
+            // src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg"
+          />
+        </Box>
       </Box>
-
-      {activeStep === steps.length  ? (
-       <Flex px={4} py={4} width="100%" flexDirection="column">
-       <Heading fontSize="xl" textAlign="center">
-         Woohoo! All steps completed!
-       </Heading>
-       <Button mx="auto" mt={6} size="sm" onClick={reset}>
-         Reset
-       </Button>
-     </Flex>
-      ) : ( 
-        // <Button color="white" bg="#88E000" px={10} marginTop={15} py={5} onClick={nextStep}   >
-        //     Next
-        // </Button>
-        <Flex width="100%" justify="center">
-          <Button
-            isDisabled={activeStep === 0}
-            onClick={prevStep}
-            variant="ghost"
-            color="#88E000"
-            color="white" bg="#88E000" 
-            px={10}
-            mr={5}
+      <Box zIndex="5" h="100%" as={Center} w={["100%", "100%", "60%"]}>
+        <Box as={Center} w="70vh" h="90vh">
+          <Box
+            as={Flex}
+            flexDirection="column"
+            justifyContent="space-evenly"
+            border="2px solid red"
+            p="20px"
+            w="full"
+            h="inherit"
+            bg="white"
+            boxShadow="8px 8px 24px 0px rgba(0, 0, 0, 0.1)"
+            borderRadius="36px"
+            overflow="auto"
+            css={{
+              "&::-webkit-scrollbar": {
+                overflow: "hidden",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                width: "6px",
+              },
+              "&::-webkit-scrollbar-track": {
+                borderRadius: "10px",
+                backgroundColor: "white",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                borderRadius: "10px",
+                backgroundColor: "#77C208",
+              },
+            }}
           >
-            Prev
-          </Button>
-          <Button color="white" bg="#88E000" px={10}  onClick={nextStep}>
-            {activeStep === steps.length - 1 ? "Finish" : "Next"}
-          </Button>
-        </Flex>
-      )}
-    </Flex>
-    </HStack>
-  )
-}
+            <Text
+              fontSize={{ base: "30px", md: "34px", lg: "38px" }}
+              fontFamily="mono"
+              fontStyle="normal"
+              textAlign="center"
+              // p="6% 0% 6% 0%"
+              // h="200px"
+            >
+              Via Digital Card
+            </Text>
+            <Steps
+              p="20px 30px 0 30px"
+              responsive={false}
+              maxH="70px"
+              as={Box}
+              activeStep={activeStep}
+              labelOrientation="vertical"
+            >
+              {steps.map(({ label, jsx }) => (
+                <Step label={label} key={label}>
+                  {jsx}
+                </Step>
+              ))}
+            </Steps>
 
+            {/* <Steps
+              border="2px solid red"
+              maxH="70px"
+              as={Box}
+              // p="20px 30px 0 30px"
+              responsive={false}
+              activeStep={activeStep}
+            >
+              <Step>
+                <Profile />
+              </Step>
+              <Step>
+                <About />
+              </Step>
+              <Step>
+                <Links />
+              </Step>
+            </Steps> */}
+            {/* </Box> */}
+
+            {activeStep === steps.length ? (
+              <Flex px={4} py={4} width="100%" flexDirection="column">
+                <Heading fontSize="xl" textAlign="center">
+                  Woohoo! All steps completed!
+                </Heading>
+                <Button mx="auto" mt={6} size="sm" onClick={reset}>
+                  Reset
+                </Button>
+              </Flex>
+            ) : (
+              <Center p="10px 0px 10px 10px">
+                <Button color="white" bg="#88E000" px={10} onClick={nextStep}>
+                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                </Button>
+              </Center>
+            )}
+          </Box>
+        </Box>
+      </Box>
+    </HStack>
+  );
+}
