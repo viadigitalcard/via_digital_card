@@ -1,45 +1,30 @@
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 export default function createDigiCard() {
-  const [userCredentials1, setuserCredentials1] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNo: "",
-  });
-  // console.log(userCredentials1);
-  const { firstName, lastName, phoneNo } = userCredentials1;
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNo, setPhoneno] = useState("");
+  const { data: session } = useSession();
+  console.log(firstName, lastName, phoneNo);
 
+  //handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("/api/cards/createdigitalcard", {
-        method: "POST",
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          phoneNo: phoneNo,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const json = await response.json();
-      console.log(json.message);
-
-      if (!response.ok) throw new Error(json.message || "Something went wrong");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setuserCredentials1({
-      ...userCredentials1,
-      [name]: value,
+    const response = await fetch("/api/cards/createdigitalcard", {
+      method: "POST",
+      body: JSON.stringify({
+        id: session.user.id,
+        firstname: firstName,
+        lastname: lastName,
+        phoneno: phoneNo,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+    const responseData = await response.json();
+    console.log(responseData);
   };
 
   return (
@@ -49,26 +34,21 @@ export default function createDigiCard() {
           <input
             placeholder="First Name"
             value={firstName}
-            name="firstName"
-            onChange={handleChange}
+            onChange={(e) => setFirstName(e.target.value)}
             required
             autoFocus
           />
           <input
-            type="text"
             placeholder="Last Name"
             value={lastName}
-            name="lastName"
-            onChange={handleChange}
+            onChange={(e) => setLastName(e.target.value)}
             required
           />
         </div>
         <input
-          type="phone"
           placeholder="Phone"
           value={phoneNo}
-          name="phoneNo"
-          onChange={handleChange}
+          onChange={(e) => setPhoneno(e.target.value)}
           required
           autoComplete="phone"
         />

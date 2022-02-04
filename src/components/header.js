@@ -2,13 +2,28 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./header.module.css";
 import CreateDigiCard from "./createDigiCard";
+import { useEffect, useState } from "react";
 
-// The approach used in this component shows how to build a sign in and sign out
-// component that works on pages which support both client and server side
-// rendering, and avoids any flash incorrect content on initial page load.
-export default function Header({ sections }) {
+export default function Header() {
+  const [Card, setCard] = useState([]);
+  console.log("main", Card && Card);
   const { data: session, status } = useSession();
   const loading = status === "loading";
+
+  useEffect(() => {
+    const fetchCards = async () => {
+      const response = await fetch("/api/getcard/getuserscard", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const responseData = await response.json();
+      setCard(responseData && responseData);
+    };
+    fetchCards();
+  }, []);
+
   return (
     <header>
       <noscript>
@@ -66,23 +81,12 @@ export default function Header({ sections }) {
       </div>
 
       <div>{session && <CreateDigiCard />}</div>
-      <div>{session && <></>}</div>
+      <div>
+        {Card.firstname}
+        {/* {Card.map((res) => {
+          <div>{res.firstname}</div>;
+        })} */}
+      </div>
     </header>
   );
 }
-export const getStaticProps = async () => {
-  const { db } = await connectToDatabase();
-
-  const sections = await db.collection("digicards").findOne({
-    _id: "61f4373a933efb5427d16095",
-  });
-
-  const data = JSON.stringify(sections);
-  console.log("dhruv desai", data);
-
-  return {
-    props: {
-      sections: data,
-    },
-  };
-};

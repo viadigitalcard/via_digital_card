@@ -1,18 +1,19 @@
 import { connectToDatabase } from "../../../lib/mongodb";
 import { getSession } from "next-auth/react";
 
-export default async (req, res) => {
+export default async function handler(req, res) {
   const session = await getSession({ req });
-  // console.log("helooooooo", typeof session);
-  if (session) {
-    // Signed in
-    console.log("Session", session);
-  }
+  const id = session?.user?.id;
   const { db } = await connectToDatabase();
-
-  const vadapav = await db.collection("digicards").find({}).toArray();
-
-  console.log(vadapav);
-  res.json(vadapav);
-  res.status(200).json({ message: "okayyy " });
-};
+  const { method, body } = req;
+  if (method === "GET" && session) {
+    const vadapav = await db
+      .collection("digicards")
+      .find({
+        id: { $eq: id },
+      })
+      .toArray();
+    res.status(200).json(vadapav);
+    // res.status(500).json({ message: "chal bhagg" });
+  }
+}
