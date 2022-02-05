@@ -11,13 +11,22 @@ import {
   Avatar,
   Text,
   Input,
-  bgGradient
+  bgGradient,
 } from "@chakra-ui/react";
 
 function Profile(props) {
   return (
-    <VStack spacing="20px" py={10} >
+    <VStack spacing="20px" py="10">
       {/* <HStack as={Center} w="90%" p="15px 0 15px 0px"> */}
+      <Flex
+        as={Center}
+        justifyContent="space-around"
+        // alignItems="center"
+        w="full"
+        px="60px"
+        py={["10px", "", "0px"]}
+        flexDirection={["column", "column", "row"]}
+      >
         <Avatar
           w="140px"
           h="140px"
@@ -28,19 +37,25 @@ function Profile(props) {
         <Button
           color="white"
           bg="#88E000"
-          marginTop={10}
+          mt={["10px", "", ""]}
           fontSize={{ base: "12", md: "16", lg: "18" }}
           fontWeight="semibold"
           fontFamily="Open Sans"
         >
           Add Profile Photo
         </Button>
+      </Flex>
       {/* </HStack> */}
-      <Stack as={Center} spacing="20px">
+      <Stack
+        as={Center}
+        w="full"
+        spacing="20px"
+        px={["20px", "100px", "120px"]}
+      >
         <Input
           isInvalid
           placeholder="Name"
-          width={{ base: "250px", md: "200px", lg: "300px" }}
+          w="full"
           h="60px"
           variant="outline"
           errorBorderColor="#88E000"
@@ -49,7 +64,7 @@ function Profile(props) {
         <Input
           isInvalid
           placeholder="Enter email address"
-          width={{ base: "250px", md: "200px", lg: "300px" }}
+          w="full"
           h="60px"
           variant="outline"
           errorBorderColor="#88E000"
@@ -58,7 +73,7 @@ function Profile(props) {
         <Input
           isInvalid
           placeholder="Username"
-          width={{ base: "250px", md: "200px", lg: "300px" }}
+          w="full"
           h="60px"
           variant="outline"
           errorBorderColor="#88E000"

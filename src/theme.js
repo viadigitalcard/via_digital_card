@@ -1,36 +1,14 @@
-import { extendTheme,gradient } from "@chakra-ui/react";
+import { extendTheme, gradient } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
 import { StepsStyleConfig } from "chakra-ui-steps";
-const fonts = { mono: `'Menlo', monospace` };
 
+import "@fontsource/open-sans";
 const breakpoints = createBreakpoints({
   sm: "40em",
   md: "52em",
   lg: "64em",
   xl: "80em",
 });
-//theme setup - color - Validation- resposive - file structure
-
-// const CustomButton = {
-//   baseStyle: {
-//     fontWeight: 'bold', // Normally, it is "semibold"
-//   },
-//   // 2. We can add a new button size or extend existing
-//   sizes: {
-//     xl: {
-//       h: '56px',
-//       fontSize: 'lg',
-//       px: '32px',
-//     },
-//   },
-//   variants: {
-//     'with-shadow': {
-//       bg: '#88E000',
-//       boxShadow: '0 0 2px 2px #efdfde',
-//     },
-
-//   },
-// }
 
 const CustomSteps = {
   ...StepsStyleConfig,
@@ -57,7 +35,6 @@ const CustomSteps = {
       // },
     };
   },
-
 };
 const theme = extendTheme({
   colors: {
@@ -68,49 +45,32 @@ const theme = extendTheme({
       100: "#7ECE05",
     },
   },
+
   components: {
     Steps: CustomSteps,
-
-  },
-  colors: {
-    black: "#16161D",
-  },
-  button_color: {
-    btn_color: "#88E000"
-  },
-  fonts,
-  breakpoints,
-  components: {
     Button: {
-      // 1. We can update the base styles
-      baseStyle: {
-        fontWeight: 'bold', // Normally, it is "semibold"
-      },
-      // 2. We can add a new button size or extend existing
-      sizes: {
-        xl: {
-          h: '56px',
-          fontSize: 'lg',
-          px: '32px',
-          w :'base: "250px", md: "200px", lg: "300px"',
-        },
-      },
-      hover:{
-        _hover:'bg:#88E000',
-      },
-      // 3. We can add a new visual variant
       variants: {
-        'with-shadow': {
-          bg: 'red.400',
-          boxShadow: '0 0 2px 2px #efdfde',
-        },
-        // 4. We can override existing variants
         solid: (props) => ({
-          bg: props.colorMode === 'dark' ? '#88E000' : '#88E000',
+          bg:
+            props.colorMode === "dark"
+              ? "red"
+              : "linear-gradient(97.21deg, #88E000 29.8%, #77C208 69.57%)",
+          color: "white",
+          boxShadow: "0 0 2px 2px #efdfde",
+          _hover: {
+            bg: "linear-gradient(97.21deg, #7EC90A 29.8%, #88E105 69.57%)",
+          },
         }),
       },
     },
   },
+  colors: {
+    black: "#16161D",
+  },
+  fonts: {
+    body: "Open Sans",
+  },
+  breakpoints,
 });
 
 export default theme;

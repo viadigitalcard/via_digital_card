@@ -17,6 +17,7 @@ import {
 import Profile from "../components/Profile";
 import About from "../components/About";
 import Links from "../components/Links";
+import { DarkModeSwitch } from "../components/DarkModeSwitch";
 
 const steps = [
   {
@@ -38,7 +39,7 @@ const image1 =
 const image2 =
   "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823994/digital%20card/form/Saly-16_wvbxda.svg";
 const image3 =
-  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823979/digital%20card/form/Saly-15_1_zhlfjw.svg"; 
+  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823979/digital%20card/form/Saly-15_1_zhlfjw.svg";
 
 export default function Form() {
   const { nextStep, prevStep, reset, activeStep } = useSteps({
@@ -52,135 +53,122 @@ export default function Form() {
       : activeStep == 2
       ? image3
       : image1;
+
   // console.log(ImgSrc);
+
   return (
-    <HStack h="100vh" bg={["white", "white", "#77C208"]}>
-      <Image
-        className="background"
-        display={["none", "none", "flex"]}
-        pl="100px"
-        h="100vh"
-        pos="absolute"
-        src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643549357/digital%20card/form/Profile/Group_17_wu2yen.svg"
-      />
-      <Box
-        display={["none", "none", "flex"]}
-        pos="relative"
-        h="full"
-        w="40%"
-        as={Flex}
-        justifyContent="end"
-        flexDirection="column"
-      >
+    <>
+      <DarkModeSwitch zIndex={5} />
+      <HStack h="100vh" bg={["white", "white", "#77C208"]}>
+        <Image
+          className="background"
+          display={["none", "none", "flex"]}
+          pl="100px"
+          h="100vh"
+          pos="absolute"
+          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643549357/digital%20card/form/Profile/Group_17_wu2yen.svg"
+        />
         <Box
+          display={["none", "none", "flex"]}
+          pos="relative"
           h="full"
+          w="40%"
           as={Flex}
+          justifyContent="end"
           flexDirection="column"
-          justifyContent="flex-end"
         >
-          <Image
-            h="95%"
-            minHeight="90%"
-            src={ImgSrc}
-            // src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg"
-          />
-        </Box>
-      </Box>
-      <Box zIndex="5" h="100%" as={Center} w={["100%", "100%", "60%"]}>
-        <Box as={Center} w="70vh" h="90vh">
           <Box
+            h="full"
             as={Flex}
             flexDirection="column"
-            justifyContent="space-evenly"
-            p="20px"
-            w="full"
-            h="inherit"
-            bg="white"
-            boxShadow="8px 8px 24px 0px rgba(0, 0, 0, 0.1)"
-            borderRadius="36px"
-            overflow="auto"
-            css={{
-              "&::-webkit-scrollbar": {
-                overflow: "hidden",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                width: "6px",
-              },
-              "&::-webkit-scrollbar-track": {
-                borderRadius: "10px",
-                backgroundColor: "white",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                borderRadius: "10px",
-                backgroundColor: "#77C208",
-              },
-            }}
+            justifyContent="flex-end"
           >
-            <Text
-              fontSize={{ base: "30px", md: "34px", lg: "38px" }}
-              fontFamily="mono"
-              fontStyle="normal"
-              textAlign="center"
-              mt="60%"
-              // p="6% 0% 6% 0%"
-              // h="200px"
-            >
-              Via Digital Card
-            </Text>
-            <Steps
-              p="20px 30px 0 30px"
-              responsive={false}
-              maxH="70px"
-              as={Box}
-              activeStep={activeStep}
-              labelOrientation="vertical"
-            >
-              {steps.map(({ label, jsx }) => (
-                <Step label={label} key={label}>
-                  {jsx}
-                </Step>
-              ))}
-            </Steps>
-
-            {/* <Steps
-              border="2px solid red"
-              maxH="70px"
-              as={Box}
-              // p="20px 30px 0 30px"
-              responsive={false}
-              activeStep={activeStep}
-            >
-              <Step>
-                <Profile />
-              </Step>
-              <Step>
-                <About />
-              </Step>
-              <Step>
-                <Links />
-              </Step>
-            </Steps> */}
-            {/* </Box> */}
-
-            {activeStep === steps.length ? (
-              <Flex px={4} py={4} width="100%" flexDirection="column">
-                <Heading fontSize="xl" textAlign="center">
-                  Woohoo! All steps completed!
-                </Heading>
-                <Button mx="auto" mt={6} size="sm" onClick={reset}>
-                  Reset
-                </Button>
-              </Flex>
-            ) : (
-              <Center p="10px 0px 10px 10px">
-                <Button color="white" bg="#88E000" px={10} onClick={nextStep}>
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>
-              </Center>
-            )}
+            <Image
+              h="95%"
+              minHeight="90%"
+              src={ImgSrc}
+              // src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg"
+            />
           </Box>
         </Box>
-      </Box>
-    </HStack>
+        <Box zIndex="1" h="100%" as={Center} w={["100%", "100%", "60%"]}>
+          <Box as={Center} w="70vh" h="90vh">
+            <Box
+              // border="2px solid red"
+              as={Flex}
+              flexDirection="column"
+              justifyContent="space-evenly"
+              p="10px"
+              w="full"
+              h="inherit"
+              bg="white"
+              boxShadow="8px 8px 24px 0px rgba(0, 0, 0, 0.1)"
+              borderRadius="36px"
+            >
+              <Box
+                css={{
+                  "&::-webkit-scrollbar": {
+                    overflow: "hidden",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    width: "6px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    borderRadius: "10px",
+                    backgroundColor: "white",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    borderRadius: "10px",
+                    backgroundColor: "#77C208",
+                  },
+                }}
+                w="100%"
+                // border="2px solid red"
+                h="full"
+                overflow="auto"
+              >
+                <Text
+                  fontSize={{ base: "30px", md: "34px", lg: "38px" }}
+                  fontFamily="mono"
+                  fontStyle="normal"
+                  textAlign="center"
+                  // mt="60%"
+                  // border="2px solid red"
+                  p="6% 0% 6% 0%"
+                  // h="200px"
+                >
+                  Via Digital Card
+                </Text>
+                <Steps
+                  p="20px 30px 0 30px"
+                  responsive={false}
+                  maxH="70px"
+                  as={Box}
+                  activeStep={activeStep}
+                  labelOrientation="vertical"
+                >
+                  {steps.map(({ label, jsx }) => (
+                    <Step label={label} key={label}>
+                      {jsx}
+                    </Step>
+                  ))}
+                </Steps>
+
+                {/* </Box> */}
+              </Box>
+              {activeStep === steps.length ? (
+                ""
+              ) : (
+                <Center p="10px 0px 10px 10px">
+                  <Button px={10} onClick={nextStep}>
+                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                  </Button>
+                </Center>
+              )}
+            </Box>
+          </Box>
+        </Box>
+      </HStack>
+    </>
   );
 }
