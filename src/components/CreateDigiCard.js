@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-export default function createDigiCard() {
+
+export default function CreateDigiCard() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNo, setPhoneno] = useState("");
   const { data: session } = useSession();
-  console.log(firstName, lastName, phoneNo);
+  // console.log(session.user.id);
 
   //handle submit
   const handleSubmit = async (e) => {
@@ -14,7 +15,7 @@ export default function createDigiCard() {
     const response = await fetch("/api/cards/createdigitalcard", {
       method: "POST",
       body: JSON.stringify({
-        id: session.user.id,
+        card_id: session.user.id,
         firstname: firstName,
         lastname: lastName,
         phoneno: phoneNo,
@@ -24,7 +25,7 @@ export default function createDigiCard() {
       },
     });
     const responseData = await response.json();
-    console.log(responseData);
+    // console.log(responseData);
   };
 
   return (

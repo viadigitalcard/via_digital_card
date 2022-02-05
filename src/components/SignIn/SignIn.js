@@ -14,27 +14,27 @@ import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 // import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
 // import { Formik } from "formik";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { REQUIRED_VALIDATION } from "../../util/utils"
+import { REQUIRED_VALIDATION } from "../../util/utils";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 
 export const SignIn = () => {
   const [show, setShow] = useState(false);
   const passwordShow = () => setShow(!show);
-  const color = useColorModeValue('white', 'gray.800')
-  const textColor = useColorModeValue('gray.800', 'white')
+  const color = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.800", "white");
 
   const initialValues = {
     name: "",
     email: "",
-    password: ""
+    password: "",
   };
 
   const [initialValue, setinitialValue] = useState(initialValues);
@@ -42,23 +42,29 @@ export const SignIn = () => {
   const validationSchema = Yup.object({
     name: Yup.string().required(REQUIRED_VALIDATION("Name")),
     email: Yup.string().required(REQUIRED_VALIDATION("Email")),
-    password: Yup.string().required().min(8, "Password must be min 8 char log!")
+    password: Yup.string()
+      .required()
+      .min(8, "Password must be min 8 char log!"),
   });
 
-  const { register, handleSubmit, formState: { errors }, } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     reValidateMode: "onSubmit",
     mode: "onTouched",
     defaultValues: initialValue,
     resolver: yupResolver(validationSchema),
-  })
+  });
 
   const onSubmit = (value) => {
     console.log("Value::::", value);
-  }
+  };
 
   const onError = (error) => {
     console.log("Error::::", error);
-  }
+  };
 
   const [userCredentials, setUserCredentials] = useState({
     email: "",
@@ -81,7 +87,7 @@ export const SignIn = () => {
         });
 
         if (!result.error) {
-          router.replace("/");
+          router.replace("/userscard");
         }
       } catch (error) {
         console.log(error);
@@ -101,9 +107,20 @@ export const SignIn = () => {
       <form onSubmit={handleSubmit(onSubmit, onError)}>
         <FormControl>
           <DarkModeSwitch />
-          <HStack backgroundColor={color} width={{ sm: "1px", md: "50%", lg: "100%" }} h="100vh"  >
-            <Box width={{ base: "hidden", md: "50%", lg: "50%" }} >
-              <Image h="100vh" w="100%" px="70" objectFit='cover' src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643134864/digital%20card/SignUp/Mask_mg0oj2.svg' />
+          <HStack
+            backgroundColor={color}
+            width={{ sm: "1px", md: "50%", lg: "100%" }}
+            h="100vh"
+          >
+            <Box width={{ base: "hidden", md: "50%", lg: "50%" }}>
+              <Image
+                alt=""
+                h="100vh"
+                w="100%"
+                px="70"
+                objectFit="cover"
+                src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643134864/digital%20card/SignUp/Mask_mg0oj2.svg"
+              />
             </Box>
 
             <Flex
@@ -113,8 +130,12 @@ export const SignIn = () => {
               justifyContent="center"
               alignItems="center"
             >
-
-              <Image width={{ base: "200px", md: "200px", lg: "300px" }} marginBottom={2} src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp" />
+              <Image
+                alt=""
+                width={{ base: "200px", md: "200px", lg: "300px" }}
+                marginBottom={2}
+                src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
+              />
               <Text
                 fontSize={{ base: "36px", md: "40px", lg: "45px" }}
                 py={5}
@@ -175,7 +196,12 @@ export const SignIn = () => {
                   color={textColor}
                 />
                 <InputRightElement width="4.5rem">
-                  <Button color={textColor} h="1.75rem" size="sm" onClick={passwordShow}>
+                  <Button
+                    color={textColor}
+                    h="1.75rem"
+                    size="sm"
+                    onClick={passwordShow}
+                  >
                     {show ? "Hide" : "Show"}
                   </Button>
                 </InputRightElement>
@@ -185,11 +211,22 @@ export const SignIn = () => {
                   {errors.password.message && errors.password.message}
                 </FormHelperText>
               )}
-              <Text color={textColor} marginTop={5} marginLeft={40} fontWeight="semibold">
+              <Text
+                color={textColor}
+                marginTop={5}
+                marginLeft={40}
+                fontWeight="semibold"
+              >
                 Recovery password
               </Text>
 
-              <Button type="submit" marginTop={45} bg="#88E000" size="md" width="300px">
+              <Button
+                type="submit"
+                marginTop={45}
+                bg="#88E000"
+                size="md"
+                width="300px"
+              >
                 Sign In
               </Button>
 
@@ -204,11 +241,10 @@ export const SignIn = () => {
                 </Text>
               </Flex>
             </Flex>
-
           </HStack>
         </FormControl>
       </form>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit1}>
         <input
           type="email"
           placeholder="Email Address"

@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDatabase } from "../../../lib/mongodb";
 import { verifyPassword } from "../../../lib/auth/auth";
 
 export default NextAuth({
+  secret: process.env.SECRET,
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
@@ -25,45 +25,31 @@ export default NextAuth({
 
           return {
             id: user._id,
-            email: user.email,
             name: user.firstName,
-            lastName: user.lastName,
+            email: user.email,
           };
         } catch (error) {
           throw new Error(error);
         }
       },
     }),
-
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
-    }),
   ],
-
-  secret: process.env.SECRET,
-
   session: {
     strategy: "jwt",
     jwt: true,
+    maxAge: 30 * 24 * 60 * 60,
   },
-
   pages: {
-    signIn: "auth/signin", // Displays signin buttons
+    signIn: "auth/signin",
   },
-
   callbacks: {
     jwt: async ({ token, user }) => {
       user && (token.user = user);
-      // console.log(user, token);
       return token;
     },
     session: async ({ session, token }) => {
       session.user = token.user;
-      // console.log(session, token);
       return session;
     },
   },
-
-  debug: true,
 });

@@ -1,6 +1,6 @@
 import { connectToDatabase } from "../../../lib/mongodb";
 
-export default async (req, res) => {
+export default async function createdigitalcard(req, res) {
   const { method, body } = req;
   if (method === "POST") {
     const { db } = await connectToDatabase();
@@ -9,4 +9,4 @@ export default async (req, res) => {
     });
     res.status(201).json(data);
   }
-};
+}
