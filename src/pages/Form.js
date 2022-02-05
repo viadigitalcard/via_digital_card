@@ -34,11 +34,11 @@ const steps = [
 ];
 
 const image1 =
-  "https://cdn.pocket-lint.com/r/s/1200x/assets/images/151442-cameras-feature-stunning-photos-from-the-national-sony-world-photography-awards-2020-image1-evuxphd3mr.jpg";
-const image2 =
-  "https://www.pandasecurity.com/en/mediacenter/src/uploads/2013/11/pandasecurity-facebook-photo-privacy.jpg";
-const image3 =
   "https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg";
+const image2 =
+  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823994/digital%20card/form/Saly-16_wvbxda.svg";
+const image3 =
+  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823979/digital%20card/form/Saly-15_1_zhlfjw.svg"; 
 
 export default function Form() {
   const { nextStep, prevStep, reset, activeStep } = useSteps({
@@ -92,7 +92,6 @@ export default function Form() {
             as={Flex}
             flexDirection="column"
             justifyContent="space-evenly"
-            border="2px solid red"
             p="20px"
             w="full"
             h="inherit"
@@ -122,6 +121,7 @@ export default function Form() {
               fontFamily="mono"
               fontStyle="normal"
               textAlign="center"
+              mt="60%"
               // p="6% 0% 6% 0%"
               // h="200px"
             >

@@ -12,15 +12,14 @@ import {
   InputRightElement,
   Image,
 } from "@chakra-ui/react";
-import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
 
 function About() {
   return (
-    <VStack spacing="10px">
+    <VStack mt="30px" spacing="20px">
       <Input
         isInvalid
         placeholder="Name"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "300px", lg: "300px" }}
         size="lg"
         variant="outline"
         errorBorderColor="#88E000"
@@ -29,7 +28,7 @@ function About() {
       <Input
         isInvalid
         placeholder="Address"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         size="lg"
         variant="outline"
         errorBorderColor="#88E000"
@@ -39,7 +38,7 @@ function About() {
       <Input
         isInvalid
         placeholder="Designation"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         size="lg"
         variant="outline"
         errorBorderColor="#88E000"
@@ -48,7 +47,7 @@ function About() {
       <Input
         isInvalid
         placeholder="Tagline"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }} 
         size="lg"
         variant="outline"
         errorBorderColor="#88E000"
@@ -57,7 +56,7 @@ function About() {
       <Input
         isInvalid
         placeholder="Bio"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         py={"20%"}
         size="lg"
         variant="outline"
@@ -66,7 +65,7 @@ function About() {
       />
       <InputGroup
         size="lg"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         marginTop={15}
         variant="outline"
       >

@@ -4,12 +4,12 @@ import { VStack, Flex, Box, Button, Heading, Avatar, Text, Input, InputGroup, In
 
 function Links() {
   return (
-    <VStack justifyContent="space-evenly" py={10}     >
+    <VStack spacing="20px" py={10}     >
 
     <Input
         isInvalid
         placeholder="Website"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         size="lg"
         variant="outline"
         errorBorderColor='#88E000'
@@ -18,7 +18,7 @@ function Links() {
     <Input
         isInvalid
         placeholder="Linkedin"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         size="lg"
         variant="outline"
         errorBorderColor='#88E000'
@@ -27,7 +27,7 @@ function Links() {
     <Input
         isInvalid
         placeholder="Instagram"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         size="lg"
         variant="outline"
         errorBorderColor='#88E000'
@@ -36,7 +36,7 @@ function Links() {
     <Input
         isInvalid
         placeholder="Youtube video"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         size="lg"
         variant="outline"
         errorBorderColor='#88E000'
@@ -45,7 +45,7 @@ function Links() {
     <Input
         isInvalid
         placeholder="Facebook"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         size="lg"
         variant="outline"
         errorBorderColor='#88E000'
@@ -54,7 +54,7 @@ function Links() {
     <Input
         isInvalid
         placeholder="Payment link"
-        width={{ base: "250px", md: "300px", lg: "400px" }}
+        width={{ base: "250px", md: "200px", lg: "300px" }}
         size="lg"
         variant="outline"
         errorBorderColor='#88E000'

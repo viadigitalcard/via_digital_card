@@ -146,7 +146,7 @@ export default function SignUp() {
               color={textColor}
             />
             <InputRightElement width="4.5rem">
-              <Button color={textColor} h="1.75rem" size="sm" onClick={handleClick}>
+              <Button color={textColor} h="1.75rem" size="sm" onClick={handleClick} >
                 {show ? "Hide" : "Show"}
               </Button>
             </InputRightElement>
@@ -160,7 +160,10 @@ export default function SignUp() {
             Recovery password
           </Text>
 
-          <Button type="submit"  marginTop={45} bg="#88E000" size="md" width="300px">
+          {/* <Button type="submit"  marginTop={45}  size="md" width="300px">
+            Sign In
+          </Button> */}
+          <Button type="submit"  marginTop={45}  sizes="xl" _hover="red.500">
             Sign In
           </Button>
 
