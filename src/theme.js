@@ -51,10 +51,7 @@ const theme = extendTheme({
     Button: {
       variants: {
         solid: (props) => ({
-          bg:
-            props.colorMode === "dark"
-              ? "red"
-              : "linear-gradient(97.21deg, #88E000 29.8%, #77C208 69.57%)",
+          bg:"linear-gradient(97.21deg, #88E000 29.8%, #77C208 69.57%)",
           color: "white",
           boxShadow: "0 0 2px 2px #efdfde",
           _hover: {

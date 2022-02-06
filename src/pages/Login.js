@@ -71,21 +71,23 @@ export default function Login() {
         
       <FormControl>
       <DarkModeSwitch />
-      <HStack backgroundColor={color} width={{sm:"1px", md: "50%", lg: "100%" }} h="100vh"  >
+      <HStack backgroundColor={color} width="full" h="100vh"  >
      
         <Flex
           flexDirection="column"
-          width="50%"
-          height="100vh"
+          width={{ base: "full", md: "70%", lg: "70%" }}
+          height="full"
           justifyContent="center"
           alignItems="center"
+          pl={{base:"null",md:"null",lg: "20px"}}
         >
          
           <Image width={{ base: "150px", md: "200px", lg: "300px"}}  marginBottom={2} src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp" /> 
           <Text
             fontSize={{ base: "36px", md: "40px", lg: "45px" }}
             py={5}
-            fontFamily="Margot"
+            fontFamily="mono"
+            fontWeight="normal"
             color={textColor}
           >
             Welcome back
@@ -124,7 +126,7 @@ export default function Login() {
               color={textColor}
             />
             <InputRightElement width="4.5rem">
-              <Button color={textColor} h="1.75rem" size="sm" onClick={handleClick}>
+              <Button  h="1.75rem" size="sm" onClick={handleClick}>
                 {show ? "Hide" : "Show"}
               </Button>
             </InputRightElement>
@@ -153,8 +155,8 @@ export default function Login() {
             </Text>
           </Flex>
         </Flex>
-        <Box  >
-            <Image h="100vh" w="100%" px="70" objectFit='cover' src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643225745/digital%20card/SignUp/Mask_Group_1_h4nweo.svg' />
+        <Box  as={Flex} w="45%" p="10px"  display={["none", "none", "flex"]}  >
+            <Image h="100vh" w="100%"  objectFit='fill'   src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643225745/digital%20card/SignUp/Mask_Group_1_h4nweo.svg' />
         </Box>
         
       </HStack>

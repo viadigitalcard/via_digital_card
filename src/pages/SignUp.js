@@ -78,22 +78,22 @@ export default function SignUp() {
         <DarkModeSwitch />
         <HStack
           backgroundColor={color}
-          width={{ sm: "1px", md: "50%", lg: "100%" }}
+          width="full"
           h="100vh"
         >
-          <Box width={{ base: "hidden", md: "50%", lg: "50%" }}>
+          <Box as={Flex}  w="45%" display={["none", "none", "flex"]}>
             <Image
               h="100vh"
               w="100%"
-              px="70"
-              objectFit="cover"
+              p="2px"
+              objectFit="content"
               src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643134864/digital%20card/SignUp/Mask_mg0oj2.svg"
             />
           </Box>
 
           <Flex
             flexDirection="column"
-            width={{ base: "full", md: "50%", lg: "50%" }}
+            width={{ base: "full", md: "65%", lg: "65%" }}
             height="full"
             justifyContent="center"
             alignItems="center"
@@ -106,7 +106,8 @@ export default function SignUp() {
             <Text
               fontSize={{ base: "36px", md: "40px", lg: "45px" }}
               py={5}
-              fontFamily="Margot"
+              fontFamily="mono"
+              fontWeight="normal"
               color={textColor}
               textAlign="center"
               alignSelf="center"
@@ -116,7 +117,7 @@ export default function SignUp() {
 
             <Input
               placeholder="Name"
-              width={{ base: "200px", md: "300px", lg: "400px" }}
+              width={{ base: "300px", md: "300px", lg: "400px" }}
               marginTop={15}
               size="lg"
               variant="outline"
