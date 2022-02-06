@@ -66,13 +66,10 @@ export default function Login() {
     "2xl": "96em",
   });
 
-  return (
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        
+  return ( 
       <FormControl>
       <DarkModeSwitch />
-      <HStack backgroundColor={color} width="full" h="100vh"  >
-     
+      <HStack backgroundColor={color} width="full" h="100vh">
         <Flex
           flexDirection="column"
           width={{ base: "full", md: "70%", lg: "70%" }}
@@ -81,7 +78,6 @@ export default function Login() {
           alignItems="center"
           pl={{base:"null",md:"null",lg: "20px"}}
         >
-         
           <Image width={{ base: "150px", md: "200px", lg: "300px"}}  marginBottom={2} src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp" /> 
           <Text
             fontSize={{ base: "36px", md: "40px", lg: "45px" }}
@@ -92,7 +88,6 @@ export default function Login() {
           >
             Welcome back
           </Text>
-          
           <Input
             placeholder="Enter email address"
             width={{ base: "300px", md: "300px", lg: "400px" }}
@@ -157,11 +152,8 @@ export default function Login() {
         </Flex>
         <Box  as={Flex} w="45%" p="10px"  display={["none", "none", "flex"]}  >
             <Image h="100vh" w="100%"  objectFit='fill'   src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643225745/digital%20card/SignUp/Mask_Group_1_h4nweo.svg' />
-        </Box>
-        
+        </Box> 
       </HStack>
       </FormControl>
-      </form>
-     
   );
 }
