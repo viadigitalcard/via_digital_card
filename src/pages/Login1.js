@@ -20,16 +20,12 @@ import {
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import jwt from 'jsonwebtoken';
-import { useCookies } from 'react-cookie';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/reducers/currentUserSlice';
 
 export default function Login() {
-  const [cookies, setCookie] = useCookies([]);
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  // const [cookies, setCookie] = useCookies([]);
+  // const history = useHistory();
+  // const dispatch = useDispatch();
+  // const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState('');
   const initialValues = {
     email: '',
@@ -45,13 +41,13 @@ export default function Login() {
       .required('Required'),
   });
 
-  function setCookies(name, data) {
-    return setCookie(name, data, {
-      path: '/',
-      maxAge: 3 * 24 * 60 * 60 * 1000,
-      secure: true,
-    });
-  }
+  // function setCookies(name, data) {
+  //   return setCookie(name, data, {
+  //     path: '/',
+  //     maxAge: 3 * 24 * 60 * 60 * 1000,
+  //     secure: true,
+  //   });
+  // }
   // function getCookie() {
   //   if (cookies.token) {
   //     const currentToken = jwt.verify(cookies.token, 'This is new Secrwet');
@@ -62,43 +58,43 @@ export default function Login() {
   //   }
   // }
 
-  const generateToken = user => {
-    return jwt.sign({ user }, 'This is new Secrwet', {
-      expiresIn: 3 * 24 * 60 * 60,
-    });
-  };
+  // const generateToken = user => {
+  //   return jwt.sign({ user }, 'This is new Secrwet', {
+  //     expiresIn: 3 * 24 * 60 * 60,
+  //   });
+  // };
 
-  const reDirect = () => {
-    return <Redirect to="/dashbaord" />;
-  };
+  // const reDirect = () => {
+  //   return <Redirect to="/dashbaord" />;
+  // };
 
-  async function login(values) {
-    try {
-      setLoading(true);
-      const res = await fetch('http://localhost:5000/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: values.email,
-          password: values.pass,
-        }),
-      });
-      const data = await res.json();
-      if (data.response === 'ok') {
-        console.log(data.user);
-        const value = generateToken(data.user);
-        localStorage.setItem('token', value);
-        // setCookies('token', value);
-        // dispatch(loginUser(data.user));
-        // reDirect();
-        // history.push('/dashboard');
-        // setCookies('role', data.role);
-      } else if (data.response === 'not ok') {
-        seterrorMessage(data.message);
-      }
-    } catch {}
-    setLoading(false);
-  }
+  // async function login(values) {
+  //   try {
+  //     setLoading(true);
+  //     const res = await fetch('http://localhost:5000/login', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         email: values.email,
+  //         password: values.pass,
+  //       }),
+  //     });
+  //     const data = await res.json();
+  //     if (data.response === 'ok') {
+  //       console.log(data.user);
+  //       const value = generateToken(data.user);
+  //       localStorage.setItem('token', value);
+  //       // setCookies('token', value);
+  //       // dispatch(loginUser(data.user));
+  //       // reDirect();
+  //       // history.push('/dashboard');
+  //       // setCookies('role', data.role);
+  //     } else if (data.response === 'not ok') {
+  //       seterrorMessage(data.message);
+  //     }
+  //   } catch {}
+  //   setLoading(false);
+  // }
   return (
     <SimpleGrid mt="70px" columns={{ base: 1, md: 2 }} spacing={0}>
       <VStack
@@ -121,7 +117,7 @@ export default function Login() {
           <Formik
             validationSchema={validationSchema}
             initialValues={initialValues}
-            onSubmit={login}
+            // onSubmit={login}
           >
             {props => (
               <Form>
@@ -169,7 +165,7 @@ export default function Login() {
                 </Box>
                 <Button
                   type="submit"
-                  isLoading={loading}
+                  // isLoading={loading}
                   borderRadius="10px"
                   bg="yellow.200"
                   size="l"
@@ -191,12 +187,12 @@ export default function Login() {
         <Tabs variant="soft-rounded" colorScheme="green">
           <TabPanels>
             <TabPanel>
-              <Image
+              {/* <Image
                 w={['661px']}
                 h="460px"
                 mr="123px"
                 src={loginImage}
-              ></Image>
+              ></Image> */}
             </TabPanel>
             <TabPanel>
               <p>two!</p>

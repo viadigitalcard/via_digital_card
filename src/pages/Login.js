@@ -16,11 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
-import { Formik } from "formik";
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from "yup";
-import {REQUIRED_VALIDATION} from "../util/utils"
+import * as Yup from 'yup';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 
 
@@ -29,45 +26,29 @@ export default function Login() {
   const handleClick = () => setShow(!show);
   const color = useColorModeValue('white', 'gray.800')
   const textColor = useColorModeValue( 'gray.800','white')
-
+  const [errorMessage, seterrorMessage] = useState('');
   const initialValues = {
-    email:"",
-    password:""
+    email: "",
+    password: "",
   };
-
-  const [initialValue, setinitialValue] = useState(initialValues);
-
-  const validationSchema = Yup.object({
-    name: Yup.string().required(REQUIRED_VALIDATION("Name")),
-    email: Yup.string().required(REQUIRED_VALIDATION("Email")),
-    password: Yup.string().required().min(8,"Password must be min 8 char log!")
-  });
-
-  const { register, handleSubmit, formState: { errors }, } = useForm({
-    reValidateMode: "onSubmit",
-    mode: "onTouched",
-    defaultValues: initialValue,
-    resolver: yupResolver(validationSchema),
-  })
-
-  const onSubmit = (value) => {
-    console.log("Value::::" , value);
-  }
-
-  const onError = (error) => {
-    console.log("Error::::" , error);
-  }
-
-  const breakpoints = createBreakpoints({
-    sm: "30em",
-    md: "48em",
-    lg: "62em",
-    xl: "80em",
-    "2xl": "96em",
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('Required'),
+    email: Yup.string().email('Enter Valid Email').required('Required'),
+    password: Yup.string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      'Must Contain 8 Characters'
+      // , One Uppercase, One Lowercase, One Number and One Special Case Character
+    )
+    .required('Required'),
   });
 
   return ( 
-      <FormControl>
+    <Formik
+    validationSchema={validationSchema}
+    initialValues={initialValues}
+  >
+    <>
       <DarkModeSwitch />
       <HStack backgroundColor={color} width="full" h="100vh">
         <Flex
@@ -88,49 +69,70 @@ export default function Login() {
           >
             Welcome back
           </Text>
-          <Input
-            placeholder="Enter email address"
-            width={{ base: "300px", md: "300px", lg: "400px" }}
-            marginTop={15}
-            size="lg"
-            variant="outline"
-            focusBorderColor="#88E000"
-            id="email"
-            {...register("email") }
-            color={textColor}
-          />
-          {errors && errors.email && (
-              <FormHelperText color="red">
-                {errors.email.message && errors.email.message}
-              </FormHelperText>
-          )}
-          
-          <InputGroup
-            size="lg"
-            width={{ base: "300px", md: "300px", lg: "400px" }}
-            marginTop={15}
-            variant="outline"
-          >
-            <Input
-              pr="4.5rem"
-              type={show ? "text" : "password"}
-              placeholder="Password"
-              focusBorderColor="#88E000"
-              id="password"
-              {...register("password")}
-              color={textColor}
-            />
-            <InputRightElement width="4.5rem">
-              <Button  h="1.75rem" size="sm" onClick={handleClick}>
-                {show ? "Hide" : "Show"}
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-          {errors && errors.password && (
-            <FormHelperText color="red">
-              {errors.password.message && errors.password.message}
-            </FormHelperText>
-          )}
+          {/* email validitaion and input */}
+          <Flex>
+            <Field name="email">
+              {({ field, form}) => (
+                <FormControl
+                  isInvalid={
+                    (form.errors.email && form.touched.email) || errorMessage
+                  }
+                >
+                  <Input
+                    placeholder="Enter email address"
+                    width={{ base: "300px", md: "300px", lg: "400px" }}
+                    marginTop={15}
+                    size="lg"
+                    variant="outline"
+                    focusBorderColor="#88E000"
+                    id="email"
+                    {...field}
+                    color={textColor}
+                  />
+                  <FormErrorMessage>
+                    {form.errors.email || errorMessage}{' '}
+                  </FormErrorMessage>
+                </FormControl>
+               )}
+              </Field>
+            </Flex>
+            {/* password validation & input */}
+            <Flex>
+              <Field name="password">
+                {({ field, form}) => (
+                  <FormControl
+                    isInvalid={
+                    (form.errors.password && form.touched.password) || errorMessage
+                    }
+                  >  
+                    <InputGroup
+                      size="lg"
+                      width={{ base: "300px", md: "300px", lg: "400px" }}
+                      marginTop={15}
+                      variant="outline"
+                    >
+                      <Input
+                        pr="4.5rem"
+                        type={show ? "text" : "password"}
+                        placeholder="Password"
+                        focusBorderColor="#88E000"
+                        id="password"
+                        {...field}
+                        color={textColor}
+                      />
+                      <InputRightElement width="4.5rem">
+                        <Button  h="1.75rem" size="sm" onClick={handleClick}>
+                          {show ? "Hide" : "Show"}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    <FormErrorMessage>
+                      {form.errors.password || errorMessage}{' '}
+                    </FormErrorMessage>
+                  </FormControl>
+                    )}
+              </Field>
+            </Flex>
           <Text color={textColor} marginTop={5} marginLeft={40} fontWeight="semibold">
             Recovery password
           </Text>
@@ -154,6 +156,7 @@ export default function Login() {
             <Image h="100vh" w="100%"  objectFit='fill'   src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643225745/digital%20card/SignUp/Mask_Group_1_h4nweo.svg' />
         </Box> 
       </HStack>
-      </FormControl>
+      </>
+      </Formik>
   );
 }
