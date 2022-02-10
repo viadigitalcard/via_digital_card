@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function SignUp() {
@@ -24,7 +23,7 @@ export default function SignUp() {
     }
 
     try {
-      const response = await fetch("/api/auth/signup", {
+      const res = await fetch("/api/auth/signup", {
         method: "POST",
         body: JSON.stringify({
           firstName: firstName,
@@ -37,12 +36,9 @@ export default function SignUp() {
         },
       });
 
-      const json = await response.json();
-
-      if (!response.ok) throw new Error(json.message || "Something went wrong");
-
-      console.log(json.message);
-
+      if (!res.ok) {
+        throw new Error(res.status);
+      }
       setUserCredentials({
         firstName: "",
         lastName: "",

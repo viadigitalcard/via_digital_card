@@ -1,14 +1,15 @@
 import { hashPassword } from "../../../lib/auth/auth";
-import { connectToDatabase } from "../../../lib/mongodb";
+import dbConnect from "../../../lib/dbConnect";
+import User from "../../../models/User";
 
 export default async function Signup(req, res) {
-  if (req.method === "POST") {
-    const { firstName, lastName, email, password } = req.body;
-    const { db } = await connectToDatabase();
-
+  const { firstName, lastName, email, password } = req.body;
+  const { method } = req;
+  if (method === "POST") {
     //Error handling on allready exist or create g state to handle error
-    const existingUser = await db.collection("users").findOne({ email: email });
-
+    await dbConnect();
+    const existingUser = await User.findOne({ email: email }).exec();
+    console.log(existingUser);
     if (existingUser) {
       res.status(422).json({ message: "User is already registered." });
       return;
@@ -17,13 +18,13 @@ export default async function Signup(req, res) {
     const hashedPassword = await hashPassword(password);
 
     try {
-      const result = await db.collection("users").insertOne({
+      const result = await User.create({
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: hashedPassword,
       });
-      res.status(201).json({ message: "Created user!" });
+      res.status(201).json({ message: "Created user!" }, result);
     } catch (error) {
       console.log(error);
     }

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function Header() {
   const { data: session, status } = useSession();
+  console.log(session);
   const loading = status === "loading";
   // console.log(session);
   return <header>Landing page</header>;

@@ -12,7 +12,7 @@ export default function CreateDigiCard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/api/cards/createdigitalcard", {
+    const response = await fetch("/api/cards", {
       method: "POST",
       body: JSON.stringify({
         card_id: session.user.id,

@@ -1,29 +1,21 @@
-import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { getSession, signOut, useSession } from "next-auth/react";
 import CreateDigiCard from "../../components/CreateDigiCard";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import dbConnect from "../../lib/dbConnect";
+import Card from "../../models/Card";
 
-const Usercard = () => {
-  const [Card, setCard] = useState();
-  const { data: session, status } = useSession();
-  console.log(Card);
-  const handleDelete = () => {
-    e.preventDefault();
-  };
+const Usercard = ({ Cards }) => {
+  const { data: session } = useSession();
+  // console.log(session);
+  // console.log(Cards);
 
-  useEffect(() => {
-    const fetchCards = async () => {
-      const response = await fetch("/api/getcard/getuserscard", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const responseData = await response.json();
-      setCard(responseData && responseData);
-    };
-    fetchCards();
-  }, []);
+  // const [Card, setCard] = useState([]);
+  const router = useRouter();
+  const cardId = router.query;
+  // console.log(cardId);
 
   return (
     <>
@@ -34,21 +26,42 @@ const Usercard = () => {
       <>
         <CreateDigiCard />
         <button onClick={signOut}>sign out</button>
-        {/* {console.log(Card.map(res))} */}
-        {Card &&
-          Card.map((res, i) => (
-            <div key={i}>
-              <div>Card {i + 1} </div>
-              <div>{res.firstname}</div>
-              <div>{res.card_id}</div>
-              <div>{res.lastname}</div>
-              <div>{res.phoneno}</div>
-              <div>------------------</div>
-            </div>
-          ))}
+        {Cards &&
+          Cards.map(
+            (res, i) => (
+              <div key={i}>
+                <div>Card {i + 1} </div>
+                <div>{res.firstname}</div>
+                <div>{res.card_id}</div>
+                <div>{res.lastname}</div>
+                <div>{res.phoneno}</div>
+                <div>Object ID {res._id}</div>
+                <Link href="card/[cardId]" as={`card/${res._id}`}>
+                  <button>View</button>
+                </Link>
+
+                <div>------------------</div>
+              </div>
+            )
+            // session?.user?.id === res.card_id &&
+          )}
       </>
     </>
   );
 };
 
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  await dbConnect();
+  const cards = await Card.find({
+    card_id: { $eq: session?.user?.id },
+  }).exec();
+  const data = JSON.parse(JSON.stringify(cards));
+
+  return {
+    props: {
+      Cards: data,
+    },
+  };
+}
 export default Usercard;
