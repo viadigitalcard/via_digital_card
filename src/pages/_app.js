@@ -5,7 +5,7 @@ import theme from "../theme";
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
-      <ChakraProvider resetCSS theme={theme}>
+      <ChakraProvider theme={theme}>
         <ColorModeProvider
           options={{
             useSystemColorMode: false,

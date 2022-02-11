@@ -8,15 +8,13 @@ const Cards = ({ Card }) => {
 
   const handleDelete = async () => {
     const cardId = router.query.cardId;
-    console.log(cardId);
-
     try {
       await fetch(`/api/cards/${cardId}`, {
         method: "DELETE",
       });
-      router.push("/userscard");
+      router.replace("/userscard");
     } catch (error) {
-      setMessage("Failed to delete the pet.");
+      setMessage("Failed to delete the Card.");
     }
   };
 
