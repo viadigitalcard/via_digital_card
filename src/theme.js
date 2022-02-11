@@ -1,6 +1,8 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, gradient } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
 import { StepsStyleConfig as Steps } from "chakra-ui-steps";
+// import Button from "./Button.ts";
+import "@fontsource/open-sans";
 
 const breakpoints = createBreakpoints({
   sm: "40em",
@@ -8,8 +10,14 @@ const breakpoints = createBreakpoints({
   lg: "64em",
   xl: "80em",
 });
+// Box: {
+//   borderColor: theme.colorMode === "light" ? "gray.200" : "gray.900"
+// }
 
 const theme = extendTheme({
+  fonts: {
+    body: "Open Sans",
+  },
   colors: {
     brand: {
       500: "#7ECE05",
@@ -26,8 +34,8 @@ const theme = extendTheme({
       900: "#7ECE05",
     },
   },
+
   components: {
-    Steps,
     Button: {
       variants: {
         solid: (props) => ({
@@ -40,8 +48,9 @@ const theme = extendTheme({
         }),
       },
     },
+    Steps,
+    breakpoints,
   },
-  breakpoints,
 });
 
 export default theme;

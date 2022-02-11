@@ -9,7 +9,7 @@ import Card from "../../models/Card";
 
 const Usercard = ({ Cards }) => {
   const { data: session } = useSession();
-  // console.log(session);
+  console.log(session);
   // console.log(Cards);
 
   // const [Card, setCard] = useState([]);

@@ -3,6 +3,7 @@ import Head from "next/head";
 import { getSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SignIn } from "../../components/SignIn/SignIn";
+import { SignInNew } from "../../components/SignIn/SignInNew";
 
 const SignInPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +26,8 @@ const SignInPage = () => {
       <Head>
         <title>Sign In</title>
       </Head>
-      <SignIn />
+      {/* <SignIn /> */}
+      <SignInNew />
     </>
   );
 };
