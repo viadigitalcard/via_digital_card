@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import dbConnect from "../../../lib/dbConnect";
@@ -5,7 +6,7 @@ import Card from "../../../models/Card";
 
 const Cards = ({ Card }) => {
   const router = useRouter();
-
+  const { data: session } = useSession();
   const handleDelete = async () => {
     const cardId = router.query.cardId;
     try {
@@ -28,10 +29,14 @@ const Cards = ({ Card }) => {
       <div>{Card.firstname}</div>
       <div>{Card.lastname}</div>
       <div>{Card.phoneno}</div>
-      <div>{Card._id}</div>
-      <button className="btn delete" onClick={handleDelete}>
-        Delete
-      </button>
+      <div>OBJECT ID {Card._id}</div>
+      {session && session.user.id == Card.card_id ? (
+        <button className="btn delete" onClick={handleDelete}>
+          Delete
+        </button>
+      ) : (
+        ""
+      )}
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
+import { Router, useRouter } from "next/router";
 
 export default function CreateDigiCard() {
   const [firstName, setFirstName] = useState("");
@@ -7,7 +8,7 @@ export default function CreateDigiCard() {
   const [phoneNo, setPhoneno] = useState("");
   const { data: session } = useSession();
   // console.log(session.user.id);
-
+  const router = useRouter();
   //handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ export default function CreateDigiCard() {
     });
     const responseData = await response.json();
     // console.log(responseData);
+    router.replace("/userscard");
   };
 
   return (

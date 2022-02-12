@@ -1,6 +1,7 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
+import NextLink from "next/link";
 import {
   Flex,
   Text,
@@ -9,85 +10,62 @@ import {
   Image,
   Input,
   InputGroup,
+  Link,
   InputRightElement,
   Button,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   useColorModeValue,
+  Center,
+  VStack,
+  Container,
 } from "@chakra-ui/react";
-// import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { createBreakpoints } from "@chakra-ui/theme-tools";
-// import { Formik } from "formik";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { REQUIRED_VALIDATION } from "../../util/utils";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 
 export const SignIn = () => {
-  const [show, setShow] = useState(false);
-  const passwordShow = () => setShow(!show);
-  const color = useColorModeValue("white", "gray.800");
-  const textColor = useColorModeValue("gray.800", "white");
-
-  const initialValues = {
-    name: "",
-    email: "",
-    password: "",
-  };
-
-  const [initialValue, setinitialValue] = useState(initialValues);
-
-  const validationSchema = Yup.object({
-    name: Yup.string().required(REQUIRED_VALIDATION("Name")),
-    email: Yup.string().required(REQUIRED_VALIDATION("Email")),
-    password: Yup.string()
-      .required()
-      .min(8, "Password must be min 8 char log!"),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    reValidateMode: "onSubmit",
-    mode: "onTouched",
-    defaultValues: initialValue,
-    resolver: yupResolver(validationSchema),
-  });
-
-  const onSubmit = (value) => {
-    console.log("Value::::", value);
-  };
-
-  const onError = (error) => {
-    console.log("Error::::", error);
-  };
-
-  const [userCredentials, setUserCredentials] = useState({
-    email: "",
-    password: "",
-  });
-
+  const [show, setShow] = React.useState(false);
+  const [Loading, setLoading] = useState(false);
+  const handleClick = () => setShow(!show);
   const { data: session } = useSession();
   const router = useRouter();
-  const { email, password } = userCredentials;
 
-  const handleSubmit1 = async (e) => {
-    e.preventDefault();
+  const color = useColorModeValue("white", "#302E2E");
+  const textColor = useColorModeValue("gray.800", "white");
+  const [errorMessage, seterrorMessage] = useState("");
 
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Enter Valid Email").required("Required"),
+    password: Yup.string()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters"
+        // , One Uppercase, One Lowercase, One Number and One Special Case Character
+      )
+      .required("Required"),
+  });
+
+  async function handleSubmit(values) {
     if (!session) {
       try {
+        setLoading(true);
         const result = await signIn("credentials", {
           redirect: false,
-          email: email,
-          password: password,
+          email: values.email,
+          password: values.password,
         });
+        router.replace("/userscard");
+        setLoading(false);
 
-        if (!result.error) {
-          router.replace("/userscard");
+        if (result.error) {
+          console.log(result.error);
         }
       } catch (error) {
         console.log(error);
@@ -95,156 +73,153 @@ export const SignIn = () => {
     } else {
       router.push("/");
     }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setUserCredentials({ ...userCredentials, [name]: value });
-  };
+  }
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <FormControl>
-          <DarkModeSwitch />
-          <HStack
-            backgroundColor={color}
-            width={{ sm: "1px", md: "50%", lg: "100%" }}
-            h="100vh"
+      <DarkModeSwitch />
+      <Flex
+        bg={color}
+        as={Center}
+        justifyContent="space-evenly"
+        w="full"
+        h="100vh"
+      >
+        <VStack as={Center} px="50px">
+          <Image
+            width={{ base: "150px", md: "200px", lg: "300px" }}
+            p="10px"
+            src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
+          />
+          <Text
+            fontSize={{ base: "36px", md: "40px", lg: "45px" }}
+            py={5}
+            fontFamily="mono"
+            fontWeight="normal"
+            color={textColor}
           >
-            <Box width={{ base: "hidden", md: "50%", lg: "50%" }}>
-              <Image
-                alt=""
-                h="100vh"
-                w="100%"
-                px="70"
-                objectFit="cover"
-                src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643134864/digital%20card/SignUp/Mask_mg0oj2.svg"
-              />
-            </Box>
-
-            <Flex
-              flexDirection="column"
-              width={{ base: "full", md: "50%", lg: "50%" }}
-              height="full"
-              justifyContent="center"
-              alignItems="center"
+            Welcome back
+          </Text>
+          <Flex>
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
             >
-              <Image
-                alt=""
-                width={{ base: "200px", md: "200px", lg: "300px" }}
-                marginBottom={2}
-                src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
-              />
-              <Text
-                fontSize={{ base: "36px", md: "40px", lg: "45px" }}
-                py={5}
-                fontFamily="Margot"
-                color={textColor}
-                textAlign="center"
-                alignSelf="center"
-              >
-                Sign Up
-              </Text>
+              {(props) => (
+                <Form>
+                  <Field name="email">
+                    {({ field, form }) => (
+                      <FormControl
+                        isInvalid={
+                          (form.errors.email && form.touched.email) ||
+                          errorMessage
+                        }
+                      >
+                        <Input
+                          placeholder="Enter email address"
+                          mt="20px"
+                          id="email"
+                          h={["50px", "50px", "60px"]}
+                          w={["300px", "300px", "400px"]}
+                          size="lg"
+                          variant="outline"
+                          {...field}
+                          color={textColor}
+                        />
+                        <FormErrorMessage>
+                          {form.errors.email || errorMessage}{" "}
+                        </FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                  <Field name="password">
+                    {({ field, form }) => (
+                      <FormControl
+                        isInvalid={
+                          (form.errors.password && form.touched.password) ||
+                          errorMessage
+                        }
+                      >
+                        <InputGroup
+                          size="lg"
+                          w={["300px", "300px", "400px"]}
+                          mt="20px"
+                        >
+                          <Input
+                            pr="4.5rem"
+                            type={show ? "text" : "password"}
+                            placeholder="Password"
+                            id="password"
+                            h={["50px", "50px", "60px"]}
+                            variant="outline"
+                            {...field}
+                            color={textColor}
+                          />
+                          <InputRightElement
+                            h={["50px", "50px", "60px"]}
+                            width="4.5rem"
+                          >
+                            <Button h="1.75rem" size="sm" onClick={handleClick}>
+                              {show ? "Hide" : "Show"}
+                            </Button>
+                          </InputRightElement>
+                        </InputGroup>
+                        <FormErrorMessage>
+                          {form.errors.password || errorMessage}{" "}
+                        </FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
 
-              <Input
-                placeholder="Name"
-                width={{ base: "200px", md: "300px", lg: "400px" }}
-                marginTop={15}
-                size="lg"
-                variant="outline"
-                focusBorderColor="#88E000"
-                id="name"
-                {...register("name")}
-                color={textColor}
-              />
-              {errors && errors.name && (
-                <FormHelperText color="red">
-                  {errors.name.message && errors.name.message}
-                </FormHelperText>
-              )}
-              <Input
-                placeholder="Enter email address"
-                width={{ base: "300px", md: "300px", lg: "400px" }}
-                marginTop={15}
-                size="lg"
-                variant="outline"
-                focusBorderColor="#88E000"
-                id="email"
-                {...register("email")}
-                color={textColor}
-              />
-              {errors && errors.email && (
-                <FormHelperText color="red">
-                  {errors.email.message && errors.email.message}
-                </FormHelperText>
-              )}
-
-              <InputGroup
-                size="lg"
-                width={{ base: "300px", md: "300px", lg: "400px" }}
-                marginTop={15}
-                variant="outline"
-              >
-                <Input
-                  pr="4.5rem"
-                  type={show ? "text" : "password"}
-                  placeholder="Password"
-                  focusBorderColor="#88E000"
-                  id="password"
-                  {...register("password")}
-                  color={textColor}
-                />
-                <InputRightElement width="4.5rem">
-                  <Button
+                  <Text
+                    as={Flex}
+                    justifyContent="end"
                     color={textColor}
-                    h="1.75rem"
-                    size="sm"
-                    onClick={passwordShow}
+                    py="30px"
+                    fontWeight="semibold"
                   >
-                    {show ? "Hide" : "Show"}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-              {errors && errors.password && (
-                <FormHelperText color="red">
-                  {errors.password.message && errors.password.message}
-                </FormHelperText>
+                    Recovery password
+                  </Text>
+
+                  <Center>
+                    <Button
+                      type="submit"
+                      h={"50px"}
+                      fontSize="20px"
+                      isLoading={Loading}
+                      w={["300px", "300px", "380px"]}
+                    >
+                      Sign In
+                    </Button>
+                  </Center>
+                </Form>
               )}
-              <Text
-                color={textColor}
-                marginTop={5}
-                marginLeft={40}
-                fontWeight="semibold"
-              >
-                Recovery password
-              </Text>
+            </Formik>
+          </Flex>
+          <Flex direction="row" py="40px">
+            <Text fontWeight="light" color={textColor}>
+              Not a member ?
+            </Text>
+            <NextLink href="/auth/signup" passHref>
+              <Link fontWeight="bold" px={2} color={textColor}>
+                Create account now
+              </Link>
+            </NextLink>
+          </Flex>
+        </VStack>
+        <Flex display={["none", "none", "flex"]}>
+          <Image
+            w="full"
+            py="10px"
+            h="100vh"
+            src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643225745/digital%20card/SignUp/Mask_Group_1_h4nweo.svg"
+          />
+        </Flex>
+      </Flex>
 
-              <Button
-                type="submit"
-                marginTop={45}
-                bg="#88E000"
-                size="md"
-                width="300px"
-              >
-                Sign In
-              </Button>
-
-              <Flex direction="row" marginTop={35}>
-                <Text fontWeight="light" color={textColor}>
-                  {" "}
-                  Not a member ?{" "}
-                </Text>
-                <Text fontWeight="bold" px={2} color={textColor}>
-                  {" "}
-                  Create account now{" "}
-                </Text>
-              </Flex>
-            </Flex>
-          </HStack>
-        </FormControl>
-      </form>
-      <form onSubmit={handleSubmit1}>
+      {/* </Flex> */}
+      {/* </HStack> */}
+      {/* <form onSubmit={handleSubmit1}>
         <input
           type="email"
           placeholder="Email Address"
@@ -266,7 +241,7 @@ export const SignIn = () => {
         <div>
           <button type="submit">Sign In</button>
         </div>
-      </form>
+      </form> */}
     </>
   );
 };

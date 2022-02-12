@@ -1,6 +1,7 @@
-import { extendTheme, gradient } from "@chakra-ui/react";
+import { extendTheme, gradient, useColorModeValue } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
 import { StepsStyleConfig as Steps } from "chakra-ui-steps";
+import { mode } from "@chakra-ui/theme-tools";
 // import Button from "./Button.ts";
 import "@fontsource/open-sans";
 
@@ -13,6 +14,7 @@ const breakpoints = createBreakpoints({
 // Box: {
 //   borderColor: theme.colorMode === "light" ? "gray.200" : "gray.900"
 // }
+// const value = useColorModeValue("white", "black");
 
 const theme = extendTheme({
   fonts: {
@@ -41,11 +43,29 @@ const theme = extendTheme({
         solid: (props) => ({
           bg: "linear-gradient(97.21deg, #88E000 29.8%, #77C208 69.57%)",
           color: "white",
-          boxShadow: "0 0 2px 2px #efdfde",
           _hover: {
             bg: "linear-gradient(97.21deg, #7EC90A 29.8%, #88E105 69.57%)",
           },
+          _active: {
+            bg: "#7ECE05",
+          },
         }),
+      },
+    },
+    Input: {
+      variants: {
+        outline: {
+          field: {
+            borderRadius: "10px",
+            border: "1px",
+            borderColor: "#88E000",
+          },
+          _focus: {
+            border: "1px",
+            borderColor: "#88E000",
+            boxShadow: "none",
+          },
+        },
       },
     },
     Steps,
