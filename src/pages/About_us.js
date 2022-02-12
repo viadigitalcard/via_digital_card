@@ -1,83 +1,38 @@
 import React from 'react';
 import { VStack, Flex, Box, Button, Heading, Avatar, Text, Input, HStack, Image, Divider, Stack  } from "@chakra-ui/react";
+import { TiContacts  } from '@react-icons/all-files/ti/TiContacts';
 
 function About_us() {
   return (
       <>
       <HStack w="full" h="full" >
-          <VStack w="20%" h="100vh" bg="#C4C4C4"  justifyContent="center">
-            <Avatar
-            name=''
-            src='https://res.cloudinary.com/dbm7us31s/image/upload/v1643648281/digital%20card/About%20us/Ellipse_25_b1ww6l.svg' 
-            size={5}
-            mt="5%"
-            /> 
-            <Text 
-              size={18}
+          <Flex flexDirection="column" w="70%" h="100vh"  pl="117px"  >
+          <Image width={{ base: "150px", md: "200px", lg: "204px"}}  py="50px" src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp" />
+          <Flex flexDirection={{base:"column",md:"column",lg: "row"}} >
+          <Image width="192px" h="194px"  borderRadius="20px" src="https://bit.ly/dan-abramov" />
+          <Flex flexDirection="column" p="50px">
+          <Text
+              fontSize={36}
+              fontFamily="Open Sans"
+              fontWeight={400}
+          >
+              Diana Hopper
+          </Text>
+          <Text
+              fontSize={24}
               fontFamily="Roboto"
-              color="#171717"
-              py={"5%"}
-            >
-              Aks Jain
-            </Text>
-            <Text 
-              size={18}
-              fontFamily="Roboto"
-              color="#5C5C5C"
-              pt={"15%"}
-              pb={"10%"}
-            >
-              Home
-            </Text>
-            <Text 
-              size={18}
-              fontFamily="Roboto"
-              color="#5C5C5C"
-              pb={"10%"}
-            >
-              How it works?
-            </Text>
-            <Text 
-              size={18}
-              fontFamily="Roboto"
-              color="#5C5C5C"
-              pb={"10%"}
-            >
-              About us
-            </Text>
-            <Text 
-              size={18}
-              fontFamily="Roboto"
-              color="#5C5C5C"
-              pb={"10%"}
-            >
-              Review
-            </Text>
-            <Text 
-              size={18}
-              fontFamily="Roboto"
-              color="#5C5C5C"
-              pb={"10%"}
-            >
-              Contact us
-            </Text>
-          </VStack>
-          <Flex flexDirection="column" w="45%" h="100vh"  pl="5%" >
-            <Text 
-              fontSize="36"
-              fontFamily="Roboto"
-              color="#000000"
-              fontWeight="medium"
-              mt="15%"
-            >
-              My profile
-            </Text>
+              color="#8A8A8A"
+          >
+              Founder of virtual assets
+          </Text>
+          </Flex>
+          </Flex>  
             <Text 
               fontSize="24"
               fontFamily="Roboto"
               color="#000000"
               fontWeight="medium"
-              mt="10%"
+              py="30px"
             >
               About
             </Text>
@@ -85,22 +40,22 @@ function About_us() {
               fontSize="15"
               fontFamily="Roboto"
               color="#000000"
-              mt="5%"
+              
               lineHeight= '10'
               fontWeight="light"
             >
               In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the
             </Text>
           </Flex> 
-          <Stack direction='row' h='full' bg="#C4C4C4" >
-              <Divider orientation='vertical' h='60vh' />
+          <Stack direction='row' h='70vh'  bg="#C4C4C4"  >
+              <Divider orientation='vertical'   />
             </Stack> 
-          <Flex flexDirection='column' h='100vh' w="35%" py={"6%"} >
+          <Flex flexDirection='column' h='100vh' w="650px" py="50px" >
             <Flex flexDirection='row' >
             <Text 
               fontSize="18"
               fontFamily="Roboto"
-              pr={14}
+              pr="77px"
               color="#171717"
             >
               About us
@@ -108,7 +63,7 @@ function About_us() {
             <Text 
               fontSize="18"
               fontFamily="Roboto"
-              pr={14}
+              pr="77px"
               color="#171717"
             >
               Lets connect
@@ -117,6 +72,7 @@ function About_us() {
               fontSize="18"
               fontFamily="Roboto"
               color="#171717"
+              pr="77px"
             >
               Get in touch
             </Text>
@@ -126,58 +82,36 @@ function About_us() {
               fontFamily="Roboto"
               color="#171717"
               fontWeight="medium"
-              mt="10%"
-              ml="10%"
+              pt="83px"
+              pl="82px"
             >
               My dashboard
             </Text>
-            
-            <Box display="flex" flexDirection="row" justifyContent="space-around" boxShadow='dark-lg' p='6'  rounded='md' bg='white' w="60%" h="15vh" ml="10%" mt="10%"> 
-              <Image src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643655522/digital%20card/About%20us/Rectangle_744_bm6xy3.svg" /> 
-              <Text 
-              fontSize="14"
-              fontFamily="Roboto"
-              color="#171717"
-              fontWeight="normal"
-              mt="5%"
-              ml="10%"
-              lineHeight="hidden"
-              >
-                Save contact
-              </Text>
+            <Flex flexDirection="row" justifyContent="space-around" pt="42px"  pl="63px">
+            <Box display="flex"   boxShadow='dark-lg' w="400px"  rounded='md' bg='white'  h="15vh"  > 
+            {/* <Button  borderRadius="17px" leftIcon={<TiContacts/>}></Button> */}
+             <Flex bg="#77C208" ml="36px" justifyContent="center" alignItems="center" p="30px" w="87px" h="87px" borderRadius="27px">
+
+             </Flex>
             </Box>
-            
-            <Box display="flex" flexDirection="row" justifyContent="space-around" boxShadow='dark-lg' p='6'  rounded='md' bg='white' w="60%" h="15vh" ml="10%" mt="10%"> 
-              <Image src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643655522/digital%20card/About%20us/Rectangle_744_bm6xy3.svg" /> 
-              <Text 
-              fontSize="14"
-              fontFamily="Roboto"
-              color="#171717"
-              fontWeight="normal"
-              mt="5%"
-              ml="10%"
-              lineHeight="hidden"
-              >
-                Save contact
-              </Text>
+            </Flex>
+            <Flex flexDirection="row" justifyContent="space-around" pt="42px"  pl="63px">
+            <Box display="flex"   boxShadow='dark-lg' w="400px"  rounded='md' bg='white'  h="15vh"  > 
+            {/* <Button  borderRadius="17px" leftIcon={<TiContacts/>}></Button> */}
+             <Flex bg="#77C208" ml="36px" justifyContent="center" alignItems="center" p="30px" w="87px" h="87px" borderRadius="27px">
+
+             </Flex>
             </Box>
-            
-            <Box display="flex" flexDirection="row" justifyContent="space-around" boxShadow='dark-lg' p='6'  rounded='md' bg='white' w="60%" h="15vh" ml="10%" mt="10%"> 
-              <Image src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643655522/digital%20card/About%20us/Rectangle_744_bm6xy3.svg" /> 
-              <Text 
-              fontSize="14"
-              fontFamily="Roboto"
-              color="#171717"
-              fontWeight="normal"
-              mt="5%"
-              ml="10%"
-              lineHeight="hidden"
-              >
-                Save contact
-              </Text>
+            </Flex>
+            <Flex flexDirection="row" justifyContent="space-around" pt="42px"  pl="63px">
+            <Box display="flex"   boxShadow='dark-lg' w="400px"  rounded='md' bg='white'  h="15vh"  > 
+            {/* <Button  borderRadius="17px" leftIcon={<TiContacts/>}></Button> */}
+             <Flex bg="#77C208" ml="36px" justifyContent="center" alignItems="center" p="30px" w="87px" h="87px" borderRadius="27px">
+
+             </Flex>
             </Box>
-            
-            
+            </Flex>
+           
           </Flex>        
       </HStack>
       </>
