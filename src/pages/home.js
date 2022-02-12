@@ -38,8 +38,8 @@ export default function home() {
         </Text>
         <HStack border=" 2px solid red" w="full">
             <Button leftIcon={<AiFillContacts />}></Button>
-            <Button leftIcon={<AiFillContacts />}></Button>
-            <Button leftIcon={<AiFillContacts />}></Button>
+            <Button leftIcon={<BsCreditCard />}></Button>
+            <Button leftIcon={<FiDownload />}></Button>
         </HStack>
       </VStack>
 
