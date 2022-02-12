@@ -1,6 +1,7 @@
 import { extendTheme, gradient } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
 import { StepsStyleConfig } from "chakra-ui-steps";
+import "@fontsource/poppins"
 
 import "@fontsource/open-sans";
 const breakpoints = createBreakpoints({
@@ -60,6 +61,15 @@ const theme = extendTheme({
         }),
       },
     },
+  },
+  Input:{
+    varients: {
+      outline: (props) => ({
+        mt: "15",
+        size: "lg",
+        focusBorderColor: "#88E000"            
+      }),
+    }
   },
   colors: {
     black: "#16161D",

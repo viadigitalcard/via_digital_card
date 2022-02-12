@@ -137,7 +137,7 @@ export default function Login() {
             Recovery password
           </Text>
 
-          <Button type="submit"  marginTop={45} bg="#88E000" size="md" width="300px">
+          <Button type="submit"  marginTop={45}  size="md" width="300px">
             Sign In
           </Button>
 
