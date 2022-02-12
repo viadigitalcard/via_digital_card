@@ -216,32 +216,6 @@ export const SignIn = () => {
           />
         </Flex>
       </Flex>
-
-      {/* </Flex> */}
-      {/* </HStack> */}
-      {/* <form onSubmit={handleSubmit1}>
-        <input
-          type="email"
-          placeholder="Email Address"
-          required
-          value={email}
-          onChange={handleChange}
-          name="email"
-          autoComplete="email"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={handleChange}
-          name="password"
-          autoComplete="password"
-        />
-        <div>
-          <button type="submit">Sign In</button>
-        </div>
-      </form> */}
     </>
   );
 };
