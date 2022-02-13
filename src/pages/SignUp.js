@@ -76,7 +76,6 @@ export default function signup() {
             <VStack as={Center} px="50px" mt="30px" >
               <Image
                 width={{ base: "200px", md: "200px", lg: "300px" }}
-                
                 src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
               />
               <Text
