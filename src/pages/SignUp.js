@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NextLink from "next/link";
 import {
   Flex,
   Text,
@@ -7,12 +8,16 @@ import {
   Image,
   Input,
   InputGroup,
+  Link,
   InputRightElement,
   Button,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   useColorModeValue,
+  Center,
+  VStack,
+  Container,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
@@ -20,12 +25,16 @@ import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 
-export default function SignUp() {
+export default function signup() {
   const [show, setShow] = React.useState(false);
+  const [Loading, setLoading] = useState(false);
   const handleClick = () => setShow(!show);
+  // const { data: session } = useSession();
+  // const router = useRouter();
   const color = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.800", "white");
   const [errorMessage, seterrorMessage] = useState('');
+  
   const initialValues = {
     name: "",
     email: "",
@@ -44,179 +53,177 @@ export default function SignUp() {
   });
   
   return (
-    <Formik
-      validationSchema={validationSchema}
-      initialValues={initialValues}
-    >
       <>
         <DarkModeSwitch />
-          <HStack
-            backgroundColor={color}
-            width="full"
+          <Flex
+            bg={color}
+            as={Center}
+            justifyContent="space-evenly"
+            w="full"
             h="100vh"
           >
             {/* full width for screen */}
-            <Box as={Flex}  w="45%" display={["none", "none", "flex"]}>
+            <Flex display={["none", "none", "flex"]}>
               <Image
+                w="full"
+                py="10px"
                 h="100vh"
-                w="100%"
-                p="2px"
-                objectFit="content"
                 src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643134864/digital%20card/SignUp/Mask_mg0oj2.svg"
               />
-            </Box>
+            </Flex>
+            
             {/* divdev into two parts */}
-            <Flex
-              flexDirection="column"
-              width={{ base: "full", md: "65%", lg: "65%" }}
-              height="full"
-              justifyContent="center"
-              alignItems="center"
-            >
+            <VStack as={Center} px="50px" mt="30px" >
               <Image
                 width={{ base: "200px", md: "200px", lg: "300px" }}
-                marginBottom={2}
+                
                 src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
               />
               <Text
                 fontSize={{ base: "36px", md: "40px", lg: "45px" }}
-                py={5}
+                // py={5}
                 fontFamily="mono"
                 fontWeight="normal"
                 color={textColor}
-                textAlign="center"
-                alignSelf="center"
               >
                 Sign Up
               </Text>
               {/* validation for name */}
               <Flex>
-                <Field name="name">
-                  {({ field, form}) => (
-                    <FormControl
-                      isInvalid={
-                        (form.errors.name && form.touched.name) ||
-                        errorMessage
-                      }
-                    >
-                      <Input
-                        placeholder="Name"
-                        width={{ base: "300px", md: "300px", lg: "400px" }}
-                        marginTop={15}
-                        size="lg"
-                        variant="outline"
-                        focusBorderColor="#88E000"
-                        color={textColor}
-                        {...field}
-                      />
-                      <FormErrorMessage>
-                        {form.errors.name || errorMessage}{' '}
-                      </FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-              </Flex>
-              {/* validation for email */}
-              <Flex>
-                <Field name="email">
-                  {({ field, form}) => (
-                    <FormControl
-                      isInvalid={
-                        (form.errors.email && form.touched.email) ||
-                        errorMessage
-                      }
-                    >
-                      <Input
-                        placeholder="Enter email address"
-                        width={{ base: "300px", md: "300px", lg: "400px" }}
-                        marginTop={15}
-                        size="lg"
-                        variant="outline"
-                        focusBorderColor="#88E000"
-                        id="email"
-                        color={textColor}
-                        {...field}
-                      />
-                      <FormErrorMessage>
-                        {form.errors.email || errorMessage}{' '}
-                      </FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-              </Flex>
-              <Flex>
-                <Field name="password">
-                  {({ field, form}) => (
-                    <FormControl
-                      isInvalid={
-                        (form.errors.password && form.touched.password) ||
-                        errorMessage
-                      }
-                    >
-                      <InputGroup
-                        size="lg"
-                        width={{ base: "300px", md: "300px", lg: "400px" }}
-                        marginTop={15}
-                        variant="outline"
-                      >
-                        <Input
-                          pr="4.5rem"
-                          type={show ? "text" : "password"}
-                          placeholder="Password"
-                          focusBorderColor="#88E000"
-                          id="password"
-                          color={textColor}
-                          {...field}
-                        />
-                        <InputRightElement width="4.5rem">
-                          <Button
-                            color={textColor}
-                            h="1.75rem"
-                            size="sm"
-                            onClick={handleClick}
+                <Formik
+                  validationSchema={validationSchema}
+                  initialValues={initialValues}
+                  // onSubmit={handleSubmit}
+                >
+                  {(props) => (
+                    <Form>
+                      <Field name="name">
+                        {({field, form}) => (
+                          <FormControl
+                            isInvalid={
+                              (form.errors.email && form.touched.email) ||
+                              errorMessage
+                            }
                           >
-                            {show ? "Hide" : "Show"}
-                          </Button>
-                        </InputRightElement>
-                      </InputGroup>
-                      <FormErrorMessage>
-                        {form.errors.password || errorMessage}{' '}
-                      </FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-              </Flex>
-              <Text
-                color={textColor}
-                marginTop={5}
-                marginLeft={40}
-                fontWeight="semibold"
-              >
-                Recovery password
-              </Text>
+                            <Input
+                              placeholder="Name"
+                              mt="20px"
+                              id="email"
+                              h={["50px", "50px", "60px"]}
+                              w={["300px", "300px", "400px"]}
+                              size="lg"
+                              variant="outline"
+                              {...field}
+                              color={textColor}
+                            />
+                            <FormErrorMessage>
+                              {form.errors.name || errorMessage}{' '}
+                            </FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+                      {/* validation for email */}
+                      <Field name="email">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  (form.errors.email && form.touched.email) ||
+                                  errorMessage
+                                }
+                              >
+                                <Input
+                                  placeholder="Enter email address"
+                                  mt="20px"
+                                  id="email"
+                                  h={["50px", "50px", "60px"]}
+                                  w={["300px", "300px", "400px"]}
+                                  size="lg"
+                                  variant="outline"
+                                  {...field}
+                                  color={textColor}
+                                />
+                                <FormErrorMessage>
+                                  {form.errors.email || errorMessage}{" "}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                      </Field>
+                      <Field name="password">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  (form.errors.password && form.touched.password) ||
+                                  errorMessage
+                                }
+                              >
+                                <InputGroup
+                                  size="lg"
+                                  w={["300px", "300px", "400px"]}
+                                  mt="20px"
+                                >
+                                  <Input
+                                    pr="4.5rem"
+                                    type={show ? "text" : "password"}
+                                    placeholder="Password"
+                                    id="password"
+                                    h={["50px", "50px", "60px"]}
+                                    variant="outline"
+                                    {...field}
+                                    color={textColor}
+                                  />
+                                  <InputRightElement
+                                    h={["50px", "50px", "60px"]}
+                                    width="4.5rem"
+                                  >
+                                    <Button h="1.75rem" size="sm" onClick={handleClick}>
+                                      {show ? "Hide" : "Show"}
+                                    </Button>
+                                  </InputRightElement>
+                                </InputGroup>
+                                <FormErrorMessage >
+                                  {form.errors.password || errorMessage}{" "}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                      </Field>
+                        <Text
+                          as={Flex}
+                          justifyContent="end"
+                          color={textColor}
+                          py="30px"
+                          fontWeight="semibold"
+                        >
+                          Recovery password
+                        </Text>
 
-              {/* <Button type="submit"  marginTop={45}  size="md" width="300px">
-              Sign In
-            </Button> */}
-              <Button  marginTop={45}>
-                Sign In
-              </Button>
-              
-              <Flex direction="row" marginTop={35}>
-                <Text fontWeight="light" color={textColor}>
-                  {" "}
-                  Not a member ?{" "}
-                </Text>
-                <Text fontWeight="bold" px={2} color={textColor}>
-                  {" "}
-                  Create account now{" "}
-                </Text>
-                
-              </Flex>
-            </Flex>
-            
-          </HStack>
+                        <Center>
+                          <Button
+                            type="submit"
+                            h={"50px"}
+                            fontSize="20px"
+                            isLoading={Loading}
+                            w={["300px", "300px", "380px"]}
+                          >
+                            Sign In
+                          </Button>
+                        </Center>
+                    </Form>
+                  )}
+                </Formik>
+                </Flex>
+                  
+                  <Flex direction="row" py="40px">
+                      <Text fontWeight="light" color={textColor}>
+                        Already Member ?
+                      </Text>
+                      <NextLink href="/auth/signin" passHref>
+                        <Link fontWeight="bold" px={2} color={textColor}>
+                          Login
+                        </Link>
+                      </NextLink>
+                  </Flex>        
+             </VStack>
+          </Flex>
       </>
-      </Formik>
   );
-}
+};

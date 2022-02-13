@@ -87,12 +87,37 @@ function About_us() {
             >
               My dashboard
             </Text>
-            <Flex flexDirection="row" justifyContent="space-around" pt="42px"  pl="63px">
+            <Flex flexDirection="row" justifyContent="space-around" alignItems="center"  pt="42px"  pl="63px">
             <Box display="flex"   boxShadow='dark-lg' w="400px"  rounded='md' bg='white'  h="15vh"  > 
             {/* <Button  borderRadius="17px" leftIcon={<TiContacts/>}></Button> */}
              <Flex bg="#77C208" ml="36px" justifyContent="center" alignItems="center" p="30px" w="87px" h="87px" borderRadius="27px">
 
              </Flex>
+             <Text 
+              fontSize="18"
+              fontFamily="Roboto"
+              color="#171717"
+              fontWeight="normal"
+              
+            >
+              Save Contact
+            </Text>
+            </Box>
+            </Flex>
+            <Flex flexDirection="row" justifyContent="space-around" pt="42px"  pl="63px">
+            <Box display="flex"   boxShadow='dark-lg' w="400px"  rounded='md' bg='white'  h="15vh"  > 
+            {/* <Button  borderRadius="17px" leftIcon={<TiContacts/>}></Button> */}
+             <Flex bg="#77C208" ml="36px" justifyContent="center" alignItems="center" p="30px" w="87px" h="87px" borderRadius="27px">
+                  
+             </Flex>
+             <Text 
+              fontSize="18"
+              fontFamily="Roboto"
+              color="#171717"
+              fontWeight="normal"
+            >
+              Download brochure
+            </Text>
             </Box>
             </Flex>
             <Flex flexDirection="row" justifyContent="space-around" pt="42px"  pl="63px">
@@ -103,15 +128,14 @@ function About_us() {
              </Flex>
             </Box>
             </Flex>
-            <Flex flexDirection="row" justifyContent="space-around" pt="42px"  pl="63px">
-            <Box display="flex"   boxShadow='dark-lg' w="400px"  rounded='md' bg='white'  h="15vh"  > 
-            {/* <Button  borderRadius="17px" leftIcon={<TiContacts/>}></Button> */}
-             <Flex bg="#77C208" ml="36px" justifyContent="center" alignItems="center" p="30px" w="87px" h="87px" borderRadius="27px">
-
-             </Flex>
-            </Box>
-            </Flex>
-           
+            <Text 
+              fontSize="18"
+              fontFamily="Roboto"
+              color="#171717"
+              fontWeight="normal"
+            >
+              Make payment
+            </Text>
           </Flex>        
       </HStack>
       </>

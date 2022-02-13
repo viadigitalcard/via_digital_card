@@ -1,108 +1,220 @@
-// import { useState } from "react";
-// import {
-//   Flex,
-//   Heading,
-//   Input,
-//   Button,
-//   InputGroup,
-//   Stack,
-//   InputLeftElement,
-//   chakra,
-//   Box,
-//   Link,
-//   Avatar,
-//   FormControl,
-//   FormHelperText,
-//   InputRightElement,
-// } from "@chakra-ui/react";
-// // import { FaUserAlt, FaLock } from "r
-// import { getProviders, getSession } from "next-auth/client";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { signIn, useSession } from "next-auth/react";
+import NextLink from "next/link";
+import {
+  Flex,
+  Text,
+  Box,
+  HStack,
+  Image,
+  Input,
+  InputGroup,
+  Link,
+  InputRightElement,
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  useColorModeValue,
+  Center,
+  VStack,
+  Container,
+} from "@chakra-ui/react";
+import * as Yup from "yup";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import { DarkModeSwitch } from "../components/DarkModeSwitch";
 
-// export default async (req, res) => {
-//   const providers = await getProviders();
-//   console.log("Providers", providers);
-//   res.end();
-// };
+export default function signin()  {
+  const [show, setShow] = React.useState(false);
+  const [Loading, setLoading] = useState(false);
+  const handleClick = () => setShow(!show);
+  const { data: session } = useSession();
+  const router = useRouter();
 
-// export const Signin = () => {
-//   const [showPassword, setShowPassword] = useState(false);
+  const color = useColorModeValue("white", "#302E2E");
+  const textColor = useColorModeValue("gray.800", "white");
+  const [errorMessage, seterrorMessage] = useState("");
 
-//   const handleShowClick = () => setShowPassword(!showPassword);
+  const initialValues = {
+    email: "",
+    password: "",
+  };
 
-//   return (
-//     <Flex
-//       flexDirection="column"
-//       width="100wh"
-//       height="100vh"
-//       backgroundColor="gray.200"
-//       justifyContent="center"
-//       alignItems="center"
-//     >
-//       <Stack
-//         flexDir="column"
-//         mb="2"
-//         justifyContent="center"
-//         alignItems="center"
-//       >
-//         <Avatar bg="teal.500" />
-//         <Heading color="teal.400">Welcome</Heading>
-//         <Box minW={{ base: "90%", md: "468px" }}>
-//           <form>
-//             <Stack
-//               spacing={4}
-//               p="1rem"
-//               backgroundColor="whiteAlpha.900"
-//               boxShadow="md"
-//             >
-//               <FormControl>
-//                 <InputGroup>
-//                   <InputLeftElement
-//                     pointerEvents="none"
-//                     // children={<CFaUserAlt color="gray.300" />}
-//                   />
-//                   <Input type="email" placeholder="email address" />
-//                 </InputGroup>
-//               </FormControl>
-//               <FormControl>
-//                 <InputGroup>
-//                   <InputLeftElement
-//                     pointerEvents="none"
-//                     color="gray.300"
-//                     // children={<CFaLock color="gray.300" />}
-//                   />
-//                   <Input
-//                     type={showPassword ? "text" : "password"}
-//                     placeholder="Password"
-//                   />
-//                   <InputRightElement width="4.5rem">
-//                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-//                       {showPassword ? "Hide" : "Show"}
-//                     </Button>
-//                   </InputRightElement>
-//                 </InputGroup>
-//                 <FormHelperText textAlign="right">
-//                   <Link>forgot password?</Link>
-//                 </FormHelperText>
-//               </FormControl>
-//               <Button
-//                 borderRadius={0}
-//                 type="submit"
-//                 variant="solid"
-//                 colorScheme="teal"
-//                 width="full"
-//               >
-//                 Login
-//               </Button>
-//             </Stack>
-//           </form>
-//         </Box>
-//       </Stack>
-//       <Box>
-//         New to us?{" "}
-//         <Link color="teal.500" href="#">
-//           Sign Up
-//         </Link>
-//       </Box>
-//     </Flex>
-//   );
-// };
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Enter Valid Email").required("Required"),
+    password: Yup.string()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      )
+      .required("Required"),
+  });
+
+  async function handleSubmit(values) {
+    if (!session) {
+      try {
+        setLoading(true);
+        const result = await signIn("credentials", {
+          redirect: false,
+          email: values.email,
+          password: values.password,
+        });
+        router.replace("/userscard");
+        setLoading(false);
+
+        if (result.error) {
+          console.log(result.error);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      router.push("/");
+    }
+  }
+  return (
+    <>
+      <DarkModeSwitch />
+      <Flex
+        bg={color}
+        as={Center}
+        justifyContent="space-evenly"
+        w="full"
+        h="100vh"
+      >
+        <VStack as={Center} px="50px">
+          <Image
+            width={{ base: "150px", md: "200px", lg: "300px" }}
+            p="10px"
+            src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
+          />
+          <Text
+            fontSize={{ base: "36px", md: "40px", lg: "45px" }}
+            py={5}
+            fontFamily="mono"
+            fontWeight="normal"
+            color={textColor}
+          >
+            Welcome back
+          </Text>
+          <Flex>
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+            >
+              {(props) => (
+                <Form>
+                  <Field name="email">
+                    {({ field, form }) => (
+                      <FormControl
+                        isInvalid={
+                          (form.errors.email && form.touched.email) ||
+                          errorMessage
+                        }
+                      >
+                        <Input
+                          placeholder="Enter email address"
+                          mt="20px"
+                          id="email"
+                          h={["50px", "50px", "60px"]}
+                          w={["300px", "300px", "400px"]}
+                          size="lg"
+                          variant="outline"
+                          {...field}
+                          color={textColor}
+                        />
+                        <FormErrorMessage>
+                          {form.errors.email || errorMessage}{" "}
+                        </FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                  <Field name="password">
+                    {({ field, form }) => (
+                      <FormControl
+                        isInvalid={
+                          (form.errors.password && form.touched.password) ||
+                          errorMessage
+                        }
+                      >
+                        <InputGroup
+                          size="lg"
+                          w={["300px", "300px", "400px"]}
+                          mt="20px"
+                        >
+                          <Input
+                            pr="4.5rem"
+                            type={show ? "text" : "password"}
+                            placeholder="Password"
+                            id="password"
+                            h={["50px", "50px", "60px"]}
+                            variant="outline"
+                            {...field}
+                            color={textColor}
+                          />
+                          <InputRightElement
+                            h={["50px", "50px", "60px"]}
+                            width="4.5rem"
+                          >
+                            <Button h="1.75rem" size="sm" onClick={handleClick}>
+                              {show ? "Hide" : "Show"}
+                            </Button>
+                          </InputRightElement>
+                        </InputGroup>
+                        <FormErrorMessage >
+                          {form.errors.password || errorMessage}{" "}
+                        </FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+
+                  <Text
+                    as={Flex}
+                    justifyContent="end"
+                    color={textColor}
+                    py="30px"
+                    fontWeight="semibold"
+                  >
+                    Recovery password
+                  </Text>
+
+                  <Center>
+                    <Button
+                      type="submit"
+                      h={"50px"}
+                      fontSize="20px"
+                      isLoading={Loading}
+                      w={["300px", "300px", "380px"]}
+                    >
+                      Sign In
+                    </Button>
+                  </Center>
+                </Form>
+              )}
+            </Formik>
+          </Flex>
+          <Flex direction="row" py="40px">
+            <Text fontWeight="light" color={textColor}>
+              Not a member ?
+            </Text>
+            <NextLink href="/auth/signup" passHref>
+              <Link fontWeight="bold" px={2} color={textColor}>
+                Create account now
+              </Link>
+            </NextLink>
+          </Flex>
+        </VStack>
+        <Flex display={["none", "none", "flex"]}>
+          <Image
+            w="full"
+            py="10px"
+            h="100vh"
+            src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643225745/digital%20card/SignUp/Mask_Group_1_h4nweo.svg"
+          />
+        </Flex>
+      </Flex>
+    </>
+  );
+};
