@@ -3,14 +3,18 @@ import { createBreakpoints } from "@chakra-ui/theme-tools";
 import { StepsStyleConfig as Steps } from "chakra-ui-steps";
 import { mode } from "@chakra-ui/theme-tools";
 // import Button from "./Button.ts";
+import "@fontsource/open-sans/600.css";
 import "@fontsource/open-sans/500.css";
 import "@fontsource/open-sans/400.css";
 
 const breakpoints = createBreakpoints({
+  xs:"30em",
   sm: "40em",
+  "2sm": "48em",
   md: "52em",
   lg: "64em",
   xl: "80em",
+  "2xl":"96em"
 });
 // Box: {
 //   borderColor: theme.colorMode === "light" ? "gray.200" : "gray.900"
@@ -31,7 +35,7 @@ const theme = extendTheme({
 
     gray: {
       100: "#8A8A8A",
-      200:"#E7E7E7"
+      200: "#E7E7E7",
     },
     brand: {
       100: "#7ECE05",
@@ -77,13 +81,13 @@ const theme = extendTheme({
         },
       },
     },
-   Image:{
-     width:"100%",
-     height:"100%"
-   },
+    Image: {
+      width: "100%",
+      height: "100%",
+    },
     Steps,
-    breakpoints,
   },
+  breakpoints,
 });
 
 export default theme;
