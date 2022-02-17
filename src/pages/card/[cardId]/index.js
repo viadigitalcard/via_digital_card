@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import dbConnect from "../../../lib/dbConnect";
 import Card from "../../../models/Card";
-
+import { DigitalCard } from '../../../components/Card/DigitalCard'
 const Cards = ({ Card }) => {
   const router = useRouter();
   const { data: session } = useSession();
@@ -25,6 +25,7 @@ const Cards = ({ Card }) => {
         <title>{Card.firstname} Card </title>
         <meta name="description" content="Merlyn Clothing collection item" />
       </Head>
+      <DigitalCard/>
       <div>{Card.card_id}</div>
       <div>{Card.firstname}</div>
       <div>{Card.lastname}</div>

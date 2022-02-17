@@ -1,11 +1,13 @@
+import { DigitalCard } from "../components/Card/DigitalCard";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import Header from "../components/header";
 
 const Index = () => (
   <>
-    <Header />
+    {/* <Header /> */}
     {/* <Flex/> */}
-    <DarkModeSwitch />
+    {/* <DarkModeSwitch /> */}
+    <DigitalCard/>
   </>
 );
 
