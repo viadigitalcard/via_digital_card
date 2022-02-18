@@ -57,7 +57,7 @@ export const DigitalCard = () => {
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-              Let's Connect
+              {"Let's Connect"}
             </Tab>
             <Tab
               color="rgba(23, 23, 23, 0.38)"
@@ -173,7 +173,7 @@ export const DigitalCard = () => {
               </TabPanel>
               <TabPanel p="0">
                 <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
-                  Let's Connect
+                 {" Let's Connect"}
                 </Text>
                 <Box
                   mt="15px"
@@ -523,7 +523,7 @@ export const DigitalCard = () => {
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-              Let's Connect
+            {"Let's Connect"}
             </Tab>
             <Tab
               color="rgba(23, 23, 23, 0.38)"
