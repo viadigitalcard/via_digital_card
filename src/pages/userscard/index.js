@@ -8,8 +8,6 @@ import dbConnect from "../../lib/dbConnect";
 import Card from "../../models/Card";
 
 const Usercard = ({ Cards }) => {
-  const { data: session } = useSession();
-  console.log(session);
   return (
     <>
       <Head>
@@ -18,6 +16,7 @@ const Usercard = ({ Cards }) => {
       </Head>
       <>
         <CreateDigiCard />
+
         <button onClick={signOut}>sign out</button>
         {Cards &&
           Cards.map(

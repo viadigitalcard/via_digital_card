@@ -7,7 +7,7 @@ const Index = () => (
     {/* <Header /> */}
     {/* <Flex/> */}
     {/* <DarkModeSwitch /> */}
-    <DigitalCard/>
+    {/* <DigitalCard/> */}
   </>
 );
 

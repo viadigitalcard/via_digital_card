@@ -29,9 +29,9 @@ export const SignIn = () => {
   const [show, setShow] = React.useState(false);
   const [Loading, setLoading] = useState(false);
   const handleClick = () => setShow(!show);
-  const { data: session } = useSession();
+  const { data: session, token } = useSession();
+  console.log(token);
   const router = useRouter();
-
   const color = useColorModeValue("white", "#302E2E");
   const textColor = useColorModeValue("gray.800", "white");
   const [errorMessage, seterrorMessage] = useState("");
@@ -84,7 +84,7 @@ export const SignIn = () => {
         w="full"
         h="100vh"
       >
-        <VStack as={Center} px="50px">
+        <VStack as={Center} px="80px">
           <Image
             width={{ base: "150px", md: "200px", lg: "300px" }}
             p="10px"
@@ -201,7 +201,7 @@ export const SignIn = () => {
               Not a member ?
             </Text>
             <NextLink href="/auth/signup" passHref>
-              <Link fontWeight="bold" px={2} color={textColor}>
+              <Link fontWeight="bold" px={2} color="Highlight">
                 Create account now
               </Link>
             </NextLink>

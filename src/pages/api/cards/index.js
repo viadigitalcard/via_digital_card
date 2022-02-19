@@ -23,9 +23,8 @@ export default async function handler(req, res) {
     //   break;
     case "POST":
       try {
-        const card = await Card.create(
-          req.body
-        ); /* create a new model in the database */
+        const card = await Card.create(req.body);
+        /* create a new model in the database */
         res.status(201).json({ success: true, data: card });
       } catch (error) {
         res.status(400).json({ success: false });

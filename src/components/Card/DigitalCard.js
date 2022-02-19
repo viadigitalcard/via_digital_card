@@ -19,9 +19,8 @@ import { GrLocation } from "react-icons/gr";
 import { FiPhone } from "react-icons/fi";
 import { VscGlobe } from "react-icons/vsc";
 import { AiOutlineMail } from "react-icons/ai";
-export const DigitalCard = () => {
+export const DigitalCard = ({ data }) => {
   const [tabIndex, setTabIndex] = React.useState(0);
-  console.log(tabIndex);
   return (
     <Box p="50px 8vw">
       <Tabs
@@ -100,7 +99,7 @@ export const DigitalCard = () => {
                   fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                   fontWeight={{ base: "600", "2sm": "500" }}
                 >
-                  Diana Hopper
+                  {data.Name}
                 </Text>
                 <Text
                   fontSize={{
@@ -110,13 +109,16 @@ export const DigitalCard = () => {
                   }}
                   color={"gray.100"}
                 >
-                  Founder of virtual assets
+                  Founder of {data.companyName}
                 </Text>
               </Box>
             </Flex>
             <TabPanels w="100%">
               <TabPanel p="0">
-                <HStack mt="43px" spacing={{"2sm":"40px",lg:"80px",xl:'125px'}}>
+                <HStack
+                  mt="43px"
+                  spacing={{ "2sm": "40px", lg: "80px", xl: "125px" }}
+                >
                   <VStack spacing={"20px"}>
                     <Center
                       boxSize={"163px"}
@@ -163,17 +165,12 @@ export const DigitalCard = () => {
                   About
                 </Text>
                 <Text mt="33px" fontSize={"1.25rem"}>
-                  In publishing and graphic design, Lorem ipsum is a placeholder
-                  text commonly used to demonstrate the In publishing and
-                  graphic design, Lorem ipsum is a placeholder text commonly
-                  used to demonstrate the In publishing and graphic design,
-                  Lorem ipsum is a placeholder text commonly used to demonstrate
-                  the
+                  {data.bio}
                 </Text>
               </TabPanel>
               <TabPanel p="0">
                 <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
-                 {" Let's Connect"}
+                  {" Let's Connect"}
                 </Text>
                 <Box
                   mt="15px"
@@ -277,7 +274,7 @@ export const DigitalCard = () => {
                     <Box fontSize={"1.7rem"}>
                       <GrLocation />
                     </Box>
-                    <Text ml="27px">Via creative tech LLP, Virar</Text>
+                    <Text ml="27px">{data.address}</Text>
                   </Flex>
                   <Flex
                     p="25px 0px"
@@ -300,7 +297,7 @@ export const DigitalCard = () => {
                     <Box fontSize={"1.7rem"}>
                       <VscGlobe />
                     </Box>
-                    <Text ml="27px">www.viacreativetech.com</Text>
+                    <Text ml="27px">{data.website}</Text>
                   </Flex>
                   <Flex
                     p="25px 0px"
@@ -310,7 +307,7 @@ export const DigitalCard = () => {
                     <Box fontSize={"1.7rem"}>
                       <AiOutlineMail />
                     </Box>
-                    <Text ml="27px">aks@viacreativetech.com</Text>
+                    <Text ml="27px">{data.email}</Text>
                   </Flex>
                 </Flex>
               </TabPanel>
@@ -424,7 +421,7 @@ export const DigitalCard = () => {
                 fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                 fontWeight={{ base: "600", "2sm": "500" }}
               >
-                Diana Hopper
+                {data.Name}
               </Text>
               <Text
                 fontSize={{
@@ -434,7 +431,7 @@ export const DigitalCard = () => {
                 }}
                 color={"gray.100"}
               >
-                Founder of virtual assets
+                Founder of {data.companyName}
               </Text>
             </Box>
           </Flex>
@@ -523,7 +520,7 @@ export const DigitalCard = () => {
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-            {"Let's Connect"}
+              {"Let's Connect"}
             </Tab>
             <Tab
               color="rgba(23, 23, 23, 0.38)"
@@ -550,17 +547,7 @@ export const DigitalCard = () => {
                 mt="13px"
                 fontSize={{ base: "0.75rem", xs: "0.875rem", sm: "1rem" }}
               >
-                Hey there! My teenage went entirely in the Social Media Boom and
-                hence when life wanted me to start something, I chose Social
-                Media itself, started Via Creative Tech & Via Tech Media with
-                two of my friends. We turn any normal business into a BRAND! In
-                the 3rd year of high school, I embarked on the journey to
-                various entrepreneurial ventures but faced criticism from almost
-                everyone I knew. I have been criticised by the society at all
-                stages of my life.I have seen ups and mostly downs and one thing
-                I can say… “God shuffled the cards, dealt me a hand with
-                impossible odds, Put an obstacle course up and look how I will
-                conquer them all.”
+                {data.bio}
               </Text>
             </TabPanel>
             <TabPanel p="0">
@@ -667,24 +654,23 @@ export const DigitalCard = () => {
                   <Box fontSize={"1.7rem"}>
                     <GrLocation />
                   </Box>
-                  <Text ml="27px">Via creative tech LLP, Virar</Text>
+                  <Text ml="27px">{data.address}</Text>
                 </Flex>
                 <Flex
                   p="25px 0px"
                   alignItems={"center"}
-                  justifyContent='space-between'
+                  justifyContent="space-between"
                   borderBottom="2px solid #E3E3E3"
                 >
-                  <Flex alignItems={'center'}>
-                  <Box fontSize={"1.7rem"}>
-                    <FiPhone />
-                  </Box>
-                  <Box ml="27px">
-                    <Text>+91 9309719073</Text>
-                    <Text>+91 9309719073</Text>
-                  </Box>
+                  <Flex alignItems={"center"}>
+                    <Box fontSize={"1.7rem"}>
+                      <FiPhone />
+                    </Box>
+                    <Box ml="27px">
+                      <Text>+91 9309719073</Text>
+                      <Text>+91 9309719073</Text>
+                    </Box>
                   </Flex>
-                
 
                   <Button fontWeight={400} w="142px">
                     Call Now
@@ -698,7 +684,7 @@ export const DigitalCard = () => {
                   <Box fontSize={"1.7rem"}>
                     <VscGlobe />
                   </Box>
-                  <Text ml="27px">www.viacreativetech.com</Text>
+                  <Text ml="27px">{data.website}</Text>
                 </Flex>
                 <Flex
                   p="25px 0px"
@@ -708,7 +694,7 @@ export const DigitalCard = () => {
                   <Box fontSize={"1.7rem"}>
                     <AiOutlineMail />
                   </Box>
-                  <Text ml="27px">aks@viacreativetech.com</Text>
+                  <Text ml="27px">{data.email}</Text>
                 </Flex>
               </Flex>
             </TabPanel>
