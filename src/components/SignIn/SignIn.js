@@ -5,8 +5,6 @@ import NextLink from "next/link";
 import {
   Flex,
   Text,
-  Box,
-  HStack,
   Image,
   Input,
   InputGroup,
@@ -15,11 +13,9 @@ import {
   Button,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   useColorModeValue,
   Center,
   VStack,
-  Container,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { Formik, Field, Form, ErrorMessage } from "formik";

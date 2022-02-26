@@ -14,25 +14,25 @@ import {
   Center,
   Spacer,
 } from "@chakra-ui/react";
-// import Profile from "../components/Profile";
-// import About from "../components/About";
-// import Links from "../components/Links";
-// import { DarkModeSwitch } from "../components/DarkModeSwitch";
+import Profile from "../../components/Profile";
+import About from "../../components/About";
+import Links from "../../components/Links";
+import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 
 const steps = [
   {
     label: "Profile",
-    jsx: "<Profile />",
+    jsx: <Profile />,
     c: null,
   },
   {
     label: "About",
-    jsx: "<About />",
+    jsx: <About />,
     c: null,
   },
   {
     label: "Links",
-    jsx: "<Links />",
+    jsx: <Links />,
     c: false,
   },
 ];
@@ -44,8 +44,8 @@ const image2 =
 const image3 =
   "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823979/digital%20card/form/Saly-15_1_zhlfjw.svg";
 
-export default function Form() {
-  const { nextStep, prevStep, reset, activeStep } = useSteps({
+export default function Card() {
+  const { nextStep, prevStep, activeStep } = useSteps({
     initialStep: 0,
   });
   const ImgSrc =
@@ -57,11 +57,9 @@ export default function Form() {
       ? image3
       : image1;
 
-  // console.log(ImgSrc);
-
   return (
     <>
-      {/* <DarkModeSwitch zIndex={5} /> */}
+      <DarkModeSwitch zIndex={5} />
       <HStack h="100vh" bg={["white", "white", "#77C208"]}>
         <Image
           className="background"
@@ -163,6 +161,14 @@ export default function Form() {
                 ""
               ) : (
                 <Center p="10px 0px 10px 10px">
+                  <Button
+                    isDisabled={activeStep === 0}
+                    mr={4}
+                    onClick={prevStep}
+                    px={10}
+                  >
+                    Prev
+                  </Button>
                   <Button px={10} onClick={nextStep}>
                     {activeStep === steps.length - 1 ? "Finish" : "Next"}
                   </Button>
