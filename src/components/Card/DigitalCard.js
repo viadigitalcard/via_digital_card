@@ -8,22 +8,35 @@ import {
   Box,
   Flex,
   Image,
-  Img,
   Text,
   HStack,
   Center,
   VStack,
   Button,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { GrLocation } from "react-icons/gr";
 import { FiPhone } from "react-icons/fi";
 import { VscGlobe } from "react-icons/vsc";
-import { AiOutlineMail } from "react-icons/ai";
+import { AiOutlineMail,AiOutlineEye} from "react-icons/ai";
+import { GoLocation} from "react-icons/go";
+import { DarkModeSwitch } from '../DarkModeSwitch'
 export const DigitalCard = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
-  console.log(tabIndex);
+  const bgColor = useColorModeValue("white", "black.200");
+  const bgViews = useColorModeValue("greenBrand.100", "black.100");
+  const textColor = useColorModeValue("black", "white");
+  const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)","gray.300")
+  const tabColorMobile = useColorModeValue("#ABABAB","#4B4C5E")
+  const dividerColor = useColorModeValue("#E7E7E7","#353647")
+  const bgDashIcons = useColorModeValue("greenBrand.100","black.200")
+  const bgDash= useColorModeValue("white","black.100")
+  const borderColor = useColorModeValue('#E3E3E3',"#353647")
+  const activeTabBorder = useColorModeValue("#353647","#c4c4c4")
+  const bgDashIconMobile = useColorModeValue("greenBrand.100","black.100")
   return (
-    <Box p="50px 8vw">
+    <Box p="50px 8vw" bgColor={bgColor} h='100%' minH={'100vh'}>
+      <DarkModeSwitch/>
       <Tabs
         display={{ base: "none", "2sm": "block" }}
         onChange={(index) => setTabIndex(index)}
@@ -43,26 +56,26 @@ export const DigitalCard = () => {
           <Flex>
             <Tab
               fontSize={"1.125rem"}
-              color="rgba(23, 23, 23, 0.38)"
-              _selected={{ color: "black", border: "none" }}
+              color={tabColor}
+              _selected={{ color: textColor, border: "none" }}
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
               About Us
             </Tab>
             <Tab
-              color="rgba(23, 23, 23, 0.38)"
+              color={tabColor}
               fontSize={"1.125rem"}
-              _selected={{ color: "black", border: "none" }}
+              _selected={{ color: textColor, border: "none" }}
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
               {"Let's Connect"}
             </Tab>
             <Tab
-              color="rgba(23, 23, 23, 0.38)"
+              color={tabColor}
               fontSize={"1.125rem"}
-              _selected={{ color: "black", border: "none" }}
+              _selected={{ color: textColor, border: "none" }}
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
@@ -99,6 +112,7 @@ export const DigitalCard = () => {
                 <Text
                   fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                   fontWeight={{ base: "600", "2sm": "500" }}
+                  color={textColor}
                 >
                   Diana Hopper
                 </Text>
@@ -112,6 +126,10 @@ export const DigitalCard = () => {
                 >
                   Founder of virtual assets
                 </Text>
+                <Center mt='10px' color={'white'} borderRadius={'13px'} w='90px' h='26px' bgColor={bgViews}>
+                  <Box mr='10px' fontSize={'1.5rem'}><AiOutlineEye/></Box>
+                  <Text>600</Text>
+                </Center>
               </Box>
             </Flex>
             <TabPanels w="100%">
@@ -159,10 +177,10 @@ export const DigitalCard = () => {
                 </HStack>
               </TabPanel>
               <TabPanel p="0">
-                <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
+                <Text mt="43px"  color={textColor}  fontWeight={"500"} fontSize={"1.5rem"}>
                   About
                 </Text>
-                <Text mt="33px" fontSize={"1.25rem"}>
+                <Text mt="33px" lineHeight={'42px'} color={textColor} fontSize={"1.25rem"}>
                   In publishing and graphic design, Lorem ipsum is a placeholder
                   text commonly used to demonstrate the In publishing and
                   graphic design, Lorem ipsum is a placeholder text commonly
@@ -171,8 +189,8 @@ export const DigitalCard = () => {
                   the
                 </Text>
               </TabPanel>
-              <TabPanel p="0">
-                <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
+              <TabPanel p="0" color={textColor}>
+                <Text mt="43px" fontWeight={"500"}  fontSize={"1.5rem"}>
                  {" Let's Connect"}
                 </Text>
                 <Box
@@ -186,7 +204,7 @@ export const DigitalCard = () => {
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
-                      border="2px solid #E3E3E3"
+                      border={`2px solid ${borderColor}`}
                     >
                       <Box>
                         <Image
@@ -201,7 +219,7 @@ export const DigitalCard = () => {
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
-                      border="2px solid #E3E3E3"
+                      border={`2px solid ${borderColor}`}
                     >
                       <Box>
                         <Image
@@ -210,13 +228,13 @@ export const DigitalCard = () => {
                         />
                       </Box>
                     </Center>
-                    <Text ml="35px">Twitter</Text>
+                    <Text ml="35px" >Twitter</Text>
                   </Flex>
                   <Flex alignItems={"center"} m="22px">
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
-                      border="2px solid #E3E3E3"
+                      border={`2px solid ${borderColor}`}
                     >
                       <Box>
                         <Image
@@ -231,7 +249,7 @@ export const DigitalCard = () => {
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
-                      border="2px solid #E3E3E3"
+                      border={`2px solid ${borderColor}`}
                     >
                       <Box>
                         <Image
@@ -240,13 +258,13 @@ export const DigitalCard = () => {
                         />
                       </Box>
                     </Center>
-                    <Text ml="35px">Facebook</Text>
+                    <Text ml="35px" >Facebook</Text>
                   </Flex>
                   <Flex alignItems={"center"} m="22px">
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
-                      border="2px solid #E3E3E3"
+                      border={`2px solid ${borderColor}`}
                     >
                       <Box>
                         <Image
@@ -259,8 +277,8 @@ export const DigitalCard = () => {
                   </Flex>
                 </Box>
               </TabPanel>
-              <TabPanel p="0" w="100%">
-                <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
+              <TabPanel p="0" w="100%" color={textColor}>
+                <Text mt="43px" fontWeight={"500"}   fontSize={"1.5rem"}>
                   About
                 </Text>
                 <Flex
@@ -272,17 +290,17 @@ export const DigitalCard = () => {
                   <Flex
                     p="0px 0px 25px 0"
                     alignItems={"center"}
-                    borderBottom="2px solid #E3E3E3"
+                    borderBottom={`2px solid ${borderColor}`}
                   >
-                    <Box fontSize={"1.7rem"}>
-                      <GrLocation />
+                    <Box fontSize={"1.7rem"} color={textColor}>
+                      <GoLocation color={textColor} />
                     </Box>
                     <Text ml="27px">Via creative tech LLP, Virar</Text>
                   </Flex>
                   <Flex
                     p="25px 0px"
                     alignItems={"center"}
-                    borderBottom="2px solid #E3E3E3"
+                    borderBottom={`2px solid ${borderColor}`}
                   >
                     <Box fontSize={"1.7rem"}>
                       <FiPhone />
@@ -295,7 +313,7 @@ export const DigitalCard = () => {
                   <Flex
                     p="25px 0px"
                     alignItems={"center"}
-                    borderBottom="2px solid #E3E3E3"
+                    borderBottom={`2px solid ${borderColor}`}
                   >
                     <Box fontSize={"1.7rem"}>
                       <VscGlobe />
@@ -305,7 +323,7 @@ export const DigitalCard = () => {
                   <Flex
                     p="25px 0px"
                     alignItems={"center"}
-                    borderBottom="2px solid #E3E3E3"
+                    borderBottom={`2px solid ${borderColor}`}
                   >
                     <Box fontSize={"1.7rem"}>
                       <AiOutlineMail />
@@ -319,7 +337,7 @@ export const DigitalCard = () => {
           <Box
             mt={{ "2sm": "40px", lg: "0" }}
             display={tabIndex > 0 ? "block" : "none"}
-            borderLeft={{ "2sm": "none", lg: "1px solid #E7E7E7" }}
+            borderLeft={{ "2sm": "none", lg: `1px solid ${dividerColor}` }}
             pl={{ lg: "4.1vw", "2xl": "63px" }}
             ml={{ lg: "4.1vw", "2xl": "63px" }}
           >
@@ -332,12 +350,13 @@ export const DigitalCard = () => {
                 h="117px"
                 justifyContent={"flex-start"}
                 pl="21px"
+                bgColor={bgDash}
                 borderRadius={"18px"}
                 boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
               >
                 <Center
                   boxSize={"87px"}
-                  bgColor="greenBrand.100"
+                  bgColor={bgDashIcons}
                   borderRadius={"17px"}
                   mr="22px"
                 >
@@ -348,19 +367,20 @@ export const DigitalCard = () => {
                     />
                   </Center>
                 </Center>
-                <Text fontSize={"1.125rem"}>Save Contact</Text>
+                <Text fontSize={"1.125rem"}  color={textColor}>Save Contact</Text>
               </Center>
               <Center
                 w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
                 h="117px"
                 justifyContent={"flex-start"}
                 pl="21px"
+                bgColor={bgDash}
                 borderRadius={"18px"}
                 boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
               >
                 <Center
                   boxSize={"87px"}
-                  bgColor="greenBrand.100"
+                  bgColor={bgDashIcons}
                   borderRadius={"17px"}
                   mr="22px"
                 >
@@ -371,7 +391,7 @@ export const DigitalCard = () => {
                     />
                   </Center>
                 </Center>
-                <Text fontSize={"1.125rem"}>Download brochure</Text>
+                <Text fontSize={"1.125rem"}  color={textColor}>Download brochure</Text>
               </Center>
               <Center
                 w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
@@ -379,11 +399,12 @@ export const DigitalCard = () => {
                 justifyContent={"flex-start"}
                 pl="21px"
                 borderRadius={"18px"}
+                bgColor={bgDash}
                 boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
               >
                 <Center
                   boxSize={"87px"}
-                  bgColor="greenBrand.100"
+                  bgColor={bgDashIcons}
                   borderRadius={"17px"}
                   mr="22px"
                 >
@@ -394,14 +415,14 @@ export const DigitalCard = () => {
                     />
                   </Center>
                 </Center>
-                <Text fontSize={"1.125rem"}>Make payment</Text>
+                <Text fontSize={"1.125rem"} color={textColor} >Make payment</Text>
               </Center>
             </VStack>
           </Box>
         </Flex>
       </Tabs>
       <Box display={{ base: "block", "2sm": "none" }} w="100%">
-        <VStack spacing={"48px"}>
+        <VStack spacing={"48px"} color={textColor}>
           <Text fontWeight={"600"} fontSize="2rem">
             Digital Card
           </Text>
@@ -410,8 +431,6 @@ export const DigitalCard = () => {
               w={{ base: "89px", xs: "193px" }}
               h={{ base: "90px", xs: "195px" }}
               flexShrink={"0"}
-              bgColor={"#c5c5c5"}
-              borderRadius="20px"
             >
               <Image
                 borderRadius="20px"
@@ -443,7 +462,7 @@ export const DigitalCard = () => {
               <Center
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
-                bgColor="greenBrand.100"
+                bgColor={bgDashIconMobile}
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
@@ -463,7 +482,7 @@ export const DigitalCard = () => {
               <Center
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
-                bgColor="greenBrand.100"
+                bgColor={bgDashIconMobile}
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
@@ -483,7 +502,7 @@ export const DigitalCard = () => {
               <Center
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
-                bgColor="greenBrand.100"
+                bgColor={bgDashIconMobile}
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
@@ -501,36 +520,38 @@ export const DigitalCard = () => {
             </VStack>
           </Flex>
         </VStack>
-        <Tabs w="100%" mt="30px">
+        <Tabs w="100%" mt="30px" color={textColor}>
           <TabList border={"none"} justifyContent="space-between">
             <Tab
               fontSize={{ base: "0.875rem", xs: "1rem", sm: "1.125rem" }}
               fontWeight="500"
               p="0"
-              color="rgba(23, 23, 23, 0.38)"
-              _selected={{ color: "black", borderBottom: "2px solid black" }}
+              color={tabColorMobile}
+              _selected={{ color: textColor, borderBottom: `2px solid ${activeTabBorder}` }}
+
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
               About Us
             </Tab>
             <Tab
-              color="rgba(23, 23, 23, 0.38)"
+             color={tabColorMobile}
               fontWeight="500"
               fontSize={{ base: "0.875rem", xs: "1rem", sm: "1.125rem" }}
               p="0"
-              _selected={{ color: "black", borderBottom: "2px solid black" }}
+              _selected={{ color: textColor, borderBottom: `2px solid ${activeTabBorder}` }}
+
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
             {"Let's Connect"}
             </Tab>
             <Tab
-              color="rgba(23, 23, 23, 0.38)"
+              color={tabColorMobile}
               fontWeight="500"
               fontSize={{ base: "0.875rem", xs: "1rem", sm: "1.125rem" }}
               p="0"
-              _selected={{ color: "black", borderBottom: "2px solid black" }}
+              _selected={{ color: textColor, borderBottom: `2px solid ${activeTabBorder}` }}
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
@@ -568,7 +589,7 @@ export const DigitalCard = () => {
                 <Center
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
-                  border="2px solid #E3E3E3"
+                  border={`2px solid ${borderColor}`}
                 >
                   <Box
                     flexShrink={"0"}
@@ -584,7 +605,7 @@ export const DigitalCard = () => {
                 <Center
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
-                  border="2px solid #E3E3E3"
+                  border={`2px solid ${borderColor}`}
                 >
                   <Box
                     flexShrink={"0"}
@@ -600,7 +621,7 @@ export const DigitalCard = () => {
                 <Center
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
-                  border="2px solid #E3E3E3"
+                  border={`2px solid ${borderColor}`}
                 >
                   <Box
                     flexShrink={"0"}
@@ -616,7 +637,7 @@ export const DigitalCard = () => {
                 <Center
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
-                  border="2px solid #E3E3E3"
+                  border={`2px solid ${borderColor}`}
                 >
                   <Box
                     flexShrink={"0"}
@@ -632,7 +653,7 @@ export const DigitalCard = () => {
                 <Center
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
-                  border="2px solid #E3E3E3"
+                  border={`2px solid ${borderColor}`}
                 >
                   <Box
                     flexShrink={"0"}
@@ -662,10 +683,10 @@ export const DigitalCard = () => {
                 <Flex
                   p="0px 0px 25px 0"
                   alignItems={"center"}
-                  borderBottom="2px solid #E3E3E3"
+                  borderBottom={`2px solid ${borderColor}`}
                 >
                   <Box fontSize={"1.7rem"}>
-                    <GrLocation />
+                    <GoLocation />
                   </Box>
                   <Text ml="27px">Via creative tech LLP, Virar</Text>
                 </Flex>
@@ -673,7 +694,7 @@ export const DigitalCard = () => {
                   p="25px 0px"
                   alignItems={"center"}
                   justifyContent='space-between'
-                  borderBottom="2px solid #E3E3E3"
+                  borderBottom={`2px solid ${borderColor}`}
                 >
                   <Flex alignItems={'center'}>
                   <Box fontSize={"1.7rem"}>
@@ -693,7 +714,7 @@ export const DigitalCard = () => {
                 <Flex
                   p="25px 0px"
                   alignItems={"center"}
-                  borderBottom="2px solid #E3E3E3"
+                  borderBottom={`2px solid ${borderColor}`}
                 >
                   <Box fontSize={"1.7rem"}>
                     <VscGlobe />
@@ -703,7 +724,7 @@ export const DigitalCard = () => {
                 <Flex
                   p="25px 0px"
                   alignItems={"center"}
-                  borderBottom="2px solid #E3E3E3"
+                  borderBottom={`2px solid ${borderColor}`}
                 >
                   <Box fontSize={"1.7rem"}>
                     <AiOutlineMail />
