@@ -1,4 +1,3 @@
-import { getSession } from "next-auth/react";
 import Card from "../../../models/Card";
 import dbConnect from "../../../lib/dbConnect";
 
@@ -7,16 +6,17 @@ export default async function handler(req, res) {
 
   await dbConnect();
 
-  const session = await getSession({ req });
-  const id = session?.user?.id;
-
   switch (method) {
-    // case "GET":
+    // case "PUT" /* Edit a model by its ID */:
     //   try {
-    //     const card = await Card.find({
-    //       card_id: { $eq: id },
+    //     const pet = await Card.findByIdAndUpdate(req.body, {
+    //       new: true,
+    //       runValidators: true,
     //     });
-    //     res.status(200).json({ success: true, data: card });
+    //     if (!pet) {
+    //       return res.status(400).json({ success: false });
+    //     }
+    //     res.status(200).json({ success: true, data: pet });
     //   } catch (error) {
     //     res.status(400).json({ success: false });
     //   }
