@@ -44,13 +44,13 @@ export default NextAuth({
     signIn: "auth/signin",
   },
   callbacks: {
-    jwt: async ({ token, user }) => {
-      user && (token.user = user);
-      return token;
-    },
-    session: async ({ session, token }) => {
+    async session({ session, token }) {
       session.user = token.user;
       return session;
+    },
+    async jwt({ token, user }) {
+      user && (token.user = user);
+      return token;
     },
   },
 });
