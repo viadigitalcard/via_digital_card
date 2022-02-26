@@ -13,30 +13,40 @@ import {
   Center,
   VStack,
   Button,
-  useColorModeValue
+  useColorModeValue,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 import { GrLocation } from "react-icons/gr";
 import { FiPhone } from "react-icons/fi";
 import { VscGlobe } from "react-icons/vsc";
-import { AiOutlineMail,AiOutlineEye} from "react-icons/ai";
-import { GoLocation} from "react-icons/go";
-import { DarkModeSwitch } from '../DarkModeSwitch'
+import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
+import { GoLocation } from "react-icons/go";
+import { DarkModeSwitch } from "../DarkModeSwitch";
+import { SendMessage } from "../modals/SendMessage";
 export const DigitalCard = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
   const bgColor = useColorModeValue("white", "black.200");
   const bgViews = useColorModeValue("greenBrand.100", "black.100");
   const textColor = useColorModeValue("black", "white");
-  const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)","gray.300")
-  const tabColorMobile = useColorModeValue("#ABABAB","#4B4C5E")
-  const dividerColor = useColorModeValue("#E7E7E7","#353647")
-  const bgDashIcons = useColorModeValue("greenBrand.100","black.200")
-  const bgDash= useColorModeValue("white","black.100")
-  const borderColor = useColorModeValue('#E3E3E3',"#353647")
-  const activeTabBorder = useColorModeValue("#353647","#c4c4c4")
-  const bgDashIconMobile = useColorModeValue("greenBrand.100","black.100")
+  const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
+  const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
+  const dividerColor = useColorModeValue("#E7E7E7", "#353647");
+  const bgDashIcons = useColorModeValue("greenBrand.100", "black.200");
+  const bgDash = useColorModeValue("white", "black.100");
+  const borderColor = useColorModeValue("#E3E3E3", "#353647");
+  const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
+  const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box p="50px 8vw" bgColor={bgColor} h='100%' minH={'100vh'}>
-      <DarkModeSwitch/>
+    <Box p="50px 8vw" bgColor={bgColor} h="100%" minH={"100vh"}>
+      <DarkModeSwitch />
       <Tabs
         display={{ base: "none", "2sm": "block" }}
         onChange={(index) => setTabIndex(index)}
@@ -126,15 +136,27 @@ export const DigitalCard = () => {
                 >
                   Founder of virtual assets
                 </Text>
-                <Center mt='10px' color={'white'} borderRadius={'13px'} w='90px' h='26px' bgColor={bgViews}>
-                  <Box mr='10px' fontSize={'1.5rem'}><AiOutlineEye/></Box>
+                <Center
+                  mt="10px"
+                  color={"white"}
+                  borderRadius={"13px"}
+                  w="90px"
+                  h="26px"
+                  bgColor={bgViews}
+                >
+                  <Box mr="10px" fontSize={"1.5rem"}>
+                    <AiOutlineEye />
+                  </Box>
                   <Text>600</Text>
                 </Center>
               </Box>
             </Flex>
             <TabPanels w="100%">
               <TabPanel p="0">
-                <HStack mt="43px" spacing={{"2sm":"40px",lg:"80px",xl:'125px'}}>
+                <HStack
+                  mt="43px"
+                  spacing={{ "2sm": "40px", lg: "80px", xl: "125px" }}
+                >
                   <VStack spacing={"20px"}>
                     <Center
                       boxSize={"163px"}
@@ -176,11 +198,11 @@ export const DigitalCard = () => {
                   </VStack>
                 </HStack>
               </TabPanel>
-              <TabPanel p="0">
-                <Text mt="43px"  color={textColor}  fontWeight={"500"} fontSize={"1.5rem"}>
+              <TabPanel p="0" color={textColor}>
+                <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
                   About
                 </Text>
-                <Text mt="33px" lineHeight={'42px'} color={textColor} fontSize={"1.25rem"}>
+                <Text mt="33px" lineHeight={"42px"} fontSize={"1.25rem"}>
                   In publishing and graphic design, Lorem ipsum is a placeholder
                   text commonly used to demonstrate the In publishing and
                   graphic design, Lorem ipsum is a placeholder text commonly
@@ -190,8 +212,8 @@ export const DigitalCard = () => {
                 </Text>
               </TabPanel>
               <TabPanel p="0" color={textColor}>
-                <Text mt="43px" fontWeight={"500"}  fontSize={"1.5rem"}>
-                 {" Let's Connect"}
+                <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
+                  {" Let's Connect"}
                 </Text>
                 <Box
                   mt="15px"
@@ -228,7 +250,7 @@ export const DigitalCard = () => {
                         />
                       </Box>
                     </Center>
-                    <Text ml="35px" >Twitter</Text>
+                    <Text ml="35px">Twitter</Text>
                   </Flex>
                   <Flex alignItems={"center"} m="22px">
                     <Center
@@ -258,7 +280,7 @@ export const DigitalCard = () => {
                         />
                       </Box>
                     </Center>
-                    <Text ml="35px" >Facebook</Text>
+                    <Text ml="35px">Facebook</Text>
                   </Flex>
                   <Flex alignItems={"center"} m="22px">
                     <Center
@@ -275,10 +297,15 @@ export const DigitalCard = () => {
                     </Center>
                     <Text ml="35px">LinkedIn</Text>
                   </Flex>
+                  <Button w="173px" h="62px" m="22px" onClick={onOpen}>
+                    Send Message
+                  </Button>
+                  <SendMessage isOpen={isOpen} onClose={onClose} />
+                
                 </Box>
               </TabPanel>
               <TabPanel p="0" w="100%" color={textColor}>
-                <Text mt="43px" fontWeight={"500"}   fontSize={"1.5rem"}>
+                <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
                   About
                 </Text>
                 <Flex
@@ -367,7 +394,9 @@ export const DigitalCard = () => {
                     />
                   </Center>
                 </Center>
-                <Text fontSize={"1.125rem"}  color={textColor}>Save Contact</Text>
+                <Text fontSize={"1.125rem"} color={textColor}>
+                  Save Contact
+                </Text>
               </Center>
               <Center
                 w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
@@ -391,7 +420,9 @@ export const DigitalCard = () => {
                     />
                   </Center>
                 </Center>
-                <Text fontSize={"1.125rem"}  color={textColor}>Download brochure</Text>
+                <Text fontSize={"1.125rem"} color={textColor}>
+                  Download brochure
+                </Text>
               </Center>
               <Center
                 w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
@@ -415,7 +446,9 @@ export const DigitalCard = () => {
                     />
                   </Center>
                 </Center>
-                <Text fontSize={"1.125rem"} color={textColor} >Make payment</Text>
+                <Text fontSize={"1.125rem"} color={textColor}>
+                  Make payment
+                </Text>
               </Center>
             </VStack>
           </Box>
@@ -527,31 +560,38 @@ export const DigitalCard = () => {
               fontWeight="500"
               p="0"
               color={tabColorMobile}
-              _selected={{ color: textColor, borderBottom: `2px solid ${activeTabBorder}` }}
-
+              _selected={{
+                color: textColor,
+                borderBottom: `2px solid ${activeTabBorder}`,
+              }}
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
               About Us
             </Tab>
             <Tab
-             color={tabColorMobile}
+              color={tabColorMobile}
               fontWeight="500"
               fontSize={{ base: "0.875rem", xs: "1rem", sm: "1.125rem" }}
               p="0"
-              _selected={{ color: textColor, borderBottom: `2px solid ${activeTabBorder}` }}
-
+              _selected={{
+                color: textColor,
+                borderBottom: `2px solid ${activeTabBorder}`,
+              }}
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-            {"Let's Connect"}
+              {"Let's Connect"}
             </Tab>
             <Tab
               color={tabColorMobile}
               fontWeight="500"
               fontSize={{ base: "0.875rem", xs: "1rem", sm: "1.125rem" }}
               p="0"
-              _selected={{ color: textColor, borderBottom: `2px solid ${activeTabBorder}` }}
+              _selected={{
+                color: textColor,
+                borderBottom: `2px solid ${activeTabBorder}`,
+              }}
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
@@ -693,19 +733,18 @@ export const DigitalCard = () => {
                 <Flex
                   p="25px 0px"
                   alignItems={"center"}
-                  justifyContent='space-between'
+                  justifyContent="space-between"
                   borderBottom={`2px solid ${borderColor}`}
                 >
-                  <Flex alignItems={'center'}>
-                  <Box fontSize={"1.7rem"}>
-                    <FiPhone />
-                  </Box>
-                  <Box ml="27px">
-                    <Text>+91 9309719073</Text>
-                    <Text>+91 9309719073</Text>
-                  </Box>
+                  <Flex alignItems={"center"}>
+                    <Box fontSize={"1.7rem"}>
+                      <FiPhone />
+                    </Box>
+                    <Box ml="27px">
+                      <Text>+91 9309719073</Text>
+                      <Text>+91 9309719073</Text>
+                    </Box>
                   </Flex>
-                
 
                   <Button fontWeight={400} w="142px">
                     Call Now
