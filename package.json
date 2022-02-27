@@ -16,6 +16,7 @@
     "chakra-ui-steps": "^1.6.1",
     "cloudinary": "^1.28.1",
     "formik": "^2.2.9",
+    "formik-chakra-ui": "^1.6.0",
     "mongodb": "^4.3.1",
     "mongoose": "^6.2.1",
     "next": "latest",
