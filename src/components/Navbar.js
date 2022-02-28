@@ -56,6 +56,7 @@ export const Navbar = () => {
           transition="all 0.5s ease"
           minH={{base:"500px",lg:'0'}}
           pl={{base:"40px",lg:'0'}}
+          fontWeight='500'
         >
           <Flex
             d="flex"
