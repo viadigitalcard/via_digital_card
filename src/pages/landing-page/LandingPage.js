@@ -6,7 +6,6 @@ export const LandingPage = () => {
 
   return (
     <Box bgColor={bgColor} pt="60px">
-      <DarkModeSwitch />
     </Box>
   );
 };

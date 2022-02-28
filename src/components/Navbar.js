@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { MdClose } from "react-icons/md";
 import { BiMenu } from "react-icons/bi";
+
 export const Navbar = () => {
   const logo = useColorModeValue(
     "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
@@ -21,8 +22,10 @@ export const Navbar = () => {
   );
   const textColor = useColorModeValue("black", "white");
   const [openNavbar, setOpenNavbar] = useState(false);
+  const bgColor = useColorModeValue("white", "black.200");
+
   return (
-    <Box pt="60px" pos="relative">
+    <Box bgColor={bgColor} pt="60px" pos="relative">
       <Flex p="0px 50px" alignItems={"center"} justifyContent="space-between">
         <Box flexShrink={"0"}>
           <Image src={logo} alt="" />
@@ -32,6 +35,7 @@ export const Navbar = () => {
           fontSize={"2rem"}
           display={{base:"block",lg:'none'}}
           onClick={() => setOpenNavbar(true)}
+          color={textColor}
         >
           <BiMenu />
         </Box>
@@ -39,11 +43,11 @@ export const Navbar = () => {
           pos={{ base: "absolute", lg: "static" }}
           top="0"
           right="0"
-          bgColor={'white'}
+          bgColor={bgColor}
           w={{ base: "100%", xs: "300px", lg: "100%" }}
           h={{ base: "100vh", lg: "max-content" }}
           alignItems={"center"}
-          opacity={openNavbar ? "100%" : "0"}
+          opacity={{base:openNavbar ? "100%" : "0",lg:'100%'}}
           flexDir={{ base: "column", lg: "row" }}
           alignItems={{ base: "flex-start", lg: "center" }}
           justifyContent={{base:"center",lg:'flex-end'}}
