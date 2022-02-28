@@ -3,6 +3,7 @@ import { Box, useColorModeValue } from "@chakra-ui/react";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 import { Hero } from '../../components/landing-page/Hero'
 import { Review } from "../../components/landing-page/Review";
+import { About } from "../../components/landing-page/About";
 export const LandingPage = () => {
   const bgColor = useColorModeValue("white", "black.200");
 
@@ -10,6 +11,7 @@ export const LandingPage = () => {
     <Box bgColor={bgColor}>
       <Hero/>
       <Review/>
+      <About/>
     </Box>
   );
 };

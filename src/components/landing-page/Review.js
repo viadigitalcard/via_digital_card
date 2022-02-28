@@ -33,8 +33,7 @@ export const Review = () => {
       pos="relative"
       flexDir={"column"}
       w="100%"
-      h="90vh"
-      minH="750px"
+      p='150px 0px'
       color={textColor}
     >
       <Box pos="absolute" left={"5%"} bottom="30%">
@@ -44,7 +43,7 @@ export const Review = () => {
         />
       </Box>
 
-      <Box pos="absolute" top="10%" right="5%">
+      <Box pos="absolute" top="20%" right="15%">
         <Image
           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033627/digital%20card/landing-page/doodle-one_zanfpm.png"
           alt="ribbon"
@@ -132,7 +131,7 @@ export const Review = () => {
 
         <Button
           onClick={() => handleSlides()}
-          fontSize={"1.125rem"}
+          fontSize={"1.5rem"}
           mt="20px"
           w="190px"
           h="73px"
