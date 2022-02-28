@@ -4,6 +4,7 @@ import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 import { Hero } from '../../components/landing-page/Hero'
 import { Review } from "../../components/landing-page/Review";
 import { About } from "../../components/landing-page/About";
+import { Footer } from "../../components/landing-page/Footer";
 export const LandingPage = () => {
   const bgColor = useColorModeValue("white", "black.200");
 
@@ -12,6 +13,7 @@ export const LandingPage = () => {
       <Hero/>
       <Review/>
       <About/>
+      <Footer/>
     </Box>
   );
 };
