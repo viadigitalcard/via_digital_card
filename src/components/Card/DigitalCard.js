@@ -30,20 +30,22 @@ import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 import { SendMessage } from "../modals/SendMessage";
-export const DigitalCard = () => {
+const [tabIndex, setTabIndex] = React.useState(0);
+const bgColor = useColorModeValue("white", "black.200");
+const bgViews = useColorModeValue("greenBrand.100", "black.100");
+const textColor = useColorModeValue("black", "white");
+const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
+const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
+const dividerColor = useColorModeValue("#E7E7E7", "#353647");
+const bgDashIcons = useColorModeValue("greenBrand.100", "black.200");
+const bgDash = useColorModeValue("white", "black.100");
+const borderColor = useColorModeValue("#E3E3E3", "#353647");
+const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
+const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
+const { isOpen, onOpen, onClose } = useDisclosure();
+import { AiOutlineMail } from "react-icons/ai";
+export const DigitalCard = ({ data }) => {
   const [tabIndex, setTabIndex] = React.useState(0);
-  const bgColor = useColorModeValue("white", "black.200");
-  const bgViews = useColorModeValue("greenBrand.100", "black.100");
-  const textColor = useColorModeValue("black", "white");
-  const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
-  const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
-  const dividerColor = useColorModeValue("#E7E7E7", "#353647");
-  const bgDashIcons = useColorModeValue("greenBrand.100", "black.200");
-  const bgDash = useColorModeValue("white", "black.100");
-  const borderColor = useColorModeValue("#E3E3E3", "#353647");
-  const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
-  const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box p="50px 8vw" bgColor={bgColor} h="100%" minH={"100vh"}>
       <DarkModeSwitch />
@@ -124,7 +126,7 @@ export const DigitalCard = () => {
                   fontWeight={{ base: "600", "2sm": "500" }}
                   color={textColor}
                 >
-                  Diana Hopper
+                  {data.Name}
                 </Text>
                 <Text
                   fontSize={{
@@ -134,7 +136,7 @@ export const DigitalCard = () => {
                   }}
                   color={"gray.100"}
                 >
-                  Founder of virtual assets
+                  Founder of {data.companyName}
                 </Text>
                 <Center
                   mt="10px"
@@ -202,13 +204,8 @@ export const DigitalCard = () => {
                 <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
                   About
                 </Text>
-                <Text mt="33px" lineHeight={"42px"} fontSize={"1.25rem"}>
-                  In publishing and graphic design, Lorem ipsum is a placeholder
-                  text commonly used to demonstrate the In publishing and
-                  graphic design, Lorem ipsum is a placeholder text commonly
-                  used to demonstrate the In publishing and graphic design,
-                  Lorem ipsum is a placeholder text commonly used to demonstrate
-                  the
+                <Text mt="33px" fontSize={"1.25rem"}>
+                  {data.bio}
                 </Text>
               </TabPanel>
               <TabPanel p="0" color={textColor}>
@@ -301,7 +298,6 @@ export const DigitalCard = () => {
                     Send Message
                   </Button>
                   <SendMessage isOpen={isOpen} onClose={onClose} />
-                
                 </Box>
               </TabPanel>
               <TabPanel p="0" w="100%" color={textColor}>
@@ -322,7 +318,7 @@ export const DigitalCard = () => {
                     <Box fontSize={"1.7rem"} color={textColor}>
                       <GoLocation color={textColor} />
                     </Box>
-                    <Text ml="27px">Via creative tech LLP, Virar</Text>
+                    <Text ml="27px">{data.address}</Text>
                   </Flex>
                   <Flex
                     p="25px 0px"
@@ -345,7 +341,7 @@ export const DigitalCard = () => {
                     <Box fontSize={"1.7rem"}>
                       <VscGlobe />
                     </Box>
-                    <Text ml="27px">www.viacreativetech.com</Text>
+                    <Text ml="27px">{data.website}</Text>
                   </Flex>
                   <Flex
                     p="25px 0px"
@@ -355,7 +351,7 @@ export const DigitalCard = () => {
                     <Box fontSize={"1.7rem"}>
                       <AiOutlineMail />
                     </Box>
-                    <Text ml="27px">aks@viacreativetech.com</Text>
+                    <Text ml="27px">{data.email}</Text>
                   </Flex>
                 </Flex>
               </TabPanel>
@@ -476,7 +472,7 @@ export const DigitalCard = () => {
                 fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                 fontWeight={{ base: "600", "2sm": "500" }}
               >
-                Diana Hopper
+                {data.Name}
               </Text>
               <Text
                 fontSize={{
@@ -486,7 +482,7 @@ export const DigitalCard = () => {
                 }}
                 color={"gray.100"}
               >
-                Founder of virtual assets
+                Founder of {data.companyName}
               </Text>
             </Box>
           </Flex>
@@ -611,17 +607,7 @@ export const DigitalCard = () => {
                 mt="13px"
                 fontSize={{ base: "0.75rem", xs: "0.875rem", sm: "1rem" }}
               >
-                Hey there! My teenage went entirely in the Social Media Boom and
-                hence when life wanted me to start something, I chose Social
-                Media itself, started Via Creative Tech & Via Tech Media with
-                two of my friends. We turn any normal business into a BRAND! In
-                the 3rd year of high school, I embarked on the journey to
-                various entrepreneurial ventures but faced criticism from almost
-                everyone I knew. I have been criticised by the society at all
-                stages of my life.I have seen ups and mostly downs and one thing
-                I can say… “God shuffled the cards, dealt me a hand with
-                impossible odds, Put an obstacle course up and look how I will
-                conquer them all.”
+                {data.bio}
               </Text>
             </TabPanel>
             <TabPanel p="0">
@@ -728,7 +714,7 @@ export const DigitalCard = () => {
                   <Box fontSize={"1.7rem"}>
                     <GoLocation />
                   </Box>
-                  <Text ml="27px">Via creative tech LLP, Virar</Text>
+                  <Text ml="27px">{data.address}</Text>
                 </Flex>
                 <Flex
                   p="25px 0px"
@@ -758,7 +744,7 @@ export const DigitalCard = () => {
                   <Box fontSize={"1.7rem"}>
                     <VscGlobe />
                   </Box>
-                  <Text ml="27px">www.viacreativetech.com</Text>
+                  <Text ml="27px">{data.website}</Text>
                 </Flex>
                 <Flex
                   p="25px 0px"
@@ -768,7 +754,7 @@ export const DigitalCard = () => {
                   <Box fontSize={"1.7rem"}>
                     <AiOutlineMail />
                   </Box>
-                  <Text ml="27px">aks@viacreativetech.com</Text>
+                  <Text ml="27px">{data.email}</Text>
                 </Flex>
               </Flex>
             </TabPanel>

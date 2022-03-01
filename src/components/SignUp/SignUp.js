@@ -49,7 +49,6 @@ export default function SignUp() {
       .oneOf([Yup.ref("password")], "Password does not matched")
       .required("Required"),
   });
-
   const router = useRouter();
 
   const handleSubmit = async (values) => {

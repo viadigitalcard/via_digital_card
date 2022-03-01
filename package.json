@@ -16,6 +16,7 @@
     "chakra-ui-steps": "^1.6.1",
     "cloudinary": "^1.28.1",
     "formik": "^2.2.9",
+    "formik-chakra-ui": "^1.6.0",
     "mongodb": "^4.3.1",
     "mongoose": "^6.2.1",
     "next": "latest",
@@ -25,6 +26,7 @@
     "react-hook-form": "^7.27.0",
     "react-icons": "^4.3.1",
     "swiper": "^8.0.6",
+    "recoil": "^0.6.1",
     "vcards-js": "^2.10.0",
     "yup": "^0.32.11"
   },
