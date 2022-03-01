@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Tabs,
   TabList,
@@ -15,37 +15,30 @@ import {
   Button,
   useColorModeValue,
   useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Link,
 } from "@chakra-ui/react";
-import { GrLocation } from "react-icons/gr";
+
 import { FiPhone } from "react-icons/fi";
 import { VscGlobe } from "react-icons/vsc";
 import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 import { SendMessage } from "../modals/SendMessage";
-const [tabIndex, setTabIndex] = React.useState(0);
-const bgColor = useColorModeValue("white", "black.200");
-const bgViews = useColorModeValue("greenBrand.100", "black.100");
-const textColor = useColorModeValue("black", "white");
-const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
-const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
-const dividerColor = useColorModeValue("#E7E7E7", "#353647");
-const bgDashIcons = useColorModeValue("greenBrand.100", "black.200");
-const bgDash = useColorModeValue("white", "black.100");
-const borderColor = useColorModeValue("#E3E3E3", "#353647");
-const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
-const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
-const { isOpen, onOpen, onClose } = useDisclosure();
-import { AiOutlineMail } from "react-icons/ai";
+
 export const DigitalCard = ({ data }) => {
-  const [tabIndex, setTabIndex] = React.useState(0);
+  const bgColor = useColorModeValue("white", "black.200");
+  const bgViews = useColorModeValue("greenBrand.100", "black.100");
+  const textColor = useColorModeValue("black", "white");
+  const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
+  const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
+  const dividerColor = useColorModeValue("#E7E7E7", "#353647");
+  const bgDashIcons = useColorModeValue("greenBrand.100", "black.200");
+  const bgDash = useColorModeValue("white", "black.100");
+  const borderColor = useColorModeValue("#E3E3E3", "#353647");
+  const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
+  const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [tabIndex, setTabIndex] = useState(0);
   return (
     <Box p="50px 8vw" bgColor={bgColor} h="100%" minH={"100vh"}>
       <DarkModeSwitch />
@@ -126,7 +119,7 @@ export const DigitalCard = ({ data }) => {
                   fontWeight={{ base: "600", "2sm": "500" }}
                   color={textColor}
                 >
-                  {data.Name}
+                  {data.name}
                 </Text>
                 <Text
                   fontSize={{
@@ -136,7 +129,7 @@ export const DigitalCard = ({ data }) => {
                   }}
                   color={"gray.100"}
                 >
-                  Founder of {data.companyName}
+                  {data.designation}
                 </Text>
                 <Center
                   mt="10px"
@@ -219,7 +212,7 @@ export const DigitalCard = ({ data }) => {
                   flexWrap="wrap"
                   fontSize={"1.125rem"}
                 >
-                  <Flex alignItems={"center"} m="22px">
+                  {/* <Flex alignItems={"center"} m="22px">
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
@@ -233,8 +226,8 @@ export const DigitalCard = ({ data }) => {
                       </Box>
                     </Center>
                     <Text ml="35px">Whatsapp</Text>
-                  </Flex>
-                  <Flex alignItems={"center"} m="22px">
+                  </Flex> */}
+                  {/* <Flex alignItems={"center"} m="22px">
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
@@ -248,14 +241,14 @@ export const DigitalCard = ({ data }) => {
                       </Box>
                     </Center>
                     <Text ml="35px">Twitter</Text>
-                  </Flex>
+                  </Flex> */}
                   <Flex alignItems={"center"} m="22px">
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
                       border={`2px solid ${borderColor}`}
                     >
-                      <Box>
+                      <Box as={Link} href={data.socialLinks.instagram}>
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090239/digital%20card/card/insta_h2qzlb.png"
                           alt=""
@@ -270,7 +263,7 @@ export const DigitalCard = ({ data }) => {
                       borderRadius="12px"
                       border={`2px solid ${borderColor}`}
                     >
-                      <Box>
+                      <Box as={Link} href={data.socialLinks.facebook}>
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090321/digital%20card/card/face_kl3lx6.png"
                           alt=""
@@ -285,7 +278,7 @@ export const DigitalCard = ({ data }) => {
                       borderRadius="12px"
                       border={`2px solid ${borderColor}`}
                     >
-                      <Box>
+                      <Box as={Link} href={data.socialLinks.linkedin}>
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090242/digital%20card/card/linked_cfyslj.png"
                           alt=""
@@ -442,7 +435,12 @@ export const DigitalCard = ({ data }) => {
                     />
                   </Center>
                 </Center>
-                <Text fontSize={"1.125rem"} color={textColor}>
+                <Text
+                  as={Link}
+                  href={data.payment}
+                  fontSize={"1.125rem"}
+                  color={textColor}
+                >
                   Make payment
                 </Text>
               </Center>
@@ -472,7 +470,7 @@ export const DigitalCard = ({ data }) => {
                 fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                 fontWeight={{ base: "600", "2sm": "500" }}
               >
-                {data.Name}
+                {data.name}
               </Text>
               <Text
                 fontSize={{
@@ -482,7 +480,7 @@ export const DigitalCard = ({ data }) => {
                 }}
                 color={"gray.100"}
               >
-                Founder of {data.companyName}
+                {data.designation}
               </Text>
             </Box>
           </Flex>
@@ -541,6 +539,8 @@ export const DigitalCard = ({ data }) => {
                 </Box>
               </Center>
               <Text
+                as={Link}
+                href={data.payment}
                 fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                 color={"#ABABAB"}
               >
