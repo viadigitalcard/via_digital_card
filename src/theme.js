@@ -36,6 +36,11 @@ const theme = extendTheme({
     gray: {
       100: "#8A8A8A",
       200: "#E7E7E7",
+      300:"#646468"
+    },
+    black:{
+      100:"#353647",
+      200:"#242734"
     },
     brand: {
       100: "#7ECE05",
@@ -81,6 +86,7 @@ const theme = extendTheme({
         },
       },
     },
+   
     Image: {
       width: "100%",
       height: "100%",
