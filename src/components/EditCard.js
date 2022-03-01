@@ -1,23 +1,12 @@
 import React, { useState } from "react";
-
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useRouter } from "next/router";
-import {
-  Modal,
-  useDisclosure,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
+import { Input, FormControl, FormErrorMessage } from "@chakra-ui/react";
 
 export default function Card({ inputData }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  // console.table(inputData);
   const contentType = "application/json";
   const [data, setData] = useState({
-    card_id: "",
+    card_id: inputData.card_id,
     Name: inputData.Name,
     profilePhoto: inputData.profilePhoto,
     email: inputData.email,
@@ -49,13 +38,14 @@ export default function Card({ inputData }) {
     e.preventDefault();
     console.log("datttaaa", data);
     const response = await fetch("/api/cards", {
-      method: "POST",
+      method: "PUT",
       headers: {
         Accept: contentType,
         "Content-Type": contentType,
       },
       body: JSON.stringify({
-        card_id: session.user.id,
+        _id: inputData._id,
+        card_id: data.card_id,
         Name: data.Name,
         profilePhoto: data.profilePhoto,
         email: data.email,
@@ -71,103 +61,97 @@ export default function Card({ inputData }) {
       }),
     });
     const responseData = await response.json();
-    // console.log(responseData);
+    console.log(responseData);
     router.replace("/userscard");
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            placeholder="First Name"
-            value={data.Name}
-            name="Name"
-            onChange={handleChange}
-            required
-            autoFocus
-          />
-          <input
-            placeholder="profilePhoto"
-            name="profilePhoto"
-            value={data.profilePhoto}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <input
-          placeholder="email"
-          name="email"
-          value={data.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          placeholder="userName"
-          name="userName"
-          value={data.userName}
-          onChange={handleChange}
-          required
-        />
-        <input
-          placeholder="companyName"
-          name="companyName"
-          value={data.companyName}
-          onChange={handleChange}
-          required
-        />
-        <input
-          placeholder="address"
-          name="address"
-          value={data.address}
-          onChange={handleChange}
-          required
-        />
-        <input
-          placeholder="designation"
-          name="designation"
-          value={data.designation}
-          onChange={handleChange}
-          required
-        />
-        <input
-          placeholder="tagline"
-          name="tagline"
-          value={data.tagline}
-          onChange={handleChange}
-          required
-        />
-        <input
-          placeholder="bio"
-          name="bio"
-          value={data.bio}
-          onChange={handleChange}
-          required
-        />
-        <input
-          placeholder="website"
-          name="website"
-          value={data.website}
-          onChange={handleChange}
-          required
-        />
-        <input
-          placeholder="ytVideo"
-          name="ytVideo"
-          value={data.ytVideo}
-          onChange={handleChange}
-          required
-        />
-        <input
-          placeholder="paymentLink"
-          name="paymentLink"
-          value={data.paymentLink}
-          onChange={handleChange}
-          required
-        />
-
-        <button>Submit</button>
-      </form>
+      <Formik
+        validationSchema={validationSchema}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+      >
+        {(props) => (
+          <Form>
+            <Field name="name">
+              {({ field, form }) => (
+                <FormControl
+                  isInvalid={
+                    (form.errors.name && form.touched.name) || errorMessage
+                  }
+                >
+                  <Input
+                    placeholder="Enter Name"
+                    w="full"
+                    h="60px"
+                    marginTop={15}
+                    size="lg"
+                    variant="outline"
+                    focusBorderColor="#88E000"
+                    color={textColor}
+                    {...field}
+                  />
+                  <FormErrorMessage>
+                    {form.errors.name || errorMessage}{" "}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+            <Field name="email">
+              {({ field, form }) => (
+                <FormControl
+                  // onChange={(e) => handleChanges(e.target.value)}
+                  isInvalid={
+                    (form.errors.email && form.touched.email) || errorMessage
+                  }
+                >
+                  <Input
+                    placeholder="Enter email address"
+                    mt="20px"
+                    id="email"
+                    w="full"
+                    h="60px"
+                    size="lg"
+                    variant="outline"
+                    {...field}
+                    color={textColor}
+                  />
+                  <FormErrorMessage>
+                    {form.errors.email || errorMessage}{" "}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+            <Field name="username">
+              {({ field, form }) => (
+                <FormControl
+                  // onChange={handleSubmit}
+                  isInvalid={
+                    (form.errors.username && form.touched.username) ||
+                    errorMessage
+                  }
+                >
+                  <Input
+                    placeholder="Enter Username"
+                    w="full"
+                    h="60px"
+                    marginTop={15}
+                    size="lg"
+                    variant="outline"
+                    focusBorderColor="#88E000"
+                    color={textColor}
+                    {...field}
+                  />
+                  <FormErrorMessage>
+                    {form.errors.name || errorMessage}{" "}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }

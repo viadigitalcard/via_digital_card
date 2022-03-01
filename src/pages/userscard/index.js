@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { getSession, signOut, useSession } from "next-auth/react";
 import CreateDigiCard from "../../components/CreateDigiCard";
-import EditCard from "../../components/EditCard";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import dbConnect from "../../lib/dbConnect";
@@ -44,26 +44,6 @@ const Usercard = ({ Cards }) => {
               <Link href="card/[cardId]" as={`card/${res._id}`}>
                 <Button>View</Button>
               </Link>
-              <Button onClick={onOpen} ml="10px">
-                Edit
-              </Button>
-
-              <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                  <ModalHeader>{res.Name}'s card edit</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
-                    <EditCard inputData={res} />
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button variant="ghost" mr={3} onClick={onClose}>
-                      Close
-                    </Button>
-                    <Button>Update</Button>
-                  </ModalFooter>
-                </ModalContent>
-              </Modal>
 
               <div>---------------------------</div>
             </div>

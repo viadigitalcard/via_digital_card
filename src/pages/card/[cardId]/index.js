@@ -6,14 +6,25 @@ import {
   MenuList,
   IconButton,
   MenuItem,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import dbConnect from "../../../lib/dbConnect";
+import EditCard from "../../../components/EditCard";
 import Card from "../../../models/Card";
 import { DigitalCard } from "../../../components/Card/DigitalCard";
-import { DeleteIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
 const Cards = ({ Card }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -44,15 +55,41 @@ const Cards = ({ Card }) => {
           right={["25px", "25px", "50px"]}
           top={["50px", "50px", "50px"]}
         >
+          {/* <Button onClick={onOpen} ml="10px">
+            Edit
+          </Button> */}
+
+          <Modal isOpen={isOpen} onClose={onClose} size="lg">
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>{Card.Name}'s card edit</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <EditCard inputData={Card} />
+              </ModalBody>
+              <ModalFooter>
+                <Button variant="ghost" mr={3} onClick={onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
           <Menu>
             <MenuButton as={IconButton} icon={<HamburgerIcon />} />
-            <MenuList bgColor="brand.100" w="20px">
+            <MenuList bgColor="brand.100" color="white" w="20px">
               <MenuItem
-                _hover={{ bg: "white" }}
+                // _hover={{ bg: "white" }}
                 onClick={handleDelete}
                 icon={<DeleteIcon />}
               >
                 Delete
+              </MenuItem>
+              <MenuItem
+                // _hover={{ bg: "white" }}
+                onClick={onOpen}
+                icon={<EditIcon />}
+              >
+                Edit
               </MenuItem>
             </MenuList>
           </Menu>
