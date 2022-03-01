@@ -13,6 +13,9 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  premiumUser: {
+    type: Boolean,
+  },
 });
 
 export default mongoose.models.User ||

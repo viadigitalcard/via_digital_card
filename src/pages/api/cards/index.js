@@ -3,6 +3,7 @@ import dbConnect from "../../../lib/dbConnect";
 
 export default async function handler(req, res) {
   const { method } = req;
+
   const { _id } = req.body;
   console.log("from edit card", _id);
   await dbConnect();
@@ -26,7 +27,7 @@ export default async function handler(req, res) {
       try {
         const card = await Card.create(req.body);
         /* create a new model in the database */
-        res.status(201).json({ success: true, data: card });
+        res.status(201).json({ success: true, values: card });
       } catch (error) {
         res.status(400).json({ success: false });
       }
