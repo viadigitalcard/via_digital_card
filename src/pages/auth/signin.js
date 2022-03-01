@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import { getSession, signIn, signOut } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SignIn } from "../../components/SignIn/SignIn";
 
