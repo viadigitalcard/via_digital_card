@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { mixed, number, object, string } from "yup";
-import { Step, Steps, useSteps } from "chakra-ui-steps";
+import { object, string } from "yup";
+import { Step, Steps } from "chakra-ui-steps";
 import {
   VStack,
   Flex,
   Box,
-  Heading,
   Avatar,
   Text,
   Input,
   HStack,
   Image,
   Center,
-  Spacer,
-  Grid,
   Button,
   Stack,
   FormControl,
@@ -37,13 +34,6 @@ const steps = [
     label: "Links",
   },
 ];
-
-const image1 =
-  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg";
-const image2 =
-  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823994/digital%20card/form/Saly-16_wvbxda.svg";
-const image3 =
-  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823979/digital%20card/form/Saly-15_1_zhlfjw.svg";
 
 function Card() {
   const { data: session, status } = useSession();
@@ -83,9 +73,6 @@ function Card() {
     console.log(values);
   }
   const [errorMessage, seterrorMessage] = useState("");
-  const { nextStep, prevStep, activeStep } = useSteps({
-    initialStep: 0,
-  });
   const textColor = useColorModeValue("gray.800", "white");
 
   return (
@@ -118,7 +105,6 @@ function Card() {
             <Image
               h="95%"
               minHeight="90%"
-              // src={ImgSrc}
               src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg"
             />
           </Box>
@@ -126,7 +112,6 @@ function Card() {
         <Box zIndex="1" h="100%" as={Center} w={["100%", "100%", "60%"]}>
           <Box as={Center} w="70vh" h="90vh">
             <Box
-              // border="2px solid red"
               as={Flex}
               flexDirection="column"
               justifyContent="space-evenly"
@@ -155,7 +140,6 @@ function Card() {
                   },
                 }}
                 w="100%"
-                // border="2px solid red"
                 h="full"
                 overflow="auto"
               >
@@ -164,10 +148,7 @@ function Card() {
                   fontFamily="mono"
                   fontStyle="normal"
                   textAlign="center"
-                  // mt="60%"
-                  // border="2px solid red"
                   p="6% 0% 6% 0%"
-                  // h="200px"
                 >
                   Via Digital Card
                 </Text>
