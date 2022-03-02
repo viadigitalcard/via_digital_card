@@ -17,7 +17,7 @@ import {
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
-
+import FileSaver from "file-saver";
 import { FiPhone } from "react-icons/fi";
 import { VscGlobe } from "react-icons/vsc";
 import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
@@ -39,6 +39,43 @@ export const DigitalCard = ({ data }) => {
   const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tabIndex, setTabIndex] = useState(0);
+
+  //Vcard
+  function handleSave(e) {
+    e.preventDefault();
+    var file = new Blob(
+      [
+        `BEGIN:VCARD
+        VERSION:3.0
+        N:${data.name};;;;
+        FN:${data.name}
+        TITLE:${data.designation};
+        EMAIL;type=INTERNET;type=pref:${data.email}
+        ADR;type=WORK;type=pref:;;;${data.address};;;
+        URL:${data.website}
+        END:VCARD
+  `,
+      ],
+      { type: "text/vcard;charset=utf-8" }
+    );
+    let a = document.createElement("a");
+    a.download = `${data.name}.vcf`;
+    a.href = URL.createObjectURL(file);
+    var reader = new FileReader();
+    if (navigator.userAgent.match("CriOS")) {
+      reader.onloadend = (e) => {
+        window.open(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else if (navigator.userAgent.match(/iPad|iPhone|Android/i)) {
+      reader.onload = (e) => {
+        window.location.href = reader.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      FileSaver.saveAs(file, `${data.name}.vcf`, true);
+    }
+  }
   return (
     <Box p="50px 8vw" bgColor={bgColor} h="100%" minH={"100vh"}>
       <DarkModeSwitch />
@@ -154,6 +191,8 @@ export const DigitalCard = ({ data }) => {
                 >
                   <VStack spacing={"20px"}>
                     <Center
+                      as={Button}
+                      onClick={handleSave}
                       boxSize={"163px"}
                       bgColor="greenBrand.100"
                       borderRadius={"35px"}
@@ -369,8 +408,12 @@ export const DigitalCard = ({ data }) => {
                 bgColor={bgDash}
                 borderRadius={"18px"}
                 boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
+                // as={Button}
+                onClick={handleSave}
+                // onClick={handleSave}
               >
                 <Center
+                  as={Button}
                   boxSize={"87px"}
                   bgColor={bgDashIcons}
                   borderRadius={"17px"}
@@ -490,6 +533,7 @@ export const DigitalCard = ({ data }) => {
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
                 bgColor={bgDashIconMobile}
+                onClick={handleSave}
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
