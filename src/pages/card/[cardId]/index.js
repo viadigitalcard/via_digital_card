@@ -59,7 +59,7 @@ const Cards = ({ Card }) => {
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>{Card.Name}'s card edit</ModalHeader>
+                <ModalHeader>{Card.name}'s card edit</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                   <EditCard inputData={Card} />
