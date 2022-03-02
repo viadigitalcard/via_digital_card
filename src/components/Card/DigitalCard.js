@@ -522,7 +522,7 @@ export const DigitalCard = ({ data }) => {
                 fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                 color={"#ABABAB"}
               >
-                Download borchure
+                Download brochure
               </Text>
             </VStack>
             <VStack spacing={"10px"}>

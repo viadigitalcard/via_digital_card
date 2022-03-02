@@ -263,7 +263,7 @@ export default function SignUp() {
                       w={["300px", "300px", "380px"]}
                       mt={10}
                     >
-                      Sign In
+                      Sign Up
                     </Button>
                   </Center>
                 </Form>
