@@ -1,11 +1,15 @@
 import Card from "../../../models/Card";
 import dbConnect from "../../../lib/dbConnect";
-
+import { getSession } from "next-auth/react";
 export default async function handler(req, res) {
+  const session = await getSession({ req });
   const { method } = req;
-
+  const data = req.body;
+  const cardData = {
+    card_id: session && session?.user?.id,
+    ...data,
+  };
   const { _id } = req.body;
-  console.log("from edit card", _id);
   await dbConnect();
 
   switch (method) {
@@ -25,7 +29,7 @@ export default async function handler(req, res) {
       break;
     case "POST":
       try {
-        const card = await Card.create(req.body);
+        const card = await Card.create(cardData);
         /* create a new model in the database */
         res.status(201).json({ success: true, values: card });
       } catch (error) {

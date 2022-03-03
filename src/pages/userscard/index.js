@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import dbConnect from "../../lib/dbConnect";
 import Card from "../../models/Card";
 import { CardList } from "../../components/Card/CardList";
@@ -13,6 +13,7 @@ const Usercard = ({ Cards }) => {
       </Head>
       <>
         <CardList />
+        <button onClick={signOut}>sss</button>
       </>
     </>
   );
