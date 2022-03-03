@@ -15,7 +15,7 @@ const Usercard = ({ Cards }) => {
       <>
         <DarkModeSwitch />
         {Cards && Cards.map((res, i) => <CardList key={i} data={res} />)}
-        <button onClick={signOut}></button>
+        <button onClick={signOut}>signout</button>
       </>
     </>
   );
