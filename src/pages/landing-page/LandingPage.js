@@ -11,8 +11,8 @@ export const LandingPage = () => {
 
   return (
     <Box bgColor={bgColor}>
-      <Hero/>
-      {/* <Review/> */}
+      {/* <Hero/> */}
+      <Review/>
       {/* <About/> */}
       {/* <Contact/> */}
       {/* <Footer/> */}
