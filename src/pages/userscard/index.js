@@ -1,11 +1,12 @@
 import Head from "next/head";
-import { getSession, signOut } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 import dbConnect from "../../lib/dbConnect";
 import Card from "../../models/Card";
 import { CardList } from "../../components/Card/CardList";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 
 const Usercard = ({ Cards }) => {
+  console.log(Cards);
   return (
     <>
       <Head>
@@ -13,9 +14,9 @@ const Usercard = ({ Cards }) => {
         <meta name="description" content="Card" />
       </Head>
       <>
+        <button onClick={signOut}>sign out</button>
         <DarkModeSwitch />
         {Cards && Cards.map((res, i) => <CardList key={i} data={res} />)}
-        <button onClick={signOut}>signout</button>
       </>
     </>
   );
