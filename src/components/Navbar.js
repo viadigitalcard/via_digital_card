@@ -26,7 +26,7 @@ export const Navbar = () => {
 
   return (
     <Box bgColor={bgColor} pt="60px" pos="relative">
-      <Flex p="0px 50px" alignItems={"center"} justifyContent="space-between">
+      <Flex p={{base:"0  20px",xs:"0px 50px"}} alignItems={"center"} justifyContent="space-between">
         <Box flexShrink={"0"}>
           <Image src={logo} alt="" />
         </Box>
@@ -57,6 +57,7 @@ export const Navbar = () => {
           minH={{base:"500px",lg:'0'}}
           pl={{base:"40px",lg:'0'}}
           fontWeight='500'
+          zIndex={3}
         >
           <Flex
             d="flex"

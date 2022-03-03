@@ -22,42 +22,48 @@ export const Hero = () => {
   );
   return (
     <Center pos="relative" flexDir={"column"} w="100%" p='150px 0px' color={textColor}>
-      <Box pos="absolute" left="50px" top="10%">
+      <Box pos={{base:"static",lg:'absolute'}} left="50px" top="10%">
         <Image src={imageLeft} alt="" />
       </Box>
-      <Box pos="absolute" right="50px" bottom={"15%"}>
+      <Box pos="absolute"  d={{base:'none',lg:"block"}} right="50px" bottom={"15%"}>
         <Image src={imageRight} alt="" />
       </Box>
-      <Box pos="absolute" right={"15%"} top="10%">
+      <Box pos="absolute"  d={{base:'none',lg:"block"}} right={"15%"}  top="10%">
         <Image
           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033631/digital%20card/landing-page/doodle-two_sfme7d.png"
           alt="candy"
         />
       </Box>
-      <Box pos="absolute" left={"10%"} bottom="25%">
+      <Box pos="absolute" boxSize={{base:"36px",sm:'auto'}}  d={{base:'block',lg:"none"}} left={"0"}  top="35%">
         <Image
           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033631/digital%20card/landing-page/doodle-two_sfme7d.png"
           alt="candy"
         />
       </Box>
-      <Box pos="absolute" top="10%" left="30%">
+      <Box pos="absolute" boxSize={{base:"36px",sm:'auto'}} left={{base:"0",lg:"10%"}} bottom={{base:"5%",lg:'25%'}}>
+        <Image
+          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033631/digital%20card/landing-page/doodle-two_sfme7d.png"
+          alt="candy"
+        />
+      </Box>
+      <Box pos="absolute" boxSize={{base:"36px",sm:'auto'}} top="10%" left={{base:"90%",lg:"30%"}}>
         <Image
           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033627/digital%20card/landing-page/doodle-one_zanfpm.png"
           alt="ribbon"
         />
       </Box>
-      <Box pos="absolute" right="10%" bottom={"10%"}>
+      <Box pos="absolute" boxSize={{base:"36px",sm:'auto'}} right={{base:0,lg:"10%"}} bottom={"10%"}>
         <Image
           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033627/digital%20card/landing-page/doodle-one_zanfpm.png"
           alt="ribbon"
         />
       </Box>
-      <Box zIndex={2} d="flex" flexDir={"column"} alignItems="center">
-        <Text fontWeight={"500"} fontSize="2.25rem">
+      <Box zIndex={2} mt={{base:"50px",lg:0}} d="flex" flexDir={"column"} alignItems="center">
+        <Text fontWeight={"500"} fontSize={{base:"2rem",lg:"2.25rem"}}>
           {" "}
           Digital Evolution
         </Text>
-        <Box w="600px" mt="40px" lineHeight={"39px"} textAlign={"center"}>
+        <Box w={{base:"90%",sm:"600px"}} mt="40px" lineHeight={"39px"} textAlign={"center"}>
           Evolving and adapting has never proved to be more important than now.
           One can only survive changing times if they’re changing with it. The
           days of printing a thousand visiting cards in order to help gain
@@ -65,7 +71,7 @@ export const Hero = () => {
           deal and it’s revolutionary.
         </Box>
         <Text fontSize={"1.125rem"}></Text>
-        <Button fontSize={"1.125rem"} mt="40px" w="281px" h="60px">
+        <Button fontSize={"1.125rem"} mt="40px" w={{base:"188px",lg:"281px"}} h="60px">
           Create Now
         </Button>
       </Box>
