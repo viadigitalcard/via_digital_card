@@ -14,18 +14,18 @@ import {
   Button,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   useColorModeValue,
+  Center,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form } from "formik";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 
 export default function SignUp() {
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
-  const color = useColorModeValue("white", "gray.800");
+  const color = useColorModeValue("white", "#302E2E");
   const textColor = useColorModeValue("gray.800", "white");
+  const [show, setShow] = React.useState(false);
+  const showPassword = () => setShow(!show);
   const [errorMessage, seterrorMessage] = useState("");
   const [Loading, setLoading] = useState(false);
 
@@ -35,14 +35,15 @@ export default function SignUp() {
     password: "",
     repassword: "",
   };
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
     email: Yup.string().email("Enter Valid Email").required("Required"),
     password: Yup.string()
       .matches(
+        // , One Uppercase, One Lowercase, One Number and One Special Case Character
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
         "Must Contain 8 Characters"
-        // , One Uppercase, One Lowercase, One Number and One Special Case Character
       )
       .required("Required"),
     repassword: Yup.string()
@@ -206,7 +207,7 @@ export default function SignUp() {
                                 color={textColor}
                                 h="1.75rem"
                                 size="sm"
-                                onClick={handleClick}
+                                onClick={showPassword}
                               >
                                 {show ? "Hide" : "Show"}
                               </Button>
@@ -244,16 +245,6 @@ export default function SignUp() {
                               color={textColor}
                               {...field}
                             />
-                            {/* <InputRightElement width="4.5rem">
-                              <Button
-                                color={textColor}
-                                h="1.75rem"
-                                size="sm"
-                                onClick={handleClick}
-                              >
-                                {show ? "Hide" : "Show"}
-                              </Button>
-                            </InputRightElement> */}
                           </InputGroup>
                           <FormErrorMessage>
                             {form.errors.repassword || errorMessage}{" "}
@@ -263,9 +254,18 @@ export default function SignUp() {
                     </Field>
                   </Flex>
 
-                  <Button type="submit" marginTop={45} isLoading={Loading}>
-                    Sign Up
-                  </Button>
+                  <Center>
+                    <Button
+                      type="submit"
+                      h={"50px"}
+                      fontSize="20px"
+                      isLoading={Loading}
+                      w={["300px", "300px", "380px"]}
+                      mt={10}
+                    >
+                      Sign Up
+                    </Button>
+                  </Center>
                 </Form>
               )}
             </Formik>

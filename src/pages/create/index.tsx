@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { mixed, number, object, string } from "yup";
-import { Step, Steps, useSteps } from "chakra-ui-steps";
+import { object, string } from "yup";
+import { Step, Steps } from "chakra-ui-steps";
 import {
   VStack,
   Flex,
   Box,
-  Heading,
   Avatar,
   Text,
   Input,
   HStack,
   Image,
   Center,
-  Spacer,
-  Grid,
   Button,
   Stack,
   FormControl,
@@ -21,10 +18,8 @@ import {
   Textarea,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { InputControl } from "formik-chakra-ui";
-import Profile from "../../components/Profile";
-import About from "../../components/About";
-import Links from "../../components/Links";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 import { Field, Form, Formik, FormikConfig, FormikValues } from "formik";
 
@@ -40,18 +35,44 @@ const steps = [
   },
 ];
 
-const image1 =
-  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg";
-const image2 =
-  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823994/digital%20card/form/Saly-16_wvbxda.svg";
-const image3 =
-  "https://res.cloudinary.com/dbm7us31s/image/upload/v1643823979/digital%20card/form/Saly-15_1_zhlfjw.svg";
-
 function Card() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const contentType = "application/json";
+  async function handleSubmit(values) {
+    const data = {
+      card_id: session.user.id,
+      name: values.name,
+      email: values.email,
+      username: values.username,
+      address: values.address,
+      designation: values.designation,
+      tagline: values.tagline,
+      bio: values.bio,
+      website: values.website,
+      socialLinks: {
+        instagram: values.instagram,
+        facebook: values.facebook,
+        linkedin: values.linkedin,
+        youtube: values.youtube,
+      },
+      payment: values.payment,
+    };
+    console.log(data);
+    const response = await fetch("/api/cards", {
+      method: "POST",
+      headers: {
+        Accept: contentType,
+        "Content-Type": contentType,
+      },
+      body: JSON.stringify(data),
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+    router.replace("/userscard");
+    console.log(values);
+  }
   const [errorMessage, seterrorMessage] = useState("");
-  const { nextStep, prevStep, activeStep } = useSteps({
-    initialStep: 0,
-  });
   const textColor = useColorModeValue("gray.800", "white");
 
   return (
@@ -84,7 +105,6 @@ function Card() {
             <Image
               h="95%"
               minHeight="90%"
-              // src={ImgSrc}
               src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg"
             />
           </Box>
@@ -92,7 +112,6 @@ function Card() {
         <Box zIndex="1" h="100%" as={Center} w={["100%", "100%", "60%"]}>
           <Box as={Center} w="70vh" h="90vh">
             <Box
-              // border="2px solid red"
               as={Flex}
               flexDirection="column"
               justifyContent="space-evenly"
@@ -121,7 +140,6 @@ function Card() {
                   },
                 }}
                 w="100%"
-                // border="2px solid red"
                 h="full"
                 overflow="auto"
               >
@@ -130,10 +148,7 @@ function Card() {
                   fontFamily="mono"
                   fontStyle="normal"
                   textAlign="center"
-                  // mt="60%"
-                  // border="2px solid red"
                   p="6% 0% 6% 0%"
-                  // h="200px"
                 >
                   Via Digital Card
                 </Text>
@@ -147,16 +162,14 @@ function Card() {
                       designation: "",
                       tagline: "",
                       bio: "",
-                      Website: "",
-                      Linkedin: "",
-                      Instagram: "",
-                      Youtube: "",
-                      Facebook: "",
-                      Payment: "",
+                      website: "",
+                      linkedin: "",
+                      instagram: "",
+                      youtube: "",
+                      facebook: "",
+                      payment: "",
                     }}
-                    onSubmit={async (values) => {
-                      console.log("values", values);
-                    }}
+                    onSubmit={handleSubmit}
                   >
                     <FormikStep
                       label="Personal Data"
@@ -396,25 +409,25 @@ function Card() {
                     <FormikStep
                       label="More Info"
                       validationSchema={object({
-                        Website: string().required("Required"),
-                        Linkedin: string().required("Required"),
-                        Instagram: string().required("Required"),
-                        Youtube: string().required("Required"),
-                        Facebook: string().required("Required"),
-                        Payment: string().required("Required"),
+                        website: string().required("Required"),
+                        linkedin: string().required("Required"),
+                        instagram: string().required("Required"),
+                        youtube: string().required("Required"),
+                        facebook: string().required("Required"),
+                        payment: string().required("Required"),
                       })}
                     >
                       <VStack spacing="20px" py={10}>
-                        <Field name="Website">
+                        <Field name="website">
                           {({ field, form }) => (
                             <FormControl
                               isInvalid={
-                                (form.errors.Website && form.touched.Website) ||
+                                (form.errors.website && form.touched.website) ||
                                 errorMessage
                               }
                             >
                               <Input
-                                placeholder="Website"
+                                placeholder="website"
                                 width={{
                                   base: "250px",
                                   md: "200px",
@@ -428,22 +441,22 @@ function Card() {
                                 {...field}
                               />
                               <FormErrorMessage>
-                                {form.errors.Website || errorMessage}{" "}
+                                {form.errors.website || errorMessage}{" "}
                               </FormErrorMessage>
                             </FormControl>
                           )}
                         </Field>
-                        <Field name="Linkedin">
+                        <Field name="linkedin">
                           {({ field, form }) => (
                             <FormControl
                               isInvalid={
-                                (form.errors.Linkedin &&
-                                  form.touched.Linkedin) ||
+                                (form.errors.linkedin &&
+                                  form.touched.linkedin) ||
                                 errorMessage
                               }
                             >
                               <Input
-                                placeholder="Linkedin"
+                                placeholder="linkedin"
                                 marginTop={15}
                                 size="lg"
                                 variant="outline"
@@ -452,22 +465,22 @@ function Card() {
                                 {...field}
                               />
                               <FormErrorMessage>
-                                {form.errors.Linkedin || errorMessage}{" "}
+                                {form.errors.linkedin || errorMessage}{" "}
                               </FormErrorMessage>
                             </FormControl>
                           )}
                         </Field>
-                        <Field name="Instagram">
+                        <Field name="instagram">
                           {({ field, form }) => (
                             <FormControl
                               isInvalid={
-                                (form.errors.Instagram &&
-                                  form.touched.Instagram) ||
+                                (form.errors.instagram &&
+                                  form.touched.instagram) ||
                                 errorMessage
                               }
                             >
                               <Input
-                                placeholder="Instagram"
+                                placeholder="instagram"
                                 marginTop={15}
                                 size="lg"
                                 variant="outline"
@@ -476,21 +489,21 @@ function Card() {
                                 {...field}
                               />
                               <FormErrorMessage>
-                                {form.errors.Instagram || errorMessage}{" "}
+                                {form.errors.instagram || errorMessage}{" "}
                               </FormErrorMessage>
                             </FormControl>
                           )}
                         </Field>
-                        <Field name="Youtube">
+                        <Field name="youtube">
                           {({ field, form }) => (
                             <FormControl
                               isInvalid={
-                                (form.errors.Youtube && form.touched.Youtube) ||
+                                (form.errors.youtube && form.touched.youtube) ||
                                 errorMessage
                               }
                             >
                               <Input
-                                placeholder="Youtube video"
+                                placeholder="youtube video"
                                 marginTop={15}
                                 size="lg"
                                 variant="outline"
@@ -499,22 +512,22 @@ function Card() {
                                 {...field}
                               />
                               <FormErrorMessage>
-                                {form.errors.Youtube || errorMessage}{" "}
+                                {form.errors.youtube || errorMessage}{" "}
                               </FormErrorMessage>
                             </FormControl>
                           )}
                         </Field>
-                        <Field name="Facebook">
+                        <Field name="facebook">
                           {({ field, form }) => (
                             <FormControl
                               isInvalid={
-                                (form.errors.Facebook &&
-                                  form.touched.Facebook) ||
+                                (form.errors.facebook &&
+                                  form.touched.facebook) ||
                                 errorMessage
                               }
                             >
                               <Input
-                                placeholder="Facebook"
+                                placeholder="facebook"
                                 marginTop={15}
                                 size="lg"
                                 variant="outline"
@@ -523,21 +536,21 @@ function Card() {
                                 {...field}
                               />
                               <FormErrorMessage>
-                                {form.errors.Facebook || errorMessage}{" "}
+                                {form.errors.facebook || errorMessage}{" "}
                               </FormErrorMessage>
                             </FormControl>
                           )}
                         </Field>
-                        <Field name="Payment">
+                        <Field name="payment">
                           {({ field, form }) => (
                             <FormControl
                               isInvalid={
-                                (form.errors.Payment && form.touched.Payment) ||
+                                (form.errors.payment && form.touched.payment) ||
                                 errorMessage
                               }
                             >
                               <Input
-                                placeholder="Payment link"
+                                placeholder="payment link"
                                 w="full"
                                 h="60px"
                                 marginTop={15}
@@ -548,7 +561,7 @@ function Card() {
                                 {...field}
                               />
                               <FormErrorMessage>
-                                {form.errors.Payment || errorMessage}{" "}
+                                {form.errors.payment || errorMessage}{" "}
                               </FormErrorMessage>
                             </FormControl>
                           )}
@@ -652,7 +665,7 @@ export function FormikStepper({
                 disabled={isSubmitting}
                 // variant="contained"
                 w="80px"
-                color="primary"
+                // color="primary"
                 mr="20"
                 mt="8"
                 onClick={() => setStep((s) => s - 1)}

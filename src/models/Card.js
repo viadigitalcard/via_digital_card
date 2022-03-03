@@ -4,19 +4,16 @@ const CardSchema = new mongoose.Schema({
   card_id: {
     type: String,
   },
-  Name: {
+  name: {
     type: String,
   },
-  profilePhoto: {
-    type: String,
-  },
+  // profilePhoto: {
+  //   type: String,
+  // },
   email: {
     type: String,
   },
-  userName: {
-    type: String,
-  },
-  companyName: {
+  username: {
     type: String,
   },
   address: {
@@ -34,27 +31,15 @@ const CardSchema = new mongoose.Schema({
   website: {
     type: String,
   },
-  // soical: {
-  //   instagram: {
-  //     type: String,
-  //   },
-  //   facebook: {
-  //     type: String,
-  //   },
-  //   whatsapp: {
-  //     type: String,
-  //   },
-  //   linkedin: {
-  //     type: String,
-  //   },
-  //   twitter: {
-  //     type: String,
-  //   },
-  // },
-  ytVideo: {
-    type: String,
+  socialLinks: {
+    type: Object,
+    instagram: { type: String },
+    facebook: { type: String },
+    linkedin: { type: String },
+    youtube: { type: String },
   },
-  paymentLink: {
+
+  payment: {
     type: String,
   },
 });

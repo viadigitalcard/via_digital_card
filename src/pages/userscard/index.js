@@ -1,27 +1,10 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { getSession, signOut, useSession } from "next-auth/react";
-import CreateDigiCard from "../../components/CreateDigiCard";
-
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { getSession } from "next-auth/react";
 import dbConnect from "../../lib/dbConnect";
 import Card from "../../models/Card";
-import {
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { CardList } from "../../components/Card/CardList";
 
 const Usercard = ({ Cards }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <Head>
@@ -29,25 +12,7 @@ const Usercard = ({ Cards }) => {
         <meta name="description" content="Card" />
       </Head>
       <>
-        <CreateDigiCard />
-
-        <button onClick={signOut}>sign out</button>
-        {Cards &&
-          Cards.map((res, i) => (
-            <div key={i}>
-              <div>Card {i + 1} </div>
-              <div>{res.Name}</div>
-              <div>{res.card_id}</div>
-              <div>{res.lastname}</div>
-              <div>{res.phoneno}</div>
-              <div>Object ID {res._id}</div>
-              <Link href="card/[cardId]" as={`card/${res._id}`}>
-                <Button>View</Button>
-              </Link>
-
-              <div>---------------------------</div>
-            </div>
-          ))}
+        <CardList />
       </>
     </>
   );

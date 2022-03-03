@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Tabs,
   TabList,
@@ -15,36 +15,67 @@ import {
   Button,
   useColorModeValue,
   useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Link,
 } from "@chakra-ui/react";
-import { GrLocation } from "react-icons/gr";
+import FileSaver from "file-saver";
 import { FiPhone } from "react-icons/fi";
 import { VscGlobe } from "react-icons/vsc";
 import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 import { SendMessage } from "../modals/SendMessage";
-export const DigitalCard = ({ data }) => {
-  const [tabIndex, setTabIndex] = React.useState(0);
-const bgColor = useColorModeValue("white", "black.200");
-const bgViews = useColorModeValue("greenBrand.100", "black.100");
-const textColor = useColorModeValue("black", "white");
-const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
-const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
-const dividerColor = useColorModeValue("#E7E7E7", "#353647");
-const bgDashIcons = useColorModeValue("greenBrand.100", "black.200");
-const bgDash = useColorModeValue("white", "black.100");
-const borderColor = useColorModeValue("#E3E3E3", "#353647");
-const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
-const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
-const { isOpen, onOpen, onClose } = useDisclosure();
 
+export const DigitalCard = ({ data }) => {
+  const bgColor = useColorModeValue("white", "black.200");
+  const bgViews = useColorModeValue("greenBrand.100", "black.100");
+  const textColor = useColorModeValue("black", "white");
+  const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
+  const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
+  const dividerColor = useColorModeValue("#E7E7E7", "#353647");
+  const bgDashIcons = useColorModeValue("greenBrand.100", "black.200");
+  const bgDash = useColorModeValue("white", "black.100");
+  const borderColor = useColorModeValue("#E3E3E3", "#353647");
+  const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
+  const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [tabIndex, setTabIndex] = useState(0);
+
+  //Vcard
+  function handleSave(e) {
+    e.preventDefault();
+    var file = new Blob(
+      [
+        `BEGIN:VCARD
+        VERSION:3.0
+        N:${data.name};;;;
+        FN:${data.name}
+        TITLE:${data.designation};
+        EMAIL;type=INTERNET;type=pref:${data.email}
+        ADR;type=WORK;type=pref:;;;${data.address};;;
+        URL:${data.website}
+        END:VCARD
+  `,
+      ],
+      { type: "text/vcard;charset=utf-8" }
+    );
+    let a = document.createElement("a");
+    a.download = `${data.name}.vcf`;
+    a.href = URL.createObjectURL(file);
+    var reader = new FileReader();
+    if (navigator.userAgent.match("CriOS")) {
+      reader.onloadend = (e) => {
+        window.open(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else if (navigator.userAgent.match(/iPad|iPhone|Android/i)) {
+      reader.onload = (e) => {
+        window.location.href = reader.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      FileSaver.saveAs(file, `${data.name}.vcf`, true);
+    }
+  }
   return (
     <Box p="50px 8vw" bgColor={bgColor} h="100%" minH={"100vh"}>
       <DarkModeSwitch />
@@ -125,7 +156,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                   fontWeight={{ base: "600", "2sm": "500" }}
                   color={textColor}
                 >
-                  {data.Name}
+                  {data.name}
                 </Text>
                 <Text
                   fontSize={{
@@ -135,7 +166,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                   }}
                   color={"gray.100"}
                 >
-                  Founder of {data.companyName}
+                  {data.designation}
                 </Text>
                 <Center
                   mt="10px"
@@ -160,6 +191,8 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                 >
                   <VStack spacing={"20px"}>
                     <Center
+                      as={Button}
+                      onClick={handleSave}
                       boxSize={"163px"}
                       bgColor="greenBrand.100"
                       borderRadius={"35px"}
@@ -218,7 +251,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                   flexWrap="wrap"
                   fontSize={"1.125rem"}
                 >
-                  <Flex alignItems={"center"} m="22px">
+                  {/* <Flex alignItems={"center"} m="22px">
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
@@ -232,8 +265,8 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                       </Box>
                     </Center>
                     <Text ml="35px">Whatsapp</Text>
-                  </Flex>
-                  <Flex alignItems={"center"} m="22px">
+                  </Flex> */}
+                  {/* <Flex alignItems={"center"} m="22px">
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
@@ -247,14 +280,14 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                       </Box>
                     </Center>
                     <Text ml="35px">Twitter</Text>
-                  </Flex>
+                  </Flex> */}
                   <Flex alignItems={"center"} m="22px">
                     <Center
                       boxSize={"72px"}
                       borderRadius="12px"
                       border={`2px solid ${borderColor}`}
                     >
-                      <Box>
+                      <Box as={Link} href={data.socialLinks.instagram}>
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090239/digital%20card/card/insta_h2qzlb.png"
                           alt=""
@@ -269,7 +302,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                       borderRadius="12px"
                       border={`2px solid ${borderColor}`}
                     >
-                      <Box>
+                      <Box as={Link} href={data.socialLinks.facebook}>
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090321/digital%20card/card/face_kl3lx6.png"
                           alt=""
@@ -284,7 +317,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                       borderRadius="12px"
                       border={`2px solid ${borderColor}`}
                     >
-                      <Box>
+                      <Box as={Link} href={data.socialLinks.linkedin}>
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090242/digital%20card/card/linked_cfyslj.png"
                           alt=""
@@ -375,8 +408,12 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                 bgColor={bgDash}
                 borderRadius={"18px"}
                 boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
+                // as={Button}
+                onClick={handleSave}
+                // onClick={handleSave}
               >
                 <Center
+                  as={Button}
                   boxSize={"87px"}
                   bgColor={bgDashIcons}
                   borderRadius={"17px"}
@@ -441,7 +478,12 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                     />
                   </Center>
                 </Center>
-                <Text fontSize={"1.125rem"} color={textColor}>
+                <Text
+                  as={Link}
+                  href={data.payment}
+                  fontSize={"1.125rem"}
+                  color={textColor}
+                >
                   Make payment
                 </Text>
               </Center>
@@ -471,7 +513,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                 fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                 fontWeight={{ base: "600", "2sm": "500" }}
               >
-                {data.Name}
+                {data.name}
               </Text>
               <Text
                 fontSize={{
@@ -481,7 +523,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                 }}
                 color={"gray.100"}
               >
-                Founder of {data.companyName}
+                {data.designation}
               </Text>
             </Box>
           </Flex>
@@ -491,6 +533,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
                 bgColor={bgDashIconMobile}
+                onClick={handleSave}
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
@@ -523,7 +566,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                 fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                 color={"#ABABAB"}
               >
-                Download borchure
+                Download brochure
               </Text>
             </VStack>
             <VStack spacing={"10px"}>
@@ -540,6 +583,8 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                 </Box>
               </Center>
               <Text
+                as={Link}
+                href={data.payment}
                 fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                 color={"#ABABAB"}
               >

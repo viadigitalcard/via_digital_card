@@ -44,60 +44,49 @@ const Cards = ({ Card }) => {
     <>
       <Head>
         <title>
-          {Card.Name}
+          {Card.name}
           {"'s Card "}
         </title>
-        <meta name="description" content="Merlyn Clothing collection item" />
       </Head>
-      {session && session.user.id == Card.card_id ? (
-        <Box
-          pos="absolute"
-          right={["25px", "25px", "50px"]}
-          top={["50px", "50px", "50px"]}
-        >
-          {/* <Button onClick={onOpen} ml="10px">
-            Edit
-          </Button> */}
-
-          <Modal isOpen={isOpen} onClose={onClose} size="lg">
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>{Card.Name}'s card edit</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <EditCard inputData={Card} />
-              </ModalBody>
-              <ModalFooter>
-                <Button variant="ghost" mr={3} onClick={onClose}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-          <Menu>
-            <MenuButton as={IconButton} icon={<HamburgerIcon />} />
-            <MenuList bgColor="brand.100" color="white" w="20px">
-              <MenuItem
-                // _hover={{ bg: "white" }}
-                onClick={handleDelete}
-                icon={<DeleteIcon />}
-              >
-                Delete
-              </MenuItem>
-              <MenuItem
-                // _hover={{ bg: "white" }}
-                onClick={onOpen}
-                icon={<EditIcon />}
-              >
-                Edit
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        </Box>
-      ) : (
-        ""
-      )}
-      <DigitalCard data={Card} />
+      <>
+        <DigitalCard data={Card} />
+        {session && session.user.id == Card.card_id ? (
+          <Box
+            pos="absolute"
+            right={["25px", "25px", "50px"]}
+            top={["50px", "50px", "50px"]}
+          >
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>{Card.name}'s card edit</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <EditCard inputData={Card} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button variant="ghost" mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+            <Menu>
+              <MenuButton as={IconButton} icon={<HamburgerIcon />} />
+              <MenuList bgColor="brand.100" color="white" w="20px">
+                <MenuItem onClick={handleDelete} icon={<DeleteIcon />}>
+                  Delete
+                </MenuItem>
+                <MenuItem onClick={onOpen} icon={<EditIcon />}>
+                  Edit
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
+        ) : (
+          ""
+        )}
+      </>
     </>
   );
 };

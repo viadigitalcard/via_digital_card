@@ -23,6 +23,7 @@ export default async function Signup(req, res) {
         lastName: lastName,
         email: email,
         password: hashedPassword,
+        premiumUser: false,
       });
       res.status(201).json({ message: "Created user!" }, result);
     } catch (error) {

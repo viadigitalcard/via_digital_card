@@ -18,18 +18,17 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form } from "formik";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 
 export const SignIn = () => {
-  const [show, setShow] = React.useState(false);
-  const [Loading, setLoading] = useState(false);
-  const handleClick = () => setShow(!show);
-  const { data: session, token } = useSession();
-  console.log(token);
-  const router = useRouter();
   const color = useColorModeValue("white", "#302E2E");
   const textColor = useColorModeValue("gray.800", "white");
+  const [show, setShow] = React.useState(false);
+  const [Loading, setLoading] = useState(false);
+  const showPassword = () => setShow(!show);
+  const { data: session, token } = useSession();
+  const router = useRouter();
   const [errorMessage, seterrorMessage] = useState("");
 
   const initialValues = {
@@ -41,9 +40,9 @@ export const SignIn = () => {
     email: Yup.string().email("Enter Valid Email").required("Required"),
     password: Yup.string()
       .matches(
+        // , One Uppercase, One Lowercase, One Number and One Special Case Character
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
         "Must Contain 8 Characters"
-        // , One Uppercase, One Lowercase, One Number and One Special Case Character
       )
       .required("Required"),
   });
@@ -155,7 +154,11 @@ export const SignIn = () => {
                             h={["50px", "50px", "60px"]}
                             width="4.5rem"
                           >
-                            <Button h="1.75rem" size="sm" onClick={handleClick}>
+                            <Button
+                              h="1.75rem"
+                              size="sm"
+                              onClick={showPassword}
+                            >
                               {show ? "Hide" : "Show"}
                             </Button>
                           </InputRightElement>
@@ -197,7 +200,7 @@ export const SignIn = () => {
               Not a member ?
             </Text>
             <NextLink href="/auth/signup" passHref>
-              <Link fontWeight="bold" px={2} color="Highlight">
+              <Link fontWeight="bold" px={2} color={textColor}>
                 Create account now
               </Link>
             </NextLink>

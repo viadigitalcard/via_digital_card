@@ -2,15 +2,11 @@ import React, { useState } from "react";
 import {
   Box,
   Flex,
-  Center,
-  HStack,
   Text,
   Image,
-  Button,
   useColorModeValue,
   Link,
   Avatar,
-  VStack,
 } from "@chakra-ui/react";
 import { MdClose } from "react-icons/md";
 import { BiMenu } from "react-icons/bi";
@@ -33,7 +29,7 @@ export const Navbar = () => {
         <Box
           zIndex={openNavbar ? "0" : "5"}
           fontSize={"2rem"}
-          display={{base:"block",lg:'none'}}
+          display={{ base: "block", lg: "none" }}
           onClick={() => setOpenNavbar(true)}
           color={textColor}
         >
@@ -43,14 +39,14 @@ export const Navbar = () => {
           pos={{ base: "absolute", lg: "static" }}
           top="0"
           right="0"
-          bgColor={bgColor}
+          bgColor={useColorModeValue("white", "black.200")}
           w={{ base: "100%", xs: "300px", lg: "100%" }}
           h={{ base: "100vh", lg: "max-content" }}
           alignItems={"center"}
-          opacity={{base:openNavbar ? "100%" : "0",lg:'100%'}}
+          opacity={{ base: openNavbar ? "100%" : "0", lg: "100%" }}
           flexDir={{ base: "column", lg: "row" }}
           alignItems={{ base: "flex-start", lg: "center" }}
-          justifyContent={{base:"center",lg:'flex-end'}}
+          justifyContent={{ base: "center", lg: "flex-end" }}
           fontSize="1.125rem"
           color={textColor}
           transition="all 0.5s ease"
@@ -67,7 +63,12 @@ export const Navbar = () => {
             color={textColor}
             display={{ lg: "none" }}
           >
-            <Box w="max-content" onClick={()=>setOpenNavbar(false)} mr="40px" fontSize={"2rem"}>
+            <Box
+              w="max-content"
+              onClick={() => setOpenNavbar(false)}
+              mr="40px"
+              fontSize={"2rem"}
+            >
               <MdClose />
             </Box>
           </Flex>
