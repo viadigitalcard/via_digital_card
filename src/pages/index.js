@@ -4,9 +4,12 @@ import { LandingPage } from "./landing-page/LandingPage";
 
 const Index = () => (
   <>
+    {/* <Header /> */}
+    {/* <Flex/> */}
     <DarkModeSwitch />
-    <Navbar />
-    <LandingPage />
+    {/* <Navbar/> */}
+    {/* <LandingPage/> */}
+    <CardList/>
   </>
 );
 

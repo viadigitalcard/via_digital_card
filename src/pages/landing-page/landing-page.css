@@ -1,11 +1,74 @@
-.mySwiper.swiper{
-    padding-bottom: 60px;
+.mySwiper.swiper {
+  padding-bottom: 60px;
 }
-.mySwiper .swiper-pagination .swiper-pagination-bullet-active.swiper-pagination-bullet{
-    background-color: #77C208;
+.mySwiper
+  .swiper-pagination
+  .swiper-pagination-bullet-active.swiper-pagination-bullet {
+  background-color: #77c208;
 }
-.mySwiper .swiper-pagination .swiper-pagination-bullet{
-    background-color: white;
-    width: 10px;
-    height: 10px;
+.mySwiper .swiper-pagination .swiper-pagination-bullet {
+  background-color: white;
+  width: 10px;
+  height: 10px;
+}
+
+/* select styles */
+.react-select {
+  flex-shrink: 0;
+  width: 47%;
+  font-size: 1.125rem;
+}
+.react-select .custom-select__control,
+.react-select .custom-select-light__control {
+  height: 75px;
+  border-radius: 9px;
+  border: 1px solid #77c208;
+  background-color: transparent;
+  padding: 0px 10px;
+  color: #77c208;
+}
+.react-select .custom-select__indicator-separator,
+.react-select .custom-select-light__indicator-separator {
+  display: none;
+}
+.react-select .custom-select__dropdown-indicator svg,
+.react-select .custom-select-light__dropdown-indicator svg {
+  width: 30px;
+  height: 30px;
+  color: #77c208;
+}
+.react-select .custom-select__placeholder,
+.react-select .custom-select-light__placeholder {
+  color: #77c208;
+}
+
+/* styling menu for select */
+.react-select .custom-select__menu {
+  background-color: #242734;
+  border-radius: 13px;
+  border: 1px solid #77c208;
+  font-size: 0.875rem;
+  padding: 10px;
+}
+.react-select .custom-select__single-value,
+.react-select .custom-select-light__single-value {
+  color: #77c208;
+}
+.react-select .custom-select__option,
+.react-select .custom-select-light__option {
+  border-radius: 11px;
+  padding: 10px 15px;
+}
+.react-select .custom-select__option:active {
+  background-color: #242734;
+}
+
+/* select style for light mode */
+.react-select .custom-select-light__menu {
+  background-color: white;
+  border-radius: 13px;
+  font-size: 0.875rem;
+  padding: 10px;
+  box-shadow: 8px 8px 36px 0px #0000001a;
+  border: none;
 }
