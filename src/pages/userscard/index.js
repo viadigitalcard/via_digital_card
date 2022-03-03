@@ -3,9 +3,7 @@ import { getSession, signOut } from "next-auth/react";
 import dbConnect from "../../lib/dbConnect";
 import Card from "../../models/Card";
 import { CardList } from "../../components/Card/CardList";
-import { DigitalCard } from "../../components/Card/DigitalCard";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
-import { Navbar } from "../../components/Navbar";
 
 const Usercard = ({ Cards }) => {
   return (
@@ -17,6 +15,7 @@ const Usercard = ({ Cards }) => {
       <>
         <DarkModeSwitch />
         {Cards && Cards.map((res, i) => <CardList key={i} data={res} />)}
+        <button onClick={signOut}></button>
       </>
     </>
   );
