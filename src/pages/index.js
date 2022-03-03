@@ -10,8 +10,9 @@ const Index = () => (
     {/* <Header /> */}
     {/* <Flex/> */}
     <DarkModeSwitch />
-    <Navbar/>
-    <LandingPage/>
+    {/* <Navbar/> */}
+    {/* <LandingPage/> */}
+    <CardList/>
   </>
 );
 
