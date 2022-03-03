@@ -30,7 +30,8 @@ import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 import { SendMessage } from "../modals/SendMessage";
-const [tabIndex, setTabIndex] = React.useState(0);
+export const DigitalCard = ({ data }) => {
+  const [tabIndex, setTabIndex] = React.useState(0);
 const bgColor = useColorModeValue("white", "black.200");
 const bgViews = useColorModeValue("greenBrand.100", "black.100");
 const textColor = useColorModeValue("black", "white");
@@ -43,9 +44,7 @@ const borderColor = useColorModeValue("#E3E3E3", "#353647");
 const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
 const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
 const { isOpen, onOpen, onClose } = useDisclosure();
-import { AiOutlineMail } from "react-icons/ai";
-export const DigitalCard = ({ data }) => {
-  const [tabIndex, setTabIndex] = React.useState(0);
+
   return (
     <Box p="50px 8vw" bgColor={bgColor} h="100%" minH={"100vh"}>
       <DarkModeSwitch />

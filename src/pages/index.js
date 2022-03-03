@@ -9,14 +9,9 @@ const Index = () => (
   <>
     {/* <Header /> */}
     {/* <Flex/> */}
-<<<<<<< HEAD
     <DarkModeSwitch />
     <Navbar/>
     <LandingPage/>
-=======
-    {/* <DarkModeSwitch /> */}
-    {/* <DigitalCard/> */}
->>>>>>> aaadeb6ee6ea9ca2321000caa5523a3d082af135
   </>
 );
 
