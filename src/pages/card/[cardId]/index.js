@@ -58,7 +58,7 @@ const Cards = ({ Card }) => {
     }
     const updatedViews = updateViews(Card && Card.views);
     updateviewsDB(updatedViews);
-  }, []);
+  });
 
   const handleDelete = async () => {
     const cardId = router.query.cardId;
@@ -114,7 +114,7 @@ const Cards = ({ Card }) => {
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>{Card.name}'s card edit</ModalHeader>
+                <ModalHeader>{`${Card.name}'s card`}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                   <EditCard inputData={Card} />

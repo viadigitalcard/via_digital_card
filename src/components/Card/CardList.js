@@ -9,12 +9,13 @@ import {
   Image,
   HStack,
   useColorModeValue,
+  Link,
 } from "@chakra-ui/react";
-import { GoLocation } from "react-icons/go";
+import NextLink from "next/link";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 import { GrLinkedinOption } from "react-icons/gr";
 
-export const CardList = () => {
+export const CardList = ({ data }) => {
   const bgColor = useColorModeValue("black.200", "white");
   const bg = useColorModeValue("white", "black.100");
   const iconBg = useColorModeValue("greenBrand.100", "white");
@@ -39,35 +40,50 @@ export const CardList = () => {
             alignItems="center"
             borderRadius={"30px"}
             pr="43px"
-           
           >
             <Flex alignItems={"center"}>
-              <Box w={{base:"115px",md:"241px"}} h={{base:"174px",md:"216px"}}>
+              <Box
+                w={{ base: "115px", md: "241px" }}
+                h={{ base: "174px", md: "216px" }}
+              >
                 <Image
-                  borderTopRadius={{base:'30px'}}
-                  borderBottomRadius={{base:"0px",md:"30px"}}
+                  alt=""
+                  borderTopRadius={{ base: "30px" }}
+                  borderBottomRadius={{ base: "0px", md: "30px" }}
                   w="100%"
                   h="100%"
                   objectFit={"cover"}
                   src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
                 />
               </Box>
-              <Box _groupHover={{ color: "white" }} color={textColor} ml={{base:"10px",md:"45px"}}>
-                <Text fontWeight={"500"} fontSize={{base:"1.25rem",md:"2.25rem"}}>
-                  Rahul Sharma
+              <Box
+                _groupHover={{ color: "white" }}
+                color={textColor}
+                ml={{ base: "10px", md: "45px" }}
+              >
+                <Text
+                  fontWeight={"500"}
+                  fontSize={{ base: "1.25rem", md: "2.25rem" }}
+                >
+                  {data.name}
                 </Text>
                 <Flex alignItems={"center"}>
-                  <Text fontSize={{base:"0.875rem",md:"1.125rem"}}>Founder of virtual assets</Text>
+                  <Text fontSize={{ base: "0.875rem", md: "1.125rem" }}>
+                    {data.designation}
+                  </Text>
                 </Flex>
                 <HStack
                   color={bg}
                   _groupHover={{ color: "greenBrand.100" }}
                   mt="18px"
                   spacing={"22px"}
-                  fontSize={{base:"1rem",md:"1.2rem"}}
+                  fontSize={{ base: "1rem", md: "1.2rem" }}
                 >
                   <Box
                     bgColor={iconBg}
+                    as={Link}
+                    isExternal
+                    href={data?.socialLinks?.facebook}
                     _groupHover={{ bgColor: "white" }}
                     p="5px"
                     borderRadius="8px"
@@ -79,6 +95,9 @@ export const CardList = () => {
                     _groupHover={{ bgColor: "white" }}
                     p="5px"
                     borderRadius="8px"
+                    as={Link}
+                    isExternal
+                    href={data?.socialLinks?.linkedin}
                   >
                     <GrLinkedinOption />
                   </Box>
@@ -95,33 +114,42 @@ export const CardList = () => {
                     _groupHover={{ bgColor: "white" }}
                     p="5px"
                     borderRadius="8px"
+                    as={Link}
+                    isExternal
+                    href={data?.socialLinks?.instagram}
                   >
                     <FaInstagram />
                   </Box>
                 </HStack>
               </Box>
             </Flex>
-            <Button
-              _groupHover={{ bg: bg, color: "greenBrand.100" }}
-              fontSize={"1.5rem"}
-              w="173px"
-              h="62px"
-              display={{base:"none",md:"block"}}
-            >
-              View
-            </Button>
+            <NextLink href="/card/[cardId]" as={`/card/${data?._id}`} passHref>
+              <Link href="">
+                <Button
+                  _groupHover={{ bg: bg, color: "greenBrand.100" }}
+                  fontSize={"1.5rem"}
+                  w="173px"
+                  h="62px"
+                  display={{ base: "none", md: "block" }}
+                >
+                  View
+                </Button>
+              </Link>
+            </NextLink>
           </Flex>
-          <Center
-            h="48px"
-            borderBottomRadius={"16px"}
-            bgColor={"greenBrand.100"}
-            color="white"
-            fontSize={'1.25rem'}
-            display={{base:"flex",md:"none"}}
-            _groupHover={{bgColor:bg,color:'greenBrand.100'}}
-          >
-            View More
-          </Center>
+          <NextLink href="/card/[cardId]" as={`/card/${data?._id}`} passHref>
+            <Center
+              h="48px"
+              borderBottomRadius={"16px"}
+              bgColor={"greenBrand.100"}
+              color="white"
+              fontSize={"1.25rem"}
+              display={{ base: "flex", md: "none" }}
+              _groupHover={{ bgColor: bg, color: "greenBrand.100" }}
+            >
+              <Link href="">View More</Link>
+            </Center>
+          </NextLink>
         </Box>
       </VStack>
     </Center>

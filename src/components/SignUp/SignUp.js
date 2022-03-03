@@ -86,6 +86,7 @@ export default function SignUp() {
         <HStack backgroundColor={color} width="full" h="100vh">
           <Box as={Flex} w="45%" display={["none", "none", "flex"]}>
             <Image
+              alt=""
               h="100vh"
               w="100%"
               p="2px"
@@ -101,6 +102,7 @@ export default function SignUp() {
             alignItems="center"
           >
             <Image
+              alt=""
               width={{ base: "200px", md: "200px", lg: "300px" }}
               marginBottom={2}
               src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"

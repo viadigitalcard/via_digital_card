@@ -77,7 +77,6 @@ export const DigitalCard = ({ data }) => {
     }
   }
 
-  const website = data.website;
   return (
     <Box p="50px 8vw" bgColor={bgColor} h="100%" minH={"100vh"}>
       <DarkModeSwitch />
@@ -147,6 +146,7 @@ export const DigitalCard = ({ data }) => {
                 borderRadius="20px"
               >
                 <Image
+                  alt=""
                   borderRadius="20px"
                   objectFit={"cover"}
                   src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
@@ -292,7 +292,7 @@ export const DigitalCard = ({ data }) => {
                       <Box
                         as={Link}
                         isExternal
-                        href={data?.socialLinks.instagram}
+                        href={data?.socialLinks?.instagram}
                       >
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090239/digital%20card/card/insta_h2qzlb.png"
@@ -311,7 +311,7 @@ export const DigitalCard = ({ data }) => {
                       <Box
                         as={Link}
                         isExternal
-                        href={data?.socialLinks.facebook}
+                        href={data?.socialLinks?.facebook}
                       >
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090321/digital%20card/card/face_kl3lx6.png"
@@ -330,7 +330,7 @@ export const DigitalCard = ({ data }) => {
                       <Box
                         isExternal
                         as={Link}
-                        href={data?.socialLinks.linkedin}
+                        href={data?.socialLinks?.linkedin}
                       >
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090242/digital%20card/card/linked_cfyslj.png"
@@ -517,6 +517,7 @@ export const DigitalCard = ({ data }) => {
               flexShrink={"0"}
             >
               <Image
+                alt=""
                 borderRadius="20px"
                 objectFit={"cover"}
                 src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
@@ -707,7 +708,7 @@ export const DigitalCard = ({ data }) => {
                   borderRadius="14px"
                   as={Link}
                   isExternal
-                  href={data.socialLinks.instagram}
+                  href={data.socialLinks?.instagram}
                   border={`2px solid ${borderColor}`}
                 >
                   <Box
@@ -724,7 +725,7 @@ export const DigitalCard = ({ data }) => {
                 <Center
                   as={Link}
                   isExternal
-                  href={data.socialLinks.facebook}
+                  href={data.socialLinks?.facebook}
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
                   border={`2px solid ${borderColor}`}
@@ -743,7 +744,7 @@ export const DigitalCard = ({ data }) => {
                 <Center
                   as={Link}
                   isExternal
-                  href={data.socialLinks.linkedin}
+                  href={data.socialLinks?.linkedin}
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
                   border={`2px solid ${borderColor}`}
@@ -812,7 +813,7 @@ export const DigitalCard = ({ data }) => {
                     <VscGlobe />
                   </Box>
 
-                  <Link isExternal href={"https://" + `${website}`} ml="27px">
+                  <Link isExternal href={data.website} ml="27px">
                     {data?.website}
                   </Link>
                 </Flex>

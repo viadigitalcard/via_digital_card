@@ -78,6 +78,7 @@ function Card() {
       <DarkModeSwitch />
       <HStack color={textColor} h="100vh" bg={["white", "white", "#77C208"]}>
         <Image
+          alt=""
           className="background"
           display={["none", "none", "flex"]}
           pl="100px"
@@ -101,6 +102,7 @@ function Card() {
             justifyContent="flex-end"
           >
             <Image
+              alt=""
               h="95%"
               minHeight="90%"
               src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg"
@@ -659,7 +661,6 @@ export function FormikStepper({
               w="130px"
               h="50px"
               // w={["300px", "300px", "80px"]}
-              border="2px solid red"
             >
               {isSubmitting ? "Submitting" : isLastStep() ? "Submit" : "Next"}
             </Button>

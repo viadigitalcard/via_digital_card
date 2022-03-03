@@ -1,15 +1,15 @@
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
+import LandingPage from "../components/Landing/LandingPage";
 import { Navbar } from "../components/Navbar";
-import { LandingPage } from "./landing-page/LandingPage";
 
 const Index = () => (
   <>
     {/* <Header /> */}
     {/* <Flex/> */}
     <DarkModeSwitch />
-    {/* <Navbar/> */}
-    {/* <LandingPage/> */}
-    <CardList/>
+    <Navbar />
+    <LandingPage />
+    {/* <CardList /> */}
   </>
 );
 
