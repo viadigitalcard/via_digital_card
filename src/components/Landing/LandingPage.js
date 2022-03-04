@@ -14,8 +14,8 @@ export default function LandingPage() {
       {/* <Hero /> */}
       {/* <Review /> */}
       {/* <About /> */}
-      <Contact/>
-      {/* <Footer /> */}
+      {/* <Contact/> */}
+      <Footer />
     </Box>
   );
 }
