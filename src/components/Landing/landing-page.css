@@ -72,3 +72,16 @@
   box-shadow: 8px 8px 36px 0px #0000001a;
   border: none;
 }
+
+@media screen and (max-width: 768px) {
+  .react-select {
+    width: 100%;
+    font-size: 0.875rem;
+  }
+  .react-select .custom-select__control,
+  .react-select .custom-select-light__control {
+    height: 55px;
+
+    color: #77c208;
+  }
+}

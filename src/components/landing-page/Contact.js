@@ -11,7 +11,7 @@ import {
   useColorModeValue,
   Input,
   Textarea,
-  useColorMode
+  useColorMode,
 } from "@chakra-ui/react";
 import Select from "react-select";
 
@@ -19,8 +19,8 @@ export const Contact = () => {
   const textColor = useColorModeValue("black", "white");
   const bg = useColorModeValue("white", "black.100");
   const select = useColorModeValue("custom-select-light", "custom-select");
-  const { colorMode, toggleColorMode } = useColorMode()
-console.log(colorMode);
+  const { colorMode, toggleColorMode } = useColorMode();
+  console.log(colorMode);
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -37,7 +37,7 @@ console.log(colorMode);
         (state.isFocused && "#F4FFE2") ||
         (state.isSelected && "transparent") ||
         "transparent",
-        color:'black'
+      color: "black",
     }),
   };
 
@@ -63,12 +63,12 @@ console.log(colorMode);
       </Box>
 
       <Center zIndex={2} w="100%" flexDir={"column"}>
-        <Text fontWeight={"500"} fontSize="2.25rem">
+        <Text fontWeight={"500"} fontSize={{ base: "1.5rem", lg: "2.25rem" }}>
           {" "}
           Contact Us
         </Text>
         <Text
-          fontSize={"4rem"}
+          fontSize={{ base: "2.25rem", sm: "4rem" }}
           color="greenBrand.100"
           fontWeight={"600"}
           mt="45px"
@@ -77,46 +77,52 @@ console.log(colorMode);
           Hello !
         </Text>
         <Box
-          w="90%"
+          w={{base:"92%","2sm":"90%"}}
           maxW={"1100px"}
-          bgColor={bg}
-          p="50px"
+          bgColor={{base:"transparent","2sm":bg}}
           borderRadius={"44px"}
         >
-          <Flex w="100%" alignItems={"center"}>
+          <Flex
+            w="100%"
+            flexDir={{ base: "column", "2sm": "row" }}
+            alignItems={"center"}
+          >
             <Input
-              mr="60px"
+              mr={{ base: "0", "2sm": "60px" }}
               type="text"
               _placeholder={{ color: "greenBrand.100" }}
               placeholder="Name"
-              h="75px"
-              fontSize={"1.125rem"}
+              h={{ base: "55px", "2sm": "75px" }}
+              fontSize={{ base: "0.875rem", md: "1.125rem" }}
             />
             <Input
               type="email"
+              mt={{ base: "20px", "2sm": "0" }}
               _placeholder={{ color: "greenBrand.100" }}
               placeholder="Email"
-              h="75px"
-              fontSize={"1.125rem"}
+              h={{ base: "55px", "2sm": "75px" }}
+              fontSize={{ base: "0.875rem", md: "1.125rem" }}
             />
           </Flex>
           <Flex
-            mt="57px"
+            mt={{ base: "20px", "2sm": "57px" }}
             justifyContent={"space-between"}
             w="100%"
             alignItems={"center"}
+            flexDir={{ base: "column", "2sm": "row" }}
           >
             <Input
               _placeholder={{ color: "greenBrand.100" }}
               type="text"
               placeholder="Company name"
-              h="75px"
-              w="47%"
+              h={{ base: "55px", "2sm": "75px" }}
+              w={{ base: "100%", "2sm": "47%" }}
               flexShrink={"0"}
-              fontSize={"1.125rem"}
+              fontSize={{ base: "0.875rem", md: "1.125rem" }}
+              mb={{ base: "20px", "2sm": "0" }}
             />
             <Select
-              styles={colorMode==='dark'?customStyles:customStylesLight}
+              styles={colorMode === "dark" ? customStyles : customStylesLight}
               options={options}
               isSearchable={false}
               hideSelectedOptions={false}
@@ -127,19 +133,19 @@ console.log(colorMode);
           </Flex>
           <Textarea
             borderColor={"#88E000"}
-            mt="57px"
+            mt={{ base: "20px", "2sm": "57px" }}
             rows="10"
             w="100%"
             placeholder="Your Message"
             _placeholder={{ color: "greenBrand.100" }}
-            fontSize={"1.125rem"}
+            fontSize={{ base: "0.875rem", md: "1.125rem" }}
           ></Textarea>
           <Button
             onClick={() => handleSlides()}
-            fontSize={"1.5rem"}
+            fontSize={{base:"1.125rem","2sm":"1.5rem"}}
             m="20px auto"
-            w="283px"
-            h="84px"
+            w={{base:"319px","2sm":"283px"}}
+            h={{base:"62px","2sm":"84px"}}
             d="block"
             mt="57px"
           >

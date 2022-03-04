@@ -11,11 +11,11 @@ export default function LandingPage() {
 
   return (
     <Box bgColor={bgColor}>
-      <About />
-      <Hero />
-      <Review />
-      <About />
-      <Footer />
+      {/* <Hero /> */}
+      {/* <Review /> */}
+      {/* <About /> */}
+      <Contact/>
+      {/* <Footer /> */}
     </Box>
   );
 }
