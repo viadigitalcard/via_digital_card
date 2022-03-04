@@ -7,36 +7,37 @@ import {
   FormErrorMessage,
   useColorModeValue,
   Textarea,
+  Center,
+  Button,
 } from "@chakra-ui/react";
 import { mixed, number, object, string } from "yup";
 
 export default function Card({ inputData }) {
+  console.log(inputData);
+  const [Loading, setLoading] = useState(false);
   const textColor = useColorModeValue("gray.800", "white");
   const [errorMessage, seterrorMessage] = useState("");
   const contentType = "application/json";
   const [data, setData] = useState({
-    card_id: inputData.card_id,
-    Name: inputData.Name,
-    profilePhoto: inputData.profilePhoto,
+    name: inputData.name,
     email: inputData.email,
-    userName: inputData.userName,
-    companyName: inputData.companyName,
+    username: inputData.username,
     address: inputData.address,
     designation: inputData.designation,
     tagline: inputData.tagline,
     bio: inputData.bio,
     website: inputData.website,
-    ytVideo: inputData.ytVideo,
-    paymentLink: inputData.paymentLink,
+    linkedin: inputData.socialLinks.linkedin,
+    instagram: inputData.socialLinks.instagram,
+    youtube: inputData.socialLinks.youtube,
+    facebook: inputData.socialLinks.facebook,
+    payment: inputData.payment,
   });
-  console.log(inputData);
 
-  // session && setData({ card_id: session.user.id });
   const handleChange = (e) => {
     const target = e.target;
     const value = target.value;
     const name = target.name;
-
     setData({
       ...data,
       [name]: value,
@@ -44,34 +45,40 @@ export default function Card({ inputData }) {
   };
   const router = useRouter();
   //handle submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("datttaaa", data);
+  const handleSubmit = async () => {
+    setLoading(true);
+    const values = {
+      _id: inputData._id,
+      card_id: inputData.card_id,
+      name: data.name,
+      email: data.email,
+      username: data.username,
+      address: data.address,
+      designation: data.designation,
+      tagline: data.tagline,
+      bio: data.bio,
+      website: data.website,
+      socialLinks: {
+        instagram: data.instagram,
+        facebook: data.facebook,
+        linkedin: data.linkedin,
+        youtube: data.youtube,
+      },
+      payment: data.payment,
+    };
+    console.log("datttaaa", values);
+
     const response = await fetch("/api/cards", {
       method: "PUT",
       headers: {
         Accept: contentType,
         "Content-Type": contentType,
       },
-      body: JSON.stringify({
-        _id: inputData._id,
-        card_id: data.card_id,
-        Name: data.Name,
-        profilePhoto: data.profilePhoto,
-        email: data.email,
-        userName: data.userName,
-        companyName: data.companyName,
-        address: data.address,
-        designation: data.designation,
-        tagline: data.tagline,
-        bio: data.bio,
-        website: data.website,
-        ytVideo: data.ytVideo,
-        paymentLink: data.paymentLink,
-      }),
+      body: JSON.stringify(values),
     });
     const responseData = await response.json();
     console.log(responseData);
+    setLoading(false);
     router.replace("/userscard");
   };
 
@@ -80,7 +87,7 @@ export default function Card({ inputData }) {
       <Formik
         validationSchema={object({
           name: string().required("Required"),
-          email: string().required("Required"),
+          email: string().email("Enter Valid Email").required("Required"),
           username: string().required("Required"),
           address: string().required("Required"),
           designation: string().required("Required"),
@@ -115,6 +122,7 @@ export default function Card({ inputData }) {
             <Field name="name">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.name && form.touched.name) || errorMessage
                   }
@@ -164,7 +172,7 @@ export default function Card({ inputData }) {
             <Field name="username">
               {({ field, form }) => (
                 <FormControl
-                  onChange={handleSubmit}
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.username && form.touched.username) ||
                     errorMessage
@@ -190,6 +198,7 @@ export default function Card({ inputData }) {
             <Field name="address">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.address && form.touched.address) ||
                     errorMessage
@@ -216,6 +225,7 @@ export default function Card({ inputData }) {
             <Field name="designation">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.designation && form.touched.designation) ||
                     errorMessage
@@ -244,6 +254,7 @@ export default function Card({ inputData }) {
             <Field name="tagline">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.tagline && form.touched.tagline) ||
                     errorMessage
@@ -272,6 +283,7 @@ export default function Card({ inputData }) {
             <Field name="bio">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.bio && form.touched.bio) || errorMessage
                   }
@@ -299,6 +311,7 @@ export default function Card({ inputData }) {
             <Field name="website">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.website && form.touched.website) ||
                     errorMessage
@@ -327,6 +340,7 @@ export default function Card({ inputData }) {
             <Field name="linkedin">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.linkedin && form.touched.linkedin) ||
                     errorMessage
@@ -350,6 +364,7 @@ export default function Card({ inputData }) {
             <Field name="instagram">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.instagram && form.touched.instagram) ||
                     errorMessage
@@ -373,6 +388,7 @@ export default function Card({ inputData }) {
             <Field name="youtube">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.youtube && form.touched.youtube) ||
                     errorMessage
@@ -396,6 +412,7 @@ export default function Card({ inputData }) {
             <Field name="facebook">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.facebook && form.touched.facebook) ||
                     errorMessage
@@ -419,6 +436,7 @@ export default function Card({ inputData }) {
             <Field name="payment">
               {({ field, form }) => (
                 <FormControl
+                  onChange={(e) => handleChange(e)}
                   isInvalid={
                     (form.errors.payment && form.touched.payment) ||
                     errorMessage
@@ -441,6 +459,18 @@ export default function Card({ inputData }) {
                 </FormControl>
               )}
             </Field>
+            <Center>
+              <Button
+                type="submit"
+                h={"50px"}
+                fontSize="20px"
+                isLoading={Loading}
+                w={["300px", "300px", "380px"]}
+                mt={10}
+              >
+                Update
+              </Button>
+            </Center>
           </Form>
         )}
       </Formik>

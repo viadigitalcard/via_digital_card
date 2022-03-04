@@ -22,7 +22,11 @@ export const Navbar = () => {
 
   return (
     <Box bgColor={bgColor} pt="60px" pos="relative">
-      <Flex p={{base:"0  20px",xs:"0px 50px"}} alignItems={"center"} justifyContent="space-between">
+      <Flex
+        p={{ base: "0  20px", xs: "0px 50px" }}
+        alignItems={"center"}
+        justifyContent="space-between"
+      >
         <Box flexShrink={"0"}>
           <Image src={logo} alt="" />
         </Box>
@@ -42,7 +46,6 @@ export const Navbar = () => {
           bgColor={useColorModeValue("white", "black.200")}
           w={{ base: "100%", xs: "300px", lg: "100%" }}
           h={{ base: "100vh", lg: "max-content" }}
-          alignItems={"center"}
           opacity={{ base: openNavbar ? "100%" : "0", lg: "100%" }}
           flexDir={{ base: "column", lg: "row" }}
           alignItems={{ base: "flex-start", lg: "center" }}
@@ -50,9 +53,9 @@ export const Navbar = () => {
           fontSize="1.125rem"
           color={textColor}
           transition="all 0.5s ease"
-          minH={{base:"500px",lg:'0'}}
-          pl={{base:"40px",lg:'0'}}
-          fontWeight='500'
+          minH={{ base: "500px", lg: "0" }}
+          pl={{ base: "40px", lg: "0" }}
+          fontWeight="500"
           zIndex={3}
         >
           <Flex

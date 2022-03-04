@@ -5,16 +5,17 @@ import { Review } from "../../components/landing-page/Review";
 import { About } from "../../components/landing-page/About";
 import { Footer } from "../../components/landing-page/Footer";
 import { Contact } from "../../components/landing-page/Contact";
-export const LandingPage = () => {
+
+export default function LandingPage() {
   const bgColor = useColorModeValue("white", "black.200");
 
   return (
     <Box bgColor={bgColor}>
-      {/* <Hero /> */}
-      {/* <Review /> */}
-      <About/>
-      {/* <Contact/> */}
-      {/* <Footer /> */}
+      <About />
+      <Hero />
+      <Review />
+      <About />
+      <Footer />
     </Box>
   );
-};
+}

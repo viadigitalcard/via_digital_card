@@ -81,6 +81,7 @@ export const SignIn = () => {
       >
         <VStack as={Center} px="80px">
           <Image
+            alt=""
             width={{ base: "150px", md: "200px", lg: "300px" }}
             p="10px"
             src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
@@ -208,6 +209,7 @@ export const SignIn = () => {
         </VStack>
         <Flex display={["none", "none", "flex"]}>
           <Image
+            alt=""
             w="full"
             py="10px"
             h="100vh"

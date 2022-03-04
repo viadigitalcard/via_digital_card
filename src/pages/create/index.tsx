@@ -36,12 +36,10 @@ const steps = [
 ];
 
 function Card() {
-  const { data: session, status } = useSession();
   const router = useRouter();
   const contentType = "application/json";
   async function handleSubmit(values) {
     const data = {
-      card_id: session.user.id,
       name: values.name,
       email: values.email,
       username: values.username,
@@ -57,8 +55,8 @@ function Card() {
         youtube: values.youtube,
       },
       payment: values.payment,
+      views: 0,
     };
-    console.log(data);
     const response = await fetch("/api/cards", {
       method: "POST",
       headers: {
@@ -68,18 +66,19 @@ function Card() {
       body: JSON.stringify(data),
     });
     const responseData = await response.json();
-    console.log(responseData);
+    // console.log(responseData);
     router.replace("/userscard");
-    console.log(values);
+    // console.log(values);
   }
   const [errorMessage, seterrorMessage] = useState("");
   const textColor = useColorModeValue("gray.800", "white");
-
+  const color = useColorModeValue("white", "#302E2E");
   return (
     <>
       <DarkModeSwitch />
-      <HStack h="100vh" bg={["white", "white", "#77C208"]}>
+      <HStack color={textColor} h="100vh" bg={["white", "white", "#77C208"]}>
         <Image
+          alt=""
           className="background"
           display={["none", "none", "flex"]}
           pl="100px"
@@ -103,6 +102,7 @@ function Card() {
             justifyContent="flex-end"
           >
             <Image
+              alt=""
               h="95%"
               minHeight="90%"
               src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg"
@@ -118,7 +118,7 @@ function Card() {
               p="10px"
               w="full"
               h="inherit"
-              bg="white"
+              bg={color}
               boxShadow="8px 8px 24px 0px rgba(0, 0, 0, 0.1)"
               borderRadius="36px"
             >
@@ -175,7 +175,9 @@ function Card() {
                       label="Personal Data"
                       validationSchema={object({
                         name: string().required("Required"),
-                        email: string().required("Required"),
+                        email: string()
+                          .email("Invalid Email")
+                          .required("Required"),
                         username: string().required("Required"),
                       })}
                     >
@@ -614,18 +616,6 @@ export function FormikStepper({
           setCompleted(true);
         } else {
           setStep((s) => s + 1);
-
-          // the next line was not covered in the youtube video
-          //
-          // If you have multiple fields on the same step
-          // we will see they show the validation error all at the same time after the first step!
-          //
-          // If you want to keep that behaviour, then, comment the next line :)
-          // If you want the second/third/fourth/etc steps with the same behaviour
-          //    as the first step regarding validation errors, then the next line is for you! =)
-          //
-          // In the example of the video, it doesn't make any difference, because we only
-          //    have one field with validation in the second step :)
           helpers.setTouched({});
         }
       }}
@@ -637,6 +627,8 @@ export function FormikStepper({
             responsive={false}
             maxH="70px"
             as={Box}
+            color="white"
+            colorScheme="brand"
             activeStep={step}
             labelOrientation="vertical"
           >
@@ -646,19 +638,7 @@ export function FormikStepper({
               </Step>
             ))}
           </Steps>
-          {/* <Stepper alternativeLabel activeStep={step}>
-            {childrenArray.map((child, index) => (
-              <Step
-                key={child.props.label}
-                completed={step > index || completed}
-              >
-                <StepLabel>{child.props.label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper> */}
-
           {currentChild}
-
           <Center>
             {step > 0 ? (
               <Button
@@ -676,8 +656,11 @@ export function FormikStepper({
             <Button
               type="submit"
               fontSize="20px"
-              mt="8"
-              w={["300px", "300px", "80px"]}
+              mt="5"
+              mb="5"
+              w="130px"
+              h="50px"
+              // w={["300px", "300px", "80px"]}
             >
               {isSubmitting ? "Submitting" : isLastStep() ? "Submit" : "Next"}
             </Button>

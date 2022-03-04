@@ -24,7 +24,7 @@ import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 import { SendMessage } from "../modals/SendMessage";
-
+import NextLink from "next/link";
 export const DigitalCard = ({ data }) => {
   const bgColor = useColorModeValue("white", "black.200");
   const bgViews = useColorModeValue("greenBrand.100", "black.100");
@@ -76,6 +76,7 @@ export const DigitalCard = ({ data }) => {
       FileSaver.saveAs(file, `${data.name}.vcf`, true);
     }
   }
+
   return (
     <Box p="50px 8vw" bgColor={bgColor} h="100%" minH={"100vh"}>
       <DarkModeSwitch />
@@ -145,6 +146,7 @@ export const DigitalCard = ({ data }) => {
                 borderRadius="20px"
               >
                 <Image
+                  alt=""
                   borderRadius="20px"
                   objectFit={"cover"}
                   src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
@@ -156,7 +158,7 @@ export const DigitalCard = ({ data }) => {
                   fontWeight={{ base: "600", "2sm": "500" }}
                   color={textColor}
                 >
-                  {data.name}
+                  {data?.name}
                 </Text>
                 <Text
                   fontSize={{
@@ -166,7 +168,7 @@ export const DigitalCard = ({ data }) => {
                   }}
                   color={"gray.100"}
                 >
-                  {data.designation}
+                  {data?.designation}
                 </Text>
                 <Center
                   mt="10px"
@@ -179,7 +181,7 @@ export const DigitalCard = ({ data }) => {
                   <Box mr="10px" fontSize={"1.5rem"}>
                     <AiOutlineEye />
                   </Box>
-                  <Text>600</Text>
+                  <Text>{data?.views}</Text>
                 </Center>
               </Box>
             </Flex>
@@ -237,7 +239,7 @@ export const DigitalCard = ({ data }) => {
                   About
                 </Text>
                 <Text mt="33px" fontSize={"1.25rem"}>
-                  {data.bio}
+                  {data?.bio}
                 </Text>
               </TabPanel>
               <TabPanel p="0" color={textColor}>
@@ -287,7 +289,11 @@ export const DigitalCard = ({ data }) => {
                       borderRadius="12px"
                       border={`2px solid ${borderColor}`}
                     >
-                      <Box as={Link} href={data.socialLinks.instagram}>
+                      <Box
+                        as={Link}
+                        isExternal
+                        href={data?.socialLinks?.instagram}
+                      >
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090239/digital%20card/card/insta_h2qzlb.png"
                           alt=""
@@ -302,7 +308,11 @@ export const DigitalCard = ({ data }) => {
                       borderRadius="12px"
                       border={`2px solid ${borderColor}`}
                     >
-                      <Box as={Link} href={data.socialLinks.facebook}>
+                      <Box
+                        as={Link}
+                        isExternal
+                        href={data?.socialLinks?.facebook}
+                      >
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090321/digital%20card/card/face_kl3lx6.png"
                           alt=""
@@ -317,7 +327,11 @@ export const DigitalCard = ({ data }) => {
                       borderRadius="12px"
                       border={`2px solid ${borderColor}`}
                     >
-                      <Box as={Link} href={data.socialLinks.linkedin}>
+                      <Box
+                        isExternal
+                        as={Link}
+                        href={data?.socialLinks?.linkedin}
+                      >
                         <Image
                           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090242/digital%20card/card/linked_cfyslj.png"
                           alt=""
@@ -350,7 +364,7 @@ export const DigitalCard = ({ data }) => {
                     <Box fontSize={"1.7rem"} color={textColor}>
                       <GoLocation color={textColor} />
                     </Box>
-                    <Text ml="27px">{data.address}</Text>
+                    <Text ml="27px">{data?.address}</Text>
                   </Flex>
                   <Flex
                     p="25px 0px"
@@ -373,7 +387,7 @@ export const DigitalCard = ({ data }) => {
                     <Box fontSize={"1.7rem"}>
                       <VscGlobe />
                     </Box>
-                    <Text ml="27px">{data.website}</Text>
+                    <Text ml="27px">{data?.website}</Text>
                   </Flex>
                   <Flex
                     p="25px 0px"
@@ -383,7 +397,7 @@ export const DigitalCard = ({ data }) => {
                     <Box fontSize={"1.7rem"}>
                       <AiOutlineMail />
                     </Box>
-                    <Text ml="27px">{data.email}</Text>
+                    <Text ml="27px">{data?.email}</Text>
                   </Flex>
                 </Flex>
               </TabPanel>
@@ -480,7 +494,7 @@ export const DigitalCard = ({ data }) => {
                 </Center>
                 <Text
                   as={Link}
-                  href={data.payment}
+                  href={data?.payment}
                   fontSize={"1.125rem"}
                   color={textColor}
                 >
@@ -503,6 +517,7 @@ export const DigitalCard = ({ data }) => {
               flexShrink={"0"}
             >
               <Image
+                alt=""
                 borderRadius="20px"
                 objectFit={"cover"}
                 src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
@@ -513,7 +528,7 @@ export const DigitalCard = ({ data }) => {
                 fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                 fontWeight={{ base: "600", "2sm": "500" }}
               >
-                {data.name}
+                {data?.name}
               </Text>
               <Text
                 fontSize={{
@@ -523,7 +538,7 @@ export const DigitalCard = ({ data }) => {
                 }}
                 color={"gray.100"}
               >
-                {data.designation}
+                {data?.designation}
               </Text>
             </Box>
           </Flex>
@@ -584,7 +599,7 @@ export const DigitalCard = ({ data }) => {
               </Center>
               <Text
                 as={Link}
-                href={data.payment}
+                href={data?.payment}
                 fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                 color={"#ABABAB"}
               >
@@ -651,7 +666,7 @@ export const DigitalCard = ({ data }) => {
                 mt="13px"
                 fontSize={{ base: "0.75rem", xs: "0.875rem", sm: "1rem" }}
               >
-                {data.bio}
+                {data?.bio}
               </Text>
             </TabPanel>
             <TabPanel p="0">
@@ -691,6 +706,9 @@ export const DigitalCard = ({ data }) => {
                 <Center
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
+                  as={Link}
+                  isExternal
+                  href={data.socialLinks?.instagram}
                   border={`2px solid ${borderColor}`}
                 >
                   <Box
@@ -705,6 +723,9 @@ export const DigitalCard = ({ data }) => {
                   </Box>
                 </Center>
                 <Center
+                  as={Link}
+                  isExternal
+                  href={data.socialLinks?.facebook}
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
                   border={`2px solid ${borderColor}`}
@@ -721,6 +742,9 @@ export const DigitalCard = ({ data }) => {
                   </Box>
                 </Center>
                 <Center
+                  as={Link}
+                  isExternal
+                  href={data.socialLinks?.linkedin}
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
                   border={`2px solid ${borderColor}`}
@@ -758,7 +782,7 @@ export const DigitalCard = ({ data }) => {
                   <Box fontSize={"1.7rem"}>
                     <GoLocation />
                   </Box>
-                  <Text ml="27px">{data.address}</Text>
+                  <Text ml="27px">{data?.address}</Text>
                 </Flex>
                 <Flex
                   p="25px 0px"
@@ -788,7 +812,10 @@ export const DigitalCard = ({ data }) => {
                   <Box fontSize={"1.7rem"}>
                     <VscGlobe />
                   </Box>
-                  <Text ml="27px">{data.website}</Text>
+
+                  <Link isExternal href={data.website} ml="27px">
+                    {data?.website}
+                  </Link>
                 </Flex>
                 <Flex
                   p="25px 0px"
@@ -798,7 +825,7 @@ export const DigitalCard = ({ data }) => {
                   <Box fontSize={"1.7rem"}>
                     <AiOutlineMail />
                   </Box>
-                  <Text ml="27px">{data.email}</Text>
+                  <Text ml="27px">{data?.email}</Text>
                 </Flex>
               </Flex>
             </TabPanel>

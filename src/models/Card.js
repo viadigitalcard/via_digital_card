@@ -42,6 +42,9 @@ const CardSchema = new mongoose.Schema({
   payment: {
     type: String,
   },
+  views: {
+    type: Number,
+  },
 });
 
 export default mongoose.models.Card ||

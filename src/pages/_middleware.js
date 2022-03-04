@@ -6,7 +6,18 @@ export async function middleware(req) {
     const session = await getToken({
       req,
       secret: process.env.SECRET,
-      //   secureCookie: process.env.NODE_ENV === "development",
+      secureCookie: process.env.NODE_ENV === "production",
+    });
+    // You could also check for any property on the session object,
+    // like role === "admin" or name === "John Doe", etc.
+    if (!session) return NextResponse.redirect("/auth/signin");
+    // If user is authenticated, continue.
+  }
+  if (req.nextUrl.pathname === "/create") {
+    const session = await getToken({
+      req,
+      secret: process.env.SECRET,
+      secureCookie: process.env.NODE_ENV === "production",
     });
     // You could also check for any property on the session object,
     // like role === "admin" or name === "John Doe", etc.
