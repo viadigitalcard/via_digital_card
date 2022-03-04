@@ -10,11 +10,11 @@ export const LandingPage = () => {
 
   return (
     <Box bgColor={bgColor}>
+      {/* <Hero /> */}
+      {/* <Review /> */}
       <About/>
-      <Hero />
-      <Review />
-      <About />
-      <Footer />
+      {/* <Contact/> */}
+      {/* <Footer /> */}
     </Box>
   );
 };
