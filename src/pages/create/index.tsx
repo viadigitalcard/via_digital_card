@@ -71,8 +71,19 @@ function Card() {
     // console.log(values);
   }
   const [errorMessage, seterrorMessage] = useState("");
+  const [profile, setProfile] = useState(null);
   const textColor = useColorModeValue("gray.800", "white");
   const color = useColorModeValue("white", "#302E2E");
+
+  function handleFile() {
+    document.getElementById("filePicker").click();
+  }
+  function handleProfileUpload(e) {
+    console.log(e.target.files[0]);
+    setProfile(e.target.files[0]);
+  }
+  console.log(profile);
+
   return (
     <>
       <DarkModeSwitch />
@@ -197,8 +208,20 @@ function Card() {
                             boxSize="100px"
                             as={Center}
                           />
+                          <Input
+                            style={{ display: "none" }}
+                            type="file"
+                            id="filePicker"
+                            name="avatar"
+                            placeholder="Add Profile Photo"
+                            accept="image/png, image/jpeg"
+                            // ref={profilePictureRef}
+                            onChange={handleProfileUpload}
+                            required
+                          />
                           <Button
                             color="white"
+                            onClick={handleFile}
                             bg="#88E000"
                             mt={["10px", "", ""]}
                             fontSize={{ base: "12", md: "16", lg: "18" }}
