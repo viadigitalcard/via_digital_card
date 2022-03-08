@@ -71,7 +71,7 @@ export const SignIn = () => {
   }
   return (
     <>
-      <DarkModeSwitch />
+      {/* <DarkModeSwitch /> */}
       <Flex
         bg={color}
         as={Center}
@@ -79,7 +79,7 @@ export const SignIn = () => {
         w="full"
         h="100vh"
       >
-        <VStack as={Center} px="80px">
+        <VStack as={Center} px={["", "80px"]}>
           <Image
             alt=""
             width={{ base: "150px", md: "200px", lg: "300px" }}

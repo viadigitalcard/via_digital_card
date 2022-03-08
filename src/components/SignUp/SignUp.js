@@ -70,7 +70,7 @@ export default function SignUp() {
       });
 
       if (!res.ok) {
-        throw new Error(res.status);
+        console.log(res.status);
       }
       setLoading(false);
       router.replace("/auth/signin");
@@ -83,7 +83,12 @@ export default function SignUp() {
     <div>
       <>
         <DarkModeSwitch />
-        <HStack backgroundColor={color} width="full" h="100vh">
+        <HStack
+          border="2px solid red"
+          backgroundColor={color}
+          width="full"
+          h="100vh"
+        >
           <Box as={Flex} w="45%" display={["none", "none", "flex"]}>
             <Image
               alt=""

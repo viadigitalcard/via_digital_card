@@ -22,6 +22,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 import { Field, Form, Formik, FormikConfig, FormikValues } from "formik";
+import { useS3Upload } from "next-s3-upload";
+import Head from "next/head";
 
 const steps = [
   {
@@ -36,11 +38,25 @@ const steps = [
 ];
 
 function Card() {
+  console.log("STEPSSSSSS", steps);
+
+  let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
+  const [errorMessage, seterrorMessage] = useState("");
+  const [profile, setProfile] = useState(null);
+  const textColor = useColorModeValue("gray.800", "white");
+  const color = useColorModeValue("white", "#302E2E");
+
   const router = useRouter();
   const contentType = "application/json";
   async function handleSubmit(values) {
+    let uploadProfile;
+    profile ? (uploadProfile = profile) : (uploadProfile = null);
+    console.log("submiiiiiiiittttttttttt", uploadProfile);
+
+    let { url } = await uploadToS3(uploadProfile);
     const data = {
       name: values.name,
+      profilePhoto: url,
       email: values.email,
       username: values.username,
       address: values.address,
@@ -57,6 +73,8 @@ function Card() {
       payment: values.payment,
       views: 0,
     };
+    console.log(data);
+
     const response = await fetch("/api/cards", {
       method: "POST",
       headers: {
@@ -67,27 +85,35 @@ function Card() {
     });
     const responseData = await response.json();
     // console.log(responseData);
-    router.replace("/userscard");
+    // router.replace("/userscard");
     // console.log(values);
   }
-  const [errorMessage, seterrorMessage] = useState("");
-  const [profile, setProfile] = useState(null);
-  const textColor = useColorModeValue("gray.800", "white");
-  const color = useColorModeValue("white", "#302E2E");
 
   function handleFile() {
     document.getElementById("filePicker").click();
   }
   function handleProfileUpload(e) {
     console.log(e.target.files[0]);
-    setProfile(e.target.files[0]);
   }
   console.log(profile);
 
+  let handleFileChange = async (file) => {
+    console.log(file);
+    setProfile(file);
+  };
+
   return (
     <>
-      <DarkModeSwitch />
-      <HStack color={textColor} h="100vh" bg={["white", "white", "#77C208"]}>
+      <Head>
+        <title> Create Digital Card </title>
+      </Head>
+      {/* <DarkModeSwitch /> */}
+      <HStack
+        spacing="0"
+        color={textColor}
+        h="100vh"
+        bg={["white", "white", "#77C208"]}
+      >
         <Image
           alt=""
           className="background"
@@ -100,19 +126,21 @@ function Card() {
         <Box
           display={["none", "none", "flex"]}
           pos="relative"
-          h="full"
-          w="40%"
+          h={["0px", "0px", "full"]}
+          w={["0px", "0px", "40%"]}
           as={Flex}
           justifyContent="end"
           flexDirection="column"
         >
           <Box
+            display={["none", "none", "flex"]}
             h="full"
             as={Flex}
             flexDirection="column"
             justifyContent="flex-end"
           >
             <Image
+              display={["none", "none", "flex"]}
               alt=""
               h="95%"
               minHeight="90%"
@@ -120,18 +148,22 @@ function Card() {
             />
           </Box>
         </Box>
-        <Box zIndex="1" h="100%" as={Center} w={["100%", "100%", "60%"]}>
-          <Box as={Center} w="70vh" h="90vh">
+        <Box h="100vh" as={Center} w={["100%", "100%", "60%"]}>
+          <Box
+            as={Center}
+            w={["100%", "100%", "70vh"]}
+            h={["100%", "100%", "90vh"]}
+          >
             <Box
               as={Flex}
               flexDirection="column"
               justifyContent="space-evenly"
-              p="10px"
+              p={["0px", "0px", "10px"]}
               w="full"
-              h="inherit"
+              h="full"
               bg={color}
               boxShadow="8px 8px 24px 0px rgba(0, 0, 0, 0.1)"
-              borderRadius="36px"
+              borderRadius={["0px", "0px", "36px"]}
             >
               <Box
                 css={{
@@ -155,9 +187,9 @@ function Card() {
                 overflow="auto"
               >
                 <Text
-                  fontSize={{ base: "30px", md: "34px", lg: "38px" }}
+                  fontSize={{ base: "36px", md: "36px", lg: "38px" }}
                   fontFamily="mono"
-                  fontStyle="normal"
+                  fontStyle=""
                   textAlign="center"
                   p="6% 0% 6% 0%"
                 >
@@ -204,31 +236,36 @@ function Card() {
                           <Avatar
                             w="140px"
                             h="140px"
-                            src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643392997/digital%20card/form/Mask_Group_2_atdo50.svg"
+                            src={profile ? URL.createObjectURL(profile) : ""}
+                            // src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643392997/digital%20card/form/Mask_Group_2_atdo50.svg"
                             boxSize="100px"
                             as={Center}
                           />
+                          <FileInput onChange={handleFileChange} />
                           <Input
                             style={{ display: "none" }}
                             type="file"
                             id="filePicker"
-                            name="avatar"
+                            // name="avatar"
                             placeholder="Add Profile Photo"
                             accept="image/png, image/jpeg"
                             // ref={profilePictureRef}
                             onChange={handleProfileUpload}
-                            required
+                            // required
                           />
                           <Button
+                            onClick={openFileDialog}
                             color="white"
-                            onClick={handleFile}
+                            // onClick={handleFile}
                             bg="#88E000"
                             mt={["10px", "", ""]}
                             fontSize={{ base: "12", md: "16", lg: "18" }}
                             fontWeight="semibold"
                             fontFamily="Open Sans"
                           >
-                            Add Profile Photo
+                            {profile && profile
+                              ? "Update Profile Photo"
+                              : "Add Profile Photo"}
                           </Button>
                         </Flex>
                         <Stack
@@ -246,6 +283,7 @@ function Card() {
                                 }
                               >
                                 <Input
+                                  h="60px"
                                   placeholder="Enter Name"
                                   marginTop={15}
                                   size="lg"
@@ -269,6 +307,7 @@ function Card() {
                                 }
                               >
                                 <Input
+                                  h="60px"
                                   placeholder="Enter Email"
                                   marginTop={15}
                                   size="lg"
@@ -293,6 +332,7 @@ function Card() {
                                 }
                               >
                                 <Input
+                                  h="60px"
                                   placeholder="Enter username"
                                   marginTop={15}
                                   size="lg"
@@ -319,117 +359,108 @@ function Card() {
                         bio: string().required("Required"),
                       })}
                     >
-                      <Field name="address">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              (form.errors.address && form.touched.address) ||
-                              errorMessage
-                            }
-                          >
-                            <Textarea
-                              placeholder="Address"
-                              mt="20px"
-                              size="lg"
-                              variant="outline"
-                              focusBorderColor="#88E000"
-                              borderColor="#88E000"
-                              border="1px"
-                              borderRadius="10px"
-                              {...field}
-                              color={textColor}
-                            />
-                            <FormErrorMessage>
-                              {form.errors.address || errorMessage}{" "}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                      <Field name="designation">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              (form.errors.designation &&
-                                form.touched.designation) ||
-                              errorMessage
-                            }
-                          >
-                            <Input
-                              placeholder="Designation"
-                              width={{
-                                base: "250px",
-                                md: "200px",
-                                lg: "300px",
-                              }}
-                              marginTop={15}
-                              size="lg"
-                              variant="outline"
-                              focusBorderColor="#88E000"
-                              color={textColor}
-                              {...field}
-                            />
-                            <FormErrorMessage>
-                              {form.errors.designation || errorMessage}{" "}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                      <Field name="tagline">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              (form.errors.tagline && form.touched.tagline) ||
-                              errorMessage
-                            }
-                          >
-                            <Input
-                              placeholder="Tagline"
-                              width={{
-                                base: "250px",
-                                md: "200px",
-                                lg: "300px",
-                              }}
-                              marginTop={15}
-                              size="lg"
-                              variant="outline"
-                              focusBorderColor="#88E000"
-                              color={textColor}
-                              {...field}
-                            />
-                            <FormErrorMessage>
-                              {form.errors.tagline || errorMessage}{" "}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                      <Field name="bio">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              (form.errors.bio && form.touched.bio) ||
-                              errorMessage
-                            }
-                          >
-                            <Input
-                              placeholder="Bio"
-                              width={{
-                                base: "250px",
-                                md: "200px",
-                                lg: "300px",
-                              }}
-                              marginTop={15}
-                              size="lg"
-                              variant="outline"
-                              focusBorderColor="#88E000"
-                              color={textColor}
-                              {...field}
-                            />
-                            <FormErrorMessage>
-                              {form.errors.bio || errorMessage}{" "}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
+                      <VStack px="10%" h="550px" spacing="25px">
+                        <Field name="address">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                (form.errors.address && form.touched.address) ||
+                                errorMessage
+                              }
+                            >
+                              <Textarea
+                                placeholder="Address"
+                                mt="50px"
+                                size="lg"
+                                variant="outline"
+                                focusBorderColor="#88E000"
+                                borderColor="#88E000"
+                                border="1px"
+                                resize="none"
+                                borderRadius="10px"
+                                {...field}
+                                color={textColor}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.address || errorMessage}{" "}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="designation">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                (form.errors.designation &&
+                                  form.touched.designation) ||
+                                errorMessage
+                              }
+                            >
+                              <Input
+                                placeholder="Designation"
+                                marginTop={15}
+                                size="lg"
+                                h="60px"
+                                variant="outline"
+                                focusBorderColor="#88E000"
+                                color={textColor}
+                                {...field}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.designation || errorMessage}{" "}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="tagline">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                (form.errors.tagline && form.touched.tagline) ||
+                                errorMessage
+                              }
+                            >
+                              <Input
+                                placeholder="Tagline"
+                                marginTop={15}
+                                size="lg"
+                                h="60px"
+                                variant="outline"
+                                focusBorderColor="#88E000"
+                                color={textColor}
+                                {...field}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.tagline || errorMessage}{" "}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="bio">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                (form.errors.bio && form.touched.bio) ||
+                                errorMessage
+                              }
+                            >
+                              <Input
+                                placeholder="Bio"
+                                marginTop={15}
+                                size="lg"
+                                h="60px"
+                                variant="outline"
+                                focusBorderColor="#88E000"
+                                color={textColor}
+                                {...field}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.bio || errorMessage}{" "}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                      </VStack>
                     </FormikStep>
                     <FormikStep
                       label="More Info"
@@ -442,7 +473,7 @@ function Card() {
                         payment: string().required("Required"),
                       })}
                     >
-                      <VStack spacing="20px" py={10}>
+                      <VStack spacing="20px" px="10%" py="30px">
                         <Field name="website">
                           {({ field, form }) => (
                             <FormControl
@@ -453,13 +484,9 @@ function Card() {
                             >
                               <Input
                                 placeholder="website"
-                                width={{
-                                  base: "250px",
-                                  md: "200px",
-                                  lg: "300px",
-                                }}
                                 marginTop={15}
                                 size="lg"
+                                h="60px"
                                 variant="outline"
                                 focusBorderColor="#88E000"
                                 color={textColor}
@@ -484,6 +511,7 @@ function Card() {
                                 placeholder="linkedin"
                                 marginTop={15}
                                 size="lg"
+                                h="60px"
                                 variant="outline"
                                 focusBorderColor="#88E000"
                                 color={textColor}
@@ -508,6 +536,7 @@ function Card() {
                                 placeholder="instagram"
                                 marginTop={15}
                                 size="lg"
+                                h="60px"
                                 variant="outline"
                                 focusBorderColor="#88E000"
                                 color={textColor}
@@ -531,6 +560,7 @@ function Card() {
                                 placeholder="youtube video"
                                 marginTop={15}
                                 size="lg"
+                                h="60px"
                                 variant="outline"
                                 focusBorderColor="#88E000"
                                 color={textColor}
@@ -555,6 +585,7 @@ function Card() {
                                 placeholder="facebook"
                                 marginTop={15}
                                 size="lg"
+                                h="60px"
                                 variant="outline"
                                 focusBorderColor="#88E000"
                                 color={textColor}
@@ -622,6 +653,8 @@ export function FormikStepper({
     children
   ) as React.ReactElement<FormikStepProps>[];
   const [step, setStep] = useState(0);
+  console.log(step);
+
   const currentChild = childrenArray[step];
   const [completed, setCompleted] = useState(false);
 
@@ -662,25 +695,25 @@ export function FormikStepper({
             ))}
           </Steps>
           {currentChild}
-          <Center>
+          <Center as={Flex} justifyContent="space-evenly">
             {step > 0 ? (
               <Button
                 disabled={isSubmitting}
                 // variant="contained"
-                w="80px"
+                h="50px"
+                w="130px"
                 // color="primary"
-                mr="20"
-                mt="8"
+
                 onClick={() => setStep((s) => s - 1)}
               >
                 Back
               </Button>
-            ) : null}
+            ) : (
+              ""
+            )}
             <Button
               type="submit"
               fontSize="20px"
-              mt="5"
-              mb="5"
               w="130px"
               h="50px"
               // w={["300px", "300px", "80px"]}
