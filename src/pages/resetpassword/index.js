@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function reset() {
+function Reset() {
   const [email, setEmail] = useState("");
 
   const handleMail = async (e) => {
@@ -18,16 +18,6 @@ function reset() {
       throw new Error(res.status);
     }
   };
-  // const sendEmail = async (email) => {
-  //   console.log(email);
-  //   await forgotPasswordEmail(email)
-  //     .then((res) => {
-  //       console.log("Done" + res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // };
 
   return (
     <div>
@@ -45,4 +35,4 @@ function reset() {
   );
 }
 
-export default reset;
+export default Reset;
