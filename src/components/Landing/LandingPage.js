@@ -5,6 +5,7 @@ import { Review } from "../../components/landing-page/Review";
 import { About } from "../../components/landing-page/About";
 import { Footer } from "../../components/landing-page/Footer";
 import { Contact } from "../../components/landing-page/Contact";
+import { HowItWorks } from "../../components/landing-page/HowItWorks";
 
 export default function LandingPage() {
   const bgColor = useColorModeValue("white", "black.200");
@@ -15,7 +16,8 @@ export default function LandingPage() {
       {/* <Review /> */}
       {/* <About /> */}
       {/* <Contact/> */}
-      <Footer />
+      {/* <Footer /> */}
+      <HowItWorks/>
     </Box>
   );
 }
