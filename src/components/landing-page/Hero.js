@@ -13,12 +13,12 @@ import {
 export const Hero = () => {
   const textColor = useColorModeValue("black", "white");
   const imageLeft = useColorModeValue(
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646033536/digital%20card/landing-page/heroright_vfkybf.png",
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646033539/digital%20card/landing-page/dark-left_wxlpiw.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Right.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Dark+Left.png"
   );
   const imageRight = useColorModeValue(
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646033532/digital%20card/landing-page/heroleft_tqdfez.png",
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646033543/digital%20card/landing-page/dark-right_idlevf.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Left.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Dark+Right.png"
   );
   return (
     <Center
@@ -46,7 +46,7 @@ export const Hero = () => {
         top="10%"
       >
         <Image
-          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033631/digital%20card/landing-page/doodle-two_sfme7d.png"
+          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+2.png"
           alt="candy"
         />
       </Box>
@@ -58,7 +58,7 @@ export const Hero = () => {
         top="35%"
       >
         <Image
-          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033631/digital%20card/landing-page/doodle-two_sfme7d.png"
+          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+2.png"
           alt="candy"
         />
       </Box>
@@ -69,7 +69,7 @@ export const Hero = () => {
         bottom={{ base: "5%", lg: "25%" }}
       >
         <Image
-          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033631/digital%20card/landing-page/doodle-two_sfme7d.png"
+          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+2.png"
           alt="candy"
         />
       </Box>
@@ -80,7 +80,7 @@ export const Hero = () => {
         left={{ base: "90%", lg: "30%" }}
       >
         <Image
-          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033627/digital%20card/landing-page/doodle-one_zanfpm.png"
+          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+1.png"
           alt="ribbon"
         />
       </Box>
@@ -91,7 +91,7 @@ export const Hero = () => {
         bottom={"10%"}
       >
         <Image
-          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033627/digital%20card/landing-page/doodle-one_zanfpm.png"
+          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+1.png"
           alt="ribbon"
         />
       </Box>

@@ -91,7 +91,7 @@ export default function SignUp() {
               w="100%"
               p="2px"
               objectFit="content"
-              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643134864/digital%20card/SignUp/Mask_mg0oj2.svg"
+              src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Sign+Up+Right.png"
             />
           </Box>
           <Flex
@@ -105,7 +105,7 @@ export default function SignUp() {
               alt=""
               width={{ base: "200px", md: "200px", lg: "300px" }}
               marginBottom={2}
-              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
+              src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png"
             />
             <Text
               fontSize={{ base: "36px", md: "40px", lg: "45px" }}

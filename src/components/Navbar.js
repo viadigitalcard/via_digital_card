@@ -13,8 +13,8 @@ import { BiMenu } from "react-icons/bi";
 
 export const Navbar = () => {
   const logo = useColorModeValue(
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034356/digital%20card/landing-page/logo-dark_yijgxs.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
   );
   const textColor = useColorModeValue("black", "white");
   const [openNavbar, setOpenNavbar] = useState(false);

@@ -95,7 +95,7 @@ function Card() {
           pl="100px"
           h="100vh"
           pos="absolute"
-          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643549357/digital%20card/form/Profile/Group_17_wu2yen.svg"
+          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Create+Stars.png"
         />
         <Box
           display={["none", "none", "flex"]}
@@ -116,7 +116,7 @@ function Card() {
               alt=""
               h="95%"
               minHeight="90%"
-              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg"
+              src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Create+Left.png"
             />
           </Box>
         </Box>
@@ -201,10 +201,33 @@ function Card() {
                           py={["10px", "", "0px"]}
                           flexDirection={["column", "column", "row"]}
                         >
-                          <Avatar
+                          <Field name="name">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  (form.errors.name && form.touched.name) ||
+                                  errorMessage
+                                }
+                              >
+                                <Input
+                                type="file"
+                                  marginTop={15}
+                                  size="lg"
+                                  variant="outline"
+                                  focusBorderColor="#88E000"
+                                  // color={textColor}
+                                  {...field}
+                                />
+                                <FormErrorMessage>
+                                  {form.errors.name || errorMessage}{" "}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                          </Field>
+                          {/* <Avatar
                             w="140px"
                             h="140px"
-                            src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643392997/digital%20card/form/Mask_Group_2_atdo50.svg"
+                            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Create+Avatar.png"
                             boxSize="100px"
                             as={Center}
                           />
@@ -229,7 +252,7 @@ function Card() {
                             fontFamily="Open Sans"
                           >
                             Add Profile Photo
-                          </Button>
+                          </Button> */}
                         </Flex>
                         <Stack
                           as={Center}

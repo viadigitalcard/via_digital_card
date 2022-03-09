@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from 'next/router'
 import {
   Tabs,
   TabList,
@@ -20,11 +21,13 @@ import {
 import FileSaver from "file-saver";
 import { FiPhone } from "react-icons/fi";
 import { VscGlobe } from "react-icons/vsc";
-import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineMail, AiOutlineEye, AiOutlineShareAlt } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 import { SendMessage } from "../modals/SendMessage";
 import NextLink from "next/link";
+import { RWebShare } from "react-web-share";
+
 export const DigitalCard = ({ data }) => {
   const bgColor = useColorModeValue("white", "black.200");
   const bgViews = useColorModeValue("greenBrand.100", "black.100");
@@ -39,6 +42,8 @@ export const DigitalCard = ({ data }) => {
   const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tabIndex, setTabIndex] = useState(0);
+  const router = useRouter()
+  let url = router.asPath
 
   //Vcard
   function handleSave(e) {
@@ -137,6 +142,7 @@ export const DigitalCard = ({ data }) => {
               alignItems={{ "2sm": "center", lg: "flex-start", xl: "center" }}
               textAlign={{ base: "center", "2sm": "left" }}
               flexDir={{ "2sm": "row", lg: "column", xl: "row" }}
+              border={{ "2sm": "none", lg: "2px solid #E3E3E3" }}
             >
               <Box
                 w="193px"
@@ -152,7 +158,10 @@ export const DigitalCard = ({ data }) => {
                   src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
                 />
               </Box>
-              <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}>
+              <Box
+                ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}
+                border={{ "2sm": "none", lg: "2px solid #E3E3E3" }}
+              >
                 <Text
                   fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                   fontWeight={{ base: "600", "2sm": "500" }}
@@ -183,6 +192,18 @@ export const DigitalCard = ({ data }) => {
                   </Box>
                   <Text>{data?.views}</Text>
                 </Center>
+                <RWebShare
+                  data={{
+                    text: "Via Digital Card",
+                    url: "https://via-digital-card.vercel.app"+url,
+                    title: data.designation,
+                  }}
+                  onClick={() => console.log("shared successfully!")}
+                >
+                <Button fontSize={"1.7rem"}>
+                  <AiOutlineShareAlt />
+                </Button>
+                </RWebShare>
               </Box>
             </Flex>
             <TabPanels w="100%">
@@ -200,7 +221,7 @@ export const DigitalCard = ({ data }) => {
                       borderRadius={"35px"}
                     >
                       <Image
-                        src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085610/digital%20card/card/contact_ffyixy.png"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/contact.png"
                         alt=""
                       />
                     </Center>
@@ -213,7 +234,7 @@ export const DigitalCard = ({ data }) => {
                       borderRadius={"35px"}
                     >
                       <Image
-                        src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085664/digital%20card/card/download_o42ppn.png"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
                         alt=""
                       />
                     </Center>
@@ -226,7 +247,7 @@ export const DigitalCard = ({ data }) => {
                       borderRadius={"35px"}
                     >
                       <Image
-                        src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085759/digital%20card/card/payment_kecvvx.png"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
                         alt=""
                       />
                     </Center>
@@ -261,7 +282,7 @@ export const DigitalCard = ({ data }) => {
                     >
                       <Box>
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090230/digital%20card/card/wp_outqp6.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Whatsapp.png"
                           alt=""
                         />
                       </Box>
@@ -276,7 +297,7 @@ export const DigitalCard = ({ data }) => {
                     >
                       <Box>
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090300/digital%20card/card/twit_gwdvfp.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
                           alt=""
                         />
                       </Box>
@@ -295,7 +316,7 @@ export const DigitalCard = ({ data }) => {
                         href={data?.socialLinks?.instagram}
                       >
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090239/digital%20card/card/insta_h2qzlb.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Instagram.png"
                           alt=""
                         />
                       </Box>
@@ -314,7 +335,7 @@ export const DigitalCard = ({ data }) => {
                         href={data?.socialLinks?.facebook}
                       >
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090321/digital%20card/card/face_kl3lx6.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Facebook.png"
                           alt=""
                         />
                       </Box>
@@ -333,7 +354,7 @@ export const DigitalCard = ({ data }) => {
                         href={data?.socialLinks?.linkedin}
                       >
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090242/digital%20card/card/linked_cfyslj.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LinkedIn.png"
                           alt=""
                         />
                       </Box>
@@ -435,7 +456,7 @@ export const DigitalCard = ({ data }) => {
                 >
                   <Center boxSize={"26px"}>
                     <Image
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085610/digital%20card/card/contact_ffyixy.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/contact.png"
                       alt=""
                     />
                   </Center>
@@ -461,7 +482,7 @@ export const DigitalCard = ({ data }) => {
                 >
                   <Center boxSize={"26px"}>
                     <Image
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085664/digital%20card/card/download_o42ppn.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
                       alt=""
                     />
                   </Center>
@@ -487,7 +508,7 @@ export const DigitalCard = ({ data }) => {
                 >
                   <Center boxSize={"26px"}>
                     <Image
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085759/digital%20card/card/payment_kecvvx.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
                       alt=""
                     />
                   </Center>
@@ -540,6 +561,31 @@ export const DigitalCard = ({ data }) => {
               >
                 {data?.designation}
               </Text>
+              <Center
+                  mt="10px"
+                  color={"white"}
+                  borderRadius={"13px"}
+                  w="90px"
+                  h="26px"
+                  bgColor={bgViews}
+                >
+                  <Box mr="10px" fontSize={"1.5rem"}>
+                    <AiOutlineEye />
+                  </Box>
+                  <Text>{data?.views}</Text>
+                </Center>
+              <RWebShare
+                  data={{
+                    text: "Via Digital Card",
+                    url: "https://via-digital-card.vercel.app"+url,
+                    title: data.designation,
+                  }}
+                  onClick={() => console.log("shared successfully!")}
+                >
+                <Button fontSize={"1.7rem"} mt={5}>
+                  <AiOutlineShareAlt />
+                </Button>
+                </RWebShare>
             </Box>
           </Flex>
           <Flex w="100%" justifyContent={"space-between"}>
@@ -552,7 +598,7 @@ export const DigitalCard = ({ data }) => {
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
-                    src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085610/digital%20card/card/contact_ffyixy.png"
+                    src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/contact.png"
                     alt=""
                   />
                 </Box>
@@ -572,7 +618,7 @@ export const DigitalCard = ({ data }) => {
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
-                    src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085664/digital%20card/card/download_o42ppn.png"
+                    src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
                     alt=""
                   />
                 </Box>
@@ -592,7 +638,7 @@ export const DigitalCard = ({ data }) => {
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
-                    src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085759/digital%20card/card/payment_kecvvx.png"
+                    src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
                     alt=""
                   />
                 </Box>
@@ -682,7 +728,7 @@ export const DigitalCard = ({ data }) => {
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090230/digital%20card/card/wp_outqp6.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Whatsapp.png"
                       alt=""
                     />
                   </Box>
@@ -698,7 +744,7 @@ export const DigitalCard = ({ data }) => {
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090300/digital%20card/card/twit_gwdvfp.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
                       alt=""
                     />
                   </Box>
@@ -717,7 +763,7 @@ export const DigitalCard = ({ data }) => {
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090239/digital%20card/card/insta_h2qzlb.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Instagram.png"
                       alt=""
                     />
                   </Box>
@@ -736,7 +782,7 @@ export const DigitalCard = ({ data }) => {
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090321/digital%20card/card/face_kl3lx6.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Facebook.png"
                       alt=""
                     />
                   </Box>
@@ -755,7 +801,7 @@ export const DigitalCard = ({ data }) => {
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090242/digital%20card/card/linked_cfyslj.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LinkedIn.png"
                       alt=""
                     />
                   </Box>

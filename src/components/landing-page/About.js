@@ -23,14 +23,14 @@ export const About = () => {
     >
       <Box pos="absolute" right={"5%"} bottom="5%">
         <Image
-          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033631/digital%20card/landing-page/doodle-two_sfme7d.png"
+          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+2.png"
           alt="candy"
         />
       </Box>
 
       <Box pos="absolute" bottom="5%" left="5%">
         <Image
-          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033627/digital%20card/landing-page/doodle-one_zanfpm.png"
+          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+1.png"
           alt="ribbon"
         />
       </Box>

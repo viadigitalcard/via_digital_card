@@ -57,7 +57,7 @@ console.log(colorMode);
     >
       <Box pos="absolute" bottom="5%" right="5%">
         <Image
-          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033627/digital%20card/landing-page/doodle-one_zanfpm.png"
+          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+1.png"
           alt="ribbon"
         />
       </Box>
