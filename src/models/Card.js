@@ -7,9 +7,9 @@ const CardSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-  // profilePhoto: {
-  //   type: String,
-  // },
+  profilePhoto: {
+    type: String,
+  },
   email: {
     type: String,
   },

@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     card_id: session && session?.user?.id,
     ...data,
   };
+
   const { _id } = req.body;
   await dbConnect();
 

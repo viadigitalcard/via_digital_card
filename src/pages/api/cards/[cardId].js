@@ -6,7 +6,6 @@ export default async function handler(req, res) {
     query: { cardId },
     method,
   } = req;
-  console.log(cardId);
   await dbConnect();
 
   switch (method) {

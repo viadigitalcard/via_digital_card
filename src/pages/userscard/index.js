@@ -4,9 +4,13 @@ import dbConnect from "../../lib/dbConnect";
 import Card from "../../models/Card";
 import { CardList } from "../../components/Card/CardList";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Usercard = ({ Cards }) => {
   console.log(Cards);
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -16,7 +20,11 @@ const Usercard = ({ Cards }) => {
       <>
         <button onClick={signOut}>sign out</button>
         <DarkModeSwitch />
-        {Cards && Cards.map((res, i) => <CardList key={i} data={res} />)}
+        {Cards && Cards.length ? (
+          Cards.map((res, i) => <CardList key={i} data={res} />)
+        ) : (
+          <div>create new card</div>
+        )}
       </>
     </>
   );
