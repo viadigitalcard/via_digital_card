@@ -22,6 +22,10 @@ import { Formik, Field, Form } from "formik";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 
 export default function SignUp() {
+  const logo = useColorModeValue(
+    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
+    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034356/digital%20card/landing-page/logo-dark_yijgxs.png"
+  );
   const color = useColorModeValue("white", "#302E2E");
   const textColor = useColorModeValue("gray.800", "white");
   const [show, setShow] = React.useState(false);
@@ -53,8 +57,6 @@ export default function SignUp() {
   const router = useRouter();
 
   const handleSubmit = async (values) => {
-    console.log(values);
-
     try {
       setLoading(true);
       const res = await fetch("/api/auth/signup", {
@@ -83,12 +85,7 @@ export default function SignUp() {
     <div>
       <>
         <DarkModeSwitch />
-        <HStack
-          border="2px solid red"
-          backgroundColor={color}
-          width="full"
-          h="100vh"
-        >
+        <HStack backgroundColor={color} width="full" h="100vh">
           <Box as={Flex} w="45%" display={["none", "none", "flex"]}>
             <Image
               alt=""
@@ -110,7 +107,7 @@ export default function SignUp() {
               alt=""
               width={{ base: "200px", md: "200px", lg: "300px" }}
               marginBottom={2}
-              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
+              src={logo}
             />
             <Text
               fontSize={{ base: "36px", md: "40px", lg: "45px" }}

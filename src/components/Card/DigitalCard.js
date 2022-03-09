@@ -26,7 +26,6 @@ import { DarkModeSwitch } from "../DarkModeSwitch";
 import { SendMessage } from "../modals/SendMessage";
 import NextLink from "next/link";
 export const DigitalCard = ({ data }) => {
-  console.log(data);
   const bgColor = useColorModeValue("white", "black.200");
   const bgViews = useColorModeValue("greenBrand.100", "black.100");
   const textColor = useColorModeValue("black", "white");
@@ -153,6 +152,7 @@ END:VCARD
               >
                 <Image
                   h="100%"
+                  w="100%"
                   alt=""
                   borderRadius="20px"
                   objectFit={"cover"}
@@ -517,9 +517,8 @@ END:VCARD
       </Tabs>
       <Box display={{ base: "block", "2sm": "none" }} w="100%">
         <VStack spacing={"48px"} color={textColor}>
-          <Text fontWeight={"600"} fontSize="2rem">
-            Digital Card
-          </Text>
+          <Image src={logo} />
+
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
             <Box
               w={{ base: "89px", xs: "193px" }}
@@ -528,9 +527,11 @@ END:VCARD
             >
               <Image
                 alt=""
+                h="100%"
+                w="100%"
                 borderRadius="20px"
-                objectFit={"cover"}
-                src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
+                objectFit="cover"
+                src={data?.profilePhoto || ""}
               />
             </Box>
             <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}>

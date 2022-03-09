@@ -4,7 +4,6 @@ function Reset() {
   const [email, setEmail] = useState("");
 
   const handleMail = async (e) => {
-    console.log(email);
     const res = await fetch("/api/auth/resetpassword", {
       method: "POST",
       body: JSON.stringify({ email }),
@@ -13,7 +12,6 @@ function Reset() {
       },
     });
     const data = await res.json();
-    console.log(data);
     if (!res.ok) {
       throw new Error(res.status);
     }

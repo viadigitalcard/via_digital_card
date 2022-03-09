@@ -105,44 +105,48 @@ const Cards = ({ Card }) => {
         ) : (
           "ERROR"
         )}
-        <Box>
-          {session && session.user.id == Card?.card_id ? (
-            <Box
-              pos="absolute"
-              right={["25px", "25px", "50px"]}
-              top={["50px", "50px", "50px"]}
+
+        {session && session.user.id == Card.card_id ? (
+          <Box
+            pos="absolute"
+            right={["25px", "25px", "50px"]}
+            top={["50px", "50px", "60px"]}
+          >
+            <Modal
+              trapFocus={false}
+              closeOnOverlayClick={true}
+              isOpen={isOpen}
+              onClose={onClose}
             >
-              <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                  <ModalHeader>{`${Card.name}'s card`}</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
-                    <EditCard inputData={Card} />
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button variant="ghost" mr={3} onClick={onClose}>
-                      Close
-                    </Button>
-                  </ModalFooter>
-                </ModalContent>
-              </Modal>
-              <Menu>
-                <MenuButton as={IconButton} icon={<HamburgerIcon />} />
-                <MenuList bgColor="brand.100" color="white" w="20px">
-                  <MenuItem onClick={handleDelete} icon={<DeleteIcon />}>
-                    Delete
-                  </MenuItem>
-                  <MenuItem onClick={onOpen} icon={<EditIcon />}>
-                    Edit
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </Box>
-          ) : (
-            ""
-          )}
-        </Box>
+              <ModalOverlay backdropFilter="blur(1px)" />
+              <ModalContent>
+                <ModalHeader>{`${Card.name}'s card`}</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <EditCard inputData={Card} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button variant="ghost" mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+            <Menu isLazy={true} computePositionOnMount={true}>
+              <MenuButton as={IconButton} icon={<HamburgerIcon />} />
+              <MenuList bgColor="brand.100" color="white" w="20px">
+                <MenuItem onClick={handleDelete} icon={<DeleteIcon />}>
+                  Delete
+                </MenuItem>
+                <MenuItem onClick={onOpen} icon={<EditIcon />}>
+                  Edit
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
+        ) : (
+          ""
+        )}
       </>
     </>
   );

@@ -38,8 +38,6 @@ const steps = [
 ];
 
 function Card() {
-  console.log("STEPSSSSSS", steps);
-
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
   const [errorMessage, seterrorMessage] = useState("");
   const [profile, setProfile] = useState(null);
@@ -51,7 +49,6 @@ function Card() {
   async function handleSubmit(values) {
     let uploadProfile;
     profile ? (uploadProfile = profile) : (uploadProfile = null);
-    console.log("submiiiiiiiittttttttttt", uploadProfile);
 
     let { url } = await uploadToS3(uploadProfile);
     const data = {
@@ -98,7 +95,7 @@ function Card() {
   console.log(profile);
 
   let handleFileChange = async (file) => {
-    console.log(file);
+    console.log(file.size);
     setProfile(file);
   };
 
@@ -148,7 +145,7 @@ function Card() {
             />
           </Box>
         </Box>
-        <Box h="100vh" as={Center} w={["100%", "100%", "60%"]}>
+        <Box zIndex={1} h="100vh" as={Center} w={["100%", "100%", "60%"]}>
           <Box
             as={Center}
             w={["100%", "100%", "70vh"]}
@@ -653,7 +650,6 @@ export function FormikStepper({
     children
   ) as React.ReactElement<FormikStepProps>[];
   const [step, setStep] = useState(0);
-  console.log(step);
 
   const currentChild = childrenArray[step];
   const [completed, setCompleted] = useState(false);
