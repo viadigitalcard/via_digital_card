@@ -45,26 +45,31 @@ export const DigitalCard = ({ data }) => {
   const router = useRouter()
   let url = router.asPath
 
+  const logo = useColorModeValue(
+    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
+    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034356/digital%20card/landing-page/logo-dark_yijgxs.png"
+  );
   //Vcard
   function handleSave(e) {
     e.preventDefault();
     var file = new Blob(
       [
         `BEGIN:VCARD
-        VERSION:3.0
-        N:${data.name};;;;
-        FN:${data.name}
-        TITLE:${data.designation};
-        EMAIL;type=INTERNET;type=pref:${data.email}
-        ADR;type=WORK;type=pref:;;;${data.address};;;
-        URL:${data.website}
-        END:VCARD
-  `,
+VERSION:3.0
+N:${data.name};;;
+FN:${data.name}
+TITLE:${data.name};
+EMAIL;type=INTERNET;type=pref:${data.email} 
+TEL;type=MAIN:${data?.phone}
+TEL;type=CELL;type=VOICE;type=pref:${data?.phone}
+ADR;type=WORK;type=pref:;;;${data.address};;;
+END:VCARD
+`,
       ],
       { type: "text/vcard;charset=utf-8" }
     );
     let a = document.createElement("a");
-    a.download = `${data.name}.vcf`;
+    a.download = `${data.name}${data.name}.vcf`;
     a.href = URL.createObjectURL(file);
     var reader = new FileReader();
     if (navigator.userAgent.match("CriOS")) {
@@ -78,7 +83,7 @@ export const DigitalCard = ({ data }) => {
       };
       reader.readAsDataURL(file);
     } else {
-      FileSaver.saveAs(file, `${data.name}.vcf`, true);
+      FileSaver.saveAs(file, `${data.name}${data.name}.vcf`, true);
     }
   }
 
@@ -94,11 +99,12 @@ export const DigitalCard = ({ data }) => {
             <Tab
               color={"greenBrand.100"}
               fontSize={"1.125rem"}
-              _selected={{ color: "blue", border: "none" }}
+              _selected={{ color: "none ", border: "none" }}
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-              Digital Card
+              {/* Digital Card */}
+              <Image src={logo} />
             </Tab>
           </Box>
           <Flex>
@@ -152,10 +158,12 @@ export const DigitalCard = ({ data }) => {
                 borderRadius="20px"
               >
                 <Image
+                  h="100%"
+                  w="100%"
                   alt=""
                   borderRadius="20px"
                   objectFit={"cover"}
-                  src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
+                  src={data?.profilePhoto}
                 />
               </Box>
               <Box
@@ -220,6 +228,9 @@ export const DigitalCard = ({ data }) => {
                       bgColor="greenBrand.100"
                       borderRadius={"35px"}
                     >
+                      {/* <a href="" onClick={handleSave}>
+                        download
+                      </a> */}
                       <Image
                         src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/contact.png"
                         alt=""
@@ -528,9 +539,8 @@ export const DigitalCard = ({ data }) => {
       </Tabs>
       <Box display={{ base: "block", "2sm": "none" }} w="100%">
         <VStack spacing={"48px"} color={textColor}>
-          <Text fontWeight={"600"} fontSize="2rem">
-            Digital Card
-          </Text>
+          <Image src={logo} />
+
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
             <Box
               w={{ base: "89px", xs: "193px" }}
@@ -539,9 +549,11 @@ export const DigitalCard = ({ data }) => {
             >
               <Image
                 alt=""
+                h="100%"
+                w="100%"
                 borderRadius="20px"
-                objectFit={"cover"}
-                src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
+                objectFit="cover"
+                src={data?.profilePhoto || ""}
               />
             </Box>
             <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}>

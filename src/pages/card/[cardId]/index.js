@@ -105,14 +105,20 @@ const Cards = ({ Card }) => {
         ) : (
           "ERROR"
         )}
-        {session && session.user.id == Card?.card_id ? (
+
+        {session && session.user.id == Card.card_id ? (
           <Box
             pos="absolute"
             right={["25px", "25px", "50px"]}
-            top={["50px", "50px", "50px"]}
+            top={["50px", "50px", "60px"]}
           >
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
+            <Modal
+              trapFocus={false}
+              closeOnOverlayClick={true}
+              isOpen={isOpen}
+              onClose={onClose}
+            >
+              <ModalOverlay backdropFilter="blur(1px)" />
               <ModalContent>
                 <ModalHeader>{`${Card.name}'s card`}</ModalHeader>
                 <ModalCloseButton />
@@ -126,7 +132,7 @@ const Cards = ({ Card }) => {
                 </ModalFooter>
               </ModalContent>
             </Modal>
-            <Menu>
+            <Menu isLazy={true} computePositionOnMount={true}>
               <MenuButton as={IconButton} icon={<HamburgerIcon />} />
               <MenuList bgColor="brand.100" color="white" w="20px">
                 <MenuItem onClick={handleDelete} icon={<DeleteIcon />}>

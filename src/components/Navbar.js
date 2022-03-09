@@ -52,7 +52,7 @@ export const Navbar = () => {
           justifyContent={{ base: "center", lg: "flex-end" }}
           fontSize="1.125rem"
           color={textColor}
-          transition="all 0.5s ease"
+          // transition="all 0.5s ease"
           minH={{ base: "500px", lg: "0" }}
           pl={{ base: "40px", lg: "0" }}
           fontWeight="500"

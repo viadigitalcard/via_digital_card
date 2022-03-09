@@ -21,9 +21,9 @@ export const Footer = () => {
 
   return (
     <Box p="90px 10vw" w="100%" bgColor={bg} color={textColor}>
-      <Flex alignItems={"center"} w="100%" justifyContent={"space-between"}>
+      <Flex alignItems={{base:"flex-start",xs:"center"}} flexDir={{base:"column",xs:"row"}} w="100%" justifyContent={"space-between"}>
         <Text fontSize={"1.25rem"}>Via digital card</Text>
-        <HStack spacing={"22px"} fontSize="1.2rem">
+        <HStack spacing={"22px"} mt={{base:"27px",xs:"0"}} fontSize="1.2rem">
           <Box
             bgColor={bgIcon}
             p="5px"
@@ -58,8 +58,8 @@ export const Footer = () => {
           </Box>
         </HStack>
       </Flex>
-      <Flex w='100%' mt='66px' fontSize={'0.875rem'} justifyContent={'space-between'} flexWrap='wrap'>
-           <VStack alignItems={'flex-start'} spacing='12px'>
+      <Flex w='100%' mt={{base:"27px",sm:'66px'}} flexDir={{base:"column",xs:'row'}} ml={{base:"-20px",sm:'0'}} fontSize={'0.875rem'} justifyContent={{base:"flex-start",sm:'space-between'}} flexWrap='wrap'>
+           <VStack alignItems={'flex-start'} m={{base:"20px",sm:"0"}} spacing='12px'>
              <Text fontSize={'1.25rem'}>Service</Text>
              <Text>Wedding events</Text>
              <Text>Platinum organization</Text>
@@ -67,7 +67,7 @@ export const Footer = () => {
              <Text>Deals</Text>
              <Text>Seasonal Items</Text>
            </VStack>
-           <VStack alignItems={'flex-start'} spacing='12px'>
+           <VStack alignItems={'flex-start'} m={{base:"20px",sm:"0"}} spacing='12px'>
              <Text fontSize={'1.25rem'}>Find Us On</Text>
              <Text>Instagram</Text>
              <Text>Facebook</Text>
@@ -75,14 +75,14 @@ export const Footer = () => {
              <Text>SnapChat</Text>
              <Text>Twitter</Text>
            </VStack>
-           <VStack alignItems={'flex-start'} spacing='12px'>
+           <VStack alignItems={'flex-start'} m={{base:"20px",sm:"0"}} spacing='12px'>
              <Text fontSize={'1.25rem'}>Product</Text>
              <Text>Get the app</Text>
              <Text>Loyality program</Text>
              <Text>Affliates</Text>
              <Text>Press</Text>
            </VStack>
-           <VStack alignItems={'flex-start'} spacing='12px'>
+           <VStack alignItems={'flex-start'} m={{base:"20px",sm:"0"}} spacing='12px'>
              <Text fontSize={'1.25rem'}>Help</Text>
                <Text>Returns</Text>
                <Text>FAQ</Text>

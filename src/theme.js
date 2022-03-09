@@ -8,13 +8,13 @@ import "@fontsource/open-sans/500.css";
 import "@fontsource/open-sans/400.css";
 
 const breakpoints = createBreakpoints({
-  xs:"30em", // 480px
+  xs: "30em", // 480px
   sm: "40em", // 640px
   "2sm": "48em", // 768px
   md: "52em", // 832px
   lg: "64em", //1024px
   xl: "80em", //1280px
-  "2xl":"96em"  //1536px
+  "2xl": "96em", //1536px
 });
 // Box: {
 //   borderColor: theme.colorMode === "light" ? "gray.200" : "gray.900"
@@ -36,11 +36,11 @@ const theme = extendTheme({
     gray: {
       100: "#8A8A8A",
       200: "#E7E7E7",
-      300:"#646468"
+      300: "#646468",
     },
-    black:{
-      100:"#353647",
-      200:"#242734"
+    black: {
+      100: "#353647",
+      200: "#242734",
     },
     brand: {
       100: "#7ECE05",
@@ -86,7 +86,7 @@ const theme = extendTheme({
         },
       },
     },
-   
+
     Image: {
       width: "100%",
       height: "100%",

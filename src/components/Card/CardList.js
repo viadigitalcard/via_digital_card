@@ -10,6 +10,7 @@ import {
   HStack,
   useColorModeValue,
   Link,
+  Avatar,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
@@ -46,6 +47,7 @@ export const CardList = ({ data }) => {
                 w={{ base: "115px", md: "241px" }}
                 h={{ base: "174px", md: "216px" }}
               >
+                {/* <Avatar /> */}
                 <Image
                   alt=""
                   borderTopRadius={{ base: "30px" }}
@@ -53,7 +55,7 @@ export const CardList = ({ data }) => {
                   w="100%"
                   h="100%"
                   objectFit={"cover"}
-                  src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085462/digital%20card/card/img_gjy1m4.png"
+                  src={data?.profilePhoto || ""}
                 />
               </Box>
               <Box
