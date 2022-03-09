@@ -148,7 +148,6 @@ END:VCARD
               alignItems={{ "2sm": "center", lg: "flex-start", xl: "center" }}
               textAlign={{ base: "center", "2sm": "left" }}
               flexDir={{ "2sm": "row", lg: "column", xl: "row" }}
-              border={{ "2sm": "none", lg: "2px solid #E3E3E3" }}
             >
               <Box
                 w="193px"
@@ -168,7 +167,6 @@ END:VCARD
               </Box>
               <Box
                 ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}
-                border={{ "2sm": "none", lg: "2px solid #E3E3E3" }}
               >
                 <Text
                   fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
