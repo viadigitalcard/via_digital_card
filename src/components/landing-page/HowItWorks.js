@@ -9,7 +9,7 @@ import {
   Button,
   Image,
   Center,
-  useMediaQuery
+  useMediaQuery,
 } from "@chakra-ui/react";
 const responsive = {
   0: { items: 1 },
@@ -27,7 +27,7 @@ export const HowItWorks = () => {
     "https://res.cloudinary.com/dbm7us31s/image/upload/v1646740623/digital%20card/landing-page/Mask_group_lwbqdk.png"
   );
   const items = [
-    <div className="item" data-value="1">
+    <div className="item" key={1} data-value="1">
       <Box w="100%">
         <Center>
           <Image src={imgUrl} alt="" />
@@ -38,7 +38,7 @@ export const HowItWorks = () => {
         </p>
       </Box>
     </div>,
-    <div className="item" data-value="2">
+    <div className="item" key={2} data-value="2">
       <Box w="100%">
         <Center>
           <Image src={imgUrl} alt="" />
@@ -49,7 +49,7 @@ export const HowItWorks = () => {
         </p>
       </Box>
     </div>,
-    <div className="item" data-value="3">
+    <div className="item" key={3} data-value="3">
       <Box w="100%">
         <Center>
           <Image src={imgUrl} alt="" />
@@ -60,7 +60,7 @@ export const HowItWorks = () => {
         </p>
       </Box>
     </div>,
-    <div className="item" data-value="4">
+    <div className="item" data-value="4" key={4}>
       <Box w="100%">
         <Center>
           <Image src={imgUrl} alt="" />
@@ -72,7 +72,7 @@ export const HowItWorks = () => {
       </Box>
     </div>,
   ];
-  const [isMobile] = useMediaQuery('(max-width: 640px)')
+  const [isMobile] = useMediaQuery("(max-width: 640px)");
   console.log(isMobile);
   return (
     <Center
@@ -120,7 +120,7 @@ export const HowItWorks = () => {
             mouseTracking
             items={items}
             //   paddingLeft={50}
-            paddingRight={isMobile?0:150}
+            paddingRight={isMobile ? 0 : 150}
             controlsStrategy="alternate"
             responsive={responsive}
           />
