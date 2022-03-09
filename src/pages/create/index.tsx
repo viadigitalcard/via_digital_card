@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { object, string } from "yup";
+import React, { useEffect, useState } from "react";
+import { boolean, mixed, object, string } from "yup";
 import { Step, Steps } from "chakra-ui-steps";
 import {
   VStack,
@@ -17,7 +17,9 @@ import {
   FormErrorMessage,
   Textarea,
   useColorModeValue,
+  CloseButton,
 } from "@chakra-ui/react";
+import * as Yup from "yup";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
@@ -40,8 +42,8 @@ const steps = [
 function Card() {
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
   const [errorMessage, seterrorMessage] = useState("");
-  const [profile, setProfile] = useState();
-  const [profileChange, setProfileChange] = useState("");
+  const [profile, setProfile] = useState(null);
+  const [value, setValue] = useState("");
   const textColor = useColorModeValue("gray.800", "white");
   const color = useColorModeValue("white", "#302E2E");
 
@@ -87,19 +89,38 @@ function Card() {
     // router.replace("/userscard");
     // console.log(values);
   }
+  function handleChange(e) {
+    setProfile(e);
+    setValue(e.size);
+  }
+  let validationShape;
 
-  function handleFile() {
-    document.getElementById("filePicker").click();
-  }
-  function handleProfileUpload(e) {
-    console.log(e.target.files[0]);
+  if (profile === null) {
+    validationShape = {
+      normal: Yup.object().shape({
+        name: Yup.string().required("Required"),
+        email: Yup.string().email("Invalid Email").required("Required"),
+        username: Yup.string().required("Required"),
+      }),
+    };
+  } else {
+    validationShape = {
+      normal: Yup.object().shape({
+        profilePhoto: mixed()
+          .notRequired()
+          .test(
+            "profilePhoto",
+            "File size is too large, Must be less than 1MB",
+            (value) => value && value <= 1024 * 1024
+          )
+          .notRequired(),
+        name: Yup.string().required("Required"),
+        email: Yup.string().email("Invalid Email").required("Required"),
+        username: Yup.string().required("Required"),
+      }),
+    };
   }
 
-  function handleFileChange(file) {
-    const filesize = file.size;
-    setProfileChange(filesize);
-    console.log("profilechange", profileChange);
-  }
   return (
     <>
       <Head>
@@ -119,7 +140,7 @@ function Card() {
           pl="100px"
           h="100vh"
           pos="absolute"
-          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Create+Stars.png"
+          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643549357/digital%20card/form/Profile/Group_17_wu2yen.svg"
         />
         <Box
           display={["none", "none", "flex"]}
@@ -142,7 +163,7 @@ function Card() {
               alt=""
               h="95%"
               minHeight="90%"
-              src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Create+Left.png"
+              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643548927/digital%20card/form/Profile/Saly-14_tzdjim.svg"
             />
           </Box>
         </Box>
@@ -215,14 +236,7 @@ function Card() {
                   >
                     <FormikStep
                       label="Personal Data"
-                      validationSchema={object({
-                        profilePhoto: string().required("Required"),
-                        name: string().required("Required"),
-                        email: string()
-                          .email("Invalid Email")
-                          .required("Required"),
-                        username: string().required("Required"),
-                      })}
+                      validationSchema={validationShape.normal}
                     >
                       <VStack spacing="20px" py="10">
                         <Flex
@@ -233,29 +247,6 @@ function Card() {
                           py={["10px", "", "0px"]}
                           flexDirection={["column", "column", "row"]}
                         >
-                          <Field name="name">
-                            {({ field, form }) => (
-                              <FormControl
-                                isInvalid={
-                                  (form.errors.name && form.touched.name) ||
-                                  errorMessage
-                                }
-                              >
-                                <Input
-                                type="file"
-                                  marginTop={15}
-                                  size="lg"
-                                  variant="outline"
-                                  focusBorderColor="#88E000"
-                                  // color={textColor}
-                                  {...field}
-                                />
-                                <FormErrorMessage>
-                                  {form.errors.name || errorMessage}{" "}
-                                </FormErrorMessage>
-                              </FormControl>
-                            )}
-                          </Field>
                           <Avatar
                             w="140px"
                             h="140px"
@@ -265,40 +256,69 @@ function Card() {
                             as={Center}
                           />
                           <Field name="profilePhoto">
-                            {({ field, form, setFieldValue }) => (
+                            {({ field, form }) => (
                               <FormControl
-                                // defaultValue={profileChange}
                                 isInvalid={
                                   (form.errors.profilePhoto &&
                                     form.touched.profilePhoto) ||
                                   errorMessage
                                 }
                               >
-                                <FileInput onChange={handleFileChange} />
-
                                 <Input
-                                  // style={{ display: "none" }}
-
-                                  // ref={profilePictureRef}
+                                  value={field.value}
+                                  display="none"
+                                  type="hidden"
                                   {...field}
-                                  // required
                                 />
-                                <Button
-                                  onClick={openFileDialog}
-                                  color="white"
-                                  // onClick={handleFile}
-                                  bg="#88E000"
-                                  mt={["10px", "", ""]}
-                                  fontSize={{ base: "12", md: "16", lg: "18" }}
-                                  fontWeight="semibold"
-                                  fontFamily="Open Sans"
+                                <FileInput
+                                  onChange={(e) => {
+                                    handleChange(e);
+                                    form.setFieldValue("profilePhoto", e.size);
+                                  }}
+                                />
+
+                                <Flex
+                                  justifyContent="center"
+                                  alignItems="center"
                                 >
-                                  {profile && profile
-                                    ? "Update Profile Photo"
-                                    : "Add Profile Photo"}
-                                </Button>
-                                <FormErrorMessage>
-                                  {form.errors.name || errorMessage}{" "}
+                                  <Button
+                                    ml={["0px", "0px", "20%"]}
+                                    onClick={openFileDialog}
+                                    color="white"
+                                    bg="#88E000"
+                                    mt={["10px", "", ""]}
+                                    fontSize={{
+                                      base: "12",
+                                      md: "14",
+                                      lg: "14",
+                                    }}
+                                    fontWeight="semibold"
+                                    fontFamily="Open Sans"
+                                  >
+                                    {profile && profile
+                                      ? "Update Profile Photo"
+                                      : "Add Profile Photo"}
+                                  </Button>
+                                  {profile && profile ? (
+                                    <CloseButton
+                                      // as={Button}
+                                      onClick={() => {
+                                        setProfile(null);
+                                      }}
+                                      variant="ghost"
+                                      mt="10px"
+                                      ml="10px"
+                                      size="md"
+                                    />
+                                  ) : (
+                                    ""
+                                  )}
+                                </Flex>
+                                <FormErrorMessage
+                                  fontSize={["10px", "sm", "sm"]}
+                                  ml={["10%", "0px", "20%"]}
+                                >
+                                  {form.errors.profilePhoto || errorMessage}{" "}
                                 </FormErrorMessage>
                               </FormControl>
                             )}

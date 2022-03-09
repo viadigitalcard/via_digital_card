@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import {
   Tabs,
   TabList,
@@ -42,8 +42,8 @@ export const DigitalCard = ({ data }) => {
   const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tabIndex, setTabIndex] = useState(0);
-  const router = useRouter()
-  let url = router.asPath
+  const router = useRouter();
+  let url = router.asPath;
 
   const logo = useColorModeValue(
     "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
@@ -56,10 +56,10 @@ export const DigitalCard = ({ data }) => {
       [
         `BEGIN:VCARD
 VERSION:3.0
-N:${data.name};;;
+N:${data.name}
 FN:${data.name}
-TITLE:${data.name};
-EMAIL;type=INTERNET;type=pref:${data.email} 
+TITLE:${data.name}
+EMAIL;type=Email;type=pref:${data.email} 
 TEL;type=MAIN:${data?.phone}
 TEL;type=CELL;type=VOICE;type=pref:${data?.phone}
 ADR;type=WORK;type=pref:;;;${data.address};;;
@@ -165,9 +165,7 @@ END:VCARD
                   src={data?.profilePhoto}
                 />
               </Box>
-              <Box
-                ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}
-              >
+              <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}>
                 <Text
                   fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                   fontWeight={{ base: "600", "2sm": "500" }}
@@ -201,14 +199,14 @@ END:VCARD
                 <RWebShare
                   data={{
                     text: "Via Digital Card",
-                    url: "https://via-digital-card.vercel.app"+url,
+                    url: "https://via-digital-card.vercel.app" + url,
                     title: data.designation,
                   }}
                   onClick={() => console.log("shared successfully!")}
                 >
-                <Button fontSize={"1.7rem"}>
-                  <AiOutlineShareAlt />
-                </Button>
+                  <Button fontSize={"1.7rem"}>
+                    <AiOutlineShareAlt />
+                  </Button>
                 </RWebShare>
               </Box>
             </Flex>
@@ -572,30 +570,30 @@ END:VCARD
                 {data?.designation}
               </Text>
               <Center
-                  mt="10px"
-                  color={"white"}
-                  borderRadius={"13px"}
-                  w="90px"
-                  h="26px"
-                  bgColor={bgViews}
-                >
-                  <Box mr="10px" fontSize={"1.5rem"}>
-                    <AiOutlineEye />
-                  </Box>
-                  <Text>{data?.views}</Text>
-                </Center>
+                mt="10px"
+                color={"white"}
+                borderRadius={"13px"}
+                w="90px"
+                h="26px"
+                bgColor={bgViews}
+              >
+                <Box mr="10px" fontSize={"1.5rem"}>
+                  <AiOutlineEye />
+                </Box>
+                <Text>{data?.views}</Text>
+              </Center>
               <RWebShare
-                  data={{
-                    text: "Via Digital Card",
-                    url: "https://via-digital-card.vercel.app"+url,
-                    title: data.designation,
-                  }}
-                  onClick={() => console.log("shared successfully!")}
-                >
+                data={{
+                  text: "Via Digital Card",
+                  url: "https://via-digital-card.vercel.app" + url,
+                  title: data.designation,
+                }}
+                onClick={() => console.log("shared successfully!")}
+              >
                 <Button fontSize={"1.7rem"} mt={5}>
                   <AiOutlineShareAlt />
                 </Button>
-                </RWebShare>
+              </RWebShare>
             </Box>
           </Flex>
           <Flex w="100%" justifyContent={"space-between"}>
