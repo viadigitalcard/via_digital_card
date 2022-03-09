@@ -13,13 +13,13 @@ export default function LandingPage() {
 
   return (
     <Box bgColor={bgColor}>
-      {/* <Hero /> */}
-      {/* <Review /> */}
-      {/* <About /> */}
-      {/* <HowItWorks/> */}
-      <Pricing/>
-      {/* <Contact/> */}
-      {/* <Footer /> */}
+      <Hero />
+      <Review />
+      <About />
+      <HowItWorks />
+      <Pricing />
+      <Contact />
+      <Footer />
     </Box>
   );
 }
