@@ -81,6 +81,7 @@ export const Contact = () => {
           maxW={"1100px"}
           bgColor={{base:"transparent","2sm":bg}}
           borderRadius={"44px"}
+          p={{base:"0px","2sm":"50px"}}
         >
           <Flex
             w="100%"
