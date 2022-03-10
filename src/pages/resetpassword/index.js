@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
-
 import { BsArrowLeftShort } from "react-icons/bs";
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
