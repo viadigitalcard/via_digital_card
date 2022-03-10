@@ -1,3 +1,5 @@
+import NextLink from "next/link";
+import Head from "next/head";
 import {
   Box,
   Button,
@@ -12,14 +14,13 @@ import {
   useToast,
   Center,
 } from "@chakra-ui/react";
-import NextLink from "next/link";
 import React, { useState } from "react";
-import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineMail } from "react-icons/ai";
 
 import { BsArrowLeftShort } from "react-icons/bs";
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
-import Head from "next/head";
+
 function Reset() {
   const [emailSent, setEmailSent] = useState(false);
   const [email, setEmail] = useState("");
