@@ -1,5 +1,12 @@
 import { useSession } from "next-auth/react";
 import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
   Box,
   Menu,
   MenuButton,
@@ -112,26 +119,30 @@ const Cards = ({ Card }) => {
             right={["25px", "25px", "50px"]}
             top={["50px", "50px", "60px"]}
           >
-            <Modal
-              trapFocus={false}
-              closeOnOverlayClick={true}
+            <Drawer
+              size="md"
               isOpen={isOpen}
+              placement="right"
               onClose={onClose}
             >
-              <ModalOverlay backdropFilter="blur(1px)" />
-              <ModalContent>
-                <ModalHeader>{`${Card.name}'s card`}</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerCloseButton />
+                <DrawerHeader>{`${Card.name}'s card`}</DrawerHeader>
+
+                <DrawerBody>
+                  {" "}
                   <EditCard inputData={Card} />
-                </ModalBody>
-                <ModalFooter>
-                  <Button variant="ghost" mr={3} onClick={onClose}>
-                    Close
+                </DrawerBody>
+
+                <DrawerFooter>
+                  <Button variant="outline" mr={3} onClick={onClose}>
+                    Cancel
                   </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
+
             <Menu isLazy={true} computePositionOnMount={true}>
               <MenuButton as={IconButton} icon={<HamburgerIcon />} />
               <MenuList bgColor="brand.100" color="white" w="20px">

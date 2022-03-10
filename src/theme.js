@@ -87,10 +87,10 @@ const theme = extendTheme({
       },
     },
 
-    Image: {
-      width: "100%",
-      height: "100%",
-    },
+    // Image: {
+    //   width: "100%",
+    //   height: "100%",
+    // },
     Steps,
   },
   breakpoints,
