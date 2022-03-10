@@ -22,7 +22,7 @@ function about() {
           <Avatar
             name=""
             alt=""
-            src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643648281/digital%20card/About%20us/Ellipse_25_b1ww6l.svg"
+            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+About.png"
             size={5}
             mt="5%"
           />
@@ -126,7 +126,7 @@ function about() {
           >
             <Image
               alt=""
-              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643655522/digital%20card/About%20us/Rectangle_744_bm6xy3.svg"
+              src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+About+Rect.png"
             />
             <Text
               fontSize="14"
@@ -156,7 +156,7 @@ function about() {
           >
             <Image
               alt=""
-              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643655522/digital%20card/About%20us/Rectangle_744_bm6xy3.svg"
+              src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+About+Rect.png"
             />
             <Text
               fontSize="14"
@@ -186,7 +186,7 @@ function about() {
           >
             <Image
               alt=""
-              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643655522/digital%20card/About%20us/Rectangle_744_bm6xy3.svg"
+              src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+About+Rect.png"
             />
             <Text
               fontSize="14"

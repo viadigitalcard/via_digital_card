@@ -84,7 +84,7 @@ export const SignIn = () => {
             alt=""
             width={{ base: "150px", md: "200px", lg: "300px" }}
             p="10px"
-            src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643213479/digital%20card/Logo/Logo_nozzes.webp"
+            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png"
           />
           <Text
             fontSize={{ base: "36px", md: "40px", lg: "45px" }}
@@ -213,7 +213,7 @@ export const SignIn = () => {
             w="full"
             py="10px"
             h="100vh"
-            src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643225745/digital%20card/SignUp/Mask_Group_1_h4nweo.svg"
+            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Sign+In+Right.png"
           />
         </Flex>
       </Flex>

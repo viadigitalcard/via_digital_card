@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { object, string } from "yup";
+import React, { useEffect, useState } from "react";
+import { boolean, mixed, object, string } from "yup";
 import { Step, Steps } from "chakra-ui-steps";
 import {
   VStack,
@@ -17,7 +17,9 @@ import {
   FormErrorMessage,
   Textarea,
   useColorModeValue,
+  CloseButton,
 } from "@chakra-ui/react";
+import * as Yup from "yup";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
@@ -41,10 +43,12 @@ function Card() {
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
   const [errorMessage, seterrorMessage] = useState("");
   const [profile, setProfile] = useState(null);
+  const [value, setValue] = useState("");
   const textColor = useColorModeValue("gray.800", "white");
   const color = useColorModeValue("white", "#302E2E");
 
   const router = useRouter();
+
   const contentType = "application/json";
   async function handleSubmit(values) {
     let uploadProfile;
@@ -85,19 +89,37 @@ function Card() {
     // router.replace("/userscard");
     // console.log(values);
   }
-
-  function handleFile() {
-    document.getElementById("filePicker").click();
+  function handleChange(e) {
+    setProfile(e);
+    setValue(e.size);
   }
-  function handleProfileUpload(e) {
-    console.log(e.target.files[0]);
-  }
-  console.log(profile);
+  let validationShape;
 
-  let handleFileChange = async (file) => {
-    console.log(file.size);
-    setProfile(file);
-  };
+  if (profile === null) {
+    validationShape = {
+      normal: Yup.object().shape({
+        name: Yup.string().required("Required"),
+        email: Yup.string().email("Invalid Email").required("Required"),
+        username: Yup.string().required("Required"),
+      }),
+    };
+  } else {
+    validationShape = {
+      normal: Yup.object().shape({
+        profilePhoto: mixed()
+          .notRequired()
+          .test(
+            "profilePhoto",
+            "File size is too large, Must be less than 1MB",
+            (value) => value && value <= 1024 * 1024
+          )
+          .notRequired(),
+        name: Yup.string().required("Required"),
+        email: Yup.string().email("Invalid Email").required("Required"),
+        username: Yup.string().required("Required"),
+      }),
+    };
+  }
 
   return (
     <>
@@ -195,6 +217,7 @@ function Card() {
                 <div>
                   <FormikStepper
                     initialValues={{
+                      profilePhoto: "",
                       name: "",
                       email: "",
                       username: "",
@@ -213,13 +236,7 @@ function Card() {
                   >
                     <FormikStep
                       label="Personal Data"
-                      validationSchema={object({
-                        name: string().required("Required"),
-                        email: string()
-                          .email("Invalid Email")
-                          .required("Required"),
-                        username: string().required("Required"),
-                      })}
+                      validationSchema={validationShape.normal}
                     >
                       <VStack spacing="20px" py="10">
                         <Flex
@@ -238,32 +255,74 @@ function Card() {
                             boxSize="100px"
                             as={Center}
                           />
-                          <FileInput onChange={handleFileChange} />
-                          <Input
-                            style={{ display: "none" }}
-                            type="file"
-                            id="filePicker"
-                            // name="avatar"
-                            placeholder="Add Profile Photo"
-                            accept="image/png, image/jpeg"
-                            // ref={profilePictureRef}
-                            onChange={handleProfileUpload}
-                            // required
-                          />
-                          <Button
-                            onClick={openFileDialog}
-                            color="white"
-                            // onClick={handleFile}
-                            bg="#88E000"
-                            mt={["10px", "", ""]}
-                            fontSize={{ base: "12", md: "16", lg: "18" }}
-                            fontWeight="semibold"
-                            fontFamily="Open Sans"
-                          >
-                            {profile && profile
-                              ? "Update Profile Photo"
-                              : "Add Profile Photo"}
-                          </Button>
+                          <Field name="profilePhoto">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  (form.errors.profilePhoto &&
+                                    form.touched.profilePhoto) ||
+                                  errorMessage
+                                }
+                              >
+                                <Input
+                                  value={field.value}
+                                  display="none"
+                                  type="hidden"
+                                  {...field}
+                                />
+                                <FileInput
+                                  onChange={(e) => {
+                                    handleChange(e);
+                                    form.setFieldValue("profilePhoto", e.size);
+                                  }}
+                                />
+
+                                <Flex
+                                  justifyContent="center"
+                                  alignItems="center"
+                                >
+                                  <Button
+                                    ml={["0px", "0px", "20%"]}
+                                    onClick={openFileDialog}
+                                    color="white"
+                                    bg="#88E000"
+                                    mt={["10px", "", ""]}
+                                    fontSize={{
+                                      base: "12",
+                                      md: "14",
+                                      lg: "14",
+                                    }}
+                                    fontWeight="semibold"
+                                    fontFamily="Open Sans"
+                                  >
+                                    {profile && profile
+                                      ? "Update Profile Photo"
+                                      : "Add Profile Photo"}
+                                  </Button>
+                                  {profile && profile ? (
+                                    <CloseButton
+                                      // as={Button}
+                                      onClick={() => {
+                                        setProfile(null);
+                                      }}
+                                      variant="ghost"
+                                      mt="10px"
+                                      ml="10px"
+                                      size="md"
+                                    />
+                                  ) : (
+                                    ""
+                                  )}
+                                </Flex>
+                                <FormErrorMessage
+                                  fontSize={["10px", "sm", "sm"]}
+                                  ml={["10%", "0px", "20%"]}
+                                >
+                                  {form.errors.profilePhoto || errorMessage}{" "}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                          </Field>
                         </Flex>
                         <Stack
                           as={Center}

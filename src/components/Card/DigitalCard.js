@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
   Tabs,
   TabList,
@@ -20,11 +21,13 @@ import {
 import FileSaver from "file-saver";
 import { FiPhone } from "react-icons/fi";
 import { VscGlobe } from "react-icons/vsc";
-import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineMail, AiOutlineEye, AiOutlineShareAlt } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 import { SendMessage } from "../modals/SendMessage";
 import NextLink from "next/link";
+import { RWebShare } from "react-web-share";
+
 export const DigitalCard = ({ data }) => {
   const bgColor = useColorModeValue("white", "black.200");
   const bgViews = useColorModeValue("greenBrand.100", "black.100");
@@ -39,6 +42,9 @@ export const DigitalCard = ({ data }) => {
   const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tabIndex, setTabIndex] = useState(0);
+  const router = useRouter();
+  let url = router.asPath;
+
   const logo = useColorModeValue(
     "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
     "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034356/digital%20card/landing-page/logo-dark_yijgxs.png"
@@ -50,10 +56,10 @@ export const DigitalCard = ({ data }) => {
       [
         `BEGIN:VCARD
 VERSION:3.0
-N:${data.name};;;
+N:${data.name}
 FN:${data.name}
-TITLE:${data.name};
-EMAIL;type=INTERNET;type=pref:${data.email} 
+TITLE:${data.name}
+EMAIL;type=Email;type=pref:${data.email} 
 TEL;type=MAIN:${data?.phone}
 TEL;type=CELL;type=VOICE;type=pref:${data?.phone}
 ADR;type=WORK;type=pref:;;;${data.address};;;
@@ -190,6 +196,18 @@ END:VCARD
                   </Box>
                   <Text>{data?.views}</Text>
                 </Center>
+                <RWebShare
+                  data={{
+                    text: "Via Digital Card",
+                    url: "https://via-digital-card.vercel.app" + url,
+                    title: data.designation,
+                  }}
+                  onClick={() => console.log("shared successfully!")}
+                >
+                  <Button fontSize={"1.7rem"}>
+                    <AiOutlineShareAlt />
+                  </Button>
+                </RWebShare>
               </Box>
             </Flex>
             <TabPanels w="100%">
@@ -210,7 +228,7 @@ END:VCARD
                         download
                       </a> */}
                       <Image
-                        src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085610/digital%20card/card/contact_ffyixy.png"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/contact.png"
                         alt=""
                       />
                     </Center>
@@ -223,7 +241,7 @@ END:VCARD
                       borderRadius={"35px"}
                     >
                       <Image
-                        src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085664/digital%20card/card/download_o42ppn.png"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
                         alt=""
                       />
                     </Center>
@@ -236,7 +254,7 @@ END:VCARD
                       borderRadius={"35px"}
                     >
                       <Image
-                        src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085759/digital%20card/card/payment_kecvvx.png"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
                         alt=""
                       />
                     </Center>
@@ -271,7 +289,7 @@ END:VCARD
                     >
                       <Box>
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090230/digital%20card/card/wp_outqp6.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Whatsapp.png"
                           alt=""
                         />
                       </Box>
@@ -286,7 +304,7 @@ END:VCARD
                     >
                       <Box>
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090300/digital%20card/card/twit_gwdvfp.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
                           alt=""
                         />
                       </Box>
@@ -305,7 +323,7 @@ END:VCARD
                         href={data?.socialLinks?.instagram}
                       >
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090239/digital%20card/card/insta_h2qzlb.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Instagram.png"
                           alt=""
                         />
                       </Box>
@@ -324,7 +342,7 @@ END:VCARD
                         href={data?.socialLinks?.facebook}
                       >
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090321/digital%20card/card/face_kl3lx6.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Facebook.png"
                           alt=""
                         />
                       </Box>
@@ -343,7 +361,7 @@ END:VCARD
                         href={data?.socialLinks?.linkedin}
                       >
                         <Image
-                          src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090242/digital%20card/card/linked_cfyslj.png"
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LinkedIn.png"
                           alt=""
                         />
                       </Box>
@@ -445,7 +463,7 @@ END:VCARD
                 >
                   <Center boxSize={"26px"}>
                     <Image
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085610/digital%20card/card/contact_ffyixy.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/contact.png"
                       alt=""
                     />
                   </Center>
@@ -471,7 +489,7 @@ END:VCARD
                 >
                   <Center boxSize={"26px"}>
                     <Image
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085664/digital%20card/card/download_o42ppn.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
                       alt=""
                     />
                   </Center>
@@ -497,7 +515,7 @@ END:VCARD
                 >
                   <Center boxSize={"26px"}>
                     <Image
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085759/digital%20card/card/payment_kecvvx.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
                       alt=""
                     />
                   </Center>
@@ -551,6 +569,31 @@ END:VCARD
               >
                 {data?.designation}
               </Text>
+              <Center
+                mt="10px"
+                color={"white"}
+                borderRadius={"13px"}
+                w="90px"
+                h="26px"
+                bgColor={bgViews}
+              >
+                <Box mr="10px" fontSize={"1.5rem"}>
+                  <AiOutlineEye />
+                </Box>
+                <Text>{data?.views}</Text>
+              </Center>
+              <RWebShare
+                data={{
+                  text: "Via Digital Card",
+                  url: "https://via-digital-card.vercel.app" + url,
+                  title: data.designation,
+                }}
+                onClick={() => console.log("shared successfully!")}
+              >
+                <Button fontSize={"1.7rem"} mt={5}>
+                  <AiOutlineShareAlt />
+                </Button>
+              </RWebShare>
             </Box>
           </Flex>
           <Flex w="100%" justifyContent={"space-between"}>
@@ -563,7 +606,7 @@ END:VCARD
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
-                    src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085610/digital%20card/card/contact_ffyixy.png"
+                    src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/contact.png"
                     alt=""
                   />
                 </Box>
@@ -583,7 +626,7 @@ END:VCARD
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
-                    src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085664/digital%20card/card/download_o42ppn.png"
+                    src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
                     alt=""
                   />
                 </Box>
@@ -603,7 +646,7 @@ END:VCARD
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
-                    src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645085759/digital%20card/card/payment_kecvvx.png"
+                    src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
                     alt=""
                   />
                 </Box>
@@ -693,7 +736,7 @@ END:VCARD
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090230/digital%20card/card/wp_outqp6.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Whatsapp.png"
                       alt=""
                     />
                   </Box>
@@ -709,7 +752,7 @@ END:VCARD
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090300/digital%20card/card/twit_gwdvfp.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
                       alt=""
                     />
                   </Box>
@@ -728,7 +771,7 @@ END:VCARD
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090239/digital%20card/card/insta_h2qzlb.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Instagram.png"
                       alt=""
                     />
                   </Box>
@@ -747,7 +790,7 @@ END:VCARD
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090321/digital%20card/card/face_kl3lx6.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Facebook.png"
                       alt=""
                     />
                   </Box>
@@ -766,7 +809,7 @@ END:VCARD
                   >
                     <Image
                       w="100%"
-                      src="https://res.cloudinary.com/dbm7us31s/image/upload/v1645090242/digital%20card/card/linked_cfyslj.png"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LinkedIn.png"
                       alt=""
                     />
                   </Box>
