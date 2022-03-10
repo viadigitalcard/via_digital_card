@@ -19,6 +19,7 @@ import { AiOutlineMail, AiOutlineEye } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
+import Head from "next/head";
 function Reset() {
   const [emailSent, setEmailSent] = useState(false);
   const [email, setEmail] = useState("");
@@ -78,6 +79,9 @@ function Reset() {
   const bg = useColorModeValue("white", "black.200");
   return (
     <>
+      <Head>
+        <title>Password Recovery</title>
+      </Head>
       {!emailSent ? (
         <Flex w="100%" p="15px 20px" bgColor={bg} minH={"700px"} h="100vh">
           <Box
@@ -171,11 +175,21 @@ function Reset() {
                       fontSize={{ base: "1.125rem", md: "1.5rem" }}
                       maxW="388px"
                       w={{ base: "100%", xs: "388px" }}
-                      h="62px"
-                      mt="60px"
+                      h="55px"
+                      mt="20px"
                     >
                       Send
                     </Button>
+                    <Flex direction="row" py="40px">
+                      <Text fontWeight="light" color={textColor}>
+                        Already have an account?
+                      </Text>
+                      <NextLink href="/auth/signin" passHref>
+                        <Link fontWeight="bold" px={2} color={textColor}>
+                          Sign in
+                        </Link>
+                      </NextLink>
+                    </Flex>
                   </Form>
                 )}
               </Formik>
