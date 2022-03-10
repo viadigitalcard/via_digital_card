@@ -189,16 +189,18 @@ export const SignIn = () => {
                       </FormControl>
                     )}
                   </Field>
-
-                  <Text
-                    as={Flex}
-                    justifyContent="end"
-                    color={textColor}
-                    py="30px"
-                    fontWeight="semibold"
-                  >
-                    Recovery password
-                  </Text>
+                  <NextLink href="/resetpassword" passHref>
+                    <Link fontWeight="bold" px={2} color={textColor}>
+                      <Text
+                        as={Flex}
+                        justifyContent="end"
+                        color={textColor}
+                        fontWeight="semibold"
+                      >
+                        Recovery password
+                      </Text>
+                    </Link>
+                  </NextLink>
 
                   <Center>
                     <Button

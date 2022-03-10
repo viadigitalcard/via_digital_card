@@ -9,6 +9,7 @@ export default async function handler(req, res) {
 
   if (method === "POST") {
     const { email } = req.body;
+    console.log(email);
     const nodemailer = require("nodemailer");
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -32,10 +33,7 @@ export default async function handler(req, res) {
       _id: baseData,
       creatorId: existingUser._id,
     });
-
-    if (uploadToken) {
-      res.status(200).json({ message: "Token created" });
-    }
+    console.log(uploadToken);
 
     const mailOptions = {
       from: "testmymail03@gmail.com",
@@ -46,6 +44,8 @@ export default async function handler(req, res) {
     };
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
+        res.status(500).json({ error: error.message });
+
         console.log("this is error", error);
       } else {
         console.log("Email sent: " + info.response);
@@ -57,6 +57,7 @@ export default async function handler(req, res) {
     const { password } = req.body;
     const { token } = req.body;
 
+    console.log(password, token);
     const tokenData = await Token.findById(token).exec();
     if (!tokenData) {
       res.status(400).json({ message: "Invalid token" });
@@ -66,7 +67,7 @@ export default async function handler(req, res) {
     const deleteToken = await Token.findByIdAndDelete(token).exec();
 
     if (!deleteToken) {
-      res.status(200).json({ message: "ERROR" });
+      res.status(401).json({ message: "ERROR" });
     }
     const hashedPassword = await hashPassword(password);
 

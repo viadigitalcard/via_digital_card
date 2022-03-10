@@ -37,11 +37,13 @@ export const PasswordRecover = () => {
       <Flex
         justifyContent={"space-between"}
         flexDir={"column"}
-        pl={{base:"0",lg:'8vw'}} w={{base:"auto",lg:"100%"}} m={{base:"0px auto",lg:'0px'}}
+        pl={{ base: "0", lg: "8vw" }}
+        w={{ base: "auto", lg: "100%" }}
+        m={{ base: "0px auto", lg: "0px" }}
         color={textColor}
       >
         <Box w="100%" maxW={"473px"}>
-        <Flex alignItems={"center"}>
+          <Flex alignItems={"center"}>
             <Box fontSize={"2rem"} display={{ base: "block", lg: "none" }}>
               <BsArrowLeftShort />
             </Box>
@@ -61,15 +63,40 @@ export const PasswordRecover = () => {
           >
             Your new password must be different from previous used passwords.
           </Text>
-          <Box mt="38px"  fontSize={{base:"0.875rem",md:"1rem"}} w="100%" maxW={"388px"}>
-            <Input h={{base:"54px",md:'75px'}} type="email" placeholder="Enter Email Address" />
+          <Box
+            mt="38px"
+            fontSize={{ base: "0.875rem", md: "1rem" }}
+            w="100%"
+            maxW={"388px"}
+          >
+            <Input
+              h={{ base: "54px", md: "75px" }}
+              type="email"
+              placeholder="Enter Email Address"
+            />
           </Box>
           <Text color={"#747474"} m="10px 0px">
             Must be atleast 8 characters.
           </Text>
-          <Box w="100%" h='75px'  fontSize={{base:"0.875rem",md:"1rem"}} maxW={"388px"} position="relative">
-            <Input h={{base:"54px",md:'75px'}} type="password" placeholder="Password" />
-            <Box pos='absolute' color='#747474' fontSize={'2rem'} top='20px' right='20px'>
+          <Box
+            w="100%"
+            h="75px"
+            fontSize={{ base: "0.875rem", md: "1rem" }}
+            maxW={"388px"}
+            position="relative"
+          >
+            <Input
+              h={{ base: "54px", md: "75px" }}
+              type="password"
+              placeholder="Password"
+            />
+            <Box
+              pos="absolute"
+              color="#747474"
+              fontSize={"2rem"}
+              top="20px"
+              right="20px"
+            >
               <AiOutlineEye />
             </Box>
           </Box>
@@ -94,7 +121,7 @@ export const PasswordRecover = () => {
           </span>
         </p>
       </Flex>
-      {/* <Flex
+      <Flex
         justifyContent={"space-between"}
         flexDir={"column"}
         pl={{ base: "0", lg: "8vw" }}
@@ -146,31 +173,7 @@ export const PasswordRecover = () => {
             try again
           </span>
         </p>
-      </Flex> */}
-      {/* <Flex flexDir={"column"}  pl={{base:"0",lg:'8vw'}} w={{base:"auto",lg:"100%"}} m={{base:"0px auto",lg:'0px'}} color={textColor}>
-        <Flex mt="120px" alignItems={'center'}>
-          <Box fontSize={'2rem'} display={{base:"block",lg:'none'}}>
-            <BsArrowLeftShort/>
-          </Box>
-          <Text  fontSize={{base:"1.125rem",lg:'1.7rem',xl:"2.25rem"}}>
-          Recovery password
-        </Text>
-        </Flex>
-       
-        <Box  w="100%" maxW={"473px"}>
-          <Text mt="21px">
-            Enter the email associated with your account we’ll send an email
-            with instruction to reset your password.
-          </Text>
-        </Box>
-
-        <Box mt="60px" fontSize={{base:"0.875rem",md:"1rem"}} maxW={'388px'} w='100%'>
-          <Input h={{base:"54px",md:'75px'}} type="email" placeholder="Enter Email address" />
-        </Box>
-        <Button fontSize={{base:'1.125rem',md:'1.5rem'}} maxW='388px' w={{ base: "100%", xs: "388px" }} h="62px" mt="60px">
-          Send
-        </Button>
-      </Flex> */}
+      </Flex>
     </Flex>
   );
 };
