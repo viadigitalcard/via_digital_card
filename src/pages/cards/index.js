@@ -96,18 +96,19 @@ const Usercard = ({ Cards }) => {
               <Box display={["block", "block", "none"]}>
                 <Menu isLazy={true} computePositionOnMount={true}>
                   <MenuButton as={IconButton} icon={<HamburgerIcon />} />
-                  <MenuList w="20px">
-                    color={textColor}
-                    <MenuItem>
+                  <MenuList>
+                    <MenuItem
+                      as={Button}
+                      leftIcon={<AddIcon />}
+                      variant={"outline"}
+                      // h="90%"
+                      // as={Center}
+                      w="90%"
+                      borderColor="greenBrand.100"
+                      m="auto"
+                    >
                       <NextLink href="/create" passHref>
-                        <Button
-                          leftIcon={<AddIcon />}
-                          ml={4}
-                          variant={"outline"}
-                          borderColor="greenBrand.100"
-                        >
-                          Create New Card
-                        </Button>
+                        Create New Card
                       </NextLink>
                     </MenuItem>
                     <MenuItem fontWeight="bold" onClick={signOut} as={Center}>
@@ -115,7 +116,6 @@ const Usercard = ({ Cards }) => {
                     </MenuItem>
                   </MenuList>
                 </Menu>
-                {/* <MenuTop /> */}
               </Box>
             </Flex>
           </Container>
@@ -142,31 +142,39 @@ const Usercard = ({ Cards }) => {
                     boxShadow="8px 8px 35px 0px #0000001A"
                     _hover={{ bgColor: "greenBrand.100" }}
                     bgColor={bg}
-                    height={"150px"}
+                    height={"180px"}
                   >
                     <Flex
+                      // as={Center}
+                      flexDir={["column", "column", "row"]}
                       w="100%"
-                      justifyContent={"space-between"}
+                      justifyContent={["center", "center", "space-between"]}
                       alignItems="center"
                       borderRadius={"30px"}
-                      pr="43px"
+                      pr={["0px", "0px", "43px"]}
                     >
-                      <Flex alignItems={"center"}>
-                        <Box
-                          _groupHover={{ color: "white" }}
-                          color={textColor}
-                          ml={{ base: "10px", md: "45px" }}
+                      <Box
+                        as={Center}
+                        _groupHover={{ color: "white" }}
+                        color={textColor}
+                        ml={{ base: "10px", md: "45px" }}
+                      >
+                        <Text
+                          textAlign="center"
+                          fontWeight={"500"}
+                          fontSize={{
+                            base: "20px",
+                            md: "1.25rem",
+                            lg: "1.5rem",
+                          }}
                         >
-                          <Text
-                            fontWeight={"500"}
-                            fontSize={{ base: "1.25rem", md: "1.25rem" }}
-                          >
-                            Looks like you have not created any cards yet.
-                          </Text>
-                        </Box>
-                      </Flex>
+                          Looks like you have not created any cards yet.
+                        </Text>
+                      </Box>
+
                       <NextLink href="/create" passHref>
                         <Button
+                          mt={["20px", "10px", "0px"]}
                           leftIcon={<AddIcon />}
                           ml={4}
                           variant={"outline"}

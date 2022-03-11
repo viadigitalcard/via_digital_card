@@ -128,9 +128,10 @@ export const Navbar = () => {
           >
             Contact Us
           </Link>
-          {session && session ? (
+          {session ? (
             <Menu isLazy={true} computePositionOnMount={true}>
-              <Avatar boxSize="40px" as={MenuButton} />
+              <MenuButton as={Avatar} boxSize="40px" cursor="pointer" />
+              {/* <Avatar boxSize="40px" as={MenuButton} /> */}
 
               <MenuList color={textColor} w="20px">
                 <MenuItem>
@@ -146,7 +147,7 @@ export const Navbar = () => {
                 </MenuItem>
 
                 <MenuItem cursor="pointer" as={Center}>
-                  <NextLink href="/userscard" passHref>
+                  <NextLink href="/cards" passHref>
                     <Text>My Cards</Text>
                   </NextLink>
                 </MenuItem>
@@ -161,13 +162,6 @@ export const Navbar = () => {
               m={{ base: "10px 0px", lg: "0px 20px" }}
               alignItems={"center"}
             >
-              {/* <Avatar
-              boxSize={"33px"}
-              name="Kola Tioluwani"
-              src="https://bit.ly/tioluwani-kolawole"
-            />
-            <Text ml="12px">Ask Join</Text> */}
-
               <NextLink href="/auth/signin" passHref>
                 <Button>Sign In</Button>
               </NextLink>

@@ -66,29 +66,42 @@ function Card() {
   async function handleSubmit(values) {
     let uploadProfile;
     profile ? (uploadProfile = profile) : (uploadProfile = null);
-
-    let { url } = await uploadToS3(uploadProfile);
-    if (!url) {
-      Toast("Error", "Error uploading profile picture", "error");
-      return;
+    var photoURL;
+    if (profile != null) {
+      const { url } = await uploadToS3(uploadProfile);
+      photoURL = url;
     }
+
+    console.log("sdfsdfsd", photoURL);
+
+    // if (!photoURL) {
+    //   Toast("Error", "Error uploading profile picture", "error");
+    //   return;
+    // }
+    // if (photoURL == "") {
+    //   Toast("Error", "Error uploading profile picture", "error");
+    // }
     const data = {
       name: values.name,
-      profilePhoto: url,
+      profilePhoto: photoURL ? photoURL : values.profilePhoto,
       email: values.email,
       username: values.username,
+      pnumber: values.pnumber,
+      snumber: values.snumber,
       address: values.address,
       designation: values.designation,
       tagline: values.tagline,
       bio: values.bio,
-      website: values.website,
+      website: values.website || "",
       socialLinks: {
-        instagram: values.instagram,
-        facebook: values.facebook,
-        linkedin: values.linkedin,
-        youtube: values.youtube,
+        whatsapp: values.whatsapp || "",
+        twitter: values.twitter || "",
+        instagram: values.instagram || "",
+        facebook: values.facebook || "",
+        linkedin: values.linkedin || "",
+        youtube: values.youtube || "",
       },
-      payment: values.payment,
+      payment: values.payment || "",
       views: 0,
     };
     console.log(data);
@@ -141,6 +154,8 @@ function Card() {
       }),
     };
   }
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   return (
     <>
@@ -242,12 +257,21 @@ function Card() {
                       name: "",
                       email: "",
                       username: "",
+                      pnumber: "",
+                      snumber: "",
                       address: "",
                       designation: "",
                       tagline: "",
                       bio: "",
+                      whatsapp: "",
+                      // website: "",
+                      // instagram: "",
+                      // facebook: "",
+                      // linkedin: "",
+                      // youtube: "",
+                      // payment: "",
 
-                      payment: "",
+                      // payment: "",
                     }}
                     onSubmit={handleSubmit}
                   >
@@ -428,13 +452,75 @@ function Card() {
                     <FormikStep
                       label="Bank Accounts"
                       validationSchema={object({
+                        pnumber: string()
+                          .min(10, "Must be Valid Phone Number")
+                          .max(10, "Must be Valid Phone Number")
+                          .required("Required"),
+                        snumber: string()
+                          .min(10, "Must be Valid Phone Number")
+                          .max(10, "Must be Valid Phone Number")
+                          .required("Required"),
                         address: string().required("Required"),
                         designation: string().required("Required"),
                         tagline: string().required("Required"),
                         bio: string().required("Required"),
+                        whatsapp: string()
+                          .min(10, "Must be Valid Phone Number")
+                          .max(10, "Must be Valid Phone Number")
+                          .required("Required"),
                       })}
                     >
-                      <VStack px="10%" h="550px" spacing="25px">
+                      <VStack px="10%" py="10%" spacing="25px">
+                        <Field name="pnumber">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                (form.errors.pnumber && form.touched.pnumber) ||
+                                errorMessage
+                              }
+                            >
+                              <Input
+                                type="number"
+                                placeholder="Primary Phone Number"
+                                marginTop={15}
+                                size="lg"
+                                h="60px"
+                                variant="outline"
+                                focusBorderColor="#88E000"
+                                color={textColor}
+                                {...field}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.pnumber || errorMessage}{" "}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="snumber">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                (form.errors.snumber && form.touched.snumber) ||
+                                errorMessage
+                              }
+                            >
+                              <Input
+                                type="number"
+                                placeholder="Secondary Phone Number"
+                                marginTop={15}
+                                size="lg"
+                                h="60px"
+                                variant="outline"
+                                focusBorderColor="#88E000"
+                                color={textColor}
+                                {...field}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.snumber || errorMessage}{" "}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
                         <Field name="address">
                           {({ field, form }) => (
                             <FormControl
@@ -445,7 +531,7 @@ function Card() {
                             >
                               <Textarea
                                 placeholder="Address"
-                                mt="50px"
+                                mt="10px"
                                 size="lg"
                                 variant="outline"
                                 focusBorderColor="#88E000"
@@ -535,19 +621,35 @@ function Card() {
                             </FormControl>
                           )}
                         </Field>
+                        <Field name="whatsapp">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                (form.errors.whatsapp &&
+                                  form.touched.whatsapp) ||
+                                errorMessage
+                              }
+                            >
+                              <Input
+                                type="number"
+                                placeholder="whatsapp"
+                                marginTop={15}
+                                size="lg"
+                                h="60px"
+                                variant="outline"
+                                focusBorderColor="#88E000"
+                                color={textColor}
+                                {...field}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.whatsapp || errorMessage}{" "}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
                       </VStack>
                     </FormikStep>
-                    <FormikStep
-                      label="More Info"
-                      validationSchema={object({
-                        website: string().required("Required"),
-                        linkedin: string().required("Required"),
-                        instagram: string().required("Required"),
-                        youtube: string().required("Required"),
-                        facebook: string().required("Required"),
-                        payment: string().required("Required"),
-                      })}
-                    >
+                    <FormikStep label="More Info">
                       <VStack spacing="20px" px="10%" py="30px">
                         <Field name="website">
                           {({ field, form }) => (
@@ -569,6 +671,31 @@ function Card() {
                               />
                               <FormErrorMessage>
                                 {form.errors.website || errorMessage}{" "}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+
+                        <Field name="twitter">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                (form.errors.twitter && form.touched.twitter) ||
+                                errorMessage
+                              }
+                            >
+                              <Input
+                                placeholder="twitter"
+                                marginTop={15}
+                                size="lg"
+                                h="60px"
+                                variant="outline"
+                                focusBorderColor="#88E000"
+                                color={textColor}
+                                {...field}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.twitter || errorMessage}{" "}
                               </FormErrorMessage>
                             </FormControl>
                           )}

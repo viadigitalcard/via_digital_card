@@ -17,6 +17,8 @@ import {
   useColorModeValue,
   useDisclosure,
   Link,
+  SimpleGrid,
+  Spacer,
 } from "@chakra-ui/react";
 import FileSaver from "file-saver";
 import { FiPhone } from "react-icons/fi";
@@ -61,8 +63,8 @@ N:${data.name}
 FN:${data.name}
 TITLE:${data.name}
 EMAIL;type=Email;type=pref:${data.email} 
-TEL;type=MAIN:${data?.phone}
-TEL;type=CELL;type=VOICE;type=pref:${data?.phone}
+TEL;type=MAIN:${data?.pnumber}
+TEL;type=CELL;type=VOICE;type=pref:${data?.snumber}
 ADR;type=WORK;type=pref:;;;${data.address};;;
 END:VCARD
 `,
@@ -89,7 +91,38 @@ END:VCARD
   }
 
   return (
-    <Box p="50px 8vw" bgColor={bgColor} h="100%" minH={"100vh"}>
+    <Box
+      color={textColor}
+      p="50px 8vw"
+      bgColor={bgColor}
+      h="100%"
+      minH={"100vh"}
+    >
+      <Box
+        display={["block", "block", "none"]}
+        position="fixed"
+        bottom="2rem"
+        right="1rem"
+        zIndex={5}
+      >
+        <RWebShare
+          data={{
+            text: "Via Digital Card",
+            url: "https://via-digital-card.vercel.app" + url,
+            title: data.designation,
+          }}
+          onClick={() => console.log("shared successfully!")}
+        >
+          <Button
+            boxSize={"50px"}
+            borderRadius="full"
+            as={Center}
+            fontSize={"1.7rem"}
+          >
+            <AiOutlineShareAlt />
+          </Button>
+        </RWebShare>
+      </Box>
       <DarkModeSwitch />
       <Tabs
         display={{ base: "none", "2sm": "block" }}
@@ -150,22 +183,46 @@ END:VCARD
               textAlign={{ base: "center", "2sm": "left" }}
               flexDir={{ "2sm": "row", lg: "column", xl: "row" }}
             >
-              <Box
+              <Flex
+                flexDirection="column"
                 w="193px"
                 h="195px"
                 flexShrink={"0"}
                 bgColor={"#c5c5c5"}
                 borderRadius="20px"
               >
-                <Image
-                  h="100%"
-                  w="100%"
-                  alt=""
-                  borderRadius="20px"
-                  objectFit={"cover"}
-                  src={data?.profilePhoto}
-                />
-              </Box>
+                <Box h="75%">
+                  <Image
+                    h="100%"
+                    w="100%"
+                    alt=""
+                    borderTopRadius="20px"
+                    objectFit={"cover"}
+                    src={
+                      data?.profilePhoto
+                        ? data.profilePhoto
+                        : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+                    }
+                  />
+                </Box>
+                <Box borderBottomRadius="20px" h="100%">
+                  <Center
+                    borderBottomRadius="20px"
+                    h="100%"
+                    // mt="10px"
+                    color={"white"}
+                    // borderRadius={"13px"}
+                    // w="90px"
+                    // h="26px"
+                    bgColor={bgViews}
+                  >
+                    <Box fontSize={"1.5rem"}>
+                      <AiOutlineEye />
+                    </Box>
+                    <Text>{data?.views}</Text>
+                  </Center>
+                </Box>
+              </Flex>
               <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}>
                 <Text
                   fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
@@ -184,7 +241,7 @@ END:VCARD
                 >
                   {data?.designation}
                 </Text>
-                <Center
+                {/* <Center
                   mt="10px"
                   color={"white"}
                   borderRadius={"13px"}
@@ -196,19 +253,7 @@ END:VCARD
                     <AiOutlineEye />
                   </Box>
                   <Text>{data?.views}</Text>
-                </Center>
-                <RWebShare
-                  data={{
-                    text: "Via Digital Card",
-                    url: "https://via-digital-card.vercel.app" + url,
-                    title: data.designation,
-                  }}
-                  onClick={() => console.log("shared successfully!")}
-                >
-                  <Button fontSize={"1.7rem"}>
-                    <AiOutlineShareAlt />
-                  </Button>
-                </RWebShare>
+                </Center> */}
               </Box>
             </Flex>
             <TabPanels w="100%">
@@ -282,93 +327,121 @@ END:VCARD
                   flexWrap="wrap"
                   fontSize={"1.125rem"}
                 >
-                  {/* <Flex alignItems={"center"} m="22px">
-                    <Center
-                      boxSize={"72px"}
-                      borderRadius="12px"
-                      border={`2px solid ${borderColor}`}
-                    >
-                      <Box>
-                        <Image
-                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Whatsapp.png"
-                          alt=""
-                        />
-                      </Box>
-                    </Center>
-                    <Text ml="35px">Whatsapp</Text>
-                  </Flex> */}
-                  {/* <Flex alignItems={"center"} m="22px">
-                    <Center
-                      boxSize={"72px"}
-                      borderRadius="12px"
-                      border={`2px solid ${borderColor}`}
-                    >
-                      <Box>
-                        <Image
-                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
-                          alt=""
-                        />
-                      </Box>
-                    </Center>
-                    <Text ml="35px">Twitter</Text>
-                  </Flex> */}
-                  <Flex alignItems={"center"} m="22px">
-                    <Center
-                      boxSize={"72px"}
-                      borderRadius="12px"
-                      border={`2px solid ${borderColor}`}
-                    >
-                      <Box
+                  {data?.socialLinks.whatsapp != "" ? (
+                    <Flex alignItems={"center"} m="22px">
+                      <Center
                         as={Link}
                         isExternal
-                        href={data?.socialLinks?.instagram}
+                        boxSize={"72px"}
+                        borderRadius="12px"
+                        href={`https://api.whatsapp.com/send?phone=${data?.socialLinks.whatsapp}`}
+                        border={`2px solid ${borderColor}`}
                       >
-                        <Image
-                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Instagram.png"
-                          alt=""
-                        />
-                      </Box>
-                    </Center>
-                    <Text ml="35px">Instagram</Text>
-                  </Flex>
-                  <Flex alignItems={"center"} m="22px">
-                    <Center
-                      boxSize={"72px"}
-                      borderRadius="12px"
-                      border={`2px solid ${borderColor}`}
-                    >
-                      <Box
+                        <Box>
+                          <Image
+                            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Whatsapp.png"
+                            alt=""
+                          />
+                        </Box>
+                      </Center>
+                      <Text ml="35px">Whatsapp</Text>
+                    </Flex>
+                  ) : (
+                    ""
+                  )}
+                  {data?.socialLinks.twitter != "" ? (
+                    <Flex alignItems={"center"} m="22px">
+                      <Center
                         as={Link}
                         isExternal
-                        href={data?.socialLinks?.facebook}
+                        boxSize={"72px"}
+                        borderRadius="12px"
+                        border={`2px solid ${borderColor}`}
+                        href={data?.socialLinks.twitter}
                       >
-                        <Image
-                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Facebook.png"
-                          alt=""
-                        />
-                      </Box>
-                    </Center>
-                    <Text ml="35px">Facebook</Text>
-                  </Flex>
-                  <Flex alignItems={"center"} m="22px">
-                    <Center
-                      boxSize={"72px"}
-                      borderRadius="12px"
-                      border={`2px solid ${borderColor}`}
-                    >
-                      <Box
-                        isExternal
-                        as={Link}
-                        href={data?.socialLinks?.linkedin}
+                        <Box>
+                          <Image
+                            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
+                            alt=""
+                          />
+                        </Box>
+                      </Center>
+                      <Text ml="35px">Twitter</Text>
+                    </Flex>
+                  ) : (
+                    ""
+                  )}
+
+                  {data.socialLinks.instagram != "" ? (
+                    <Flex alignItems={"center"} m="22px">
+                      <Center
+                        boxSize={"72px"}
+                        borderRadius="12px"
+                        border={`2px solid ${borderColor}`}
                       >
-                        <Image
-                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LinkedIn.png"
-                          alt=""
-                        />
-                      </Box>
-                    </Center>
-                    <Text ml="35px">LinkedIn</Text>
-                  </Flex>
+                        {" "}
+                        <Box
+                          as={Link}
+                          isExternal
+                          href={data?.socialLinks?.instagram}
+                        >
+                          <Image
+                            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Instagram.png"
+                            alt=""
+                          />
+                        </Box>
+                      </Center>
+                      <Text ml="35px">Instagram</Text>
+                    </Flex>
+                  ) : (
+                    ""
+                  )}
+                  {data.socialLinks.facebook != "" ? (
+                    <Flex alignItems={"center"} m="22px">
+                      <Center
+                        boxSize={"72px"}
+                        borderRadius="12px"
+                        border={`2px solid ${borderColor}`}
+                      >
+                        <Box
+                          as={Link}
+                          isExternal
+                          href={data?.socialLinks?.facebook}
+                        >
+                          <Image
+                            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Facebook.png"
+                            alt=""
+                          />
+                        </Box>
+                      </Center>
+                      <Text ml="35px">Facebook</Text>
+                    </Flex>
+                  ) : (
+                    ""
+                  )}
+                  {data.socialLinks.linkedin != "" ? (
+                    <Flex alignItems={"center"} m="22px">
+                      <Center
+                        boxSize={"72px"}
+                        borderRadius="12px"
+                        border={`2px solid ${borderColor}`}
+                      >
+                        <Box
+                          isExternal
+                          as={Link}
+                          href={data?.socialLinks?.linkedin}
+                        >
+                          <Image
+                            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LinkedIn.png"
+                            alt=""
+                          />
+                        </Box>
+                      </Center>
+                      <Text ml="35px">LinkedIn</Text>
+                    </Flex>
+                  ) : (
+                    " "
+                  )}
                   <Button w="173px" h="62px" m="22px" onClick={onOpen}>
                     Send Message
                   </Button>
@@ -410,30 +483,36 @@ END:VCARD
                     <Box fontSize={"1.7rem"}>
                       <FiPhone />
                     </Box>
-                    <Text ml="27px">+91 9309719073 | +91 9309719073</Text>
-                    <Link href={"tel:+919309719073"}>
+                    <Text ml="27px">
+                      {data?.pnumber} | {data?.snumber}
+                    </Text>
+                    <Link href={`tel:${data?.pnumber}`}>
                       <Button fontWeight={400} w="142px" ml="75px">
                         Call Now
                       </Button>
                     </Link>
                   </Flex>
-                  <Flex
-                    p="25px 0px"
-                    alignItems={"center"}
-                    borderBottom={`2px solid ${borderColor}`}
-                  >
-                    <Box fontSize={"1.7rem"}>
-                      <VscGlobe />
-                    </Box>
-                    <Link
-                      href={"https://" + data?.website}
-                      isExternal
-                      ml="27px"
+                  {data.website != "" ? (
+                    <Flex
+                      p="25px 0px"
+                      alignItems={"center"}
+                      borderBottom={`2px solid ${borderColor}`}
                     >
-                      {data?.website} <ExternalLinkIcon mx="2px" />
-                    </Link>
-                    {/* <Text ml="27px"></Text> */}
-                  </Flex>
+                      <Box fontSize={"1.7rem"}>
+                        <VscGlobe />
+                      </Box>
+                      <Link
+                        href={"https://" + data?.website}
+                        isExternal
+                        ml="27px"
+                      >
+                        {data?.website} <ExternalLinkIcon mx="2px" />
+                      </Link>
+                      {/* <Text ml="27px"></Text> */}
+                    </Flex>
+                  ) : (
+                    ""
+                  )}
                   <Flex
                     p="25px 0px"
                     alignItems={"center"}
@@ -541,6 +620,7 @@ END:VCARD
                 </Center>
                 <Text
                   as={Link}
+                  isExternal
                   href={data?.payment}
                   fontSize={"1.125rem"}
                   color={textColor}
@@ -558,18 +638,35 @@ END:VCARD
 
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
             <Box
-              w={{ base: "89px", xs: "193px" }}
-              h={{ base: "90px", xs: "195px" }}
+              w={{ base: "109px", xs: "193px" }}
+              h={{ base: "110px", xs: "195px" }}
               flexShrink={"0"}
             >
-              <Image
-                alt=""
-                h="100%"
-                w="100%"
-                borderRadius="20px"
-                objectFit="cover"
-                src={data?.profilePhoto || ""}
-              />
+              <Box h="75%">
+                <Image
+                  alt=""
+                  h="100%"
+                  w="100%"
+                  borderTopRadius="20px"
+                  objectFit="cover"
+                  src={
+                    data?.profilePhoto
+                      ? data?.profilePhoto
+                      : // : "https://via.placeholder.com/150"
+                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+                  }
+                />
+              </Box>
+              <Box h="25%">
+                <Center h="full" borderBottomRadius="20px" bgColor={bgViews}>
+                  <Box fontSize={"1rem"}>
+                    <AiOutlineEye />
+                  </Box>
+                  <Text ml="10px" fontSize="12px">
+                    {data?.views}
+                  </Text>
+                </Center>
+              </Box>
             </Box>
             <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}>
               <Text
@@ -588,31 +685,6 @@ END:VCARD
               >
                 {data?.designation}
               </Text>
-              <Center
-                mt="10px"
-                color={"white"}
-                borderRadius={"13px"}
-                w="90px"
-                h="26px"
-                bgColor={bgViews}
-              >
-                <Box mr="10px" fontSize={"1.5rem"}>
-                  <AiOutlineEye />
-                </Box>
-                <Text>{data?.views}</Text>
-              </Center>
-              <RWebShare
-                data={{
-                  text: "Via Digital Card",
-                  url: "https://via-digital-card.vercel.app" + url,
-                  title: data.designation,
-                }}
-                onClick={() => console.log("shared successfully!")}
-              >
-                <Button fontSize={"1.7rem"} mt={5}>
-                  <AiOutlineShareAlt />
-                </Button>
-              </RWebShare>
             </Box>
           </Flex>
           <Flex w="100%" justifyContent={"space-between"}>
@@ -672,6 +744,7 @@ END:VCARD
               </Center>
               <Text
                 as={Link}
+                isExternal
                 href={data?.payment}
                 fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                 color={"#ABABAB"}
@@ -733,7 +806,7 @@ END:VCARD
                 fontWeight={"600"}
                 fontSize={{ base: "1rem", xs: "1.125rem", sm: "1.25rem" }}
               >
-                A Combination Of Business & Tech!
+                {data?.tagline}
               </Text>
               <Text
                 mt="13px"
@@ -744,123 +817,144 @@ END:VCARD
             </TabPanel>
             <TabPanel p="0">
               <Flex justifyContent={"space-between"} flexWrap="wrap">
-                <Center
-                  boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
-                  borderRadius="14px"
-                  border={`2px solid ${borderColor}`}
-                >
-                  <Box
-                    flexShrink={"0"}
-                    boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                {data?.socialLinks.whatsapp != "" ? (
+                  <Center
+                    boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
+                    borderRadius="14px"
+                    border={`2px solid ${borderColor}`}
+                    as={Link}
+                    isExternal
+                    href={`https://api.whatsapp.com/send?phone=${data?.socialLinks.whatsapp}`}
                   >
-                    <Image
-                      w="100%"
-                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Whatsapp.png"
-                      alt=""
-                    />
-                  </Box>
-                </Center>
-                <Center
-                  boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
-                  borderRadius="14px"
-                  border={`2px solid ${borderColor}`}
-                >
-                  <Box
-                    flexShrink={"0"}
-                    boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                    <Box
+                      flexShrink={"0"}
+                      boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                    >
+                      <Image
+                        w="100%"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Whatsapp.png"
+                        alt=""
+                      />
+                    </Box>
+                  </Center>
+                ) : (
+                  ""
+                )}
+                {data?.socialLinks.twitter != "" ? (
+                  <Center
+                    boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
+                    borderRadius="14px"
+                    border={`2px solid ${borderColor}`}
+                    as={Link}
+                    isExternal
+                    href={data?.socialLinks.twitter}
                   >
-                    <Image
-                      w="100%"
-                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
-                      alt=""
-                    />
-                  </Box>
-                </Center>
-                <Center
-                  boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
-                  borderRadius="14px"
-                  as={Link}
-                  isExternal
-                  href={data.socialLinks?.instagram}
-                  border={`2px solid ${borderColor}`}
-                >
-                  <Box
-                    flexShrink={"0"}
-                    boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                    <Box
+                      flexShrink={"0"}
+                      boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                    >
+                      <Image
+                        w="100%"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
+                        alt=""
+                      />
+                    </Box>
+                  </Center>
+                ) : (
+                  ""
+                )}
+                {data?.socialLinks.instagram != "" ? (
+                  <Center
+                    boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
+                    borderRadius="14px"
+                    as={Link}
+                    isExternal
+                    href={data.socialLinks?.instagram}
+                    border={`2px solid ${borderColor}`}
                   >
-                    <Image
-                      w="100%"
-                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Instagram.png"
-                      alt=""
-                    />
-                  </Box>
-                </Center>
+                    <Box
+                      flexShrink={"0"}
+                      boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                    >
+                      <Image
+                        w="100%"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Instagram.png"
+                        alt=""
+                      />
+                    </Box>
+                  </Center>
+                ) : (
+                  ""
+                )}
               </Flex>
               <Flex justifyContent={"space-between"} flexWrap="wrap" mt={4}>
+                {data?.socialLinks.facebook != "" ? (
+                  <Center
+                    as={Link}
+                    isExternal
+                    href={data.socialLinks?.facebook}
+                    boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
+                    borderRadius="14px"
+                    border={`2px solid ${borderColor}`}
+                  >
+                    <Box
+                      flexShrink={"0"}
+                      boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                    >
+                      <Image
+                        w="100%"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Facebook.png"
+                        alt=""
+                      />
+                    </Box>
+                  </Center>
+                ) : (
+                  ""
+                )}
+
+                {data?.socialLinks.linkedin != "" ? (
+                  <Center
+                    as={Link}
+                    isExternal
+                    href={data.socialLinks?.linkedin}
+                    boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
+                    borderRadius="14px"
+                    border={`2px solid ${borderColor}`}
+                  >
+                    <Box
+                      flexShrink={"0"}
+                      boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                    >
+                      <Image
+                        w="100%"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LinkedIn.png"
+                        alt=""
+                      />
+                    </Box>
+                  </Center>
+                ) : (
+                  ""
+                )}
+
                 <Center
-                  as={Link}
                   isExternal
-                  href={data.socialLinks?.facebook}
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
-                  border={`2px solid ${borderColor}`}
                 >
                   <Box
                     flexShrink={"0"}
                     boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
-                  >
-                    <Image
-                      w="100%"
-                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Facebook.png"
-                      alt=""
-                    />
-                  </Box>
+                  ></Box>
                 </Center>
-                <Center
-                  as={Link}
-                  isExternal
-                  href={data.socialLinks?.linkedin}
-                  boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
-                  borderRadius="14px"
-                  border={`2px solid ${borderColor}`}
-                >
-                  <Box
-                    flexShrink={"0"}
-                    boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
-                  >
-                    <Image
-                      w="100%"
-                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LinkedIn.png"
-                      alt=""
-                    />
-                  </Box>
-                </Center>
-                <Center
-                  as={Link}
-                  isExternal
-                  href={data.socialLinks?.linkedin}
-                  boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
-                  borderRadius="14px"
-                  border={`2px solid ${borderColor}`}
-                >
-                  <Box
-                    flexShrink={"0"}
-                    boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
-                  >
-                    <Image
-                      w="100%"
-                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Google+Icon.png"
-                      alt=""
-                    />
-                  </Box>
-                </Center>
+
+                {/* <Spacer /> */}
               </Flex>
 
-              <Center mt="50px">
+              {/* <Center mt="50px">
                 <Button w="173px" h="62px" fontWeight={"400"}>
                   Send Message
                 </Button>
-              </Center>
+              </Center> */}
             </TabPanel>
             <TabPanel p="0">
               <Flex
@@ -895,23 +989,30 @@ END:VCARD
                     </Box>
                   </Flex>
 
-                  <Button fontWeight={400} w="142px">
-                    Call Now
-                  </Button>
-                </Flex>
-                <Flex
-                  p="25px 0px"
-                  alignItems={"center"}
-                  borderBottom={`2px solid ${borderColor}`}
-                >
-                  <Box fontSize={"1.7rem"}>
-                    <VscGlobe />
-                  </Box>
-
-                  <Link isExternal href={data.website} ml="27px">
-                    {data?.website}
+                  <Link href={`tel:${data?.pnumber}`}>
+                    <Button fontWeight={400} w="100px">
+                      Call Now
+                    </Button>
                   </Link>
                 </Flex>
+                {data?.website != "" ? (
+                  <Flex
+                    p="25px 0px"
+                    alignItems={"center"}
+                    borderBottom={`2px solid ${borderColor}`}
+                  >
+                    <Box fontSize={"1.7rem"}>
+                      <VscGlobe />
+                    </Box>
+
+                    <Link isExternal href={data.website} ml="27px">
+                      {data?.website}
+                    </Link>
+                  </Flex>
+                ) : (
+                  ""
+                )}
+
                 <Flex
                   p="25px 0px"
                   alignItems={"center"}

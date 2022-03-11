@@ -16,6 +16,12 @@ const CardSchema = new mongoose.Schema({
   username: {
     type: String,
   },
+  pnumber: {
+    type: String,
+  },
+  snumber: {
+    type: String,
+  },
   address: {
     type: String,
   },
@@ -33,7 +39,8 @@ const CardSchema = new mongoose.Schema({
   },
   socialLinks: {
     type: Object,
-    instagram: { type: String },
+    whatsapp: { type: String },
+    twitter: { type: String },
     facebook: { type: String },
     linkedin: { type: String },
     youtube: { type: String },

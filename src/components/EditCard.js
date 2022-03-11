@@ -46,6 +46,8 @@ export default function Card({ inputData }) {
     profilePhoto: inputData.profilePhoto,
     email: inputData.email,
     username: inputData.username,
+    pnumber: inputData.pnumber,
+    snumber: inputData.snumber,
     address: inputData.address,
     designation: inputData.designation,
     tagline: inputData.tagline,
@@ -92,18 +94,22 @@ export default function Card({ inputData }) {
       profilePhoto: photoUrl,
       email: data.email,
       username: data.username,
+      pnumber: data.pnumber,
+      snumber: data.snumber,
       address: data.address,
       designation: data.designation,
       tagline: data.tagline,
       bio: data.bio,
-      website: data.website,
+      website: data.website || "",
       socialLinks: {
-        instagram: data.instagram,
-        facebook: data.facebook,
-        linkedin: data.linkedin,
-        youtube: data.youtube,
+        whatsapp: data.whatsapp || "",
+        twitter: data.twitter || "",
+        instagram: data.instagram || "",
+        facebook: data.facebook || "",
+        linkedin: data.linkedin || "",
+        youtube: data.youtube || "",
       },
-      payment: data.payment,
+      payment: data.payment || "",
     };
     console.log("datttaaa", values);
 
@@ -132,16 +138,24 @@ export default function Card({ inputData }) {
         name: Yup.string().required("Required"),
         email: Yup.string().email("Enter Valid Email").required("Required"),
         username: Yup.string().required("Required"),
+        pnumber: string()
+          .min(10, "Must be Valid Phone Number")
+          .max(10, "Must be Valid Phone Number")
+          .required("Required"),
+        snumber: string()
+          .min(10, "Must be Valid Phone Number")
+          .max(10, "Must be Valid Phone Number")
+          .required("Required"),
         address: Yup.string().required("Required"),
         designation: Yup.string().required("Required"),
         tagline: Yup.string().required("Required"),
         bio: Yup.string().required("Required"),
-        website: Yup.string().required("Required"),
-        linkedin: Yup.string().required("Required"),
-        instagram: Yup.string().required("Required"),
-        youtube: Yup.string().required("Required"),
-        facebook: Yup.string().required("Required"),
-        payment: Yup.string().required("Required"),
+        // website: Yup.string().required("Required"),
+        // linkedin: Yup.string().required("Required"),
+        // instagram: Yup.string().required("Required"),
+        // youtube: Yup.string().required("Required"),
+        // facebook: Yup.string().required("Required"),
+        // payment: Yup.string().required("Required"),
       }),
     };
   } else {
@@ -163,6 +177,10 @@ export default function Card({ inputData }) {
         tagline: Yup.string().required("Required"),
         bio: Yup.string().required("Required"),
         website: Yup.string().required("Required"),
+        whatsapp: string()
+          .min(10, "Must be Valid Phone Number")
+          .max(10, "Must be Valid Phone Number")
+          .required("Required"),
         linkedin: Yup.string().required("Required"),
         instagram: Yup.string().required("Required"),
         youtube: Yup.string().required("Required"),
@@ -180,11 +198,15 @@ export default function Card({ inputData }) {
             name: inputData.name,
             email: inputData.email,
             username: inputData.username,
+            pnumber: inputData.pnumber,
+            snumber: inputData.snumber,
             address: inputData.address,
             designation: inputData.designation,
             tagline: inputData.tagline,
             bio: inputData.bio,
             website: inputData.website,
+            whatsapp: inputData.socialLinks.whatsapp,
+            twitter: inputData.socialLinks.twitter,
             linkedin: inputData.socialLinks.linkedin,
             instagram: inputData.socialLinks.instagram,
             youtube: inputData.socialLinks.youtube,
@@ -361,6 +383,58 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
+              <Field name="pnumber">
+                {({ field, form }) => (
+                  <FormControl
+                    onChange={(e) => handleChange(e)}
+                    isInvalid={
+                      (form.errors.pnumber && form.touched.pnumber) ||
+                      errorMessage
+                    }
+                  >
+                    <Input
+                      type="number"
+                      placeholder="Primary Phone Number"
+                      marginTop={15}
+                      size="lg"
+                      h="60px"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                      {...field}
+                    />
+                    <FormErrorMessage>
+                      {form.errors.pnumber || errorMessage}{" "}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name="snumber">
+                {({ field, form }) => (
+                  <FormControl
+                    onChange={(e) => handleChange(e)}
+                    isInvalid={
+                      (form.errors.snumber && form.touched.snumber) ||
+                      errorMessage
+                    }
+                  >
+                    <Input
+                      type="number"
+                      placeholder="Secondary Phone Number"
+                      marginTop={15}
+                      size="lg"
+                      h="60px"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                      {...field}
+                    />
+                    <FormErrorMessage>
+                      {form.errors.snumber || errorMessage}{" "}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
               <Field name="address">
                 {({ field, form }) => (
                   <FormControl
@@ -482,6 +556,56 @@ export default function Card({ inputData }) {
                     />
                     <FormErrorMessage>
                       {form.errors.website || errorMessage}{" "}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name="whatsapp">
+                {({ field, form }) => (
+                  <FormControl
+                    onChange={(e) => handleChange(e)}
+                    isInvalid={
+                      (form.errors.whatsapp && form.touched.whatsapp) ||
+                      errorMessage
+                    }
+                  >
+                    <Input
+                      placeholder="whatsapp"
+                      marginTop={15}
+                      size="lg"
+                      h="60px"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                      {...field}
+                    />
+                    <FormErrorMessage>
+                      {form.errors.whatsapp || errorMessage}{" "}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name="twitter">
+                {({ field, form }) => (
+                  <FormControl
+                    onChange={(e) => handleChange(e)}
+                    isInvalid={
+                      (form.errors.twitter && form.touched.twitter) ||
+                      errorMessage
+                    }
+                  >
+                    <Input
+                      placeholder="twitter"
+                      marginTop={15}
+                      size="lg"
+                      h="60px"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                      {...field}
+                    />
+                    <FormErrorMessage>
+                      {form.errors.twitter || errorMessage}{" "}
                     </FormErrorMessage>
                   </FormControl>
                 )}
