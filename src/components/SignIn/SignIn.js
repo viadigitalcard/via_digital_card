@@ -78,7 +78,7 @@ export const SignIn = () => {
           console.log(result.error);
         } else {
           Toast("Welcome", "Successfully Signed In", "success");
-          router.replace("/userscard");
+          router.replace("/cards");
         }
       } catch (error) {
         Toast("", error, "error");

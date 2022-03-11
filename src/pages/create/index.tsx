@@ -107,7 +107,7 @@ function Card() {
       return;
     } else if (responseData.success) {
       Toast("Success", "Card created successfully", "success");
-      router.push("/userscard");
+      router.push("/cards");
     }
   }
   function handleChange(e) {

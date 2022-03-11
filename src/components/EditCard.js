@@ -120,7 +120,7 @@ export default function Card({ inputData }) {
       seterrorMessage(responseData.error);
       setLoading(false);
     } else {
-      router.replace("/userscard");
+      router.replace("/cards");
     }
   };
 
