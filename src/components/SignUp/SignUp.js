@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import NextLink from "next/link";
 import {
   Flex,
@@ -16,6 +15,7 @@ import {
   FormErrorMessage,
   useColorModeValue,
   Center,
+  Checkbox,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
@@ -38,6 +38,7 @@ export default function SignUp() {
     email: "",
     password: "",
     repassword: "",
+    terms: false,
   };
 
   const validationSchema = Yup.object().shape({
@@ -53,8 +54,10 @@ export default function SignUp() {
     repassword: Yup.string()
       .oneOf([Yup.ref("password")], "Password does not matched")
       .required("Required"),
+    terms: Yup.boolean()
+      .oneOf([true], "You must accept the ToS and Privacy Policy")
+      .required("Required"),
   });
-  const router = useRouter();
 
   const handleSubmit = async (values) => {
     try {
@@ -252,6 +255,55 @@ export default function SignUp() {
                           </InputGroup>
                           <FormErrorMessage>
                             {form.errors.repassword || errorMessage}{" "}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+                  <Flex>
+                    <Field name="terms">
+                      {({ field, form }) => (
+                        <FormControl
+                          isInvalid={
+                            (form.errors.terms && form.touched.terms) ||
+                            errorMessage
+                          }
+                        >
+                          <Checkbox
+                            mt={5}
+                            size="md"
+                            colorScheme="green"
+                            {...field}
+                          >
+                            <Text
+                              mt={5}
+                              fontSize={{ base: "xs", md: "sm", lg: "md" }}
+                            >
+                              Creating an account means you’re okay with our{" "}
+                              <br />
+                              <NextLink href="/tos" passHref>
+                                <Link
+                                  fontWeight="bold"
+                                  pr="4px"
+                                  color="#0038FF"
+                                >
+                                  Terms of Service
+                                </Link>
+                              </NextLink>
+                              and our
+                              <NextLink href="/privacy" passHref>
+                                <Link
+                                  fontWeight="bold"
+                                  pl="4px"
+                                  color="#0038FF"
+                                >
+                                  Privacy Policy.
+                                </Link>
+                              </NextLink>
+                            </Text>
+                          </Checkbox>
+                          <FormErrorMessage>
+                            {form.errors.terms || errorMessage}{" "}
                           </FormErrorMessage>
                         </FormControl>
                       )}

@@ -27,6 +27,7 @@ import { DarkModeSwitch } from "../DarkModeSwitch";
 import { SendMessage } from "../modals/SendMessage";
 import NextLink from "next/link";
 import { RWebShare } from "react-web-share";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 export const DigitalCard = ({ data }) => {
   const bgColor = useColorModeValue("white", "black.200");
@@ -403,9 +404,11 @@ END:VCARD
                       <FiPhone />
                     </Box>
                     <Text ml="27px">+91 9309719073 | +91 9309719073</Text>
-                    <Button fontWeight={400} w="142px" ml="75px">
-                      Call Now
-                    </Button>
+                    <Link href={"tel:+919309719073"} >
+                      <Button fontWeight={400} w="142px" ml="75px">
+                        Call Now
+                      </Button>
+                    </Link>
                   </Flex>
                   <Flex
                     p="25px 0px"
@@ -415,7 +418,10 @@ END:VCARD
                     <Box fontSize={"1.7rem"}>
                       <VscGlobe />
                     </Box>
-                    <Text ml="27px">{data?.website}</Text>
+                    <Link href={"https://" + data?.website} isExternal ml="27px">
+                      {data?.website} <ExternalLinkIcon mx="2px" />
+                    </Link>
+                    {/* <Text ml="27px"></Text> */}
                   </Flex>
                   <Flex
                     p="25px 0px"
@@ -425,7 +431,9 @@ END:VCARD
                     <Box fontSize={"1.7rem"}>
                       <AiOutlineMail />
                     </Box>
-                    <Text ml="27px">{data?.email}</Text>
+                    <Link href={"mailto:" + data?.email} isExternal>
+                      <Text ml="27px">{data?.email}</Text>
+                    </Link>
                   </Flex>
                 </Flex>
               </TabPanel>

@@ -7,9 +7,11 @@ import {
   useColorModeValue,
   Link,
   Avatar,
+  Button,
 } from "@chakra-ui/react";
 import { MdClose } from "react-icons/md";
 import { BiMenu } from "react-icons/bi";
+import NextLink from "next/link";
 
 export const Navbar = () => {
   const logo = useColorModeValue(
@@ -120,12 +122,15 @@ export const Navbar = () => {
             m={{ base: "10px 0px", lg: "0px 20px" }}
             alignItems={"center"}
           >
-            <Avatar
+            {/* <Avatar
               boxSize={"33px"}
               name="Kola Tioluwani"
               src="https://bit.ly/tioluwani-kolawole"
             />
-            <Text ml="12px">Ask Join</Text>
+            <Text ml="12px">Ask Join</Text> */}
+            <NextLink href="/auth/signin" passHref>
+              <Button>Sign In</Button>
+            </NextLink>
           </Flex>
         </Flex>
       </Flex>

@@ -1,4 +1,5 @@
 import React from "react";
+import NextLink from "next/link";
 import {
   Box,
   Center,
@@ -14,11 +15,11 @@ export const Hero = () => {
   const textColor = useColorModeValue("black", "white");
   const imageLeft = useColorModeValue(
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Right.png",
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Dark+Left.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Dark+Right.png"
   );
   const imageRight = useColorModeValue(
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Left.png",
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Dark+Right.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Dark+Left.png"
   );
   return (
     <Center
@@ -119,14 +120,16 @@ export const Hero = () => {
           deal and it’s revolutionary.
         </Box>
         <Text fontSize={"1.125rem"}></Text>
-        <Button
-          fontSize={"1.125rem"}
-          mt="40px"
-          w={{ base: "188px", lg: "281px" }}
-          h="60px"
-        >
-          Create Now
-        </Button>
+        <NextLink href="/auth/signup" passHref>
+          <Button
+            fontSize={"1.125rem"}
+            mt="40px"
+            w={{ base: "188px", lg: "281px" }}
+            h="60px"
+          >
+            Create Now
+          </Button>
+        </NextLink>
       </Box>
     </Center>
   );
