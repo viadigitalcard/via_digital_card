@@ -119,7 +119,7 @@ export const HowItWorks = () => {
           <AliceCarousel
             mouseTracking
             items={items}
-            //   paddingLeft={50}
+            paddingLeft={50}
             paddingRight={isMobile ? 0 : 150}
             controlsStrategy="alternate"
             responsive={responsive}

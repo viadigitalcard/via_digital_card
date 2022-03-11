@@ -284,81 +284,7 @@ export default function SignUp() {
                     )}
                   </Field>
                 </Flex>
-                <Flex>
-                  <Field name="password">
-                    {({ field, form }) => (
-                      <FormControl
-                        isInvalid={
-                          (form.errors.password && form.touched.password) ||
-                          errorMessage
-                        }
-                      >
-                        <InputGroup
-                          size="lg"
-                          width={{ base: "300px", md: "300px", lg: "400px" }}
-                          marginTop={15}
-                          variant="outline"
-                        >
-                          <Input
-                            pr="4.5rem"
-                            type={show ? "text" : "password"}
-                            placeholder="Password"
-                            focusBorderColor="#88E000"
-                            id="password"
-                            color={textColor}
-                            {...field}
-                          />
-                          <InputRightElement width="4.5rem">
-                            <Button
-                              color={textColor}
-                              h="1.75rem"
-                              size="sm"
-                              onClick={showPassword}
-                            >
-                              {show ? "Hide" : "Show"}
-                            </Button>
-                          </InputRightElement>
-                        </InputGroup>
-                        <FormErrorMessage>
-                          {form.errors.password || errorMessage}{" "}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-                <Flex>
-                  <Field name="repassword">
-                    {({ field, form }) => (
-                      <FormControl
-                        isInvalid={
-                          (form.errors.repassword && form.touched.repassword) ||
-                          errorMessage
-                        }
-                      >
-                        <InputGroup
-                          size="lg"
-                          width={{ base: "300px", md: "300px", lg: "400px" }}
-                          marginTop={15}
-                          variant="outline"
-                        >
-                          <Input
-                            pr="4.5rem"
-                            type={show ? "text" : "password"}
-                            placeholder="Re-enter Password"
-                            focusBorderColor="#88E000"
-                            id="repassword"
-                            color={textColor}
-                            {...field}
-                          />
-                        </InputGroup>
-                        <FormErrorMessage>
-                          {form.errors.repassword || errorMessage}{" "}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-                <Flex>
+                <Flex pt="15px">
                   <Field name="terms">
                     {({ field, form }) => (
                       <FormControl
@@ -367,15 +293,11 @@ export default function SignUp() {
                           errorMessage
                         }
                       >
-                        <Checkbox
-                          mt={5}
-                          size="md"
-                          colorScheme="green"
-                          {...field}
-                        >
+                        <Checkbox size="md" colorScheme="green" {...field}>
                           <Text
-                            mt={5}
-                            fontSize={{ base: "xs", md: "sm", lg: "md" }}
+                            color={textColor}
+                            ml={["5px", "5px", "15px"]}
+                            fontSize={{ base: "xs", md: "sm", lg: "sm" }}
                           >
                             Creating an account means you’re okay with our{" "}
                             <br />

@@ -19,13 +19,16 @@ import {
   useColorModeValue,
   Link,
   Avatar,
+  IconButton,
   Menu,
   MenuButton,
-  MenuItem,
   MenuList,
-  IconButton,
+  MenuItem,
+  Spacer,
+  Container,
 } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import MenuTop from "../../components/Menu";
 
 const Usercard = ({ Cards }) => {
   const bgColor = useColorModeValue("black.200", "white");
@@ -36,7 +39,10 @@ const Usercard = ({ Cards }) => {
   const textColor = useColorModeValue("black", "white");
   console.log(Cards);
   const router = useRouter();
-
+  const logo = useColorModeValue(
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
+  );
   return (
     <>
       <Head>
@@ -44,76 +50,140 @@ const Usercard = ({ Cards }) => {
         <meta name="description" content="Card" />
       </Head>
       <>
-        <Box
-          pos="absolute"
-          right={["65px", "65px", "80px"]}
-          top={["10px", "10px", "10px"]}
-        >
-          <Menu isLazy={true} computePositionOnMount={true}>
-            <MenuButton as={IconButton} icon={<HamburgerIcon />} />
-            <MenuList color="white" w="20px">
-              <NextLink href="/create" passHref>
-                <Button ml={4} variant={"outline"} color="black">
-                  Create New Card +
-                </Button>
-              </NextLink>
-              <MenuItem onClick={signOut} bg={"black"}>
-                Sign Out
-              </MenuItem>
-            </MenuList>
-          </Menu>
-          <DarkModeSwitch />
-        </Box>
-        {Cards && Cards.length ? (
-          Cards.map((res, i) => <CardList key={i} data={res} />)
-        ) : (
-          <Center w="100%">
-            <VStack w="95%" mt="50px" maxW={"1205px"} spacing="15px">
-              <Box
-                role="group"
-                borderRadius={"30px"}
-                w="100%"
-                boxShadow="8px 8px 35px 0px #0000001A"
-                _hover={{ bgColor: "greenBrand.100" }}
-                bgColor={bg}
-                height={"80px"}
-              >
-                <Flex
-                  w="100%"
-                  justifyContent={"space-between"}
-                  alignItems="center"
-                  borderRadius={"30px"}
-                  pr="43px"
-                >
-                  <Flex alignItems={"center"}>
-                    <Box
-                      _groupHover={{ color: "white" }}
-                      color={textColor}
-                      ml={{ base: "10px", md: "45px" }}
-                    >
-                      <Text
-                        fontWeight={"500"}
-                        fontSize={{ base: "1.25rem", md: "1.25rem" }}
-                      >
-                        Looks like you have not created any cards yet.
-                      </Text>
-                    </Box>
-                  </Flex>
+        <Box bg={bg} textColor={textColor}>
+          <Container bg={bg} maxW={["100%", "90%", "80%"]}>
+            <Flex
+              pt={["30px", "0px", "0px"]}
+              as={Center}
+              textColor={textColor}
+              justifyContent="center"
+              alignItems="center"
+              h="120px"
+              w="full"
+              flexDirection="row"
+            >
+              <Box cursor="pointer">
+                <NextLink href="/" passHref>
+                  <Image src={logo} alt="" />
+                </NextLink>
+              </Box>
+              <Spacer />
+              <Box display={["none", "none", "flex"]}>
+                {Cards && Cards.length ? (
                   <NextLink href="/create" passHref>
                     <Button
-                      _groupHover={{ bg: bg, color: "greenBrand.100" }}
-                      fontSize={"1.5rem"}
-                      mt={5}
-                      display={{ base: "none", md: "block" }}
+                      leftIcon={<AddIcon />}
+                      ml={4}
+                      variant={"outline"}
+                      borderColor="greenBrand.100"
+                      color={textColor}
                     >
-                      Create new Card +
+                      Create New Card
                     </Button>
                   </NextLink>
-                </Flex>
+                ) : (
+                  " "
+                )}
+
+                <HStack p="0px 20px 0px 20px" h="40px">
+                  {/* <Avatar boxSize="35px" /> */}
+
+                  <Text onClick={signOut} cursor="pointer" fontWeight="bold">
+                    Sign Out
+                  </Text>
+                </HStack>
               </Box>
-            </VStack>
-          </Center>
-        )}
+              <Box display={["block", "block", "none"]}>
+                <Menu isLazy={true} computePositionOnMount={true}>
+                  <MenuButton as={IconButton} icon={<HamburgerIcon />} />
+                  <MenuList w="20px">
+                    color={textColor}
+                    <MenuItem>
+                      <NextLink href="/create" passHref>
+                        <Button
+                          leftIcon={<AddIcon />}
+                          ml={4}
+                          variant={"outline"}
+                          borderColor="greenBrand.100"
+                        >
+                          Create New Card
+                        </Button>
+                      </NextLink>
+                    </MenuItem>
+                    <MenuItem fontWeight="bold" onClick={signOut} as={Center}>
+                      Sign Out
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+                {/* <MenuTop /> */}
+              </Box>
+            </Flex>
+          </Container>
+        </Box>
+        <DarkModeSwitch />
+        <Box bg={bg} textColor={textColor} h="100vh">
+          {Cards && Cards.length ? (
+            Cards.map((res, i) => <CardList key={i} data={res} />)
+          ) : (
+            <Box>
+              <Center w="100%">
+                <VStack
+                  w="95% "
+                  h="full"
+                  mt="50px"
+                  maxW={"1205px"}
+                  spacing="15px"
+                >
+                  <Box
+                    as={Center}
+                    role="group"
+                    borderRadius={"30px"}
+                    w="100%"
+                    boxShadow="8px 8px 35px 0px #0000001A"
+                    _hover={{ bgColor: "greenBrand.100" }}
+                    bgColor={bg}
+                    height={"150px"}
+                  >
+                    <Flex
+                      w="100%"
+                      justifyContent={"space-between"}
+                      alignItems="center"
+                      borderRadius={"30px"}
+                      pr="43px"
+                    >
+                      <Flex alignItems={"center"}>
+                        <Box
+                          _groupHover={{ color: "white" }}
+                          color={textColor}
+                          ml={{ base: "10px", md: "45px" }}
+                        >
+                          <Text
+                            fontWeight={"500"}
+                            fontSize={{ base: "1.25rem", md: "1.25rem" }}
+                          >
+                            Looks like you have not created any cards yet.
+                          </Text>
+                        </Box>
+                      </Flex>
+                      <NextLink href="/create" passHref>
+                        <Button
+                          leftIcon={<AddIcon />}
+                          ml={4}
+                          variant={"outline"}
+                          borderColor="greenBrand.100"
+                          _groupHover={{ bg: bg, color: "greenBrand.100" }}
+                          color={textColor}
+                        >
+                          Create New Card
+                        </Button>
+                      </NextLink>
+                    </Flex>
+                  </Box>
+                </VStack>
+              </Center>
+            </Box>
+          )}
+        </Box>
       </>
     </>
   );

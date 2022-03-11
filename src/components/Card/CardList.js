@@ -26,7 +26,7 @@ export const CardList = ({ data }) => {
 
   return (
     <Center w="100%">
-      <VStack w="95%" mt="50px" maxW={"1205px"} spacing="15px">
+      <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
         <Box
           role="group"
           borderRadius={"30px"}

@@ -8,12 +8,23 @@ import {
   Link,
   Avatar,
   Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Center,
+  IconButton,
 } from "@chakra-ui/react";
 import { MdClose } from "react-icons/md";
 import { BiMenu } from "react-icons/bi";
 import NextLink from "next/link";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { signOut, useSession } from "next-auth/react";
 
 export const Navbar = () => {
+  const { data: session } = useSession();
+  const bg = useColorModeValue("white", "black.100");
+
   const logo = useColorModeValue(
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
@@ -117,21 +128,51 @@ export const Navbar = () => {
           >
             Contact Us
           </Link>
-          <Flex
-            p="5px"
-            m={{ base: "10px 0px", lg: "0px 20px" }}
-            alignItems={"center"}
-          >
-            {/* <Avatar
+          {session && session ? (
+            <Menu isLazy={true} computePositionOnMount={true}>
+              <Avatar boxSize="40px" as={MenuButton} />
+
+              <MenuList color={textColor} w="20px">
+                <MenuItem>
+                  <NextLink href="/create" passHref>
+                    <Button
+                      ml={4}
+                      variant={"outline"}
+                      borderColor="greenBrand.100"
+                    >
+                      Create New Card +
+                    </Button>
+                  </NextLink>
+                </MenuItem>
+
+                <MenuItem cursor="pointer" as={Center}>
+                  <NextLink href="/userscard" passHref>
+                    <Text>My Cards</Text>
+                  </NextLink>
+                </MenuItem>
+                <MenuItem cursor="pointer" onClick={signOut} as={Center}>
+                  Sign Out
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Flex
+              p="5px"
+              m={{ base: "10px 0px", lg: "0px 20px" }}
+              alignItems={"center"}
+            >
+              {/* <Avatar
               boxSize={"33px"}
               name="Kola Tioluwani"
               src="https://bit.ly/tioluwani-kolawole"
             />
             <Text ml="12px">Ask Join</Text> */}
-            <NextLink href="/auth/signin" passHref>
-              <Button>Sign In</Button>
-            </NextLink>
-          </Flex>
+
+              <NextLink href="/auth/signin" passHref>
+                <Button>Sign In</Button>
+              </NextLink>
+            </Flex>
+          )}
         </Flex>
       </Flex>
     </Box>

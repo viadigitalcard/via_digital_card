@@ -246,11 +246,7 @@ function Card() {
                       designation: "",
                       tagline: "",
                       bio: "",
-                      website: "",
-                      linkedin: "",
-                      instagram: "",
-                      youtube: "",
-                      facebook: "",
+
                       payment: "",
                     }}
                     onSubmit={handleSubmit}
