@@ -393,7 +393,14 @@ END:VCARD
                     <Box fontSize={"1.7rem"} color={textColor}>
                       <GoLocation color={textColor} />
                     </Box>
-                    <Text ml="27px">{data?.address}</Text>
+                    <Link
+                      href={
+                        "https://www.google.com/maps/search/" + data?.address
+                      }
+                      isExternal
+                    >
+                      <Text ml="27px">{data?.address}</Text>
+                    </Link>
                   </Flex>
                   <Flex
                     p="25px 0px"
@@ -404,7 +411,7 @@ END:VCARD
                       <FiPhone />
                     </Box>
                     <Text ml="27px">+91 9309719073 | +91 9309719073</Text>
-                    <Link href={"tel:+919309719073"} >
+                    <Link href={"tel:+919309719073"}>
                       <Button fontWeight={400} w="142px" ml="75px">
                         Call Now
                       </Button>
@@ -418,7 +425,11 @@ END:VCARD
                     <Box fontSize={"1.7rem"}>
                       <VscGlobe />
                     </Box>
-                    <Link href={"https://" + data?.website} isExternal ml="27px">
+                    <Link
+                      href={"https://" + data?.website}
+                      isExternal
+                      ml="27px"
+                    >
                       {data?.website} <ExternalLinkIcon mx="2px" />
                     </Link>
                     {/* <Text ml="27px"></Text> */}
@@ -784,6 +795,8 @@ END:VCARD
                     />
                   </Box>
                 </Center>
+              </Flex>
+              <Flex justifyContent={"space-between"} flexWrap="wrap" mt={4}>
                 <Center
                   as={Link}
                   isExternal
@@ -822,7 +835,27 @@ END:VCARD
                     />
                   </Box>
                 </Center>
+                <Center
+                  as={Link}
+                  isExternal
+                  href={data.socialLinks?.linkedin}
+                  boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
+                  borderRadius="14px"
+                  border={`2px solid ${borderColor}`}
+                >
+                  <Box
+                    flexShrink={"0"}
+                    boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                  >
+                    <Image
+                      w="100%"
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Google+Icon.png"
+                      alt=""
+                    />
+                  </Box>
+                </Center>
               </Flex>
+
               <Center mt="50px">
                 <Button w="173px" h="62px" fontWeight={"400"}>
                   Send Message

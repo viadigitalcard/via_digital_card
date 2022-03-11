@@ -73,7 +73,7 @@ const Cards = ({ Card }) => {
       await fetch(`/api/cards/${cardId}`, {
         method: "DELETE",
       });
-      router.replace("/userscard");
+      router.replace("/cards");
     } catch (error) {
       setMessage("Failed to delete the Card.");
     }
