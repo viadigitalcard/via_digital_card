@@ -28,7 +28,7 @@ export const HowItWorks = () => {
   );
   const items = [
     <div className="item" key={1} data-value="1">
-      <Box w="100%">
+      <Box w="100%" h="100%">
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
@@ -39,7 +39,7 @@ export const HowItWorks = () => {
       </Box>
     </div>,
     <div className="item" key={2} data-value="2">
-      <Box w="100%">
+      <Box w="100%" h="100%">
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
@@ -50,7 +50,7 @@ export const HowItWorks = () => {
       </Box>
     </div>,
     <div className="item" key={3} data-value="3">
-      <Box w="100%">
+      <Box w="100%" h="100%">
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
@@ -61,7 +61,7 @@ export const HowItWorks = () => {
       </Box>
     </div>,
     <div className="item" data-value="4" key={4}>
-      <Box w="100%">
+      <Box w="100%" h="100%">
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
@@ -106,7 +106,7 @@ export const HowItWorks = () => {
         />
       </Box>
 
-      <Box zIndex={2} w="100%" d="flex" flexDir={"column"} alignItems="center">
+      <Box zIndex={2} w="100%" d="flex" flexDir={"column"} alignItems="center"  id="howitworks">
         <Text
           fontWeight={"500"}
           mb={{ base: "30px", md: "60px", xl: "100px" }}

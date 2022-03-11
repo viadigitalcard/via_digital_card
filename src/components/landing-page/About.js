@@ -21,6 +21,7 @@ export const About = () => {
       p={{ base: "50px 15px", sm: "100px 25px", lg: "150px 100px" }}
       color={textColor}
       alignItems="flex-start"
+      id="about"
     >
       <Box pos="absolute" right={"5%"} bottom="5%">
         <Image

@@ -104,7 +104,7 @@ export const Navbar = () => {
             _hover={{ textDecoration: "none" }}
             _focus={{ borderBottom: "2px solid #77C208" }}
             _active={{ borderBottom: "2px solid #77C208" }}
-            href="#"
+            href="#howitworks"
           >
             How it works?
           </Link>
@@ -114,7 +114,7 @@ export const Navbar = () => {
             _hover={{ textDecoration: "none" }}
             _focus={{ borderBottom: "2px solid #77C208" }}
             _active={{ borderBottom: "2px solid #77C208" }}
-            href="#"
+            href="#about"
           >
             About Us
           </Link>
@@ -124,7 +124,7 @@ export const Navbar = () => {
             _hover={{ textDecoration: "none" }}
             _focus={{ borderBottom: "2px solid #77C208" }}
             _active={{ borderBottom: "2px solid #77C208" }}
-            href="#"
+            href="#contact"
           >
             Contact Us
           </Link>

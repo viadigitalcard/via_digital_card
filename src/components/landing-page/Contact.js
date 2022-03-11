@@ -54,6 +54,7 @@ export const Contact = () => {
       w="100%"
       p="150px 0px"
       color={textColor}
+      id="contact"
     >
       <Box pos="absolute" bottom="5%" right="5%">
         <Image
