@@ -9,13 +9,17 @@ export default async function Signup(req, res) {
   if (method === "POST") {
     //Error handling on allready exist or create g state to handle error
     await dbConnect();
-    const existingUser = await User.findOne({
-      email: email.toLowerCase(),
-    }).exec();
-    console.log(existingUser);
-    if (existingUser) {
-      res.status(422).json({ message: "User is already registered." });
-      return;
+    try {
+      const existingUser = await User.findOne({
+        email: email.toLowerCase(),
+      }).exec();
+      console.log(existingUser);
+      if (existingUser) {
+        res.status(422).json({ error: "User already exists" });
+        return;
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
 
     const hashedPassword = await hashPassword(password);
@@ -24,13 +28,14 @@ export default async function Signup(req, res) {
       const result = await User.create({
         firstName: firstName,
         lastName: lastName,
-        email: email,
+        email: email.toLowerCase(),
         password: hashedPassword,
         premiumUser: false,
       });
+
       res.status(201).json({ message: "Created user!" }, result);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ error: error.message });
     }
   }
 }

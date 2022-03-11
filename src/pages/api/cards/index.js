@@ -32,7 +32,11 @@ export default async function handler(req, res) {
       try {
         const card = await Card.create(cardData);
         /* create a new model in the database */
-        res.status(201).json({ success: true, values: card });
+        res.status(201).json({
+          success: true,
+          values: card,
+          message: "Card created successfully",
+        });
       } catch (error) {
         res.status(400).json({ success: false });
       }

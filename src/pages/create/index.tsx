@@ -18,6 +18,7 @@ import {
   Textarea,
   useColorModeValue,
   CloseButton,
+  useToast,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { useSession } from "next-auth/react";
@@ -41,12 +42,24 @@ const steps = [
 
 function Card() {
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
-  const [errorMessage, seterrorMessage] = useState("");
+
   const [profile, setProfile] = useState(null);
+  const [errorMessage, seterrorMessage] = useState("");
   const [value, setValue] = useState("");
   const textColor = useColorModeValue("gray.800", "white");
   const color = useColorModeValue("white", "#302E2E");
+  const toast = useToast();
 
+  function Toast(title, message, status) {
+    return toast({
+      title: title || "",
+      description: message,
+      status: status,
+      position: "top",
+      duration: 2000,
+      // isClosable: true,
+    });
+  }
   const router = useRouter();
 
   const contentType = "application/json";
@@ -55,6 +68,10 @@ function Card() {
     profile ? (uploadProfile = profile) : (uploadProfile = null);
 
     let { url } = await uploadToS3(uploadProfile);
+    if (!url) {
+      Toast("Error", "Error uploading profile picture", "error");
+      return;
+    }
     const data = {
       name: values.name,
       profilePhoto: url,
@@ -85,9 +102,13 @@ function Card() {
       body: JSON.stringify(data),
     });
     const responseData = await response.json();
-    // console.log(responseData);
-    // router.replace("/userscard");
-    // console.log(values);
+    if (responseData.error) {
+      Toast("Error", responseData.error, "error");
+      return;
+    } else if (responseData.success) {
+      Toast("Success", "Card created successfully", "success");
+      router.push("/userscard");
+    }
   }
   function handleChange(e) {
     setProfile(e);
@@ -241,14 +262,14 @@ function Card() {
                       <VStack spacing="20px" py="10">
                         <Flex
                           as={Center}
-                          justifyContent="space-around"
                           w="full"
-                          px="60px"
+                          px={["50px", "50px", "50px", "90px"]}
                           py={["10px", "", "0px"]}
                           flexDirection={["column", "column", "row"]}
                         >
                           <Avatar
                             w="140px"
+                            ml="20px"
                             h="140px"
                             src={profile ? URL.createObjectURL(profile) : ""}
                             // src="https://res.cloudinary.com/dbm7us31s/image/upload/v1643392997/digital%20card/form/Mask_Group_2_atdo50.svg"
@@ -278,10 +299,12 @@ function Card() {
                                 />
 
                                 <Flex
-                                  justifyContent="center"
-                                  alignItems="center"
+                                  as={Center}
+                                  // justifyContent="center"
+                                  // alignItems="center"
                                 >
                                   <Button
+                                    w="200px"
                                     ml={["0px", "0px", "20%"]}
                                     onClick={openFileDialog}
                                     color="white"
@@ -289,14 +312,14 @@ function Card() {
                                     mt={["10px", "", ""]}
                                     fontSize={{
                                       base: "12",
-                                      md: "14",
-                                      lg: "14",
+                                      md: "13",
+                                      lg: "13",
                                     }}
                                     fontWeight="semibold"
                                     fontFamily="Open Sans"
                                   >
                                     {profile && profile
-                                      ? "Update Profile Photo"
+                                      ? "Change Profile Photo"
                                       : "Add Profile Photo"}
                                   </Button>
                                   {profile && profile ? (
@@ -709,7 +732,6 @@ export function FormikStepper({
     children
   ) as React.ReactElement<FormikStepProps>[];
   const [step, setStep] = useState(0);
-
   const currentChild = childrenArray[step];
   const [completed, setCompleted] = useState(false);
 
@@ -767,6 +789,7 @@ export function FormikStepper({
               ""
             )}
             <Button
+              disabled={isSubmitting}
               type="submit"
               fontSize="20px"
               w="130px"

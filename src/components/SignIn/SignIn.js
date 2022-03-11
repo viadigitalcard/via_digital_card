@@ -14,6 +14,7 @@ import {
   FormControl,
   FormErrorMessage,
   useColorModeValue,
+  useToast,
   Center,
   VStack,
 } from "@chakra-ui/react";
@@ -22,6 +23,19 @@ import { Formik, Field, Form } from "formik";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 
 export const SignIn = () => {
+  const toast = useToast();
+
+  function Toast(title, message, status) {
+    return toast({
+      title: title || "",
+      description: message,
+      status: status,
+      position: "top",
+      duration: 2000,
+      // isClosable: true,
+    });
+  }
+
   const color = useColorModeValue("white", "#302E2E");
   const textColor = useColorModeValue("gray.800", "white");
   const [show, setShow] = React.useState(false);
@@ -56,14 +70,18 @@ export const SignIn = () => {
           email: values.email,
           password: values.password,
         });
-        router.replace("/userscard");
+
         setLoading(false);
 
         if (result.error) {
+          Toast("", result.error, "error");
           console.log(result.error);
+        } else {
+          Toast("Welcome", "Successfully Signed In", "success");
+          router.replace("/userscard");
         }
       } catch (error) {
-        console.log(error);
+        Toast("", error, "error");
       }
     } else {
       router.push("/");
@@ -82,18 +100,19 @@ export const SignIn = () => {
         <VStack as={Center} px={["", "80px"]}>
           <Image
             alt=""
-            width={{ base: "150px", md: "200px", lg: "300px" }}
-            p="10px"
+            h={["60px", "70px", "70px"]}
+            // width={{ base: "150px", md: "200px", lg: "300px" }}
+            // p="10px"
             src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png"
           />
           <Text
-            fontSize={{ base: "36px", md: "40px", lg: "45px" }}
+            fontSize={{ base: "40px", md: "40px", lg: "45px" }}
             py={5}
             fontFamily="mono"
             fontWeight="normal"
             color={textColor}
           >
-            Welcome back
+            Welcome
           </Text>
           <Flex>
             <Formik
@@ -170,16 +189,18 @@ export const SignIn = () => {
                       </FormControl>
                     )}
                   </Field>
-
-                  <Text
-                    as={Flex}
-                    justifyContent="end"
-                    color={textColor}
-                    py="30px"
-                    fontWeight="semibold"
-                  >
-                    Recovery password
-                  </Text>
+                  <NextLink href="/resetpassword" passHref>
+                    <Link fontWeight="bold" px={2} color={textColor}>
+                      <Text
+                        as={Flex}
+                        justifyContent="end"
+                        color={textColor}
+                        fontWeight="semibold"
+                      >
+                        Recovery password
+                      </Text>
+                    </Link>
+                  </NextLink>
 
                   <Center>
                     <Button
@@ -209,8 +230,8 @@ export const SignIn = () => {
         </VStack>
         <Flex display={["none", "none", "flex"]}>
           <Image
-            alt=""
             w="full"
+            alt=""
             py="10px"
             h="100vh"
             src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Sign+In+Right.png"
