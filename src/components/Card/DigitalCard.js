@@ -986,7 +986,7 @@ END:VCARD
                     </Box>
                     <Box ml="27px">
                       <Text>{data?.pnumber}</Text>
-                      <Text>{data?.number}</Text>
+                      <Text>{data?.snumber}</Text>
                     </Box>
                   </Flex>
 
