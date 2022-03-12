@@ -43,6 +43,7 @@ const Cards = ({ Card }) => {
     const views = params + 1;
     return views;
   }
+  const bg = useColorModeValue("black", "white");
 
   async function updateviewsDB(params) {
     const values = {
@@ -130,9 +131,7 @@ const Cards = ({ Card }) => {
               <DrawerContent>
                 <DrawerCloseButton />
 
-                <DrawerHeader
-                  color={useColorModeValue("black", "white")}
-                >{`${Card.name}'s card`}</DrawerHeader>
+                <DrawerHeader color={bg}>{`${Card.name}'s card`}</DrawerHeader>
                 <DrawerBody>
                   {" "}
                   <EditCard inputData={Card} />
