@@ -150,6 +150,10 @@ export default function Card({ inputData }) {
         designation: Yup.string().required("Required"),
         tagline: Yup.string().required("Required"),
         bio: Yup.string().required("Required"),
+        whatsapp: string()
+          .min(10, "Must be Valid Phone Number")
+          .max(10, "Must be Valid Phone Number")
+          .required("Required"),
         // website: Yup.string().required("Required"),
         // linkedin: Yup.string().required("Required"),
         // instagram: Yup.string().required("Required"),
@@ -176,16 +180,16 @@ export default function Card({ inputData }) {
         designation: Yup.string().required("Required"),
         tagline: Yup.string().required("Required"),
         bio: Yup.string().required("Required"),
-        website: Yup.string().required("Required"),
         whatsapp: string()
           .min(10, "Must be Valid Phone Number")
           .max(10, "Must be Valid Phone Number")
           .required("Required"),
-        linkedin: Yup.string().required("Required"),
-        instagram: Yup.string().required("Required"),
-        youtube: Yup.string().required("Required"),
-        facebook: Yup.string().required("Required"),
-        payment: Yup.string().required("Required"),
+        // website: Yup.string().required("Required"),
+        // linkedin: Yup.string().required("Required"),
+        // instagram: Yup.string().required("Required"),
+        // youtube: Yup.string().required("Required"),
+        // facebook: Yup.string().required("Required"),
+        // payment: Yup.string().required("Required"),
       }),
     };
   }

@@ -22,7 +22,9 @@ export default async function handler(req, res) {
     let baseData = buffer.toString("base64");
     let origin = `${process.env.NEXTAUTH_URL}/forget-password/${baseData}`;
 
-    const existingUser = await User.findOne({ email: email }).exec();
+    const existingUser = await User.findOne({
+      email: email.toLowercase(),
+    }).exec();
     console.log(existingUser);
     if (!existingUser) {
       res.status(400).json({ message: " User does not exist " });

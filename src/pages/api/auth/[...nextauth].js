@@ -21,13 +21,16 @@ export default NextAuth({
             credentials.password,
             user.password
           );
-
           if (!isPasswordValid) throw new Error("Password is not valid");
+          if (user.verifyEmail === false)
+            throw new Error("Email is not verified");
 
           return {
             id: user._id,
             name: user.firstName,
             email: user.email,
+            premiumUser: user.premiumUser,
+            verifyEmail: user.verifyEmail,
           };
         } catch (error) {
           throw new Error(error);

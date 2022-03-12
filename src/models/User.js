@@ -13,8 +13,15 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+
   premiumUser: {
     type: Boolean,
+  },
+  verifyEmail: {
+    type: Boolean,
+  },
+  verifyToken: {
+    type: String,
   },
 });
 

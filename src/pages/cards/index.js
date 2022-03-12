@@ -43,6 +43,9 @@ const Usercard = ({ Cards }) => {
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
   );
+  const { data: session } = useSession();
+  console.log(session);
+
   return (
     <>
       <Head>
