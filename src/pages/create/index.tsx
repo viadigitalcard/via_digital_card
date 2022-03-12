@@ -312,6 +312,7 @@ function Card() {
                                   {...field}
                                 />
                                 <FileInput
+                                  accept="image/x-png,image/jpg,image/jpeg"
                                   onChange={(e) => {
                                     handleChange(e);
                                     form.setFieldValue("profilePhoto", e.size);
