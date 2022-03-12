@@ -32,10 +32,10 @@ export const HowItWorks = () => {
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
-        {/* <p className="slide-text">
+        <p className="slide-text">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the
-        </p> */}
+        </p>
       </Box>
     </div>,
     <div className="item" key={2} data-value="2">
@@ -43,10 +43,10 @@ export const HowItWorks = () => {
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
-        {/* <p className="slide-text">
+        <p className="slide-text">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the
-        </p> */}
+        </p>
       </Box>
     </div>,
     <div className="item" key={3} data-value="3">
@@ -54,10 +54,10 @@ export const HowItWorks = () => {
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
-        {/* <p className="slide-text">
+        <p className="slide-text">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the
-        </p> */}
+        </p>
       </Box>
     </div>,
     <div className="item" data-value="4" key={4}>
@@ -65,10 +65,10 @@ export const HowItWorks = () => {
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
-        {/* <p className="slide-text">
+        <p className="slide-text">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the
-        </p> */}
+        </p>
       </Box>
     </div>,
   ];
@@ -124,17 +124,10 @@ export const HowItWorks = () => {
         </Text>
         <div className={className}>
           <AliceCarousel
-            // mouseTracking
-            autoPlayStrategy="none"
-            autoPlayInterval={2000}
-            animationDuration={2000}
-            animationType="fadeout"
-            infinite
-            touchTracking={false}
-            autoPlay
+            mouseTracking={true}
             items={items}
-            paddingLeft={50}
-            paddingRight={isMobile ? 0 : 150}
+            // paddingLeft={50}
+            // paddingRight={isMobile ? 0 : 150}
             controlsStrategy="alternate"
             responsive={responsive}
           />
