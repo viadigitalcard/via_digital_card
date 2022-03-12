@@ -38,9 +38,13 @@ export default function SignUp() {
     });
   }
   const logo = useColorModeValue(
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034356/digital%20card/landing-page/logo-dark_yijgxs.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
   );
+  // const logo = useColorModeValue(
+  //   "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
+  //   "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034356/digital%20card/landing-page/logo-dark_yijgxs.png"
+  // );
   const color = useColorModeValue("white", "#302E2E");
   const textColor = useColorModeValue("gray.800", "white");
   const [show, setShow] = React.useState(false);

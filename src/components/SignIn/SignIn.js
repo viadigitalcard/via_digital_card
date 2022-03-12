@@ -35,6 +35,10 @@ export const SignIn = () => {
       // isClosable: true,
     });
   }
+  const logo = useColorModeValue(
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
+  );
 
   const color = useColorModeValue("white", "#302E2E");
   const textColor = useColorModeValue("gray.800", "white");
@@ -103,7 +107,7 @@ export const SignIn = () => {
             h={["60px", "70px", "70px"]}
             // width={{ base: "150px", md: "200px", lg: "300px" }}
             // p="10px"
-            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png"
+            src={logo}
           />
           <Text
             fontSize={{ base: "40px", md: "40px", lg: "45px" }}

@@ -628,7 +628,7 @@ END:VCARD
         <VStack spacing={"48px"} color={textColor}>
           <NextLink href="/" passHref>
             <Link>
-              <Image src={logo} />
+              <Image mr="100px" src={logo} />
             </Link>
           </NextLink>
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
@@ -967,7 +967,12 @@ END:VCARD
                   <Box fontSize={"1.7rem"}>
                     <GoLocation />
                   </Box>
-                  <Text ml="27px">{data?.address}</Text>
+                  <Link
+                    href={"https://www.google.com/maps/search/" + data?.address}
+                    isExternal
+                  >
+                    <Text ml="27px">{data?.address}</Text>
+                  </Link>
                 </Flex>
                 <Flex
                   p="25px 0px"
@@ -980,8 +985,8 @@ END:VCARD
                       <FiPhone />
                     </Box>
                     <Box ml="27px">
-                      <Text>+91 9309719073</Text>
-                      <Text>+91 9309719073</Text>
+                      <Text>{data?.pnumber}</Text>
+                      <Text>{data?.number}</Text>
                     </Box>
                   </Flex>
 
@@ -1017,7 +1022,9 @@ END:VCARD
                   <Box fontSize={"1.7rem"}>
                     <AiOutlineMail />
                   </Box>
-                  <Text ml="27px">{data?.email}</Text>
+                  <Link href={"mailto:" + data?.email} isExternal>
+                    <Text ml="27px">{data?.email}</Text>
+                  </Link>
                 </Flex>
               </Flex>
             </TabPanel>

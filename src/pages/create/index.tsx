@@ -61,7 +61,10 @@ function Card() {
     });
   }
   const router = useRouter();
-
+  const logo = useColorModeValue(
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
+  );
   const contentType = "application/json";
   async function handleSubmit(values) {
     let uploadProfile;
@@ -244,15 +247,23 @@ function Card() {
                 h="full"
                 overflow="auto"
               >
-                <Text
+                <Center p="6% 0% 6% 0%">
+                  <Image
+                    alt=""
+                    h={["60px", "70px", "70px"]}
+                    // width={{ base: "150px", md: "200px", lg: "300px" }}
+                    // p="10px"
+                    src={logo}
+                  />
+                </Center>
+                {/* <Text
                   fontSize={{ base: "36px", md: "36px", lg: "38px" }}
                   fontFamily="mono"
                   fontStyle=""
                   textAlign="center"
-                  p="6% 0% 6% 0%"
                 >
                   Via Digital Card
-                </Text>
+                </Text> */}
                 <div>
                   <FormikStepper
                     initialValues={{
@@ -387,6 +398,7 @@ function Card() {
                               >
                                 <Input
                                   h="60px"
+                                  type="text"
                                   placeholder="Enter Name"
                                   marginTop={15}
                                   size="lg"

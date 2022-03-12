@@ -22,6 +22,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -128,13 +129,14 @@ const Cards = ({ Card }) => {
               <DrawerOverlay />
               <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerHeader>{`${Card.name}'s card`}</DrawerHeader>
 
+                <DrawerHeader
+                  color={useColorModeValue("black", "white")}
+                >{`${Card.name}'s card`}</DrawerHeader>
                 <DrawerBody>
                   {" "}
                   <EditCard inputData={Card} />
                 </DrawerBody>
-
                 <DrawerFooter>
                   <Button variant="outline" mr={3} onClick={onClose}>
                     Cancel
