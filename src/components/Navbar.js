@@ -41,7 +41,11 @@ export const Navbar = () => {
         justifyContent="space-between"
       >
         <Box flexShrink={"0"}>
-          <Image src={logo} alt="" />
+          <NextLink href="/" passHref>
+            <Link>
+              <Image src={logo} />
+            </Link>
+          </NextLink>
         </Box>
         <Box
           zIndex={openNavbar ? "0" : "5"}
