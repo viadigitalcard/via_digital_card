@@ -60,6 +60,7 @@ export const Contact = () => {
         <Image
           src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+1.png"
           alt="ribbon"
+          className="react-floater-animated"
         />
       </Box>
 

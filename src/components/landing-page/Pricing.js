@@ -35,6 +35,7 @@ export const Pricing = () => {
         <Image
           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033631/digital%20card/landing-page/doodle-two_sfme7d.png"
           alt="candy"
+          className="react-floater-animated"
         />
       </Box>
 
@@ -47,6 +48,7 @@ export const Pricing = () => {
         <Image
           src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033627/digital%20card/landing-page/doodle-one_zanfpm.png"
           alt="ribbon"
+          className="react-floater-animated"
         />
       </Box>
 

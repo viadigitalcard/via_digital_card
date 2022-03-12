@@ -32,10 +32,10 @@ export const HowItWorks = () => {
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
-        <p className="slide-text">
+        {/* <p className="slide-text">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the
-        </p>
+        </p> */}
       </Box>
     </div>,
     <div className="item" key={2} data-value="2">
@@ -43,10 +43,10 @@ export const HowItWorks = () => {
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
-        <p className="slide-text">
+        {/* <p className="slide-text">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the
-        </p>
+        </p> */}
       </Box>
     </div>,
     <div className="item" key={3} data-value="3">
@@ -54,10 +54,10 @@ export const HowItWorks = () => {
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
-        <p className="slide-text">
+        {/* <p className="slide-text">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the
-        </p>
+        </p> */}
       </Box>
     </div>,
     <div className="item" data-value="4" key={4}>
@@ -65,10 +65,10 @@ export const HowItWorks = () => {
         <Center>
           <Image src={imgUrl} alt="" />
         </Center>
-        <p className="slide-text">
+        {/* <p className="slide-text">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the
-        </p>
+        </p> */}
       </Box>
     </div>,
   ];
@@ -106,7 +106,14 @@ export const HowItWorks = () => {
         />
       </Box>
 
-      <Box zIndex={2} w="100%" d="flex" flexDir={"column"} alignItems="center"  id="howitworks">
+      <Box
+        zIndex={2}
+        w="100%"
+        d="flex"
+        flexDir={"column"}
+        alignItems="center"
+        id="howitworks"
+      >
         <Text
           fontWeight={"500"}
           mb={{ base: "30px", md: "60px", xl: "100px" }}
@@ -117,7 +124,14 @@ export const HowItWorks = () => {
         </Text>
         <div className={className}>
           <AliceCarousel
-            mouseTracking
+            // mouseTracking
+            autoPlayStrategy="none"
+            autoPlayInterval={2000}
+            animationDuration={2000}
+            animationType="fadeout"
+            infinite
+            touchTracking={false}
+            autoPlay
             items={items}
             paddingLeft={50}
             paddingRight={isMobile ? 0 : 150}

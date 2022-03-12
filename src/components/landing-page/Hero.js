@@ -11,6 +11,7 @@ import {
   Button,
   useColorModeValue,
 } from "@chakra-ui/react";
+
 export const Hero = () => {
   const textColor = useColorModeValue("black", "white");
   const imageLeft = useColorModeValue(
@@ -49,6 +50,7 @@ export const Hero = () => {
         <Image
           src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+2.png"
           alt="candy"
+          className="react-floater-animated"
         />
       </Box>
       <Box
@@ -61,6 +63,7 @@ export const Hero = () => {
         <Image
           src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+2.png"
           alt="candy"
+          className="react-floater-animated"
         />
       </Box>
       <Box
@@ -72,6 +75,7 @@ export const Hero = () => {
         <Image
           src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+2.png"
           alt="candy"
+          className="react-floater-animated"
         />
       </Box>
       <Box
@@ -83,6 +87,7 @@ export const Hero = () => {
         <Image
           src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+1.png"
           alt="ribbon"
+          className="react-floater-animated"
         />
       </Box>
       <Box
@@ -94,6 +99,7 @@ export const Hero = () => {
         <Image
           src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Landing+Doodle+1.png"
           alt="ribbon"
+          className="react-floater-animated"
         />
       </Box>
       <Box
