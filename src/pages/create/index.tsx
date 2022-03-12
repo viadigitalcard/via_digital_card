@@ -132,7 +132,10 @@ function Card() {
   if (profile === null) {
     validationShape = {
       normal: Yup.object().shape({
-        name: Yup.string().required("Required"),
+        name: Yup.string()
+          .required("Required")
+          .min(3, "Must be minimum 3 characters")
+          .max(15, "Must be maximum 15 characters"),
         email: Yup.string().email("Invalid Email").required("Required"),
         username: Yup.string().required("Required"),
       }),
@@ -661,7 +664,7 @@ function Card() {
                               }
                             >
                               <Input
-                                placeholder="website"
+                                placeholder="Link"
                                 marginTop={15}
                                 size="lg"
                                 h="60px"
@@ -686,7 +689,7 @@ function Card() {
                               }
                             >
                               <Input
-                                placeholder="twitter"
+                                placeholder="Link"
                                 marginTop={15}
                                 size="lg"
                                 h="60px"
@@ -711,7 +714,7 @@ function Card() {
                               }
                             >
                               <Input
-                                placeholder="linkedin"
+                                placeholder="Link"
                                 marginTop={15}
                                 size="lg"
                                 h="60px"
@@ -736,7 +739,7 @@ function Card() {
                               }
                             >
                               <Input
-                                placeholder="instagram"
+                                placeholder="Link"
                                 marginTop={15}
                                 size="lg"
                                 h="60px"
@@ -760,7 +763,7 @@ function Card() {
                               }
                             >
                               <Input
-                                placeholder="youtube video"
+                                placeholder="Link"
                                 marginTop={15}
                                 size="lg"
                                 h="60px"
@@ -785,7 +788,7 @@ function Card() {
                               }
                             >
                               <Input
-                                placeholder="facebook"
+                                placeholder="Link"
                                 marginTop={15}
                                 size="lg"
                                 h="60px"
