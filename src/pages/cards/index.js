@@ -200,7 +200,7 @@ const Usercard = ({ Cards }) => {
   );
 };
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const session = await getSession(context);
   await dbConnect();
   const cards = await Card.find({
