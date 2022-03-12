@@ -120,7 +120,7 @@ function Card() {
       return;
     } else if (responseData.success) {
       Toast("Success", "Card created successfully", "success");
-      router.push("/cards");
+      // router.push("/cards");
     }
   }
   function handleChange(e) {

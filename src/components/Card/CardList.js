@@ -55,7 +55,11 @@ export const CardList = ({ data }) => {
                   w="100%"
                   h="100%"
                   objectFit={"cover"}
-                  src={data?.profilePhoto || ""}
+                  src={
+                    data?.profilePhoto
+                      ? data.profilePhoto
+                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+                  }
                 />
               </Box>
               <Box
@@ -81,47 +85,50 @@ export const CardList = ({ data }) => {
                   spacing={"22px"}
                   fontSize={{ base: "1rem", md: "1.2rem" }}
                 >
-                  <Box
-                    bgColor={iconBg}
-                    as={Link}
-                    isExternal
-                    href={data?.socialLinks?.facebook}
-                    _groupHover={{ bgColor: "white" }}
-                    p="5px"
-                    borderRadius="8px"
-                  >
-                    <FaFacebookF />
-                  </Box>
-                  <Box
-                    bgColor={iconBg}
-                    _groupHover={{ bgColor: "white" }}
-                    p="5px"
-                    borderRadius="8px"
-                    as={Link}
-                    isExternal
-                    href={data?.socialLinks?.linkedin}
-                  >
-                    <GrLinkedinOption />
-                  </Box>
-                  <Box
-                    bgColor={iconBg}
-                    _groupHover={{ bgColor: "white" }}
-                    p="5px"
-                    borderRadius="8px"
-                  >
-                    <FaTwitter />
-                  </Box>
-                  <Box
-                    bgColor={iconBg}
-                    _groupHover={{ bgColor: "white" }}
-                    p="5px"
-                    borderRadius="8px"
-                    as={Link}
-                    isExternal
-                    href={data?.socialLinks?.instagram}
-                  >
-                    <FaInstagram />
-                  </Box>
+                  {data?.socialMediaLinks?.facebook != "" ? (
+                    <Box
+                      bgColor={iconBg}
+                      as={Link}
+                      isExternal
+                      href={data.socialLinks.facebook}
+                      _groupHover={{ bgColor: "white" }}
+                      p="5px"
+                      borderRadius="8px"
+                    >
+                      <FaFacebookF />
+                    </Box>
+                  ) : (
+                    ""
+                  )}
+                  {data?.socialMediaLinks?.twitter != "" ? (
+                    <Box
+                      bgColor={iconBg}
+                      _groupHover={{ bgColor: "white" }}
+                      p="5px"
+                      borderRadius="8px"
+                      as={Link}
+                      isExternal
+                      href={data.socialLinks.linkedin}
+                    >
+                      <GrLinkedinOption />
+                    </Box>
+                  ) : (
+                    ""
+                  )}
+                  {data?.socialMediaLinks?.instagram != "" ? (
+                    <Box
+                      bgColor={iconBg}
+                      _groupHover={{ bgColor: "white" }}
+                      p="5px"
+                      borderRadius="8px"
+                      isExternal
+                      href={data.socialLinks.instagram}
+                    >
+                      <FaTwitter />
+                    </Box>
+                  ) : (
+                    ""
+                  )}
                 </HStack>
               </Box>
             </Flex>
