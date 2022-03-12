@@ -130,16 +130,11 @@ END:VCARD
       >
         <TabList border={"none"} justifyContent="space-between">
           <Box>
-            <Tab
-              color={"greenBrand.100"}
-              fontSize={"1.125rem"}
-              _selected={{ color: "none ", border: "none" }}
-              _active={{ border: "none" }}
-              _focus={{ border: "none" }}
-            >
-              {/* Digital Card */}
-              <Image src={logo} />
-            </Tab>
+            <NextLink href="/" passHref>
+              <Link>
+                <Image src={logo} />
+              </Link>
+            </NextLink>
           </Box>
           <Flex>
             <Tab
@@ -257,7 +252,7 @@ END:VCARD
               </Box>
             </Flex>
             <TabPanels w="100%">
-              <TabPanel p="0">
+              {/* <TabPanel p="0">
                 <HStack
                   mt="43px"
                   spacing={{ "2sm": "40px", lg: "80px", xl: "125px" }}
@@ -270,9 +265,6 @@ END:VCARD
                       bgColor="greenBrand.100"
                       borderRadius={"35px"}
                     >
-                      {/* <a href="" onClick={handleSave}>
-                        download
-                      </a> */}
                       <Image
                         src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/contact.png"
                         alt=""
@@ -307,7 +299,7 @@ END:VCARD
                     <Text fontSize={"1.5rem"}>Make Payment</Text>
                   </VStack>
                 </HStack>
-              </TabPanel>
+              </TabPanel> */}
               <TabPanel p="0" color={textColor}>
                 <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
                   About
@@ -531,7 +523,7 @@ END:VCARD
           </Box>
           <Box
             mt={{ "2sm": "40px", lg: "0" }}
-            display={tabIndex > 0 ? "block" : "none"}
+            display={"block"}
             borderLeft={{ "2sm": "none", lg: `1px solid ${dividerColor}` }}
             pl={{ lg: "4.1vw", "2xl": "63px" }}
             ml={{ lg: "4.1vw", "2xl": "63px" }}
@@ -634,8 +626,11 @@ END:VCARD
       </Tabs>
       <Box display={{ base: "block", "2sm": "none" }} w="100%">
         <VStack spacing={"48px"} color={textColor}>
-          <Image src={logo} />
-
+          <NextLink href="/" passHref>
+            <Link>
+              <Image src={logo} />
+            </Link>
+          </NextLink>
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
             <Box
               w={{ base: "109px", xs: "193px" }}
