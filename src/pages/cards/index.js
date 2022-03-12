@@ -121,7 +121,7 @@ const Usercard = ({ Cards }) => {
           </Container>
         </Box>
         <DarkModeSwitch />
-        <Box bg={bg} textColor={textColor} h="100vh">
+        <Box bg={bg} textColor={textColor} minH="100vh" h="full">
           {Cards && Cards.length ? (
             Cards.map((res, i) => <CardList key={i} data={res} />)
           ) : (

@@ -937,6 +937,7 @@ END:VCARD
                 )}
 
                 <Center
+                  as={Link}
                   isExternal
                   boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                   borderRadius="14px"
