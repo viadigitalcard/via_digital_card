@@ -20,10 +20,12 @@ import {
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
+import { useRouter } from "next/router";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 
 export default function SignUp() {
   const toast = useToast();
+  const router = useRouter();
 
   function Toast(title, message, status) {
     return toast({
