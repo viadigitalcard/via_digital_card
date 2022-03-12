@@ -137,7 +137,7 @@ export default function SignUp() {
             h={["60px", "70px", "70px"]}
             // width={{ base: "250px", md: "200px", lg: "300px" }}
             marginBottom={2}
-            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png"
+            src={logo}
           />
           <Text
             fontSize={{ base: "36px", md: "40px", lg: "45px" }}
