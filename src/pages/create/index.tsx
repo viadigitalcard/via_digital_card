@@ -138,7 +138,7 @@ function Card() {
         name: Yup.string()
           .required("Required")
           .min(3, "Must be minimum 3 characters")
-          .max(15, "Must be maximum 15 characters"),
+          .max(30, "Must be maximum 30 characters"),
         email: Yup.string().email("Invalid Email").required("Required"),
         username: Yup.string().required("Required"),
       }),

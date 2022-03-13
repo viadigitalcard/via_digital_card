@@ -6,6 +6,7 @@ import { CardList } from "../../components/Card/CardList";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+// import useSWR from "swr";
 import NextLink from "next/link";
 import {
   VStack,
@@ -200,12 +201,14 @@ const Usercard = ({ Cards }) => {
   );
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const session = await getSession(context);
+  console.log(session);
   await dbConnect();
   const cards = await Card.find({
     card_id: { $eq: session?.user?.id },
   }).exec();
+
   const data = JSON.parse(JSON.stringify(cards));
 
   return {
