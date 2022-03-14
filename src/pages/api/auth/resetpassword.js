@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         pass: "testM@123",
       },
     });
-    let buffer = new Buffer(req.body.email);
+    let buffer = new Buffer(email);
     let baseData = buffer.toString("base64");
     let origin = `${process.env.NEXTAUTH_URL}/forget-password/${baseData}`;
 
@@ -44,12 +44,6 @@ export default async function handler(req, res) {
       res.status(402).json({ message: "We have already sent you an email." });
       return;
     }
-    console.log(uploadToken);
-
-    // if(uploadToken){
-
-    // }
-
     const mailOptions = {
       from: "testmymail03@gmail.com",
       to: email,
@@ -60,11 +54,10 @@ export default async function handler(req, res) {
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         res.status(500).json({ error: error.message });
-
         console.log("this is error", error);
       } else {
         console.log("Email sent: " + info.response);
-        res.status(200).json({ message: "Email sent" }).end();
+        res.status(201).json({ message: "Email sent" });
       }
     });
   }

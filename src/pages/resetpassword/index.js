@@ -44,34 +44,32 @@ function Reset() {
 
     const res = await fetch("/api/auth/resetpassword", {
       method: "POST",
-      body: JSON.stringify({ email: values.email.toLowerCase() }),
+      body: JSON.stringify({ email: values.email }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log(res);
     const data = await res.json();
     if (res.status === 400) {
       Toast("User does not exist", "", "error");
       setLoading(false);
-      return;
+    }
+    if (res.status === 500) {
+      Toast("Error", "", "error");
+      setLoading(false);
     }
     if (res.status === 402) {
       Toast("We have already sent you an email.", "", "error");
       setLoading(false);
-      return;
+    }
+    if (res.status === 201) {
+      Toast("Email sent to", `${values.email}`, "success");
+      setLoading(false);
+      setEmailSent(true);
     }
     if (data.error) {
       Toast("Error", data.error, "error");
-      seterrorMessage(data.error);
       setLoading(false);
-      return;
-    }
-    if (res.status === 200) {
-      Toast("Email sent to", `${values.email}`, "success");
-      setEmailSent(true);
-      setLoading(false);
-      return;
     }
     setLoading(false);
   };
@@ -216,7 +214,7 @@ function Reset() {
           m={{ base: "0px auto", lg: "0px" }}
           color={textColor}
         >
-          <Box px="6%">
+          <Box>
             <Flex alignItems={"center"}>
               <Box fontSize={"2rem"} display={{ base: "block", lg: "none" }}>
                 <BsArrowLeftShort />
@@ -227,71 +225,47 @@ function Reset() {
                 Password Recovery
               </Text>
             </Flex>
-            <Center
-              fontSize={"2.5rem"}
-              boxSize={{ base: "72px", md: "108px" }}
-              bgColor="greenBrand.100"
-              borderRadius={"13px"}
-              mt="50px"
-              color="white"
-            >
-              <AiOutlineMail />
-            </Center>
-            <Text fontWeight={"500"} fontSize="1.5rem" mt="40px">
-              Check your email
-            </Text>
-            <Text py="10px">
-              We have sent a password recover instruction to {email}
-            </Text>
-            <Flex border="2px solid red" display={["none", "none", "block"]}>
-              <Text
-                w="full"
-                color={textColor1}
-                fontSize={[".9rem", ".9rem", "1rem"]}
-                mt="16px"
+            <Box px={["10%", "0px", "0px"]}>
+              <Center
+                fontSize={"2.5rem"}
+                boxSize={{ base: "72px", md: "108px" }}
+                bgColor="greenBrand.100"
+                borderRadius={"13px"}
+                mt="50px"
+                color="white"
               >
-                We have sent a password recover instruction to&nbsp;
+                <AiOutlineMail />
+              </Center>
+              <Text fontWeight={"500"} fontSize="1.5rem" mt="40px">
+                Check your email
               </Text>
-              <Text
-                h="max-content"
-                border="2px solid red"
-                color={textColor1}
-                fontSize="1rem"
-                mt="16px"
-                fontWeight="bold"
+              <Flex>
+                <Text color={textColor1} fontSize="1rem" mt="16px">
+                  We have sent a password recover instruction to your email
+                </Text>
+              </Flex>
+              <Button
+                fontWeight={"600"}
+                h="62px"
+                mt="40px"
+                fontSize={{ base: "1.125rem", md: "1.5rem" }}
+                maxW="388px"
+                w={{ base: "100%", xs: "388px" }}
               >
-                {email}.
-              </Text>
-            </Flex>
-            <Button
-              fontWeight={"600"}
-              h="62px"
-              mt={["20px", "20px", "40px"]}
-              fontSize={{ base: "1.125rem", md: "1.5rem" }}
-              maxW="388px"
-              w={{ base: "100%", xs: "388px" }}
-            >
-              Check your Inbox
-            </Button>
+                Check your Inbox
+              </Button>
+              <Flex direction="row" mt="10px">
+                <Text fontWeight="light" color={textColor}>
+                  <NextLink href="/auth/signin" passHref>
+                    <Link fontWeight="bold" color={textColor}>
+                      Sign in
+                    </Link>
+                  </NextLink>{" "}
+                  with your account
+                </Text>
+              </Flex>
+            </Box>
           </Box>
-          {/* <Box px="9%">
-            <p style={{ color: textColor1, marginTop: "10px" }}>
-              Didn’t receive the email?&nbsp; Check your spam folder or{" "}
-              <span style={{ color: textColor2, fontWeight: "500" }}>
-                try again
-              </span>
-            </p>
-          </Box> */}
-          <Flex px="7%" as={[Center, Flex, Flex]} direction="row" mt="10px">
-            <Text fontWeight="light" color={textColor}>
-              <NextLink href="/auth/signin" passHref>
-                <Link fontWeight="bold" color={textColor}>
-                  Sign in
-                </Link>
-              </NextLink>{" "}
-              with your account
-            </Text>
-          </Flex>
         </Flex>
       )}
     </>
