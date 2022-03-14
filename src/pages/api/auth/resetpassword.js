@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     let origin = `${process.env.NEXTAUTH_URL}/forget-password/${baseData}`;
 
     const existingUser = await User.findOne({
-      email: email.toLowercase(),
+      email: email,
     }).exec();
     console.log(existingUser);
     if (!existingUser) {
@@ -31,11 +31,24 @@ export default async function handler(req, res) {
       return;
     }
 
-    const uploadToken = await Token.create({
-      _id: baseData,
-      creatorId: existingUser._id,
-    });
+    const existingToekn = await Token.findOne({
+      userId: existingUser._id,
+    }).exec();
+
+    if (!existingToekn) {
+      const uploadToken = await Token.create({
+        _id: baseData,
+        creatorId: existingUser._id,
+      });
+    } else {
+      res.status(402).json({ message: "We have already sent you an email." });
+      return;
+    }
     console.log(uploadToken);
+
+    // if(uploadToken){
+
+    // }
 
     const mailOptions = {
       from: "testmymail03@gmail.com",

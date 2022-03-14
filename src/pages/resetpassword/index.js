@@ -44,24 +44,34 @@ function Reset() {
 
     const res = await fetch("/api/auth/resetpassword", {
       method: "POST",
-      body: JSON.stringify({ email: values.email }),
+      body: JSON.stringify({ email: values.email.toLowerCase() }),
       headers: {
         "Content-Type": "application/json",
       },
     });
+    console.log(res);
     const data = await res.json();
     if (res.status === 400) {
       Toast("User does not exist", "", "error");
+      setLoading(false);
+      return;
+    }
+    if (res.status === 402) {
+      Toast("We have already sent you an email.", "", "error");
+      setLoading(false);
+      return;
     }
     if (data.error) {
       Toast("Error", data.error, "error");
       seterrorMessage(data.error);
       setLoading(false);
+      return;
     }
     if (res.status === 200) {
       Toast("Email sent to", `${values.email}`, "success");
       setEmailSent(true);
       setLoading(false);
+      return;
     }
     setLoading(false);
   };
@@ -206,7 +216,7 @@ function Reset() {
           m={{ base: "0px auto", lg: "0px" }}
           color={textColor}
         >
-          <Box>
+          <Box px="6%">
             <Flex alignItems={"center"}>
               <Box fontSize={"2rem"} display={{ base: "block", lg: "none" }}>
                 <BsArrowLeftShort />
@@ -230,11 +240,21 @@ function Reset() {
             <Text fontWeight={"500"} fontSize="1.5rem" mt="40px">
               Check your email
             </Text>
-            <Flex>
-              <Text color={textColor1} fontSize="1rem" mt="16px">
+            <Text py="10px">
+              We have sent a password recover instruction to {email}
+            </Text>
+            <Flex border="2px solid red" display={["none", "none", "block"]}>
+              <Text
+                w="full"
+                color={textColor1}
+                fontSize={[".9rem", ".9rem", "1rem"]}
+                mt="16px"
+              >
                 We have sent a password recover instruction to&nbsp;
               </Text>
               <Text
+                h="max-content"
+                border="2px solid red"
                 color={textColor1}
                 fontSize="1rem"
                 mt="16px"
@@ -246,7 +266,7 @@ function Reset() {
             <Button
               fontWeight={"600"}
               h="62px"
-              mt="40px"
+              mt={["20px", "20px", "40px"]}
               fontSize={{ base: "1.125rem", md: "1.5rem" }}
               maxW="388px"
               w={{ base: "100%", xs: "388px" }}
@@ -254,14 +274,15 @@ function Reset() {
               Check your Inbox
             </Button>
           </Box>
-
-          <p style={{ color: textColor1, marginTop: "10px" }}>
-            Didn’t receive the email?&nbsp; Check your spam folder or{" "}
-            <span style={{ color: textColor2, fontWeight: "500" }}>
-              try again
-            </span>
-          </p>
-          <Flex direction="row" mt="10px">
+          {/* <Box px="9%">
+            <p style={{ color: textColor1, marginTop: "10px" }}>
+              Didn’t receive the email?&nbsp; Check your spam folder or{" "}
+              <span style={{ color: textColor2, fontWeight: "500" }}>
+                try again
+              </span>
+            </p>
+          </Box> */}
+          <Flex px="7%" as={[Center, Flex, Flex]} direction="row" mt="10px">
             <Text fontWeight="light" color={textColor}>
               <NextLink href="/auth/signin" passHref>
                 <Link fontWeight="bold" color={textColor}>
