@@ -33,10 +33,10 @@ import MenuTop from "../../components/Menu";
 
 const Usercard = ({ Cards }) => {
   const bgColor = useColorModeValue("black.200", "white");
-  const bg = useColorModeValue("white", "black.100");
   const iconBg = useColorModeValue("greenBrand.100", "white");
   const textHover = useColorModeValue("white", "greenBrand.100");
   const textHoverMobile = useColorModeValue("greenBrand.100", "white");
+  const bg = useColorModeValue("white", "black.100");
   const textColor = useColorModeValue("black", "white");
   console.log(Cards);
   const router = useRouter();

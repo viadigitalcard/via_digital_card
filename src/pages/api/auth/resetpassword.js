@@ -41,8 +41,9 @@ export default async function handler(req, res) {
         creatorId: existingUser._id,
       });
     } else {
-      res.status(402).json({ message: "We have already sent you an email." });
-      return;
+      return res
+        .status(402)
+        .json({ message: "We have already sent you an email." });
     }
     const mailOptions = {
       from: "testmymail03@gmail.com",

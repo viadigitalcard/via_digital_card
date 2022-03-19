@@ -19,6 +19,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
+import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 
 function Reset() {
   const [emailSent, setEmailSent] = useState(false);
@@ -90,6 +91,7 @@ function Reset() {
       <Head>
         <title>Password Recovery</title>
       </Head>
+      <DarkModeSwitch />
       {!emailSent ? (
         <Flex w="100%" p="15px 20px" bgColor={bg} minH={"700px"} h="100vh">
           <Box
