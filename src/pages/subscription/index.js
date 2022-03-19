@@ -25,21 +25,12 @@ import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
 import Router from "next/router";
 export default function index() {
-  const toast = useToast();
-  function Toast(title, message, status) {
-    return toast({
-      title: title || "",
-      description: message,
-      status: status,
-      position: "top",
-      duration: 2000,
-      // isClosable: true,
-    });
-  }
   const [data, setdata] = useState({});
   const [spinner, setspinner] = useState(false);
   const { data: session } = useSession();
   const [isLoading, setisLoading] = useState(false);
+  const toast = useToast();
+
   useEffect(() => {
     setisLoading(true);
     async function fetchMyAPI() {
@@ -61,6 +52,17 @@ export default function index() {
     };
   }, []);
 
+  function Toast(title, message, status) {
+    return toast({
+      title: title || "",
+      description: message,
+      status: status,
+      position: "top",
+      duration: 2000,
+      // isClosable: true,
+    });
+  }
+
   async function handleClick() {
     setspinner(true);
     const res = await fetch("/api/razorpay/cancelsubscription");
@@ -73,11 +75,11 @@ export default function index() {
     }
     if (res.status === 400) {
       setspinner(false);
-      return Toast("Something went wrong", "", "error");
+      Toast("Something went wrong", "", "error");
     }
     if (res.status === 500) {
       setspinner(false);
-      return Toast("Something went wrong", "", "error");
+      Toast("Something went wrong", "", "error");
     }
     setdata(data);
   }
@@ -308,6 +310,7 @@ export default function index() {
                   h={["20px", "20px", "40px"]}
                 >
                   <Button
+                    isLoading={spinner}
                     onClick={handleClick}
                     _hover={{
                       bg: "red",
