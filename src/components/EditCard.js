@@ -15,6 +15,7 @@ import {
   Avatar,
   useToast,
   Box,
+  FormLabel,
 } from "@chakra-ui/react";
 import { mixed, number, object, string } from "yup";
 import { useS3Upload } from "next-s3-upload";
@@ -154,12 +155,12 @@ export default function Card({ inputData }) {
           .min(10, "Must be Valid Phone Number")
           .max(10, "Must be Valid Phone Number")
           .required("Required"),
-        // website: Yup.string().required("Required"),
-        // linkedin: Yup.string().required("Required"),
-        // instagram: Yup.string().required("Required"),
-        // youtube: Yup.string().required("Required"),
-        // facebook: Yup.string().required("Required"),
-        // payment: Yup.string().required("Required"),
+        website: Yup.string().url().label('Path'),
+        linkedin: Yup.string().url().label('Path'),
+        instagram: Yup.string().url().label('Path'),
+        youtube: Yup.string().url().label('Path'),
+        facebook: Yup.string().url().label('Path'),
+        payment: Yup.string().url().label('Path'),
       }),
     };
   } else {
@@ -184,12 +185,12 @@ export default function Card({ inputData }) {
           .min(10, "Must be Valid Phone Number")
           .max(10, "Must be Valid Phone Number")
           .required("Required"),
-        // website: Yup.string().required("Required"),
-        // linkedin: Yup.string().required("Required"),
-        // instagram: Yup.string().required("Required"),
-        // youtube: Yup.string().required("Required"),
-        // facebook: Yup.string().required("Required"),
-        // payment: Yup.string().required("Required"),
+        website: Yup.string().url().label('Path'),
+        linkedin: Yup.string().url().label('Path'),
+        instagram: Yup.string().url().label('Path'),
+        youtube: Yup.string().url().label('Path'),
+        facebook: Yup.string().url().label('Path'),
+        payment: Yup.string().url().label('Path'),
       }),
     };
   }
@@ -319,14 +320,17 @@ export default function Card({ inputData }) {
                       (form.errors.name && form.touched.name) || errorMessage
                     }
                   >
+                    <FormLabel htmlFor="name" marginTop={15}>
+                      Name:
+                    </FormLabel>
                     <Input
                       placeholder="Enter Name"
                       w="full"
                       h="60px"
-                      marginTop={15}
                       size="lg"
                       variant="outline"
                       focusBorderColor="#88E000"
+                      id="name"
                       color={textColor}
                       {...field}
                     />
@@ -344,9 +348,11 @@ export default function Card({ inputData }) {
                       (form.errors.email && form.touched.email) || errorMessage
                     }
                   >
+                    <FormLabel htmlFor="email" mt="20px">
+                      Email:
+                    </FormLabel>
                     <Input
                       placeholder="Enter email address"
-                      mt="20px"
                       id="email"
                       w="full"
                       h="60px"
@@ -370,11 +376,14 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="username" mt="20px">
+                      Username:
+                    </FormLabel>
                     <Input
                       placeholder="Enter Username"
+                      id="username"
                       w="full"
                       h="60px"
-                      marginTop={15}
                       size="lg"
                       variant="outline"
                       focusBorderColor="#88E000"
@@ -396,10 +405,13 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="number" mt="20px">
+                      Primary Phone Number:
+                    </FormLabel>
                     <Input
                       type="number"
+                      id="number"
                       placeholder="Primary Phone Number"
-                      marginTop={15}
                       size="lg"
                       h="60px"
                       variant="outline"
@@ -422,10 +434,13 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="number" mt="20px">
+                      Secondary Phone Number:
+                    </FormLabel>
                     <Input
+                      id="number"
                       type="number"
                       placeholder="Secondary Phone Number"
-                      marginTop={15}
                       size="lg"
                       h="60px"
                       variant="outline"
@@ -448,9 +463,12 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="address" mt="20px">
+                      Address:
+                    </FormLabel>
                     <Textarea
+                      id="address"
                       placeholder="Address"
-                      mt="20px"
                       variant="outline"
                       focusBorderColor="#88E000"
                       borderColor="#88E000"
@@ -474,10 +492,13 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="designation" mt="20px">
+                      Designation:
+                    </FormLabel>
                     <Input
+                      id="designation"
                       placeholder="Designation"
                       width="full"
-                      marginTop={15}
                       size="lg"
                       variant="outline"
                       focusBorderColor="#88E000"
@@ -499,10 +520,13 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="Tagline" mt="20px">
+                      Tagline:
+                    </FormLabel>
                     <Input
+                      id="Tagline"
                       placeholder="Tagline"
                       width="full"
-                      marginTop={15}
                       size="lg"
                       variant="outline"
                       focusBorderColor="#88E000"
@@ -523,10 +547,13 @@ export default function Card({ inputData }) {
                       (form.errors.bio && form.touched.bio) || errorMessage
                     }
                   >
+                    <FormLabel htmlFor="bio" mt="20px">
+                      Bio:
+                    </FormLabel>
                     <Input
+                      id="bio"
                       placeholder="Bio"
                       width="full"
-                      marginTop={15}
                       size="lg"
                       variant="outline"
                       focusBorderColor="#88E000"
@@ -548,10 +575,13 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="website" mt="20px">
+                      Website:
+                    </FormLabel>
                     <Input
+                      id="website"
                       placeholder="website"
                       width="full"
-                      marginTop={15}
                       size="lg"
                       variant="outline"
                       focusBorderColor="#88E000"
@@ -573,9 +603,12 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="whatsapp" mt="20px">
+                      Whatsapp:
+                    </FormLabel>
                     <Input
-                      placeholder="whatsapp"
-                      marginTop={15}
+                      id="whatsapp"
+                      placeholder="Link"
                       size="lg"
                       h="60px"
                       variant="outline"
@@ -598,9 +631,12 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="twitter" mt="20px">
+                      Twitter:
+                    </FormLabel>
                     <Input
-                      placeholder="twitter"
-                      marginTop={15}
+                      id="twitter"
+                      placeholder="Link"
                       size="lg"
                       h="60px"
                       variant="outline"
@@ -623,9 +659,12 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="linkedin" mt="20px">
+                      Linkedin:
+                    </FormLabel>
                     <Input
-                      placeholder="linkedin"
-                      marginTop={15}
+                      id="linkedin"
+                      placeholder="Link"
                       size="lg"
                       width="full"
                       variant="outline"
@@ -648,9 +687,12 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="instagram" mt="20px">
+                      Instagram:
+                    </FormLabel>
                     <Input
-                      placeholder="instagram"
-                      marginTop={15}
+                      id="instagram"
+                      placeholder="Link"
                       width="full"
                       size="lg"
                       variant="outline"
@@ -673,9 +715,12 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="youtube" mt="20px">
+                      Youtube Video:
+                    </FormLabel>
                     <Input
-                      placeholder="youtube video"
-                      marginTop={15}
+                      id="youtube"
+                      placeholder="Link"
                       width="full"
                       size="lg"
                       variant="outline"
@@ -698,9 +743,12 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="facebook" mt="20px">
+                      Facebook:
+                    </FormLabel>
                     <Input
-                      placeholder="facebook"
-                      marginTop={15}
+                      id="facebook"
+                      placeholder="Link"
                       width="full"
                       size="lg"
                       variant="outline"
@@ -723,10 +771,13 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
+                    <FormLabel htmlFor="payment" mt="20px">
+                      Payment:
+                    </FormLabel>
                     <Input
+                      id="payment"
                       placeholder="payment link"
                       w="full"
-                      marginTop={15}
                       size="lg"
                       variant="outline"
                       focusBorderColor="#88E000"
