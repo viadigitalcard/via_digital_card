@@ -36,13 +36,16 @@ export default async function handler(req, res) {
       User.schema.add({
         paymentDetails: {
           type: Object,
-          required: true,
           subscription_id: { type: String, required: true },
           razorpay_payment_id: { type: String, required: true },
           razorpay_signature: { type: String, required: true },
           createdAt: { type: Date, required: true },
         },
+        // paymentHistory: {
+        //   type: Array,
+        // },
       });
+
       const data = {
         premiumUser: true,
         paymentDetails: {
@@ -52,14 +55,35 @@ export default async function handler(req, res) {
           createdAt: req.body.createdAt,
         },
       };
+
+      // await instance.invoices.all(
+      //   {
+      //     subscription_id: req.body.subscription_id,
+      //   },
+      //   (err, res) => {
+      //     if (err) console.log(err);
+      //     if (res) {
+      //       console.log(res);
+      //       paymentData.paymentHistory.push(res);
+      //     }
+      //   }
+      // );
+
       const updateUser = await User.findByIdAndUpdate(user_id, data).exec();
       if (!updateUser) {
         return res.status(400).json({});
       }
+      // const updatePaymentHistory = await User.findByIdAndUpdate(
+      //   { _id: user_id },
+      //   { $push: { paymentHistory: paymentData.paymentHistory } }
+      // ).exec();
+      // if (!updatePaymentHistory) {
+      //   return res.status(401).json({});
+      // }
       return res.status(200).json({ message: "Success" });
     } else {
       try {
-        await instance.subscriptions.cancel(
+        instance.subscriptions.cancel(
           req.body.subscription_id,
           false,
           (err, res) => {

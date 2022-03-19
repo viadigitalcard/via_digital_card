@@ -18,6 +18,7 @@ export default async function handler(req, res) {
       .then((user) => {
         if (user) {
           const data = JSON.parse(JSON.stringify(user));
+          console.log(data);
           let subId = data.paymentDetails.subscription_id;
 
           if (data) {

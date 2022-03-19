@@ -12,7 +12,7 @@ export default function handler(req, res) {
     // const { price } = req.params;
     // console.log(price);
 
-    const planId = "plan_J65cozB9BrOnYH";
+    const planId = "plan_J2y8PR677stBzv";
     const options = {
       plan_id: planId,
       total_count: 12, //if 12 then for 1 year in one month gap or 1 for one month

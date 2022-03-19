@@ -30,7 +30,17 @@ export default async function handler(req, res) {
                 });
               }
               if (order) {
+                const data = {
+                  premiumUser: false,
+                };
                 console.log(order);
+                const updateUser = User.findByIdAndUpdate(
+                  session.user.id,
+                  data
+                ).exec();
+                if (!updateUser) {
+                  return res.status(400).json({});
+                }
                 return res.status(200).json(order);
               }
             });
