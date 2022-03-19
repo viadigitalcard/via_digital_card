@@ -24,7 +24,8 @@ import { signOut, useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
 import Router from "next/router";
-export default function index() {
+
+export default function Subscription() {
   const [data, setdata] = useState({});
   const [spinner, setspinner] = useState(false);
   const { data: session } = useSession();
@@ -91,6 +92,7 @@ export default function index() {
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
   );
+
   return (
     <>
       <Container
