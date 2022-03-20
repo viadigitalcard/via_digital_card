@@ -46,8 +46,8 @@ const Payment = () => {
   );
   const [Loading, setLoading] = useState(false);
   const textColor = useColorModeValue("black", "white");
-  const textColor1 = useColorModeValue("#7C7C7C", "#C8C8C8");
   const bg = useColorModeValue("white", "black.100");
+  const textColor1 = useColorModeValue("#7C7C7C", "#C8C8C8");
   const bg2 = useColorModeValue("white", "black.200");
   const bg1 = useColorModeValue("#F4FFE2", "#474856");
   // const history = useRouter();

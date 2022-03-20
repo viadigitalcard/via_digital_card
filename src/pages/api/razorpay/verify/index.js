@@ -32,6 +32,36 @@ export default async function handler(req, res) {
       //   req.body.amount,
       //   req.body.currency
       // );
+      // instance.payments.paymentVerification(
+      //   {
+      //     subscription_id: "sub_ID6MOhgkcoHj9I",
+      //     payment_id: "pay_IDZNwZZFtnjyym",
+      //     signature:
+      //       "601f383334975c714c91a7d97dd723eb56520318355863dcf3821c0d07a17693",
+      //   },
+      //   secret
+      // );
+      // instance.payments.paymentVerification(
+      //   {
+      //     "subscription_id": req.body.subscription_id,
+      //     "payment_id": req.body.razorpay_payment_id,
+      //     "signature": req.body.razorpay_signature,
+      //   },
+      // process.env.RAZORPAY_SECRET
+      // (err, payment) => {
+      //   if (err) {
+      //     console.log(err);
+      //     return res.status(400).json({
+      //       message: "No subscription found",
+      //     });
+      //   }
+      //   if (payment) {
+      //     console.log(payment);
+      //     return res.status(200).json(payment);
+      //   }
+      // }
+      // );
+
       await dbConnect();
       User.schema.add({
         paymentDetails: {
@@ -56,30 +86,11 @@ export default async function handler(req, res) {
         },
       };
 
-      // await instance.invoices.all(
-      //   {
-      //     subscription_id: req.body.subscription_id,
-      //   },
-      //   (err, res) => {
-      //     if (err) console.log(err);
-      //     if (res) {
-      //       console.log(res);
-      //       paymentData.paymentHistory.push(res);
-      //     }
-      //   }
-      // );
-
       const updateUser = await User.findByIdAndUpdate(user_id, data).exec();
       if (!updateUser) {
         return res.status(400).json({});
       }
-      // const updatePaymentHistory = await User.findByIdAndUpdate(
-      //   { _id: user_id },
-      //   { $push: { paymentHistory: paymentData.paymentHistory } }
-      // ).exec();
-      // if (!updatePaymentHistory) {
-      //   return res.status(401).json({});
-      // }
+
       return res.status(200).json({ message: "Success" });
     } else {
       try {
@@ -97,8 +108,5 @@ export default async function handler(req, res) {
       console.log("Payment Failed");
       return res.status(500).json({ message: "Payment Failed" });
     }
-    // return res.status(400).json({
-    //   message: "Something Went Wrong",
-    // });
   }
 }

@@ -19,14 +19,17 @@ export default async function handler(req, res) {
         if (user) {
           const data = JSON.parse(JSON.stringify(user));
           console.log(data);
-          let subId = data.paymentDetails.subscription_id;
-
+          let subId = data.paymentDetails?.subscription_id;
+          if (subId == null) {
+            res.status(402).json({});
+            return;
+          }
           if (data) {
             instance.subscriptions.fetch(subId, (err, order) => {
               if (err) {
                 console.log(err);
                 return res.status(400).json({
-                  message: "Something Went Wrong",
+                  message: "No subscription found",
                 });
               }
               if (order) {
@@ -34,13 +37,18 @@ export default async function handler(req, res) {
                 return res.status(200).json(order);
               }
             });
+          } else {
+            console.log(err);
+            res.status(400).json({
+              message: "No subscription found",
+            });
           }
         }
       })
       .catch((err) => {
         console.log(err);
-        return res.status(500).json({
-          message: "Something Went Wrong",
+        return res.status(401).json({
+          message: "No subscription found",
         });
       });
   } catch (error) {

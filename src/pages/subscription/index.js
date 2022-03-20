@@ -5,6 +5,7 @@ import {
   Button,
   Center,
   Container,
+  DarkMode,
   Flex,
   HStack,
   Image,
@@ -24,25 +25,71 @@ import { signOut, useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
 import Router from "next/router";
+import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 
 export default function Subscription() {
   const [data, setdata] = useState({});
+  const [status, setStatus] = useState("");
   const [spinner, setspinner] = useState(false);
   const { data: session } = useSession();
   const [isLoading, setisLoading] = useState(false);
   const toast = useToast();
-
+  const textColor = useColorModeValue("black", "white");
+  const bg = useColorModeValue("white", "black.100");
+  const bg1 = useColorModeValue("white", "black.200");
   useEffect(() => {
     setisLoading(true);
     async function fetchMyAPI() {
       const res = await fetch("/api/razorpay/subscriptionstatus");
       const data1 = await res.json();
-      if (data1.status !== "active" && data1.status !== "cancelled") {
-        return Router.reload();
-      } else {
-        setdata(data1);
+
+      //if sub exist
+      if (res.status === 200) {
+        //if staus is active
+        if (data1.status === "active") {
+          setStatus("Active");
+          setisLoading(false);
+          setdata(data1);
+          return;
+        }
+        //if status is created
+        if (data1.status === "created") {
+          setStatus("Created");
+          return;
+        }
+        if (data1.status === "cancelled") {
+          setStatus("Cancelled");
+          return;
+        }
+        if (data1.status === "completed") {
+          setStatus("Completed");
+          return;
+        }
+        if (data1.status === "expired") {
+          setStatus("Expired");
+          return;
+        }
       }
-      console.log(data);
+      if (res.status === 400) {
+        setStatus("No Subscription Found");
+        setisLoading(false);
+        return;
+      }
+      if (res.status === 401) {
+        setStatus("No Subscription Found");
+        setisLoading(false);
+        return;
+      }
+      if (res.status === 402) {
+        setStatus("No Subscription Found");
+        setisLoading(false);
+        return;
+      }
+      if (res.status === 500) {
+        setStatus("Something Went Wrong");
+        setisLoading(false);
+        return;
+      }
     }
     fetchMyAPI().then(() => {
       setisLoading(false);
@@ -84,17 +131,18 @@ export default function Subscription() {
     }
     setdata(data);
   }
-  const textColor = useColorModeValue("black", "white");
-  const bg = useColorModeValue("white", "black.100");
 
   // const history = useRouter();
   const logo = useColorModeValue(
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
   );
+  console.log(status);
 
   return (
-    <>
+    <Box h="100vh">
+      <DarkModeSwitch />
+
       <Container
         bg={bg}
         pr={["10px", "10px", "100px"]}
@@ -194,7 +242,14 @@ export default function Subscription() {
         </Flex>
       </Container>
 
-      <Box as={Center} pt="20px" w="100%">
+      <Box
+        bg={bg1}
+        h="full"
+        as={Flex}
+        justifyContent="center"
+        pt="20px"
+        w="100%"
+      >
         {isLoading ? (
           <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
             <Box
@@ -236,12 +291,19 @@ export default function Subscription() {
               </VStack>
             </Box>
           </VStack>
-        ) : data && data.status === "active" ? (
-          <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
+        ) : status == "Active" ? (
+          <VStack
+            w={["100%", "95%", "95%"]}
+            mt="10px"
+            maxW={"1205px"}
+            spacing="15px"
+          >
             <Box
+              bg={bg}
+              color={textColor}
               role="group"
               borderRadius={"30px"}
-              w="80%"
+              w={["95%%", "95%", "80%"]}
               boxShadow="8px 8px 35px 0px #0000001A"
 
               // bgColor={bg}
@@ -249,14 +311,14 @@ export default function Subscription() {
               <VStack
                 as={Flex}
                 justifyContent="space-evenly"
-                h="350px"
+                h={["300px", "350px", "350px"]}
                 p="20px"
                 align="start"
                 flexDirection="column"
               >
                 <Text
                   fontWeight="extrabold"
-                  fontSize={[".8rem", "1.5rem", "2rem"]}
+                  fontSize={["1.5rem", "1.5rem", "2rem"]}
                 >
                   Subscription
                 </Text>
@@ -281,18 +343,14 @@ export default function Subscription() {
                       : Premium
                     </Text>
                     <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${session.user.email}`}
+                      {`:  ${session && session.user.email}`}
                     </Text>
                     <Text
                       fontWeight="bold"
                       textColor="green"
                       fontSize={[".8rem", ".8rem", "1.1rem"]}
                     >
-                      {data.status
-                        ? data.status === "active"
-                          ? ":  Active"
-                          : ": Inactive"
-                        : ": Loading"}
+                      : Active
                     </Text>
                     <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
                       {`:  ${new Date(
@@ -330,25 +388,64 @@ export default function Subscription() {
               </VStack>
             </Box>
           </VStack>
-        ) : (
-          <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
+        ) : status == "Created" ? (
+          <VStack
+            w={["100%", "95%", "95%"]}
+            mt="10px"
+            maxW={"1205px"}
+            spacing="15px"
+          >
+            <Center
+              color={textColor}
+              bg={bg}
+              p="20px"
+              role="group"
+              h={["300px", "350px", "350px"]}
+              borderRadius={"30px"}
+              w={["95%%", "95%", "80%"]}
+              boxShadow="8px 8px 35px 0px #0000001A"
+
+              // bgColor={bg}
+            >
+              <VStack>
+                <Text
+                  fontWeight="extrabold"
+                  fontSize={["1.5rem", "1.5rem", "2rem"]}
+                >
+                  No Subscription Found
+                </Text>
+                <Button onClick={() => Router.push("/pricing")}>Buy Now</Button>
+              </VStack>
+            </Center>
+          </VStack>
+        ) : status == "Cancelled" ? (
+          <VStack
+            w={["100%", "95%", "95%"]}
+            mt="10px"
+            maxW={"1205px"}
+            spacing="15px"
+          >
             <Box
+              bg={bg}
+              color={textColor}
               role="group"
               borderRadius={"30px"}
-              w="80%"
+              w={["95%%", "95%", "80%"]}
               boxShadow="8px 8px 35px 0px #0000001A"
+
+              // bgColor={bg}
             >
               <VStack
                 as={Flex}
                 justifyContent="space-evenly"
-                h="350px"
+                h={["300px", "350px", "350px"]}
                 p="20px"
                 align="start"
                 flexDirection="column"
               >
                 <Text
                   fontWeight="extrabold"
-                  fontSize={[".8rem", "1.5rem", "2rem"]}
+                  fontSize={["1.5rem", "1.5rem", "2rem"]}
                 >
                   Subscription
                 </Text>
@@ -365,9 +462,7 @@ export default function Subscription() {
                       Subscription Start
                     </Text>
                     <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {data.status === "active" ? "Renewal Date" : ""}
-                      {data.status === "cancelled" ? "Ended At" : ""}
-                      {/* Renewal Date */}
+                      Ended At
                     </Text>
                   </VStack>
                   <VStack pl="10px" alignItems="flex-start">
@@ -375,18 +470,14 @@ export default function Subscription() {
                       : Premium
                     </Text>
                     <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {session && `: ${session.user.email}`}
+                      {`:  ${session && session.user.email}`}
                     </Text>
                     <Text
                       fontWeight="bold"
-                      textColor={data.status === "active" ? "green" : "red"}
+                      textColor="red"
                       fontSize={[".8rem", ".8rem", "1.1rem"]}
                     >
-                      {data.status
-                        ? data.status === "active"
-                          ? ":  Active"
-                          : ":  Cancelled"
-                        : ": Loading"}
+                      : Cancelled
                     </Text>
                     <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
                       {`:  ${new Date(
@@ -394,13 +485,7 @@ export default function Subscription() {
                       ).toDateString()}`}
                     </Text>
                     <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {data.status === "active"
-                        ? `:  ${new Date(
-                            data.current_end * 1000
-                          ).toDateString()}`
-                        : data.status === "cancelled"
-                        ? `:  ${new Date(data.ended_at * 1000).toDateString()}`
-                        : ""}
+                      {`:  ${new Date(data.ended_at * 1000).toDateString()}`}
                     </Text>
                   </VStack>
                 </HStack>
@@ -411,18 +496,134 @@ export default function Subscription() {
                   mb={["10px", "10px", "30px"]}
                   h={["20px", "20px", "40px"]}
                 >
-                  <Button
-                    fontSize={[".8rem", ".8rem", "1.1rem"]}
-                    onClick={() => Router.push("/pricing")}
-                  >
-                    Buy Premium
+                  <Button onClick={() => Router.push("/pricing")}>
+                    Buy Now
                   </Button>
                 </HStack>
               </VStack>
             </Box>
           </VStack>
+        ) : status == "Expired" ? (
+          <VStack
+            w={["100%", "95%", "95%"]}
+            mt="10px"
+            maxW={"1205px"}
+            spacing="15px"
+          >
+            <Box
+              bg={bg}
+              color={textColor}
+              role="group"
+              borderRadius={"30px"}
+              w={["95%%", "95%", "80%"]}
+              boxShadow="8px 8px 35px 0px #0000001A"
+
+              // bgColor={bg}
+            >
+              <VStack
+                as={Flex}
+                justifyContent="space-evenly"
+                h={["300px", "350px", "350px"]}
+                p="20px"
+                align="start"
+                flexDirection="column"
+              >
+                <Text
+                  fontWeight="extrabold"
+                  fontSize={["1.5rem", "1.5rem", "2rem"]}
+                >
+                  Subscription
+                </Text>
+                <HStack>
+                  <VStack alignItems="flex-start">
+                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>Plan</Text>
+                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                      Account email
+                    </Text>
+                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                      Current Status
+                    </Text>
+                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                      Subscription Start
+                    </Text>
+                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                      Ended At
+                    </Text>
+                  </VStack>
+                  <VStack pl="10px" alignItems="flex-start">
+                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                      : Premium
+                    </Text>
+                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                      {`:  ${session && session.user.email}`}
+                    </Text>
+                    <Text
+                      fontWeight="bold"
+                      textColor="red"
+                      fontSize={[".8rem", ".8rem", "1.1rem"]}
+                    >
+                      : Expired
+                    </Text>
+                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                      {`:  ${new Date(
+                        data.current_start * 1000
+                      ).toDateString()}`}
+                    </Text>
+                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                      {`:  ${new Date(data.ended_at * 1000).toDateString()}`}
+                    </Text>
+                  </VStack>
+                </HStack>
+
+                <HStack
+                  spacing="40px"
+                  mt="20px"
+                  mb={["10px", "10px", "30px"]}
+                  h={["20px", "20px", "40px"]}
+                >
+                  <Button onClick={() => Router.push("/pricing")}>
+                    Buy Now
+                  </Button>
+                </HStack>
+              </VStack>
+            </Box>
+          </VStack>
+        ) : status == "No Subscription Found" ? (
+          <VStack
+            w={["100%", "95%", "95%"]}
+            mt="10px"
+            maxW={"1205px"}
+            spacing="15px"
+          >
+            <Center
+              color={textColor}
+              bg={bg}
+              p="20px"
+              role="group"
+              h={["300px", "350px", "350px"]}
+              borderRadius={"30px"}
+              w={["95%%", "95%", "80%"]}
+              boxShadow="8px 8px 35px 0px #0000001A"
+
+              // bgColor={bg}
+            >
+              <VStack>
+                <Text
+                  fontWeight="extrabold"
+                  fontSize={["1.5rem", "1.5rem", "2rem"]}
+                >
+                  No Subscription Found
+                </Text>
+                <Button onClick={() => Router.push("/pricing")}>Buy Now</Button>
+              </VStack>
+            </Center>
+          </VStack>
+        ) : status == "Something Went Wrong" ? (
+          "Something Went Wrong"
+        ) : (
+          ""
         )}
       </Box>
-    </>
+    </Box>
   );
 }
