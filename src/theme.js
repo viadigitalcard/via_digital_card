@@ -86,7 +86,12 @@ const theme = extendTheme({
         },
       },
     },
-
+    // FormLabel: {
+    //   solid: (props) => ({
+    //     color: props.colorMode === "dark" ? "red.300" : "red.500",
+    //   }),
+    //   variants: {},
+    // },
     // Image: {
     //   width: "100%",
     //   height: "100%",

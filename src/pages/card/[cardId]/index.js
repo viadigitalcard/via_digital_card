@@ -118,8 +118,8 @@ const Cards = ({ Card }) => {
         {session && session.user.id == Card.card_id ? (
           <Box
             pos="absolute"
-            right={["25px", "25px", "50px"]}
-            top={["50px", "50px", "60px"]}
+            right={["10px", "25px", "50px"]}
+            top={["60px", "50px", "60px"]}
           >
             <Drawer
               size="md"
@@ -129,7 +129,9 @@ const Cards = ({ Card }) => {
             >
               <DrawerOverlay />
               <DrawerContent>
-                <DrawerCloseButton />
+                <DrawerCloseButton
+                  color={useColorModeValue("black", "white")}
+                />
 
                 <DrawerHeader color={bg}>{`${Card.name}'s card`}</DrawerHeader>
                 <DrawerBody>
@@ -145,7 +147,13 @@ const Cards = ({ Card }) => {
             </Drawer>
 
             <Menu isLazy={true} computePositionOnMount={true}>
-              <MenuButton as={IconButton} icon={<HamburgerIcon />} />
+              <MenuButton
+                as={IconButton}
+                size="sm"
+                variant="ghost"
+                border="2px solid #77C307"
+                icon={<HamburgerIcon />}
+              />
               <MenuList bgColor="brand.100" color="white" w="20px">
                 <MenuItem onClick={handleDelete} icon={<DeleteIcon />}>
                   Delete

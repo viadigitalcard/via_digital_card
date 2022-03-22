@@ -16,6 +16,9 @@ const CardSchema = new mongoose.Schema({
   username: {
     type: String,
   },
+  brochure: {
+    type: String,
+  },
   pnumber: {
     type: String,
   },

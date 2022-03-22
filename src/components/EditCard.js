@@ -16,8 +16,12 @@ import {
   useToast,
   Box,
   FormLabel,
+  Spacer,
+  Icon,
+  Text,
 } from "@chakra-ui/react";
 import { mixed, number, object, string } from "yup";
+import { BsUpload } from "react-icons/bs";
 import { useS3Upload } from "next-s3-upload";
 
 export default function Card({ inputData }) {
@@ -33,11 +37,18 @@ export default function Card({ inputData }) {
       // isClosable: true,
     });
   }
+
+  function removeLink(str) {
+    return str.replace(/^.*[\\\/]/, "");
+  }
+
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
   const [value, setValue] = useState("");
 
   const [profile, setProfile] = useState(null);
-  // console.log(inputData);
+  const [document, setDocument] = useState(null);
+  const [docvalue, setDocValue] = useState("");
+
   const [Loading, setLoading] = useState(false);
   const textColor = useColorModeValue("gray.800", "white");
   const [errorMessage, seterrorMessage] = useState("");
@@ -47,6 +58,7 @@ export default function Card({ inputData }) {
     profilePhoto: inputData.profilePhoto,
     email: inputData.email,
     username: inputData.username,
+    brochure: inputData.brochure,
     pnumber: inputData.pnumber,
     snumber: inputData.snumber,
     address: inputData.address,
@@ -54,8 +66,10 @@ export default function Card({ inputData }) {
     tagline: inputData.tagline,
     bio: inputData.bio,
     website: inputData.website,
+    whatsapp: inputData.socialLinks.whatsapp,
     linkedin: inputData.socialLinks.linkedin,
     instagram: inputData.socialLinks.instagram,
+    twitter: inputData.socialLinks.twitter,
     youtube: inputData.socialLinks.youtube,
     facebook: inputData.socialLinks.facebook,
     payment: inputData.payment,
@@ -63,6 +77,10 @@ export default function Card({ inputData }) {
   function handleChangePhoto(e) {
     setProfile(e);
     setValue(e.size);
+  }
+  function handleChangeDoc(e) {
+    setDocument(e);
+    setDocValue(e.size);
   }
 
   const handleChange = (e) => {
@@ -77,6 +95,7 @@ export default function Card({ inputData }) {
   const router = useRouter();
   //handle submit
   const handleSubmit = async () => {
+    setLoading(true);
     let photoUrl = "";
     if (profile) {
       let { url } = await uploadToS3(profile);
@@ -85,15 +104,23 @@ export default function Card({ inputData }) {
     if (photoUrl === "") {
       photoUrl = data.profilePhoto;
     }
+    let docUrl = "";
+    if (document) {
+      let { url } = await uploadToS3(document);
+      docUrl = url;
+    }
+    if (docUrl === "") {
+      docUrl = data.brochure;
+    }
     console.log(photoUrl);
 
-    setLoading(true);
     const values = {
       _id: inputData._id,
       card_id: inputData.card_id,
       name: data.name,
       profilePhoto: photoUrl,
       email: data.email,
+      brochure: docUrl,
       username: data.username,
       pnumber: data.pnumber,
       snumber: data.snumber,
@@ -145,22 +172,21 @@ export default function Card({ inputData }) {
           .required("Required"),
         snumber: string()
           .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number")
-          .required("Required"),
+          .max(10, "Must be Valid Phone Number"),
         address: Yup.string().required("Required"),
         designation: Yup.string().required("Required"),
-        tagline: Yup.string().required("Required"),
+        tagline: Yup.string(),
         bio: Yup.string().required("Required"),
         whatsapp: string()
           .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number")
-          .required("Required"),
-        website: Yup.string().url().label('Path'),
-        linkedin: Yup.string().url().label('Path'),
-        instagram: Yup.string().url().label('Path'),
-        youtube: Yup.string().url().label('Path'),
-        facebook: Yup.string().url().label('Path'),
-        payment: Yup.string().url().label('Path'),
+          .max(10, "Must be Valid Phone Number"),
+        website: Yup.string().url().label("Path"),
+        linkedin: Yup.string().url().label("Path"),
+        twitter: Yup.string().url().label("Path"),
+        instagram: Yup.string().url().label("Path"),
+        youtube: Yup.string().url().label("Path"),
+        facebook: Yup.string().url().label("Path"),
+        payment: Yup.string().url().label("Path"),
       }),
     };
   } else {
@@ -183,17 +209,18 @@ export default function Card({ inputData }) {
         bio: Yup.string().required("Required"),
         whatsapp: string()
           .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number")
-          .required("Required"),
-        website: Yup.string().url().label('Path'),
-        linkedin: Yup.string().url().label('Path'),
-        instagram: Yup.string().url().label('Path'),
-        youtube: Yup.string().url().label('Path'),
-        facebook: Yup.string().url().label('Path'),
-        payment: Yup.string().url().label('Path'),
+          .max(10, "Must be Valid Phone Number"),
+        website: Yup.string().url().label("Path"),
+        linkedin: Yup.string().url().label("Path"),
+        twitter: Yup.string().url().label("Path"),
+        instagram: Yup.string().url().label("Path"),
+        youtube: Yup.string().url().label("Path"),
+        facebook: Yup.string().url().label("Path"),
+        payment: Yup.string().url().label("Path"),
       }),
     };
   }
+  console.log(validationShape);
   return (
     <div>
       <Box w="full">
@@ -203,6 +230,7 @@ export default function Card({ inputData }) {
             name: inputData.name,
             email: inputData.email,
             username: inputData.username,
+            document: inputData.document,
             pnumber: inputData.pnumber,
             snumber: inputData.snumber,
             address: inputData.address,
@@ -320,7 +348,7 @@ export default function Card({ inputData }) {
                       (form.errors.name && form.touched.name) || errorMessage
                     }
                   >
-                    <FormLabel htmlFor="name" marginTop={15}>
+                    <FormLabel color={textColor} htmlFor="name" marginTop={15}>
                       Name:
                     </FormLabel>
                     <Input
@@ -348,7 +376,7 @@ export default function Card({ inputData }) {
                       (form.errors.email && form.touched.email) || errorMessage
                     }
                   >
-                    <FormLabel htmlFor="email" mt="20px">
+                    <FormLabel color={textColor} htmlFor="email" mt="20px">
                       Email:
                     </FormLabel>
                     <Input
@@ -376,7 +404,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="username" mt="20px">
+                    <FormLabel color={textColor} htmlFor="username" mt="20px">
                       Username:
                     </FormLabel>
                     <Input
@@ -396,6 +424,83 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
+              <Field name="document">
+                {({ field, form }) => (
+                  <FormControl
+                    isInvalid={
+                      (form.errors.document && form.touched.document) ||
+                      errorMessage
+                    }
+                  >
+                    <FormLabel color={textColor} htmlFor="name" marginTop={15}>
+                      Upload Brochure :
+                    </FormLabel>
+                    <Input
+                      value={field.value}
+                      display="none"
+                      type="hidden"
+                      {...field}
+                    />
+                    <FileInput
+                      accept="document/pdf"
+                      onChange={(e) => {
+                        handleChangeDoc(e);
+                        form.setFieldValue("document", e.size);
+                      }}
+                    />
+
+                    <Flex
+                      zIndex="2"
+                      borderRadius="10px"
+                      border="1px solid #88E000"
+                      // border="2px solid red"
+                      pl="20px"
+                      pr="20px"
+                      h="60px"
+                      as={Center}
+                      // justifyContent="center"
+                      // alignItems="center"
+                    >
+                      <Text color={textColor}>
+                        {document && document
+                          ? document.name
+                          : inputData.brochure
+                          ? removeLink(inputData?.brochure)
+                          : "Upload Brochure"}
+                      </Text>
+                      <Spacer />
+                      {document && document ? (
+                        <CloseButton
+                          zIndex="10"
+                          // as={Button}
+                          onClick={() => {
+                            setDocument(null);
+                          }}
+                          variant="ghost"
+                          size="md"
+                        />
+                      ) : (
+                        <Icon
+                          onClick={openFileDialog}
+                          zIndex="10"
+                          color="#96A2B3"
+                          // border="2px solid red"
+                          as={BsUpload}
+                          fontSize="30px"
+                        />
+                        // <BsUpload size="md" />
+                      )}
+                    </Flex>
+                    <FormErrorMessage
+                      // border="2px solid red"
+                      fontSize={["10px", "sm", "sm"]}
+                      ml={["10%", "0px", "20%"]}
+                    >
+                      {form.errors.document || errorMessage}{" "}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
               <Field name="pnumber">
                 {({ field, form }) => (
                   <FormControl
@@ -405,7 +510,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="number" mt="20px">
+                    <FormLabel color={textColor} htmlFor="number" mt="20px">
                       Primary Phone Number:
                     </FormLabel>
                     <Input
@@ -434,7 +539,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="number" mt="20px">
+                    <FormLabel color={textColor} htmlFor="number" mt="20px">
                       Secondary Phone Number:
                     </FormLabel>
                     <Input
@@ -463,7 +568,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="address" mt="20px">
+                    <FormLabel color={textColor} htmlFor="address" mt="20px">
                       Address:
                     </FormLabel>
                     <Textarea
@@ -492,7 +597,11 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="designation" mt="20px">
+                    <FormLabel
+                      color={textColor}
+                      htmlFor="designation"
+                      mt="20px"
+                    >
                       Designation:
                     </FormLabel>
                     <Input
@@ -520,7 +629,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="Tagline" mt="20px">
+                    <FormLabel color={textColor} htmlFor="Tagline" mt="20px">
                       Tagline:
                     </FormLabel>
                     <Input
@@ -547,7 +656,7 @@ export default function Card({ inputData }) {
                       (form.errors.bio && form.touched.bio) || errorMessage
                     }
                   >
-                    <FormLabel htmlFor="bio" mt="20px">
+                    <FormLabel color={textColor} htmlFor="bio" mt="20px">
                       Bio:
                     </FormLabel>
                     <Input
@@ -575,7 +684,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="website" mt="20px">
+                    <FormLabel color={textColor} htmlFor="website" mt="20px">
                       Website:
                     </FormLabel>
                     <Input
@@ -603,7 +712,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="whatsapp" mt="20px">
+                    <FormLabel color={textColor} htmlFor="whatsapp" mt="20px">
                       Whatsapp:
                     </FormLabel>
                     <Input
@@ -631,7 +740,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="twitter" mt="20px">
+                    <FormLabel color={textColor} htmlFor="twitter" mt="20px">
                       Twitter:
                     </FormLabel>
                     <Input
@@ -659,7 +768,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="linkedin" mt="20px">
+                    <FormLabel color={textColor} htmlFor="linkedin" mt="20px">
                       Linkedin:
                     </FormLabel>
                     <Input
@@ -687,7 +796,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="instagram" mt="20px">
+                    <FormLabel color={textColor} htmlFor="instagram" mt="20px">
                       Instagram:
                     </FormLabel>
                     <Input
@@ -715,7 +824,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="youtube" mt="20px">
+                    <FormLabel color={textColor} htmlFor="youtube" mt="20px">
                       Youtube Video:
                     </FormLabel>
                     <Input
@@ -743,7 +852,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="facebook" mt="20px">
+                    <FormLabel color={textColor} htmlFor="facebook" mt="20px">
                       Facebook:
                     </FormLabel>
                     <Input
@@ -771,7 +880,7 @@ export default function Card({ inputData }) {
                       errorMessage
                     }
                   >
-                    <FormLabel htmlFor="payment" mt="20px">
+                    <FormLabel color={textColor} htmlFor="payment" mt="20px">
                       Payment:
                     </FormLabel>
                     <Input

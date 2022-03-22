@@ -14,43 +14,50 @@ export default async function handler(req, res) {
 
   await dbConnect();
   try {
-    await User.findOne({ email: email })
-      .then((user) => {
-        if (user) {
-          const data = JSON.parse(JSON.stringify(user));
-          console.log(data);
-          let subId = data.paymentDetails?.subscription_id;
-          if (subId == null) {
-            res.status(402).json({});
-            return;
-          }
-          if (data) {
-            instance.subscriptions.fetch(subId, (err, order) => {
-              if (err) {
-                console.log(err);
-                return res.status(400).json({
-                  message: "No subscription found",
-                });
-              }
-              if (order) {
-                console.log(order);
-                return res.status(200).json(order);
-              }
-            });
-          } else {
+    const user = await User.findOne({ email: email });
+    console.log(user);
+    if (!user) {
+      res.status(400).json({ error: "No user found" });
+      return;
+    }
+    if (user) {
+      const data = JSON.parse(JSON.stringify(user));
+      console.log(data);
+      let subId = data.paymentDetails?.subscription_id;
+      if (subId == null) {
+        res.status(402).json({});
+        return;
+      }
+      if (data) {
+        await instance.subscriptions.fetch(subId, (err, order) => {
+          if (err) {
             console.log(err);
-            res.status(400).json({
+            return res.status(400).json({
               message: "No subscription found",
             });
           }
-        }
-      })
-      .catch((err) => {
+          if (order) {
+            console.log(order);
+            return res.status(200).json(order);
+          }
+        });
+      } else {
         console.log(err);
-        return res.status(401).json({
+        res.status(400).json({
           message: "No subscription found",
         });
-      });
+      }
+    }
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   return res
+    //     .status(401)
+    //     .json({
+    //       message: "No subscription found",
+    //     })
+    //     .end();
+    // });
   } catch (error) {
     console.log(error);
     return res.status(500).json({

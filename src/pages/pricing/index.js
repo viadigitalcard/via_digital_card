@@ -20,14 +20,45 @@ import {
   Spacer,
   IconButton,
   Avatar,
+  useColorMode,
 } from "@chakra-ui/react";
 import { BiCheck } from "react-icons/bi";
 import { AddIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { signOut, useSession } from "next-auth/react";
 import NextLink from "next/link";
+import Select from "react-select";
 import Router from "next/router";
 
 const Payment = () => {
+  const [Plan, setPlan] = useState("");
+  console.log(Plan);
+  const { colorMode, toggleColorMode } = useColorMode();
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor:
+        (state.isFocused && "#353647") ||
+        (state.isSelected && "transparent") ||
+        "transparent",
+    }),
+  };
+  const customStylesLight = {
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor:
+        (state.isFocused && "#F4FFE2") ||
+        (state.isSelected && "transparent") ||
+        "transparent",
+      color: "black",
+    }),
+  };
+  const select = useColorModeValue("custom-select-light", "custom-select");
+  const options = [
+    { value: "1m", label: "1 Month" },
+    { value: "3m", label: "3 Months" },
+    { value: "6m", label: "6 Months" },
+    { value: "1y", label: "1 Year" },
+  ];
   const { data: session } = useSession();
   const toast = useToast();
   function Toast(title, message, status) {
@@ -50,16 +81,31 @@ const Payment = () => {
   const textColor1 = useColorModeValue("#7C7C7C", "#C8C8C8");
   const bg2 = useColorModeValue("white", "black.200");
   const bg1 = useColorModeValue("#F4FFE2", "#474856");
+
+  const planId = {
+    "1m": "plan_J65cozB9BrOnYH",
+    "3m": "plan_JA8VRFVvlOiyLQ",
+    "6m": "plan_JA8W6HRkqxtOru",
+    "1y": "plan_JA8WiOJbrw4r1i",
+  };
+
+  console.log(planId[Plan]);
+
   // const history = useRouter();
   const paymentHandler = async (e) => {
+    if (Plan == "") {
+      return Toast("Error", "Please select a plan", "error");
+    }
+
     setLoading(true);
     e.preventDefault();
     try {
       const response = await fetch("/api/razorpay", {
-        method: "GET",
+        // method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        // body: JSON.stringify(Plan && planId[Plan]),
       });
       const data = await response.json();
       if (response.status === 200) {
@@ -71,6 +117,7 @@ const Payment = () => {
       if (response.status === 500) {
         return Toast("Payment", "Payment has failed", "error");
       }
+
       console.log("sub object", data);
 
       const options = {
@@ -443,12 +490,41 @@ const Payment = () => {
                     h="234px"
                     bgColor={bg1}
                   >
-                    <Text fontWeight={"600"} fontSize="2.25rem" mb="28px">
-                      Free
+                    <Select
+                      onChange={(e) => {
+                        setPlan(e.value);
+                      }}
+                      styles={
+                        colorMode === "dark" ? customStyles : customStylesLight
+                      }
+                      options={options}
+                      isSearchable={false}
+                      hideSelectedOptions={false}
+                      placeholder={"Plan Duration"}
+                      className="react-select"
+                      classNamePrefix={select}
+                    />
+
+                    <Text
+                      fontWeight={"600"}
+                      fontSize="2.25rem"
+                      pt="10px"
+                      mb="10px"
+                    >
+                      {Plan === "1m"
+                        ? "₹ 100"
+                        : Plan === "3m"
+                        ? "₹ 150"
+                        : Plan === "6m"
+                        ? "₹ 300"
+                        : Plan === "1y"
+                        ? "₹ 600"
+                        : "Select a Plan"}
                     </Text>
                     <Button
                       onClick={paymentHandler}
                       isLoading={Loading}
+                      isDisabled={Plan != "" ? false : true}
                       w="183px"
                       h="60px"
                       fontWeight={"600"}

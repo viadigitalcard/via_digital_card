@@ -44,6 +44,7 @@ export const DigitalCard = ({ data }) => {
   const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
   const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [socialData, setSocialData] = useState([data.socialLinks]);
   const [tabIndex, setTabIndex] = useState(0);
   const router = useRouter();
   let url = router.asPath;
@@ -562,64 +563,85 @@ END:VCARD
                   Save Contact
                 </Text>
               </Center>
-              <Center
-                w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
-                h="117px"
-                justifyContent={"flex-start"}
-                pl="21px"
-                bgColor={bgDash}
-                borderRadius={"18px"}
-                boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
-              >
-                <Center
-                  boxSize={"87px"}
-                  bgColor={bgDashIcons}
-                  borderRadius={"17px"}
-                  mr="22px"
-                >
-                  <Center boxSize={"26px"}>
-                    <Image
-                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
-                      alt=""
-                    />
+              {data && data.brochure ? (
+                <>
+                  <Center
+                    w={{ sm: "498px", lg: "350px", xl: "498px" }}
+                    h="117px"
+                    justifyContent={"flex-start"}
+                    pl="21px"
+                    bgColor={bgDash}
+                    borderRadius={"18px"}
+                    boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
+                  >
+                    <Center
+                      as={Link}
+                      href={data?.brochure}
+                      boxSize={"87px"}
+                      bgColor={bgDashIcons}
+                      borderRadius={"17px"}
+                      mr="22px"
+                    >
+                      <Center boxSize={"26px"}>
+                        <Image
+                          src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
+                          alt=""
+                        />
+                      </Center>
+                    </Center>
+                    <Text
+                      as={Link}
+                      href={data?.brochure}
+                      fontSize={"1.125rem"}
+                      color={textColor}
+                    >
+                      {/* {data?.brochure} */}
+                      Download brochure
+                    </Text>
                   </Center>
-                </Center>
-                <Text fontSize={"1.125rem"} color={textColor}>
-                  Download brochure
-                </Text>
-              </Center>
-              <Center
-                w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
-                h="117px"
-                justifyContent={"flex-start"}
-                pl="21px"
-                borderRadius={"18px"}
-                bgColor={bgDash}
-                boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
-              >
+                </>
+              ) : (
+                ""
+              )}
+              {data && data.payment ? (
                 <Center
-                  boxSize={"87px"}
-                  bgColor={bgDashIcons}
-                  borderRadius={"17px"}
-                  mr="22px"
+                  w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
+                  h="117px"
+                  justifyContent={"flex-start"}
+                  pl="21px"
+                  borderRadius={"18px"}
+                  bgColor={bgDash}
+                  boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
                 >
-                  <Center boxSize={"26px"}>
-                    <Image
-                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
-                      alt=""
-                    />
+                  <Center
+                    as={Link}
+                    isExternal
+                    href={data?.payment}
+                    boxSize={"87px"}
+                    bgColor={bgDashIcons}
+                    borderRadius={"17px"}
+                    mr="22px"
+                  >
+                    <Center boxSize={"26px"}>
+                      <Image
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
+                        alt=""
+                      />
+                    </Center>
                   </Center>
+                  <Text
+                    as={Link}
+                    isExternal
+                    href={data?.payment}
+                    fontSize={"1.125rem"}
+                    color={textColor}
+                  >
+                    Make payment
+                  </Text>
                 </Center>
-                <Text
-                  as={Link}
-                  isExternal
-                  href={data?.payment}
-                  fontSize={"1.125rem"}
-                  color={textColor}
-                >
-                  Make payment
-                </Text>
-              </Center>
+              ) : (
+                ""
+              )}
             </VStack>
           </Box>
         </Flex>
@@ -628,7 +650,7 @@ END:VCARD
         <VStack spacing={"48px"} color={textColor}>
           <NextLink href="/" passHref>
             <Link>
-              <Image mr="100px" src={logo} />
+              <Image src={logo} />
             </Link>
           </NextLink>
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
@@ -682,13 +704,19 @@ END:VCARD
               </Text>
             </Box>
           </Flex>
-          <Flex w="100%" justifyContent={"space-between"}>
+          <HStack
+            w="100%"
+            spacing="30px"
+            justifyContent="space-evenly"
+            // justifyContent={"space-between"}
+          >
             <VStack spacing={"10px"}>
               <Center
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
                 bgColor={bgDashIconMobile}
                 onClick={handleSave}
+                as={Button}
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
@@ -704,50 +732,62 @@ END:VCARD
                 Save Contact
               </Text>
             </VStack>
-            <VStack spacing={"10px"}>
-              <Center
-                boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
-                borderRadius="8px"
-                bgColor={bgDashIconMobile}
-              >
-                <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
-                  <Image
-                    src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
-                    alt=""
-                  />
-                </Box>
-              </Center>
-              <Text
-                fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
-                color={"#ABABAB"}
-              >
-                Download brochure
-              </Text>
-            </VStack>
-            <VStack spacing={"10px"}>
-              <Center
-                boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
-                borderRadius="8px"
-                bgColor={bgDashIconMobile}
-              >
-                <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
-                  <Image
-                    src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
-                    alt=""
-                  />
-                </Box>
-              </Center>
-              <Text
-                as={Link}
-                isExternal
-                href={data?.payment}
-                fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
-                color={"#ABABAB"}
-              >
-                Make payment
-              </Text>
-            </VStack>
-          </Flex>
+            {data && data.brochure ? (
+              <VStack spacing={"10px"}>
+                <Center
+                  as={Link}
+                  href={data?.brochure}
+                  boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
+                  borderRadius="8px"
+                  bgColor={bgDashIconMobile}
+                >
+                  <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
+                    <Image
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/download.png"
+                      alt=""
+                    />
+                  </Box>
+                </Center>
+                <Text
+                  as={Link}
+                  href={data?.brochure}
+                  fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
+                  color={"#ABABAB"}
+                >
+                  Download brochure
+                </Text>
+              </VStack>
+            ) : (
+              ""
+            )}
+            {data && data.payment ? (
+              <VStack spacing={"10px"}>
+                <Center
+                  boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
+                  borderRadius="8px"
+                  bgColor={bgDashIconMobile}
+                >
+                  <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
+                    <Image
+                      src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
+                      alt=""
+                    />
+                  </Box>
+                </Center>
+                <Text
+                  as={Link}
+                  isExternal
+                  href={data?.payment}
+                  fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
+                  color={"#ABABAB"}
+                >
+                  Make payment
+                </Text>
+              </VStack>
+            ) : (
+              ""
+            )}
+          </HStack>
         </VStack>
         <Tabs w="100%" mt="30px" color={textColor}>
           <TabList border={"none"} justifyContent="space-between">
@@ -811,7 +851,7 @@ END:VCARD
               </Text>
             </TabPanel>
             <TabPanel p="0">
-              <Flex justifyContent={"space-between"} flexWrap="wrap">
+              <SimpleGrid columns={3} spacing={8}>
                 {data?.socialLinks.whatsapp != "" ? (
                   <Center
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
@@ -858,6 +898,7 @@ END:VCARD
                 ) : (
                   ""
                 )}
+
                 {data?.socialLinks.instagram != "" ? (
                   <Center
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
@@ -881,8 +922,7 @@ END:VCARD
                 ) : (
                   ""
                 )}
-              </Flex>
-              <Flex justifyContent={"space-between"} flexWrap="wrap" mt={4}>
+
                 {data?.socialLinks.facebook != "" ? (
                   <Center
                     as={Link}
@@ -911,10 +951,11 @@ END:VCARD
                   <Center
                     as={Link}
                     isExternal
-                    href={data.socialLinks?.linkedin}
+                    // href={data.socialLinks?.linkedin}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     border={`2px solid ${borderColor}`}
+                    // border="2px solid red"
                   >
                     <Box
                       flexShrink={"0"}
@@ -931,21 +972,8 @@ END:VCARD
                   ""
                 )}
 
-                <Center
-                  as={Link}
-                  isExternal
-                  boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
-                  borderRadius="14px"
-                >
-                  <Box
-                    flexShrink={"0"}
-                    boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
-                  ></Box>
-                </Center>
-
                 {/* <Spacer /> */}
-              </Flex>
-
+              </SimpleGrid>
               {/* <Center mt="50px">
                 <Button w="173px" h="62px" fontWeight={"400"}>
                   Send Message

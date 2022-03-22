@@ -37,24 +37,25 @@ export default function Subscription() {
   const textColor = useColorModeValue("black", "white");
   const bg = useColorModeValue("white", "black.100");
   const bg1 = useColorModeValue("white", "black.200");
+
   useEffect(() => {
     setisLoading(true);
     async function fetchMyAPI() {
       const res = await fetch("/api/razorpay/subscriptionstatus");
       const data1 = await res.json();
-
+      setdata(data1 && data1);
       //if sub exist
       if (res.status === 200) {
         //if staus is active
         if (data1.status === "active") {
           setStatus("Active");
           setisLoading(false);
-          setdata(data1);
           return;
         }
         //if status is created
         if (data1.status === "created") {
           setStatus("Created");
+          Router.reload;
           return;
         }
         if (data1.status === "cancelled") {
@@ -115,6 +116,7 @@ export default function Subscription() {
     setspinner(true);
     const res = await fetch("/api/razorpay/cancelsubscription");
     const data = await res.json();
+
     if (res.status === 200) {
       setspinner(false);
 
@@ -415,6 +417,9 @@ export default function Subscription() {
                   No Subscription Found
                 </Text>
                 <Button onClick={() => Router.push("/pricing")}>Buy Now</Button>
+                <Button onClick={() => Router.reload("/subscription")}>
+                  Reload
+                </Button>
               </VStack>
             </Center>
           </VStack>
