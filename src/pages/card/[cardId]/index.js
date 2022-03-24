@@ -107,6 +107,8 @@ const Cards = ({ Card }) => {
     updateviewsDB(updatedViews);
   }, []);
 
+  const scolor = useColorModeValue("black", "white");
+
   const handleDelete = async () => {
     const cardId = router.query.cardId;
     try {
@@ -205,9 +207,7 @@ const Cards = ({ Card }) => {
             >
               <DrawerOverlay />
               <DrawerContent>
-                <DrawerCloseButton
-                  color={useColorModeValue("black", "white")}
-                />
+                <DrawerCloseButton color={scolor} />
 
                 <DrawerHeader color={bg}>{`${Card.name}'s card`}</DrawerHeader>
                 <DrawerBody>

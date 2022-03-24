@@ -359,7 +359,7 @@ export default function Subscription() {
                         : Premium
                       </Text>
                       <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                        {`:  ${session && session.user.email}`}
+                        {session && `:  ${session.user.email}`}
                       </Text>
                       <Text
                         fontWeight="bold"
