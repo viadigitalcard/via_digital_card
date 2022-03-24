@@ -46,6 +46,8 @@ export default function Card({ inputData }) {
   }
 
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
+  let { FileInput: FileInputBrochure, openFileDialog: openFileDialogBrochure } =
+    useS3Upload();
   const [value, setValue] = useState("");
 
   const [profile, setProfile] = useState(null);
@@ -580,7 +582,7 @@ export default function Card({ inputData }) {
                       type="hidden"
                       {...field}
                     />
-                    <FileInput
+                    <FileInputBrochure
                       type="file"
                       accept="application/pdf"
                       onChange={(e) => {
@@ -621,7 +623,7 @@ export default function Card({ inputData }) {
                         />
                       ) : (
                         <Icon
-                          onClick={openFileDialog}
+                          onClick={openFileDialogBrochure}
                           zIndex="10"
                           color="#96A2B3"
                           // border="2px solid red"
