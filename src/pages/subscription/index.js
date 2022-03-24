@@ -429,8 +429,8 @@ export default function Subscription() {
                   </Flex>
                   {data.cancelAtNextBilling ? (
                     <Text fontWeight="bold" textColor="red.300" fontSize="12px">
-                      "Subscription will be cancelled at the end of the current
-                      billing period"
+                      Subscription will be cancelled at the end of the current
+                      billing period
                     </Text>
                   ) : (
                     ""
