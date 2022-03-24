@@ -1,23 +1,20 @@
 import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/User";
-import { getSession } from "next-auth/react";
 const razorpay = require("razorpay");
 
 const instance = new razorpay({
   key_id: process.env.RAZORPAY_KEY,
   key_secret: process.env.RAZORPAY_SECRET,
 });
-
 export default async function getUser(req, res) {
-  const session = await getSession({ req });
-  console.log(session);
-
+  const { card_id } = req.body;
+  console.log(card_id);
   await dbConnect();
   try {
     const response = await User.findOne({
-      email: session && session.user.email,
+      _id: card_id,
     });
-    console.log("ressssss", response);
+
     if (response) {
       const data = JSON.parse(JSON.stringify(response));
       let subId = data.paymentDetails.subscription_id;
@@ -32,7 +29,7 @@ export default async function getUser(req, res) {
           if (err) {
             console.log(err);
             return res.status(400).json({
-              message: "Error Fetching Data of Premimum User",
+              message: "User is not premium",
             });
           }
           if (order) {
@@ -47,10 +44,20 @@ export default async function getUser(req, res) {
         });
       }
     }
+
     if (!response) {
       res.status(400).json({ error: "No user found" });
       return;
     }
+
+    // if (premiumUser) {
+    //   res.status(200).json({ message: "User is premium" });
+    //   return;
+    // }
+    // if (!premiumUser) {
+    //   res.status(400).json({ message: "User is not premium" });
+    //   return;
+    // }
   } catch (error) {
     res.status(500).json({ error: error.message });
     return;

@@ -28,6 +28,10 @@ import Router from "next/router";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 
 export default function Subscription() {
+  const logo = useColorModeValue(
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
+  );
   const [data, setdata] = useState({});
   const [status, setStatus] = useState("");
   const [spinner, setspinner] = useState(false);
@@ -38,11 +42,27 @@ export default function Subscription() {
   const bg = useColorModeValue("white", "black.100");
   const bg1 = useColorModeValue("white", "black.200");
 
+  function Toast(title, message, status) {
+    return toast({
+      title: title || "",
+      description: message,
+      status: status,
+      position: "top",
+      duration: 2000,
+      // isClosable: true,
+    });
+  }
+
+  //fetching status of all  subscription
   useEffect(() => {
     setisLoading(true);
     async function fetchMyAPI() {
       const res = await fetch("/api/razorpay/subscriptionstatus");
+      if (res == null) {
+        const res = await fetch("/api/razorpay/subscriptionstatus");
+      }
       const data1 = await res.json();
+      console.log(data1);
       setdata(data1 && data1);
       //if sub exist
       if (res.status === 200) {
@@ -68,6 +88,10 @@ export default function Subscription() {
         }
         if (data1.status === "expired") {
           setStatus("Expired");
+          return;
+        }
+        if (data1.status === "authenticated") {
+          setStatus("authenticated");
           return;
         }
       }
@@ -101,20 +125,17 @@ export default function Subscription() {
     };
   }, []);
 
-  function Toast(title, message, status) {
-    return toast({
-      title: title || "",
-      description: message,
-      status: status,
-      position: "top",
-      duration: 2000,
-      // isClosable: true,
-    });
-  }
-
-  async function handleClick() {
+  //cancel subscription premium user
+  async function handleClick(option) {
     setspinner(true);
-    const res = await fetch("/api/razorpay/cancelsubscription");
+    const res = await fetch("/api/razorpay/cancelsubscription", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({ option }),
+    });
     const data = await res.json();
 
     if (res.status === 200) {
@@ -133,13 +154,6 @@ export default function Subscription() {
     }
     setdata(data);
   }
-
-  // const history = useRouter();
-  const logo = useColorModeValue(
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
-  );
-  console.log(status);
 
   return (
     <Box h="100vh">
@@ -243,392 +257,466 @@ export default function Subscription() {
           </Box>
         </Flex>
       </Container>
+      {
+        <Box
+          bg={bg1}
+          h="full"
+          as={Flex}
+          justifyContent="center"
+          pt="20px"
+          w="100%"
+        >
+          {isLoading ? (
+            <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
+              <Box
+                role="group"
+                borderRadius={"30px"}
+                w="80%"
+                boxShadow="8px 8px 35px 0px #0000001A"
 
-      <Box
-        bg={bg1}
-        h="full"
-        as={Flex}
-        justifyContent="center"
-        pt="20px"
-        w="100%"
-      >
-        {isLoading ? (
-          <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
-            <Box
-              role="group"
-              borderRadius={"30px"}
-              w="80%"
-              boxShadow="8px 8px 35px 0px #0000001A"
-
-              // bgColor={bg}
-            >
-              <VStack
-                as={Flex}
-                justifyContent="space-evenly"
-                h="300px"
-                p="20px"
-                align="start"
-                flexDirection="column"
+                // bgColor={bg}
               >
-                <Skeleton h="40px" w="30%" />
-                <HStack w="full">
-                  <VStack w="20%" alignItems="flex-start">
-                    <Skeleton h="20px" w="full" />
-                    <Skeleton h="20px" w="full" />
-                    <Skeleton h="20px" w="full" />
-                    <Skeleton h="20px" w="full" />
-                    <Skeleton h="20px" w="full" />
-                  </VStack>
-                  <VStack pl="10px" w="20%" alignItems="flex-start">
-                    <Skeleton h="20px" w="full" />
-                    <Skeleton h="20px" w="full" />
-                    <Skeleton h="20px" w="full" />
-                    <Skeleton h="20px" w="full" />
-                    <Skeleton h="20px" w="full" />
-                  </VStack>
-                </HStack>
-                <HStack w="full" spacing="40px" mt="20px" mb="30px" h="30px">
-                  <Skeleton h="full" w="25%" />
-                </HStack>
-              </VStack>
-            </Box>
-          </VStack>
-        ) : status == "Active" ? (
-          <VStack
-            w={["100%", "95%", "95%"]}
-            mt="10px"
-            maxW={"1205px"}
-            spacing="15px"
-          >
-            <Box
-              bg={bg}
-              color={textColor}
-              role="group"
-              borderRadius={"30px"}
-              w={["95%%", "95%", "80%"]}
-              boxShadow="8px 8px 35px 0px #0000001A"
-
-              // bgColor={bg}
+                <VStack
+                  as={Flex}
+                  justifyContent="space-evenly"
+                  h="300px"
+                  p="20px"
+                  align="start"
+                  flexDirection="column"
+                >
+                  <Skeleton h="40px" w="30%" />
+                  <HStack w="full">
+                    <VStack w="20%" alignItems="flex-start">
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                    </VStack>
+                    <VStack pl="10px" w="20%" alignItems="flex-start">
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                    </VStack>
+                  </HStack>
+                  <HStack w="full" spacing="40px" mt="20px" mb="30px" h="30px">
+                    <Skeleton h="full" w="25%" />
+                  </HStack>
+                </VStack>
+              </Box>
+            </VStack>
+          ) : status == "Active" ? (
+            <VStack
+              w={["100%", "95%", "95%"]}
+              mt="10px"
+              maxW={"1205px"}
+              spacing="15px"
             >
-              <VStack
-                as={Flex}
-                justifyContent="space-evenly"
-                h={["300px", "350px", "350px"]}
-                p="20px"
-                align="start"
-                flexDirection="column"
-              >
-                <Text
-                  fontWeight="extrabold"
-                  fontSize={["1.5rem", "1.5rem", "2rem"]}
-                >
-                  Subscription
-                </Text>
-                <HStack>
-                  <VStack alignItems="flex-start">
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>Plan</Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Account email
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Current Status
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Subscription Start
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Renewal Date
-                    </Text>
-                  </VStack>
-                  <VStack pl="10px" alignItems="flex-start">
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      : Premium
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${session && session.user.email}`}
-                    </Text>
-                    <Text
-                      fontWeight="bold"
-                      textColor="green"
-                      fontSize={[".8rem", ".8rem", "1.1rem"]}
-                    >
-                      : Active
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${new Date(
-                        data.current_start * 1000
-                      ).toDateString()}`}
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${new Date(data.current_end * 1000).toDateString()}`}
-                    </Text>
-                  </VStack>
-                </HStack>
+              <Box
+                bg={bg}
+                color={textColor}
+                role="group"
+                borderRadius={"30px"}
+                w={["95%%", "95%", "80%"]}
+                boxShadow="8px 8px 35px 0px #0000001A"
 
-                <HStack
-                  spacing="40px"
-                  mt="20px"
-                  mb={["10px", "10px", "30px"]}
-                  h={["20px", "20px", "40px"]}
+                // bgColor={bg}
+              >
+                <VStack
+                  as={Flex}
+                  justifyContent="space-evenly"
+                  h={["350px", "350px", "350px"]}
+                  p="20px"
+                  align="start"
+                  flexDirection="column"
                 >
-                  <Button
-                    isLoading={spinner}
-                    onClick={handleClick}
-                    _hover={{
-                      bg: "red",
-                    }}
-                    _active={{
-                      bg: "red",
-                    }}
-                    fontSize={[".8rem", ".8rem", "1.1rem"]}
-                    h="40px"
-                    bg="red.400"
+                  <Text
+                    fontWeight="extrabold"
+                    fontSize={["1.5rem", "1.5rem", "2rem"]}
                   >
-                    Cancel My Subscription
-                  </Button>
-                </HStack>
-              </VStack>
-            </Box>
-          </VStack>
-        ) : status == "Created" ? (
-          <VStack
-            w={["100%", "95%", "95%"]}
-            mt="10px"
-            maxW={"1205px"}
-            spacing="15px"
-          >
-            <Center
-              color={textColor}
-              bg={bg}
-              p="20px"
-              role="group"
-              h={["300px", "350px", "350px"]}
-              borderRadius={"30px"}
-              w={["95%%", "95%", "80%"]}
-              boxShadow="8px 8px 35px 0px #0000001A"
+                    Subscription
+                  </Text>
+                  <HStack>
+                    <VStack alignItems="flex-start">
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>Plan</Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Account email
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Current Status
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Subscription Start
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Renewal Date
+                      </Text>
+                    </VStack>
+                    <VStack pl="10px" alignItems="flex-start">
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        : Premium
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        {`:  ${session && session.user.email}`}
+                      </Text>
+                      <Text
+                        fontWeight="bold"
+                        textColor="green"
+                        fontSize={[".8rem", ".8rem", "1.1rem"]}
+                      >
+                        : Active
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        {`:  ${new Date(
+                          data.current_start * 1000
+                        ).toDateString()}`}
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        {`:  ${new Date(
+                          data.current_end * 1000
+                        ).toDateString()}`}
+                      </Text>
+                    </VStack>
+                  </HStack>
 
-              // bgColor={bg}
-            >
-              <VStack>
-                <Text
-                  fontWeight="extrabold"
-                  fontSize={["1.5rem", "1.5rem", "2rem"]}
-                >
-                  No Subscription Found
-                </Text>
-                <Button onClick={() => Router.push("/pricing")}>Buy Now</Button>
-                <Button onClick={() => Router.reload("/subscription")}>
-                  Reload
-                </Button>
-              </VStack>
-            </Center>
-          </VStack>
-        ) : status == "Cancelled" ? (
-          <VStack
-            w={["100%", "95%", "95%"]}
-            mt="10px"
-            maxW={"1205px"}
-            spacing="15px"
-          >
-            <Box
-              bg={bg}
-              color={textColor}
-              role="group"
-              borderRadius={"30px"}
-              w={["95%%", "95%", "80%"]}
-              boxShadow="8px 8px 35px 0px #0000001A"
-
-              // bgColor={bg}
-            >
-              <VStack
-                as={Flex}
-                justifyContent="space-evenly"
-                h={["300px", "350px", "350px"]}
-                p="20px"
-                align="start"
-                flexDirection="column"
-              >
-                <Text
-                  fontWeight="extrabold"
-                  fontSize={["1.5rem", "1.5rem", "2rem"]}
-                >
-                  Subscription
-                </Text>
-                <HStack>
-                  <VStack alignItems="flex-start">
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>Plan</Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Account email
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Current Status
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Subscription Start
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Ended At
-                    </Text>
-                  </VStack>
-                  <VStack pl="10px" alignItems="flex-start">
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      : Premium
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${session && session.user.email}`}
-                    </Text>
-                    <Text
-                      fontWeight="bold"
-                      textColor="red"
+                  <Flex
+                    w={["100%", "100%", "60%"]}
+                    justifyContent={
+                      data.cancelAtNextBilling ? "flex-start" : "space-evenly"
+                    }
+                    // border="2px solid red"
+                    flexDirection={["column", "column", "row"]}
+                    // spacing="40px"
+                    mt="20px"
+                    // h="300px"
+                    mb={["10px", "10px", "30px"]}
+                    h={["150px", "150px", "40px"]}
+                  >
+                    <Button
+                      isLoading={spinner}
+                      onClick={() => handleClick(false)}
+                      _hover={{
+                        bg: "red",
+                      }}
+                      _active={{
+                        bg: "red",
+                      }}
                       fontSize={[".8rem", ".8rem", "1.1rem"]}
+                      h="40px"
+                      bg="red.400"
                     >
-                      : Cancelled
+                      Cancel immediately
+                    </Button>
+                    {data.cancelAtNextBilling ? null : (
+                      <Button
+                        isLoading={spinner}
+                        onClick={() => handleClick(true)}
+                        _hover={{
+                          bg: "red",
+                        }}
+                        _active={{
+                          bg: "red",
+                        }}
+                        fontSize={[".8rem", ".8rem", "1.1rem"]}
+                        h="40px"
+                        bg="red.400"
+                      >
+                        Cancel at renewal date
+                      </Button>
+                    )}
+                  </Flex>
+                  {data.cancelAtNextBilling ? (
+                    <Text fontWeight="bold" textColor="red.300" fontSize="12px">
+                      "Subscription will be cancelled at the end of the current
+                      billing period"
                     </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${new Date(
-                        data.current_start * 1000
-                      ).toDateString()}`}
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${new Date(data.ended_at * 1000).toDateString()}`}
-                    </Text>
-                  </VStack>
-                </HStack>
+                  ) : (
+                    ""
+                  )}
+                </VStack>
+              </Box>
+            </VStack>
+          ) : status == "Created" ? (
+            <VStack
+              w={["100%", "95%", "95%"]}
+              mt="10px"
+              maxW={"1205px"}
+              spacing="15px"
+            >
+              <Center
+                color={textColor}
+                bg={bg}
+                p="20px"
+                role="group"
+                h={["300px", "350px", "350px"]}
+                borderRadius={"30px"}
+                w={["95%%", "95%", "80%"]}
+                boxShadow="8px 8px 35px 0px #0000001A"
 
-                <HStack
-                  spacing="40px"
-                  mt="20px"
-                  mb={["10px", "10px", "30px"]}
-                  h={["20px", "20px", "40px"]}
-                >
+                // bgColor={bg}
+              >
+                <VStack>
+                  <Text
+                    fontWeight="extrabold"
+                    fontSize={["1.5rem", "1.5rem", "2rem"]}
+                  >
+                    No Subscription Found
+                  </Text>
                   <Button onClick={() => Router.push("/pricing")}>
                     Buy Now
                   </Button>
-                </HStack>
-              </VStack>
-            </Box>
-          </VStack>
-        ) : status == "Expired" ? (
-          <VStack
-            w={["100%", "95%", "95%"]}
-            mt="10px"
-            maxW={"1205px"}
-            spacing="15px"
-          >
-            <Box
-              bg={bg}
-              color={textColor}
-              role="group"
-              borderRadius={"30px"}
-              w={["95%%", "95%", "80%"]}
-              boxShadow="8px 8px 35px 0px #0000001A"
-
-              // bgColor={bg}
+                  <Button onClick={() => Router.reload("/subscription")}>
+                    Reload
+                  </Button>
+                </VStack>
+              </Center>
+            </VStack>
+          ) : status == "Cancelled" ? (
+            <VStack
+              w={["100%", "95%", "95%"]}
+              mt="10px"
+              maxW={"1205px"}
+              spacing="15px"
             >
-              <VStack
-                as={Flex}
-                justifyContent="space-evenly"
-                h={["300px", "350px", "350px"]}
-                p="20px"
-                align="start"
-                flexDirection="column"
-              >
-                <Text
-                  fontWeight="extrabold"
-                  fontSize={["1.5rem", "1.5rem", "2rem"]}
-                >
-                  Subscription
-                </Text>
-                <HStack>
-                  <VStack alignItems="flex-start">
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>Plan</Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Account email
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Current Status
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Subscription Start
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      Ended At
-                    </Text>
-                  </VStack>
-                  <VStack pl="10px" alignItems="flex-start">
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      : Premium
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${session && session.user.email}`}
-                    </Text>
-                    <Text
-                      fontWeight="bold"
-                      textColor="red"
-                      fontSize={[".8rem", ".8rem", "1.1rem"]}
-                    >
-                      : Expired
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${new Date(
-                        data.current_start * 1000
-                      ).toDateString()}`}
-                    </Text>
-                    <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                      {`:  ${new Date(data.ended_at * 1000).toDateString()}`}
-                    </Text>
-                  </VStack>
-                </HStack>
+              <Box
+                bg={bg}
+                color={textColor}
+                role="group"
+                borderRadius={"30px"}
+                w={["95%%", "95%", "80%"]}
+                boxShadow="8px 8px 35px 0px #0000001A"
 
-                <HStack
-                  spacing="40px"
-                  mt="20px"
-                  mb={["10px", "10px", "30px"]}
-                  h={["20px", "20px", "40px"]}
+                // bgColor={bg}
+              >
+                <VStack
+                  as={Flex}
+                  justifyContent="space-evenly"
+                  h={["300px", "350px", "350px"]}
+                  p="20px"
+                  align="start"
+                  flexDirection="column"
                 >
+                  <Text
+                    fontWeight="extrabold"
+                    fontSize={["1.5rem", "1.5rem", "2rem"]}
+                  >
+                    Subscription
+                  </Text>
+                  <HStack>
+                    <VStack alignItems="flex-start">
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>Plan</Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Account email
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Current Status
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Subscription Start
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Ended At
+                      </Text>
+                    </VStack>
+                    <VStack pl="10px" alignItems="flex-start">
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        : Premium
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        {`:  ${session && session.user.email}`}
+                      </Text>
+                      <Text
+                        fontWeight="bold"
+                        textColor="red"
+                        fontSize={[".8rem", ".8rem", "1.1rem"]}
+                      >
+                        : Cancelled
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        {`:  ${new Date(
+                          data.current_start * 1000
+                        ).toDateString()}`}
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        {`:  ${new Date(data.ended_at * 1000).toDateString()}`}
+                      </Text>
+                    </VStack>
+                  </HStack>
+
+                  <HStack
+                    spacing="40px"
+                    mt="20px"
+                    mb={["10px", "10px", "30px"]}
+                    h={["20px", "20px", "40px"]}
+                  >
+                    <Button onClick={() => Router.push("/pricing")}>
+                      Buy Now
+                    </Button>
+                  </HStack>
+                </VStack>
+              </Box>
+            </VStack>
+          ) : status == "Expired" ? (
+            <VStack
+              w={["100%", "95%", "95%"]}
+              mt="10px"
+              maxW={"1205px"}
+              spacing="15px"
+            >
+              <Box
+                bg={bg}
+                color={textColor}
+                role="group"
+                borderRadius={"30px"}
+                w={["95%%", "95%", "80%"]}
+                boxShadow="8px 8px 35px 0px #0000001A"
+
+                // bgColor={bg}
+              >
+                <VStack
+                  as={Flex}
+                  justifyContent="space-evenly"
+                  h={["300px", "350px", "350px"]}
+                  p="20px"
+                  align="start"
+                  flexDirection="column"
+                >
+                  <Text
+                    fontWeight="extrabold"
+                    fontSize={["1.5rem", "1.5rem", "2rem"]}
+                  >
+                    Subscription
+                  </Text>
+                  <HStack>
+                    <VStack alignItems="flex-start">
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>Plan</Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Account email
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Current Status
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Subscription Start
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        Ended At
+                      </Text>
+                    </VStack>
+                    <VStack pl="10px" alignItems="flex-start">
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        : Premium
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        {`:  ${session && session.user.email}`}
+                      </Text>
+                      <Text
+                        fontWeight="bold"
+                        textColor="red"
+                        fontSize={[".8rem", ".8rem", "1.1rem"]}
+                      >
+                        : Expired
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        {`:  ${new Date(
+                          data.current_start * 1000
+                        ).toDateString()}`}
+                      </Text>
+                      <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                        {`:  ${new Date(data.ended_at * 1000).toDateString()}`}
+                      </Text>
+                    </VStack>
+                  </HStack>
+
+                  <HStack
+                    spacing="40px"
+                    mt="20px"
+                    mb={["10px", "10px", "30px"]}
+                    h={["20px", "20px", "40px"]}
+                  >
+                    <Button onClick={() => Router.push("/pricing")}>
+                      Buy Now
+                    </Button>
+                  </HStack>
+                </VStack>
+              </Box>
+            </VStack>
+          ) : status == "No Subscription Found" ? (
+            <VStack
+              w={["100%", "95%", "95%"]}
+              mt="10px"
+              maxW={"1205px"}
+              spacing="15px"
+            >
+              <Center
+                color={textColor}
+                bg={bg}
+                p="20px"
+                role="group"
+                h={["300px", "350px", "350px"]}
+                borderRadius={"30px"}
+                w={["95%%", "95%", "80%"]}
+                boxShadow="8px 8px 35px 0px #0000001A"
+
+                // bgColor={bg}
+              >
+                <VStack>
+                  <Text
+                    fontWeight="extrabold"
+                    fontSize={["1.5rem", "1.5rem", "2rem"]}
+                  >
+                    No Subscription Found
+                  </Text>
                   <Button onClick={() => Router.push("/pricing")}>
                     Buy Now
                   </Button>
-                </HStack>
-              </VStack>
-            </Box>
-          </VStack>
-        ) : status == "No Subscription Found" ? (
-          <VStack
-            w={["100%", "95%", "95%"]}
-            mt="10px"
-            maxW={"1205px"}
-            spacing="15px"
-          >
-            <Center
-              color={textColor}
-              bg={bg}
-              p="20px"
-              role="group"
-              h={["300px", "350px", "350px"]}
-              borderRadius={"30px"}
-              w={["95%%", "95%", "80%"]}
-              boxShadow="8px 8px 35px 0px #0000001A"
-
-              // bgColor={bg}
+                </VStack>
+              </Center>
+            </VStack>
+          ) : status == "Something Went Wrong" ? (
+            "Something Went Wrong"
+          ) : status == "authenticated" ? (
+            <VStack
+              w={["100%", "95%", "95%"]}
+              mt="10px"
+              maxW={"1205px"}
+              spacing="15px"
             >
-              <VStack>
-                <Text
-                  fontWeight="extrabold"
-                  fontSize={["1.5rem", "1.5rem", "2rem"]}
-                >
-                  No Subscription Found
-                </Text>
-                <Button onClick={() => Router.push("/pricing")}>Buy Now</Button>
-              </VStack>
-            </Center>
-          </VStack>
-        ) : status == "Something Went Wrong" ? (
-          "Something Went Wrong"
-        ) : (
-          ""
-        )}
-      </Box>
+              <Center
+                color={textColor}
+                bg={bg}
+                p="20px"
+                role="group"
+                h={["300px", "350px", "350px"]}
+                borderRadius={"30px"}
+                w={["95%%", "95%", "80%"]}
+                boxShadow="8px 8px 35px 0px #0000001A"
+
+                // bgColor={bg}
+              >
+                <VStack>
+                  <Text
+                    fontWeight="extrabold"
+                    fontSize={["1.5rem", "1.5rem", "2rem"]}
+                  >
+                    Loading Please Reload
+                  </Text>
+                  <Button onClick={() => Router.push("/pricing")}>
+                    Buy Now
+                  </Button>
+                  <Button onClick={() => Router.reload("/subscription")}>
+                    Reload
+                  </Button>
+                </VStack>
+              </Center>
+            </VStack>
+          ) : (
+            ""
+          )}
+        </Box>
+      }
     </Box>
   );
 }

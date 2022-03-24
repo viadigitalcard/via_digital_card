@@ -38,14 +38,13 @@ const Usercard = ({ Cards }) => {
   const textHoverMobile = useColorModeValue("greenBrand.100", "white");
   const bg = useColorModeValue("white", "black.100");
   const textColor = useColorModeValue("black", "white");
-  console.log(Cards);
+
   const router = useRouter();
   const logo = useColorModeValue(
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
   );
   const { data: session } = useSession();
-  console.log(session);
 
   return (
     <>
@@ -204,6 +203,7 @@ const Usercard = ({ Cards }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   console.log(session);
+
   await dbConnect();
   const cards = await Card.find({
     card_id: { $eq: session?.user?.id },

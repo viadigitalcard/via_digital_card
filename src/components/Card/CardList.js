@@ -23,7 +23,7 @@ export const CardList = ({ data }) => {
   const textHover = useColorModeValue("white", "greenBrand.100");
   const textHoverMobile = useColorModeValue("greenBrand.100", "white");
   const textColor = useColorModeValue("black", "white");
-  console.log(data);
+
   return (
     <Center w="100%">
       <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
