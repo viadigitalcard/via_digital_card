@@ -84,7 +84,7 @@ export default function SignUp() {
         method: "POST",
         body: JSON.stringify({
           firstName: values.name,
-          email: values.email,
+          email: values.email.trim(),
           password: values.password,
         }),
         headers: {
