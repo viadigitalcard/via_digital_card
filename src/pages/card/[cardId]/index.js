@@ -30,19 +30,40 @@ import {
   Skeleton,
   HStack,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import dbConnect from "../../../lib/dbConnect";
 import EditCard from "../../../components/EditCard";
 import EditCardFree from "../../../components/EditCardFree";
 import { default as ModalCard } from "../../../models/Card";
 import { DigitalCard } from "../../../components/Card/DigitalCard";
 import { DigitalCardFree } from "../../../components/Card/DigitalCardFree";
-import { DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+  AttachmentIcon,
+  DeleteIcon,
+  EditIcon,
+  HamburgerIcon,
+} from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 
 const Cards = ({ Card }) => {
+  const toast = useToast();
+
+  function Toast(title, message, status) {
+    return toast({
+      title: title || "",
+      description: message,
+      status: status,
+      position: "top",
+      duration: 2000,
+      // isClosable: true,
+    });
+  }
+
+  const [Loading, setLoading] = useState(false);
+  const [isNFC, setisNFC] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -74,6 +95,42 @@ const Cards = ({ Card }) => {
 
   useEffect(() => {
     setIsFetching(true);
+
+    async function fetchAPINFC() {
+      const res = await fetch("/api/auth/getnfccard", {
+        method: "POST",
+        headers: {
+          Accept: contentType,
+          "Content-Type": contentType,
+        },
+        body: JSON.stringify({ card_id: Card?.card_id }),
+      });
+
+      const data = await res.json();
+      console.log(data);
+      if (res.status === 200) {
+        if (data.isNFC_Card_Selected.isSelected == false) {
+          setisNFC(false);
+          console.log(isNFC);
+        }
+        if (data.isNFC_Card_Selected.isSelected == true) {
+          setisNFC(true);
+          console.log(isNFC);
+        }
+
+        setIsPremium(true);
+        console.log("NFC Yes");
+      }
+      if (res.status === 400) {
+        setIsPremium(false);
+        console.log("Not NFC");
+      }
+      if (res.status === 500) {
+        setIsPremium(false);
+        console.log("Error");
+      }
+    }
+
     async function fetchAPI() {
       const res = await fetch("/api/auth/getpremimumcard", {
         method: "POST",
@@ -91,15 +148,17 @@ const Cards = ({ Card }) => {
         console.log("Premium Yes");
       }
       if (res.status === 400) {
-        setIsPremium(false);
+        // setIsPremium(false);
         console.log("Not Premium");
+        fetchAPINFC().then(() => setIsFetching(false));
       }
       if (res.status === 500) {
-        setIsPremium(false);
         console.log("Error");
+        fetchAPINFC().then(() => setIsFetching(false));
       }
     }
     fetchAPI().then(() => setIsFetching(false));
+
     if ((Card && Card?.name === "") || !Card) {
       router.replace("/");
     }
@@ -121,6 +180,37 @@ const Cards = ({ Card }) => {
     }
   };
 
+  async function handleNFCAssgin() {
+    setLoading(true);
+
+    const res = await fetch("/api/cards/assignnfc", {
+      method: "POST",
+      headers: {
+        Accept: contentType,
+        "Content-Type": contentType,
+      },
+      body: JSON.stringify({
+        isSelected: true,
+        card_id: Card?.card_id,
+        _id: Card?._id,
+      }),
+    });
+
+    const data = await res.json();
+    if (res.status === 200) {
+      setLoading(false);
+      Toast("Success", "Card is now NFC", "success");
+      return Router.replace("/cards");
+    }
+    if (res.status === 400) {
+      setLoading(false);
+      Toast("Error", "Card is already NFC", "error");
+    }
+    if (res.status === 500) {
+      setLoading(false);
+      Toast("Error", "Error", "error");
+    }
+  }
   return (
     <>
       <Head>
@@ -247,6 +337,13 @@ const Cards = ({ Card }) => {
                 <MenuItem onClick={onOpen} icon={<EditIcon />}>
                   Edit
                 </MenuItem>
+                {isNFC == true ? (
+                  ""
+                ) : (
+                  <MenuItem onClick={handleNFCAssgin} icon={<AttachmentIcon />}>
+                    Assign to NFC Card
+                  </MenuItem>
+                )}
               </MenuList>
             </Menu>
           </Box>

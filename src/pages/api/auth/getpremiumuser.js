@@ -27,6 +27,11 @@ export default async function getUser(req, res) {
           .status(400)
           .json({ message: "No subscription ID found, User is not premium" });
       }
+      if (!subId) {
+        return res
+          .status(400)
+          .json({ message: "No subscription ID found, User is not premium" });
+      }
       if (subId) {
         await instance.subscriptions.fetch(subId, (err, order) => {
           if (err) {

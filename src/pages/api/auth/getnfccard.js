@@ -17,33 +17,43 @@ export default async function getUser(req, res) {
 
     if (response) {
       const data = JSON.parse(JSON.stringify(response));
-      let subId = data?.paymentDetails?.subscription_id;
+
+      const isNFC_Card_Selected = data.isNFC_Card_Selected;
+      console.log(isNFC_Card_Selected);
+      let subId = data?.NFC_paymentDetails?.subscription_id;
 
       if (subId == null) {
         return res
           .status(400)
-          .json({ message: "No subscription ID found, User is not premium" });
+          .json({ message: "No subscription ID found, User is not NFC" });
       }
       if (!subId) {
         return res
           .status(400)
-          .json({ message: "No subscription ID found, User is not premium" });
+          .json({ message: "No subscription ID found, User is not NFC" });
       }
       if (subId) {
         await instance.subscriptions.fetch(subId, (err, order) => {
           if (err) {
             console.log(err);
             return res.status(400).json({
-              message: "User is not premium",
+              message: "Error Fetching Data of NFC User",
             });
           }
           if (order) {
             console.log(order.status);
             console.log(order);
             if (order.status === "active") {
-              return res.status(200).json({ message: "User is premium" });
+              const data = {
+                ...order,
+                isNFC_Card_Selected,
+              };
+
+              return res.status(200).json(data, { message: "User is NFC" });
             } else {
-              return res.status(400).json({ message: "User is not premium" });
+              return res
+                .status(400)
+                .json(order, { message: "User is not NFC" });
             }
           }
         });

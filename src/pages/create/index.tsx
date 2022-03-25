@@ -150,8 +150,8 @@ function Card() {
 
   useEffect(() => {
     setIsFetching(true);
-    async function fetchAPI() {
-      const res = await fetch("/api/auth/getpremiumuser");
+    async function fetchAPINFC() {
+      const res = await fetch("/api/auth/getnfc");
       console.log("res", res);
       const data = await res.json();
       console.log("data", data);
@@ -166,6 +166,26 @@ function Card() {
       if (res.status === 500) {
         setIsPremium(false);
         console.log("Error");
+      }
+    }
+    async function fetchAPI() {
+      const res = await fetch("/api/auth/getpremiumuser");
+      console.log("res", res);
+      const data = await res.json();
+      console.log("data", data);
+      if (res.status === 200) {
+        setIsPremium(true);
+        console.log("Premium Yes");
+      }
+      if (res.status === 400) {
+        // setIsPremium(false);
+        console.log("Not Premium");
+        fetchAPINFC().then(() => setIsFetching(false));
+      }
+      if (res.status === 500) {
+        // setIsPremium(false);
+        console.log("Error");
+        fetchAPINFC().then(() => setIsFetching(false));
       }
     }
     fetchAPI().then(() => setIsFetching(false));

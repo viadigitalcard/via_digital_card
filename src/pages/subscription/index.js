@@ -35,9 +35,11 @@ export default function Subscription() {
   const [data, setdata] = useState({});
   const [NFCdata, setNFCdata] = useState({});
   const [status, setStatus] = useState("");
+  const [statusNFC, setStatusNFC] = useState("");
   const [spinner, setspinner] = useState(false);
   const { data: session } = useSession();
   const [isLoading, setisLoading] = useState(false);
+  const [isLoadingNFC, setisLoadingNFC] = useState(false);
   const toast = useToast();
   const textColor = useColorModeValue("black", "white");
   const bg = useColorModeValue("white", "black.100");
@@ -117,6 +119,9 @@ export default function Subscription() {
     fetchMyAPI().then(() => {
       setisLoading(false);
     });
+
+    setisLoadingNFC(true);
+
     async function fetchMyAPINFC() {
       const res = await fetch("/api/razorpay/subscriptionstatus/nfc");
       const data1 = await res.json();
@@ -126,56 +131,57 @@ export default function Subscription() {
       if (res.status === 200) {
         //if staus is active
         if (data1.status === "active") {
-          setStatus("Active");
-          setisLoading(false);
+          setStatusNFC("Active");
+          setisLoadingNFC(false);
           return;
         }
         //if status is created
         if (data1.status === "created") {
-          setStatus("Created");
+          setStatusNFC("Created");
           Router.reload;
           return;
         }
         if (data1.status === "cancelled") {
-          setStatus("Cancelled");
+          setStatusNFC("Cancelled");
           return;
         }
         if (data1.status === "completed") {
-          setStatus("Completed");
+          setStatusNFC("Completed");
           return;
         }
         if (data1.status === "expired") {
-          setStatus("Expired");
+          setStatusNFC("Expired");
           return;
         }
         if (data1.status === "authenticated") {
-          setStatus("authenticated");
+          setStatusNFC("authenticated");
           return;
         }
       }
       if (res.status === 400) {
-        setStatus("No Subscription Found");
-        setisLoading(false);
+        setStatusNFC("No Subscription Found");
+        setisLoadingNFC(false);
         return;
       }
       if (res.status === 401) {
-        setStatus("No Subscription Found");
-        setisLoading(false);
+        setStatusNFC("No Subscription Found");
+        setisLoadingNFC(false);
         return;
       }
       if (res.status === 402) {
-        setStatus("No Subscription Found");
-        setisLoading(false);
+        setStatusNFC("No Subscription Found");
+        setisLoadingNFC(false);
         return;
       }
       if (res.status === 500) {
-        setStatus("Something Went Wrong");
-        setisLoading(false);
+        setStatusNFC("Something Went Wrong");
+        setisLoadingNFC(false);
         return;
+        c;
       }
     }
     fetchMyAPINFC().then(() => {
-      setisLoading(false);
+      setisLoadingNFC(false);
     });
 
     return () => {
@@ -191,14 +197,12 @@ export default function Subscription() {
       headers: {
         "Content-Type": "application/json",
       },
-
       body: JSON.stringify({ option }),
     });
     const data = await res.json();
 
     if (res.status === 200) {
       setspinner(false);
-
       Toast("Successfully Cancelled your Subscription", "", "success");
       return Router.push("/pricing");
     }
@@ -346,63 +350,56 @@ export default function Subscription() {
 
       {
         <>
-          {Object.keys(data).length != 0 ? (
-            <Box
-              bg={bg1}
-              h="full"
-              as={Flex}
-              justifyContent="center"
-              pt="20px"
-              w="100%"
-            >
-              {isLoading ? (
-                <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
-                  <Box
-                    role="group"
-                    borderRadius={"30px"}
-                    w="80%"
-                    boxShadow="8px 8px 35px 0px #0000001A"
+          <Box bg={bg1} as={Flex} justifyContent="center" pt="20px" w="100%">
+            {isLoading ? (
+              <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
+                <Box
+                  role="group"
+                  borderRadius={"30px"}
+                  w="80%"
+                  boxShadow="8px 8px 35px 0px #0000001A"
 
-                    // bgColor={bg}
+                  // bgColor={bg}
+                >
+                  <VStack
+                    as={Flex}
+                    justifyContent="space-evenly"
+                    h="300px"
+                    p="20px"
+                    align="start"
+                    flexDirection="column"
                   >
-                    <VStack
-                      as={Flex}
-                      justifyContent="space-evenly"
-                      h="300px"
-                      p="20px"
-                      align="start"
-                      flexDirection="column"
+                    <Skeleton h="40px" w="30%" />
+                    <HStack w="full">
+                      <VStack w="20%" alignItems="flex-start">
+                        <Skeleton h="20px" w="full" />
+                        <Skeleton h="20px" w="full" />
+                        <Skeleton h="20px" w="full" />
+                        <Skeleton h="20px" w="full" />
+                        <Skeleton h="20px" w="full" />
+                      </VStack>
+                      <VStack pl="10px" w="20%" alignItems="flex-start">
+                        <Skeleton h="20px" w="full" />
+                        <Skeleton h="20px" w="full" />
+                        <Skeleton h="20px" w="full" />
+                        <Skeleton h="20px" w="full" />
+                        <Skeleton h="20px" w="full" />
+                      </VStack>
+                    </HStack>
+                    <HStack
+                      w="full"
+                      spacing="40px"
+                      mt="20px"
+                      mb="30px"
+                      h="30px"
                     >
-                      <Skeleton h="40px" w="30%" />
-                      <HStack w="full">
-                        <VStack w="20%" alignItems="flex-start">
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                        </VStack>
-                        <VStack pl="10px" w="20%" alignItems="flex-start">
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                        </VStack>
-                      </HStack>
-                      <HStack
-                        w="full"
-                        spacing="40px"
-                        mt="20px"
-                        mb="30px"
-                        h="30px"
-                      >
-                        <Skeleton h="full" w="25%" />
-                      </HStack>
-                    </VStack>
-                  </Box>
-                </VStack>
-              ) : status == "Active" ? (
+                      <Skeleton h="full" w="25%" />
+                    </HStack>
+                  </VStack>
+                </Box>
+              </VStack>
+            ) : Object.keys(data).length != 0 ? (
+              status == "Active" ? (
                 <VStack
                   w={["100%", "95%", "95%"]}
                   mt="10px"
@@ -652,7 +649,7 @@ export default function Subscription() {
                         </VStack>
                       </HStack>
 
-                      <HStack
+                      {/* <HStack
                         spacing="40px"
                         mt="20px"
                         mb={["10px", "10px", "30px"]}
@@ -661,7 +658,7 @@ export default function Subscription() {
                         <Button onClick={() => Router.push("/pricing")}>
                           Buy Now
                         </Button>
-                      </HStack>
+                      </HStack> */}
                     </VStack>
                   </Box>
                 </VStack>
@@ -825,158 +822,194 @@ export default function Subscription() {
                 </VStack>
               ) : (
                 ""
-              )}
-            </Box>
-          ) : Object.keys(NFCdata).length != 0 ? (
-            <Box
-              bg={bg1}
+              )
+            ) : (
+              ""
+            )}
+          </Box>
+        </>
+      }
+      {
+        <Box
+          // mt="50px"
+          bg={bg1}
+          as={Flex}
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          pt="20px"
+          w="100%"
+        >
+          {/* <Box
+            // as={Center}
+            // textAlign="center"
+            // w={["100%", "80%", "80%"]}
+            w="50%"
+            maxW={"1205px"}
+          >
+            <Text
               h="full"
-              as={Flex}
-              justifyContent="center"
-              pt="20px"
-              w="100%"
+              w="full"
+              textColor={textColor}
+              fontWeight="bold"
+              // textAlign="center"
+              fontSize={["1.5rem", "2rem", "2rem"]}
             >
-              {isLoading ? (
-                <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
-                  <Box
-                    role="group"
-                    borderRadius={"30px"}
-                    w="80%"
-                    boxShadow="8px 8px 35px 0px #0000001A"
+              NFC Subscription
+            </Text>
+          </Box> */}
+          {isLoadingNFC ? (
+            <VStack w="95%" mt="10px" maxW={"1205px"} spacing="15px">
+              <Box
+                role="group"
+                borderRadius={"30px"}
+                w="80%"
+                boxShadow="8px 8px 35px 0px #0000001A"
 
-                    // bgColor={bg}
-                  >
-                    <VStack
-                      as={Flex}
-                      justifyContent="space-evenly"
-                      h="300px"
-                      p="20px"
-                      align="start"
-                      flexDirection="column"
-                    >
-                      <Skeleton h="40px" w="30%" />
-                      <HStack w="full">
-                        <VStack w="20%" alignItems="flex-start">
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                        </VStack>
-                        <VStack pl="10px" w="20%" alignItems="flex-start">
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                          <Skeleton h="20px" w="full" />
-                        </VStack>
-                      </HStack>
-                      <HStack
-                        w="full"
-                        spacing="40px"
-                        mt="20px"
-                        mb="30px"
-                        h="30px"
-                      >
-                        <Skeleton h="full" w="25%" />
-                      </HStack>
-                    </VStack>
-                  </Box>
-                </VStack>
-              ) : status == "Active" ? (
+                // bgColor={bg}
+              >
                 <VStack
-                  w={["100%", "95%", "95%"]}
-                  mt="10px"
-                  maxW={"1205px"}
-                  spacing="15px"
+                  as={Flex}
+                  justifyContent="space-evenly"
+                  h="300px"
+                  p="20px"
+                  align="start"
+                  flexDirection="column"
                 >
-                  <Box
-                    bg={bg}
-                    color={textColor}
-                    role="group"
-                    borderRadius={"30px"}
-                    w={["95%%", "95%", "80%"]}
-                    boxShadow="8px 8px 35px 0px #0000001A"
+                  <Skeleton h="40px" w="30%" />
+                  <HStack w="full">
+                    <VStack w="20%" alignItems="flex-start">
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                    </VStack>
+                    <VStack pl="10px" w="20%" alignItems="flex-start">
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                      <Skeleton h="20px" w="full" />
+                    </VStack>
+                  </HStack>
+                  <HStack w="full" spacing="40px" mt="20px" mb="30px" h="30px">
+                    <Skeleton h="full" w="25%" />
+                  </HStack>
+                </VStack>
+              </Box>
+            </VStack>
+          ) : Object.keys(NFCdata).length != 0 ? (
+            statusNFC == "Active" ? (
+              <VStack
+                w={["100%", "95%", "95%"]}
+                mt="10px"
+                maxW={"1205px"}
+                spacing="15px"
+              >
+                <Box
+                  bg={bg}
+                  color={textColor}
+                  role="group"
+                  borderRadius={"30px"}
+                  w={["95%%", "95%", "80%"]}
+                  boxShadow="8px 8px 35px 0px #0000001A"
 
-                    // bgColor={bg}
+                  // bgColor={bg}
+                >
+                  <VStack
+                    as={Flex}
+                    justifyContent="space-evenly"
+                    h={["350px", "350px", "350px"]}
+                    p="20px"
+                    align="start"
+                    flexDirection="column"
                   >
-                    <VStack
-                      as={Flex}
-                      justifyContent="space-evenly"
-                      h={["350px", "350px", "350px"]}
-                      p="20px"
-                      align="start"
-                      flexDirection="column"
+                    <Text
+                      fontWeight="extrabold"
+                      fontSize={["1.5rem", "1.5rem", "2rem"]}
                     >
-                      <Text
-                        fontWeight="extrabold"
-                        fontSize={["1.5rem", "1.5rem", "2rem"]}
-                      >
-                        Subscription
-                      </Text>
-                      <HStack>
-                        <VStack alignItems="flex-start">
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Plan
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Account email
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Current Status
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Subscription Start
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Renewal Date
-                          </Text>
-                        </VStack>
-                        <VStack pl="10px" alignItems="flex-start">
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            : NFC Premium
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            {session && `:  ${session.user.email}`}
-                          </Text>
-                          <Text
-                            fontWeight="bold"
-                            textColor="green"
-                            fontSize={[".8rem", ".8rem", "1.1rem"]}
-                          >
-                            : Active
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            {`:  ${new Date(
-                              NFCdata.current_start * 1000
-                            ).toDateString()}`}
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            {`:  ${new Date(
-                              NFCdata.current_end * 1000
-                            ).toDateString()}`}
-                          </Text>
-                        </VStack>
-                      </HStack>
+                      Subscription
+                    </Text>
+                    <HStack>
+                      <VStack alignItems="flex-start">
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Plan
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Account email
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Current status
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Subscription Start
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Renewal Date
+                        </Text>
+                      </VStack>
+                      <VStack pl="10px" alignItems="flex-start">
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          : NFC Premium
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          {session && `:  ${session.user.email}`}
+                        </Text>
+                        <Text
+                          fontWeight="bold"
+                          textColor="green"
+                          fontSize={[".8rem", ".8rem", "1.1rem"]}
+                        >
+                          : Active
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          {`:  ${new Date(
+                            NFCdata.current_start * 1000
+                          ).toDateString()}`}
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          {`:  ${new Date(
+                            NFCdata.current_end * 1000
+                          ).toDateString()}`}
+                        </Text>
+                      </VStack>
+                    </HStack>
 
-                      <Flex
-                        w={["100%", "100%", "60%"]}
-                        justifyContent={
-                          NFCdata.cancelAtNextBillingNFC
-                            ? "flex-start"
-                            : "space-evenly"
-                        }
-                        // border="2px solid red"
-                        flexDirection={["column", "column", "row"]}
-                        // spacing="40px"
-                        mt="20px"
-                        // h="300px"
-                        mb={["10px", "10px", "30px"]}
-                        h={["150px", "150px", "40px"]}
+                    <Flex
+                      w={["100%", "100%", "60%"]}
+                      justifyContent={
+                        NFCdata.cancelAtNextBillingNFC
+                          ? "flex-start"
+                          : "space-evenly"
+                      }
+                      // border="2px solid red"
+                      flexDirection={["column", "column", "row"]}
+                      // spacing="40px"
+                      mt="20px"
+                      // h="300px"
+                      mb={["10px", "10px", "30px"]}
+                      h={["150px", "150px", "40px"]}
+                    >
+                      <Button
+                        isLoading={spinner}
+                        onClick={() => handleClickNFC(false)}
+                        _hover={{
+                          bg: "red",
+                        }}
+                        _active={{
+                          bg: "red",
+                        }}
+                        fontSize={[".8rem", ".8rem", "1.1rem"]}
+                        h="40px"
+                        bg="red.400"
                       >
+                        Cancel immediately
+                      </Button>
+                      {NFCdata.cancelAtNextBillingNFC ? null : (
                         <Button
                           isLoading={spinner}
-                          onClick={() => handleClickNFC(false)}
+                          onClick={() => handleClickNFC(true)}
                           _hover={{
                             bg: "red",
                           }}
@@ -987,331 +1020,314 @@ export default function Subscription() {
                           h="40px"
                           bg="red.400"
                         >
-                          Cancel immediately
+                          Cancel at renewal date
                         </Button>
-                        {NFCdata.cancelAtNextBillingNFC ? null : (
-                          <Button
-                            isLoading={spinner}
-                            onClick={() => handleClickNFC(true)}
-                            _hover={{
-                              bg: "red",
-                            }}
-                            _active={{
-                              bg: "red",
-                            }}
-                            fontSize={[".8rem", ".8rem", "1.1rem"]}
-                            h="40px"
-                            bg="red.400"
-                          >
-                            Cancel at renewal date
-                          </Button>
-                        )}
-                      </Flex>
-                      {NFCdata.cancelAtNextBillingNFC ? (
+                      )}
+                    </Flex>
+                    {NFCdata.cancelAtNextBillingNFC ? (
+                      <Text
+                        fontWeight="bold"
+                        textColor="red.300"
+                        fontSize="12px"
+                      >
+                        Subscription will be cancelled at the end of the current
+                        billing period
+                      </Text>
+                    ) : (
+                      ""
+                    )}
+                  </VStack>
+                </Box>
+              </VStack>
+            ) : statusNFC == "Created" ? (
+              <VStack
+                w={["100%", "95%", "95%"]}
+                mt="10px"
+                maxW={"1205px"}
+                spacing="15px"
+              >
+                <Center
+                  color={textColor}
+                  bg={bg}
+                  p="20px"
+                  role="group"
+                  h={["300px", "350px", "350px"]}
+                  borderRadius={"30px"}
+                  w={["95%%", "95%", "80%"]}
+                  boxShadow="8px 8px 35px 0px #0000001A"
+
+                  // bgColor={bg}
+                >
+                  <VStack>
+                    <Text
+                      fontWeight="extrabold"
+                      fontSize={["1.5rem", "1.5rem", "2rem"]}
+                    >
+                      No Subscription Found
+                    </Text>
+                    <Button onClick={() => Router.push("/pricing")}>
+                      Buy Now
+                    </Button>
+                    <Button onClick={() => Router.reload("/subscription")}>
+                      Reload
+                    </Button>
+                  </VStack>
+                </Center>
+              </VStack>
+            ) : statusNFC == "Cancelled" ? (
+              <VStack
+                w={["100%", "95%", "95%"]}
+                mt="10px"
+                maxW={"1205px"}
+                spacing="15px"
+              >
+                <Box
+                  bg={bg}
+                  color={textColor}
+                  role="group"
+                  borderRadius={"30px"}
+                  w={["95%%", "95%", "80%"]}
+                  boxShadow="8px 8px 35px 0px #0000001A"
+
+                  // bgColor={bg}
+                >
+                  <VStack
+                    as={Flex}
+                    justifyContent="space-evenly"
+                    h={["300px", "350px", "350px"]}
+                    p="20px"
+                    align="start"
+                    flexDirection="column"
+                  >
+                    <Text
+                      fontWeight="extrabold"
+                      fontSize={["1.5rem", "1.5rem", "2rem"]}
+                    >
+                      Subscription
+                    </Text>
+                    <HStack>
+                      <VStack alignItems="flex-start">
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Plan
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Account email
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Current status
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Subscription Start
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Ended At
+                        </Text>
+                      </VStack>
+                      <VStack pl="10px" alignItems="flex-start">
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          : NFC Premium
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          {session && `:  ${session.user.email}`}
+                        </Text>
                         <Text
                           fontWeight="bold"
-                          textColor="red.300"
-                          fontSize="12px"
+                          textColor="red"
+                          fontSize={[".8rem", ".8rem", "1.1rem"]}
                         >
-                          Subscription will be cancelled at the end of the
-                          current billing period
+                          : Cancelled
                         </Text>
-                      ) : (
-                        ""
-                      )}
-                    </VStack>
-                  </Box>
-                </VStack>
-              ) : status == "Created" ? (
-                <VStack
-                  w={["100%", "95%", "95%"]}
-                  mt="10px"
-                  maxW={"1205px"}
-                  spacing="15px"
-                >
-                  <Center
-                    color={textColor}
-                    bg={bg}
-                    p="20px"
-                    role="group"
-                    h={["300px", "350px", "350px"]}
-                    borderRadius={"30px"}
-                    w={["95%%", "95%", "80%"]}
-                    boxShadow="8px 8px 35px 0px #0000001A"
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          {`:  ${new Date(
+                            NFCdata.current_start * 1000
+                          ).toDateString()}`}
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          {`:  ${new Date(
+                            NFCdata.ended_at * 1000
+                          ).toDateString()}`}
+                        </Text>
+                      </VStack>
+                    </HStack>
 
-                    // bgColor={bg}
-                  >
-                    <VStack>
-                      <Text
-                        fontWeight="extrabold"
-                        fontSize={["1.5rem", "1.5rem", "2rem"]}
-                      >
-                        No Subscription Found
-                      </Text>
-                      <Button onClick={() => Router.push("/pricing")}>
-                        Buy Now
-                      </Button>
-                      <Button onClick={() => Router.reload("/subscription")}>
-                        Reload
-                      </Button>
-                    </VStack>
-                  </Center>
-                </VStack>
-              ) : status == "Cancelled" ? (
-                <VStack
-                  w={["100%", "95%", "95%"]}
-                  mt="10px"
-                  maxW={"1205px"}
-                  spacing="15px"
-                >
-                  <Box
-                    bg={bg}
-                    color={textColor}
-                    role="group"
-                    borderRadius={"30px"}
-                    w={["95%%", "95%", "80%"]}
-                    boxShadow="8px 8px 35px 0px #0000001A"
-
-                    // bgColor={bg}
-                  >
-                    <VStack
-                      as={Flex}
-                      justifyContent="space-evenly"
-                      h={["300px", "350px", "350px"]}
-                      p="20px"
-                      align="start"
-                      flexDirection="column"
+                    <HStack
+                      spacing="40px"
+                      mt="20px"
+                      mb={["10px", "10px", "30px"]}
+                      h={["20px", "20px", "40px"]}
                     >
-                      <Text
-                        fontWeight="extrabold"
-                        fontSize={["1.5rem", "1.5rem", "2rem"]}
-                      >
-                        Subscription
-                      </Text>
-                      <HStack>
-                        <VStack alignItems="flex-start">
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Plan
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Account email
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Current Status
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Subscription Start
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Ended At
-                          </Text>
-                        </VStack>
-                        <VStack pl="10px" alignItems="flex-start">
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            : NFC Premium
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            {session && `:  ${session.user.email}`}
-                          </Text>
-                          <Text
-                            fontWeight="bold"
-                            textColor="red"
-                            fontSize={[".8rem", ".8rem", "1.1rem"]}
-                          >
-                            : Cancelled
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            {`:  ${new Date(
-                              NFCdata.current_start * 1000
-                            ).toDateString()}`}
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            {`:  ${new Date(
-                              NFCdata.ended_at * 1000
-                            ).toDateString()}`}
-                          </Text>
-                        </VStack>
-                      </HStack>
+                      <Button onClick={() => Router.push("/pricing")}>
+                        Buy Now
+                      </Button>
+                    </HStack>
+                  </VStack>
+                </Box>
+              </VStack>
+            ) : statusNFC == "Expired" ? (
+              <VStack
+                w={["100%", "95%", "95%"]}
+                mt="10px"
+                maxW={"1205px"}
+                spacing="15px"
+              >
+                <Box
+                  bg={bg}
+                  color={textColor}
+                  role="group"
+                  borderRadius={"30px"}
+                  w={["95%%", "95%", "80%"]}
+                  boxShadow="8px 8px 35px 0px #0000001A"
 
-                      <HStack
-                        spacing="40px"
-                        mt="20px"
-                        mb={["10px", "10px", "30px"]}
-                        h={["20px", "20px", "40px"]}
-                      >
-                        <Button onClick={() => Router.push("/pricing")}>
-                          Buy Now
-                        </Button>
-                      </HStack>
-                    </VStack>
-                  </Box>
-                </VStack>
-              ) : status == "Expired" ? (
-                <VStack
-                  w={["100%", "95%", "95%"]}
-                  mt="10px"
-                  maxW={"1205px"}
-                  spacing="15px"
+                  // bgColor={bg}
                 >
-                  <Box
-                    bg={bg}
-                    color={textColor}
-                    role="group"
-                    borderRadius={"30px"}
-                    w={["95%%", "95%", "80%"]}
-                    boxShadow="8px 8px 35px 0px #0000001A"
-
-                    // bgColor={bg}
+                  <VStack
+                    as={Flex}
+                    justifyContent="space-evenly"
+                    h={["300px", "350px", "350px"]}
+                    p="20px"
+                    align="start"
+                    flexDirection="column"
                   >
-                    <VStack
-                      as={Flex}
-                      justifyContent="space-evenly"
-                      h={["300px", "350px", "350px"]}
-                      p="20px"
-                      align="start"
-                      flexDirection="column"
+                    <Text
+                      fontWeight="extrabold"
+                      fontSize={["1.5rem", "1.5rem", "2rem"]}
                     >
-                      <Text
-                        fontWeight="extrabold"
-                        fontSize={["1.5rem", "1.5rem", "2rem"]}
-                      >
-                        Subscription
-                      </Text>
-                      <HStack>
-                        <VStack alignItems="flex-start">
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Plan
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Account email
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Current Status
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Subscription Start
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            Ended At
-                          </Text>
-                        </VStack>
-                        <VStack pl="10px" alignItems="flex-start">
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            : NFC Premium
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            {`:  ${session && session.user.email}`}
-                          </Text>
-                          <Text
-                            fontWeight="bold"
-                            textColor="red"
-                            fontSize={[".8rem", ".8rem", "1.1rem"]}
-                          >
-                            : Expired
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            {`:  ${new Date(
-                              NFCdata.current_start * 1000
-                            ).toDateString()}`}
-                          </Text>
-                          <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
-                            {`:  ${new Date(
-                              NFCdata.ended_at * 1000
-                            ).toDateString()}`}
-                          </Text>
-                        </VStack>
-                      </HStack>
+                      Subscription
+                    </Text>
+                    <HStack>
+                      <VStack alignItems="flex-start">
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Plan
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Account email
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Current status
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Subscription Start
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          Ended At
+                        </Text>
+                      </VStack>
+                      <VStack pl="10px" alignItems="flex-start">
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          : NFC Premium
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          {`:  ${session && session.user.email}`}
+                        </Text>
+                        <Text
+                          fontWeight="bold"
+                          textColor="red"
+                          fontSize={[".8rem", ".8rem", "1.1rem"]}
+                        >
+                          : Expired
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          {`:  ${new Date(
+                            NFCdata.current_start * 1000
+                          ).toDateString()}`}
+                        </Text>
+                        <Text fontSize={[".8rem", ".8rem", "1.1rem"]}>
+                          {`:  ${new Date(
+                            NFCdata.ended_at * 1000
+                          ).toDateString()}`}
+                        </Text>
+                      </VStack>
+                    </HStack>
 
-                      <HStack
-                        spacing="40px"
-                        mt="20px"
-                        mb={["10px", "10px", "30px"]}
-                        h={["20px", "20px", "40px"]}
-                      >
-                        <Button onClick={() => Router.push("/pricing")}>
-                          Buy Now
-                        </Button>
-                      </HStack>
-                    </VStack>
-                  </Box>
-                </VStack>
-              ) : status == "No Subscription Found" ? (
-                <VStack
-                  w={["100%", "95%", "95%"]}
-                  mt="10px"
-                  maxW={"1205px"}
-                  spacing="15px"
-                >
-                  <Center
-                    color={textColor}
-                    bg={bg}
-                    p="20px"
-                    role="group"
-                    h={["300px", "350px", "350px"]}
-                    borderRadius={"30px"}
-                    w={["95%%", "95%", "80%"]}
-                    boxShadow="8px 8px 35px 0px #0000001A"
-
-                    // bgColor={bg}
-                  >
-                    <VStack>
-                      <Text
-                        fontWeight="extrabold"
-                        fontSize={["1.5rem", "1.5rem", "2rem"]}
-                      >
-                        No Subscription Found
-                      </Text>
+                    <HStack
+                      spacing="40px"
+                      mt="20px"
+                      mb={["10px", "10px", "30px"]}
+                      h={["20px", "20px", "40px"]}
+                    >
                       <Button onClick={() => Router.push("/pricing")}>
                         Buy Now
                       </Button>
-                    </VStack>
-                  </Center>
-                </VStack>
-              ) : status == "Something Went Wrong" ? (
-                "Something Went Wrong"
-              ) : status == "authenticated" ? (
-                <VStack
-                  w={["100%", "95%", "95%"]}
-                  mt="10px"
-                  maxW={"1205px"}
-                  spacing="15px"
-                >
-                  <Center
-                    color={textColor}
-                    bg={bg}
-                    p="20px"
-                    role="group"
-                    h={["300px", "350px", "350px"]}
-                    borderRadius={"30px"}
-                    w={["95%%", "95%", "80%"]}
-                    boxShadow="8px 8px 35px 0px #0000001A"
+                    </HStack>
+                  </VStack>
+                </Box>
+              </VStack>
+            ) : statusNFC == "No Subscription Found" ? (
+              <VStack
+                w={["100%", "95%", "95%"]}
+                mt="10px"
+                maxW={"1205px"}
+                spacing="15px"
+              >
+                <Center
+                  color={textColor}
+                  bg={bg}
+                  p="20px"
+                  role="group"
+                  h={["300px", "350px", "350px"]}
+                  borderRadius={"30px"}
+                  w={["95%%", "95%", "80%"]}
+                  boxShadow="8px 8px 35px 0px #0000001A"
 
-                    // bgColor={bg}
-                  >
-                    <VStack>
-                      <Text
-                        fontWeight="extrabold"
-                        fontSize={["1.5rem", "1.5rem", "2rem"]}
-                      >
-                        Loading Please Reload
-                      </Text>
-                      <Button onClick={() => Router.push("/pricing")}>
-                        Buy Now
-                      </Button>
-                      <Button onClick={() => Router.reload("/subscription")}>
-                        Reload
-                      </Button>
-                    </VStack>
-                  </Center>
-                </VStack>
-              ) : (
-                ""
-              )}
-            </Box>
+                  // bgColor={bg}
+                >
+                  <VStack>
+                    <Text
+                      fontWeight="extrabold"
+                      fontSize={["1.5rem", "1.5rem", "2rem"]}
+                    >
+                      No NFC Subscription Found
+                    </Text>
+                    {/* <Button onClick={() => Router.push("/pricing")}>
+                      Buy Now
+                    </Button> */}
+                  </VStack>
+                </Center>
+              </VStack>
+            ) : statusNFC == "Something Went Wrong" ? (
+              "Something Went Wrong"
+            ) : statusNFC == "authenticated" ? (
+              <VStack
+                w={["100%", "95%", "95%"]}
+                mt="10px"
+                maxW={"1205px"}
+                spacing="15px"
+              >
+                <Center
+                  color={textColor}
+                  bg={bg}
+                  p="20px"
+                  role="group"
+                  h={["300px", "350px", "350px"]}
+                  borderRadius={"30px"}
+                  w={["95%%", "95%", "80%"]}
+                  boxShadow="8px 8px 35px 0px #0000001A"
+
+                  // bgColor={bg}
+                >
+                  <VStack>
+                    <Text
+                      fontWeight="extrabold"
+                      fontSize={["1.5rem", "1.5rem", "2rem"]}
+                    >
+                      Loading Please Reload
+                    </Text>
+                    <Button onClick={() => Router.push("/pricing")}>
+                      Buy Now
+                    </Button>
+                    <Button onClick={() => Router.reload("/subscription")}>
+                      Reload
+                    </Button>
+                  </VStack>
+                </Center>
+              </VStack>
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}
-        </>
+        </Box>
       }
     </Box>
   );

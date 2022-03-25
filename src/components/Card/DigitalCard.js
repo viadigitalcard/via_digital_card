@@ -38,19 +38,20 @@ export const DigitalCard = ({ data }) => {
     data?.theme ? `${data.theme}.100` : "greenBrand.100"
   );
   const textColor = useColorModeValue("black", "white");
+  const textColor2 = useColorModeValue("white", "black");
   const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
   const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
   const dividerColor = useColorModeValue("#E7E7E7", "#353647");
   const bgDashIcons = useColorModeValue(
     data?.theme ? `${data?.theme}.100` : "greenBrand.100",
-    "black.200"
+    data?.theme ? `${data?.theme}.100` : "greenBrand.100"
   );
   const bgDash = useColorModeValue("white", "black.100");
   const borderColor = useColorModeValue("#E3E3E3", "#353647");
   const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
   const bgDashIconMobile = useColorModeValue(
     data?.theme ? `${data?.theme}.100` : "greenBrand.100",
-    "black.100"
+    data?.theme ? `${data?.theme}.100` : "greenBrand.100"
   );
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tabIndex, setTabIndex] = useState(0);
@@ -523,6 +524,7 @@ END:VCARD
                     </Text>
                     <Link href={`tel:${data?.pnumber}`}>
                       <Button
+                        // color={textColor2}
                         variant={data?.theme ? data.theme : "solid"}
                         fontWeight={400}
                         w="142px"
@@ -1076,6 +1078,7 @@ END:VCARD
 
                   <Link href={`tel:${data?.pnumber}`}>
                     <Button
+                      // color={textColor2}
                       variant={data?.theme ? data.theme : "solid"}
                       fontWeight={400}
                       w="100px"

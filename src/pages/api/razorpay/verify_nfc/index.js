@@ -29,6 +29,11 @@ export default async function handler(req, res) {
     if (hash == req.body.razorpay_signature) {
       await dbConnect();
       User.schema.add({
+        isNFC_Card_Selected: {
+          type: Object,
+          isSelected: { type: Boolean, default: false },
+          card_id: { type: String, default: null },
+        },
         NFC_paymentDetails: {
           type: Object,
           subscription_id: { type: String, required: true },
@@ -42,6 +47,10 @@ export default async function handler(req, res) {
       });
 
       const data = {
+        isNFC_Card_Selected: {
+          isSelected: false,
+          card_id: "",
+        },
         NFC_paymentDetails: {
           subscription_id: req.body.subscription_id,
           razorpay_payment_id: req.body.razorpay_payment_id,
