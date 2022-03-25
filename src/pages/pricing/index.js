@@ -18,7 +18,6 @@ import {
   MenuItem,
   Container,
   Spacer,
-  IconButton,
   Avatar,
   useColorMode,
 } from "@chakra-ui/react";
