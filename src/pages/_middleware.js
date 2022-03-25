@@ -54,7 +54,7 @@ export async function middleware(req) {
     });
     // You could also check for any property on the session object,
     // like role === "admin" or name === "John Doe", etc.
-    if (session) return NextResponse.redirect("/cards");
+    if (!session) return NextResponse.redirect("/auth/signin");
     // If user is authenticated, continue.
   }
   if (req.nextUrl.pathname === "/subscription") {
@@ -65,7 +65,7 @@ export async function middleware(req) {
     });
     // You could also check for any property on the session object,
     // like role === "admin" or name === "John Doe", etc.
-    if (session) return NextResponse.redirect("/cards");
+    if (!session) return NextResponse.redirect("/auth/signin");
     // If user is authenticated, continue.
   }
 }

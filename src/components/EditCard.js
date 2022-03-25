@@ -251,68 +251,6 @@ export default function Card({ inputData }) {
     }
   };
 
-  let validationShape;
-
-  if (profile === null) {
-    validationShape = {
-      normal: Yup.object().shape({
-        name: Yup.string().required("Required"),
-        email: Yup.string().email("Enter Valid Email").required("Required"),
-        username: Yup.string().required("Required"),
-        pnumber: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number")
-          .required("Required"),
-        snumber: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number"),
-        address: Yup.string().required("Required"),
-        designation: Yup.string(),
-        tagline: Yup.string(),
-        bio: Yup.string().required("Required"),
-        whatsapp: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number"),
-        website: Yup.string().url().label("Path"),
-        linkedin: Yup.string().url().label("Path"),
-        twitter: Yup.string().url().label("Path"),
-        instagram: Yup.string().url().label("Path"),
-        youtube: Yup.string().url().label("Path"),
-        facebook: Yup.string().url().label("Path"),
-        payment: Yup.string().url().label("Path"),
-      }),
-    };
-  } else {
-    validationShape = {
-      normal: Yup.object().shape({
-        profilePhoto: Yup.mixed()
-          .notRequired()
-          .test(
-            "profilePhoto",
-            "File size is too large, Must be less than 1MB",
-            (value) => value && value <= 1024 * 1024
-          )
-          .notRequired(),
-        name: Yup.string().required("Required"),
-        email: Yup.string().email("Enter Valid Email").required("Required"),
-        username: Yup.string().required("Required"),
-        address: Yup.string().required("Required"),
-        designation: Yup.string(),
-        tagline: Yup.string().required("Required"),
-        bio: Yup.string().required("Required"),
-        whatsapp: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number"),
-        website: Yup.string().url().label("Path"),
-        linkedin: Yup.string().url().label("Path"),
-        twitter: Yup.string().url().label("Path"),
-        instagram: Yup.string().url().label("Path"),
-        youtube: Yup.string().url().label("Path"),
-        facebook: Yup.string().url().label("Path"),
-        payment: Yup.string().url().label("Path"),
-      }),
-    };
-  }
   console.log(Color);
   return (
     <div>
@@ -340,8 +278,8 @@ export default function Card({ inputData }) {
                     .notRequired()
                     .test(
                       "document",
-                      `File size is too large, Must be less than 1MB`,
-                      (value) => value && value <= 1024 * 1024
+                      `File size is too large, Must be less than 20MB`,
+                      (value) => value && value <= 1024 * 20000
                     )
                     .notRequired()
                 : null,

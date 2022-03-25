@@ -20,7 +20,7 @@ export default async function getUser(req, res) {
     console.log("ressssss", response);
     if (response) {
       const data = JSON.parse(JSON.stringify(response));
-      let subId = data.paymentDetails.subscription_id;
+      let subId = data?.paymentDetails?.subscription_id;
 
       if (subId == null) {
         return res

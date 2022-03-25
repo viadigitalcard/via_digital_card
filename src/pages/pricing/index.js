@@ -50,22 +50,22 @@ const Payment = () => {
   const [NFC, setNFC] = useState("");
   console.log(Plan);
   const contentType = "application/json";
+
   useEffect(() => {
     async function fetchAPI() {
       setIsFetching(true);
       const res = await fetch("/api/auth/getnfc");
-
       const data = await res.json();
       console.log(data);
       if (res.status === 200) {
         Toast("Success", "You Allready have a NFC Subscription ", "success");
-        return Router.push("/subscription");
         setIsNFC(true);
-        console.log("Premium Yes");
+        console.log("NFC Yes");
+        return Router.push("/subscription");
       }
       if (res.status === 400) {
         setIsNFC(false);
-        console.log("Not Premium");
+        console.log("Not NFC");
       }
       if (res.status === 500) {
         setIsNFC(false);
@@ -73,6 +73,7 @@ const Payment = () => {
       }
     }
     fetchAPI().then(() => setIsFetching(false));
+
     async function fetchAPIPremimum() {
       setIsFetching(true);
       const res = await fetch("/api/auth/getpremiumuser");
@@ -84,9 +85,9 @@ const Payment = () => {
           "You Allready have a Premimum Subscription ",
           "success"
         );
-        Router.push("/subscription");
         setIsPremium(true);
         console.log("Premium Yes");
+        return Router.push("/subscription");
       }
       if (res.status === 400) {
         setIsPremium(false);
@@ -120,6 +121,7 @@ const Payment = () => {
       color: "black",
     }),
   };
+
   const select = useColorModeValue("custom-select-light", "custom-select");
   const options = [
     { value: "1m", label: "1 Month" },
@@ -149,6 +151,8 @@ const Payment = () => {
   };
 
   // const history = useRouter();
+
+  //premimum
   const paymentHandler = async (e) => {
     // if (Plan == "") {
     //   return Toast("Error", "Please select a plan", "error");
@@ -231,6 +235,8 @@ const Payment = () => {
       console.log(err);
     }
   };
+
+  //nfc
   const paymentHandlerNFC = async (e) => {
     // if (Plan == "") {
     //   return Toast("Error", "Please select a plan", "error");
