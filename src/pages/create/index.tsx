@@ -23,6 +23,7 @@ import {
   Icon,
   IconButton,
   Spacer,
+  useColorMode,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { InfoIcon } from "@chakra-ui/icons";
@@ -33,6 +34,7 @@ import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 import { Field, Form, Formik, FormikConfig, FormikValues } from "formik";
 import { useS3Upload } from "next-s3-upload";
 import Head from "next/head";
+import Select from "react-select";
 
 const steps = [
   {
@@ -48,6 +50,7 @@ const steps = [
 
 function Card() {
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
+  const [Color, setColor] = useState("");
   const [isPremium, setIsPremium] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [profile, setProfile] = useState(null);
@@ -60,11 +63,98 @@ function Card() {
   const toast = useToast();
   const router = useRouter();
 
+  const { colorMode, toggleColorMode } = useColorMode();
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor:
+        (state.isFocused && "#353647") ||
+        (state.isSelected && "transparent") ||
+        "transparent",
+    }),
+  };
+  const customStylesLight = {
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor:
+        (state.isFocused && "#F4FFE2") ||
+        (state.isSelected && "transparent") ||
+        "transparent",
+      color: "black",
+    }),
+  };
+  const select = useColorModeValue("custom-select-light", "custom-select");
+
+  const options = [
+    {
+      value: "red",
+      label: (
+        <>
+          <HStack>
+            <Box bg="#f73131" h="30px" borderRadius="10px" w="30px"></Box>
+            <Text>Red</Text>
+          </HStack>
+        </>
+      ),
+    },
+    {
+      value: "lightblue",
+      label: (
+        <>
+          <HStack>
+            <Box bg="#60d7f7 " h="30px" borderRadius="10px" w="30px"></Box>
+            <Text>Light Blue</Text>
+          </HStack>
+        </>
+      ),
+    },
+    {
+      value: "orange",
+      label: (
+        <>
+          <HStack>
+            <Box bg="#ff8533 " h="30px" borderRadius="10px" w="30px"></Box>
+            <Text>Orange</Text>
+          </HStack>
+        </>
+      ),
+    },
+    {
+      value: "purple",
+      label: (
+        <>
+          <HStack>
+            <Box bg="#d063ff" h="30px" borderRadius="10px" w="30px"></Box>
+            <Text>Purple</Text>
+          </HStack>
+        </>
+      ),
+    },
+    {
+      value: "",
+      label: (
+        <>
+          <HStack>
+            <Box
+              bg="greenBrand.100"
+              h="30px"
+              borderRadius="10px"
+              w="30px"
+            ></Box>
+            <Text>Default</Text>
+          </HStack>
+        </>
+      ),
+    },
+  ];
+
   useEffect(() => {
     setIsFetching(true);
     async function fetchAPI() {
-      const res = await fetch("api/auth/getuser");
+      const res = await fetch("/api/auth/getpremiumuser");
       console.log("res", res);
+      const data = await res.json();
+      console.log("data", data);
       if (res.status === 200) {
         setIsPremium(true);
         console.log("Premium Yes");
@@ -138,6 +228,7 @@ function Card() {
       },
       payment: values.payment || "",
       views: 0,
+      theme: Color,
     };
     console.log(data);
 
@@ -204,11 +295,13 @@ function Card() {
           .min(10, "Must be Valid Phone Number")
           .max(10, "Must be Valid Phone Number")
           .required("Required"),
-        snumber: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number"),
+        snumber: isPremium
+          ? string()
+              .min(10, "Must be Valid Phone Number")
+              .max(10, "Must be Valid Phone Number")
+          : null,
         address: string().required("Required"),
-        designation: string().required("Required"),
+        designation: string(),
         tagline: string(),
         bio: string().required("Required"),
         whatsapp: string()
@@ -224,21 +317,24 @@ function Card() {
           .test(
             "document",
             `File size is too large, Must be less than ${
-              !isPremium ? "20MB" : "1MB"
+              isPremium ? "20MB" : "1MB"
             }`,
 
-            (value) => value && value <= (!isPremium ? 1024 * 20000 : 1024)
+            (value) =>
+              value && value <= (isPremium ? 20 * 1024 * 1024 : 1024 * 1024)
           )
           .notRequired(),
         pnumber: string()
           .min(10, "Must be Valid Phone Number")
           .max(10, "Must be Valid Phone Number")
           .required("Required"),
-        snumber: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number"),
+        snumber: isPremium
+          ? string()
+              .min(10, "Must be Valid Phone Number")
+              .max(10, "Must be Valid Phone Number")
+          : null,
         address: string().required("Required"),
-        designation: string().required("Required"),
+        designation: string(),
         tagline: string(),
         bio: string().required("Required"),
         whatsapp: string()
@@ -320,7 +416,7 @@ function Card() {
                 <Skeleton height="20px" />
                 <Skeleton height="20px" />
               </Box>
-            ) : !isPremium ? (
+            ) : isPremium ? (
               <Box
                 as={Flex}
                 flexDirection="column"
@@ -596,7 +692,8 @@ function Card() {
                                   {...field}
                                 />
                                 <FileInput
-                                  accept="document/pdf"
+                                  type="file"
+                                  accept="application/pdf"
                                   onChange={(e) => {
                                     handleDocChange(e);
                                     form.setFieldValue("document", e.size);
@@ -848,6 +945,22 @@ function Card() {
                         label="More Info"
                       >
                         <VStack spacing="20px" px="10%" py="30px">
+                          <Select
+                            onChange={(e) => {
+                              setColor(e.value);
+                            }}
+                            styles={
+                              colorMode === "dark"
+                                ? customStyles
+                                : customStylesLight
+                            }
+                            options={options}
+                            isSearchable={false}
+                            hideSelectedOptions={false}
+                            placeholder={"Select A Theme"}
+                            className="react-select"
+                            classNamePrefix={select}
+                          />
                           <Field name="website">
                             {({ field, form }) => (
                               <FormControl
@@ -1098,14 +1211,12 @@ function Card() {
                         tagline: "",
                         bio: "",
                         whatsapp: "",
-                        // website: "",
-                        // instagram: "",
-                        // facebook: "",
-                        // linkedin: "",
-                        // youtube: "",
-                        // payment: "",
-
-                        // payment: "",
+                        website: "",
+                        instagram: "",
+                        facebook: "",
+                        linkedin: "",
+                        youtube: "",
+                        payment: "",
                       }}
                       onSubmit={handleSubmit}
                     >
@@ -1289,25 +1400,84 @@ function Card() {
                         </VStack>
                       </FormikStep>
                       <FormikStep
-                        validationSchema={object({
-                          pnumber: string()
-                            .min(10, "Must be Valid Phone Number")
-                            .max(10, "Must be Valid Phone Number")
-                            .required("Required"),
-                          snumber: string()
-                            .min(10, "Must be Valid Phone Number")
-                            .max(10, "Must be Valid Phone Number"),
-                          address: string().required("Required"),
-                          // designation: string().required("Required"),
-                          tagline: string(),
-                          bio: string().required("Required"),
-                          whatsapp: string()
-                            .min(10, "Must be Valid Phone Number")
-                            .max(10, "Must be Valid Phone Number"),
-                        })}
+                        validationSchema={validationDocShape.withdoc}
                         label={""}
                       >
                         <VStack px="10%" py="10%" spacing="25px">
+                          <Field name="document">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  (form.errors.document &&
+                                    form.touched.document) ||
+                                  errorMessage
+                                }
+                              >
+                                <Input
+                                  value={field.value}
+                                  display="none"
+                                  type="hidden"
+                                  {...field}
+                                />
+                                <FileInput
+                                  type="file"
+                                  accept="application/pdf"
+                                  onChange={(e) => {
+                                    handleDocChange(e);
+                                    form.setFieldValue("document", e.size);
+                                  }}
+                                />
+
+                                <Flex
+                                  zIndex="2"
+                                  borderRadius="10px"
+                                  border="1px solid #88E000"
+                                  // border="2px solid red"
+                                  pl="20px"
+                                  pr="20px"
+                                  h="60px"
+                                  as={Center}
+                                  // justifyContent="center"
+                                  // alignItems="center"
+                                >
+                                  <Text color="#96A2B3">
+                                    {document && document
+                                      ? document.name
+                                      : "Upload Brochure"}
+                                  </Text>
+                                  <Spacer />
+                                  {document && document ? (
+                                    <CloseButton
+                                      zIndex="10"
+                                      // as={Button}
+                                      onClick={() => {
+                                        setDocument(null);
+                                      }}
+                                      variant="ghost"
+                                      size="md"
+                                    />
+                                  ) : (
+                                    <Icon
+                                      onClick={openFileDialog}
+                                      zIndex="10"
+                                      color="#96A2B3"
+                                      // border="2px solid red"
+                                      as={BsUpload}
+                                      fontSize="30px"
+                                    />
+                                    // <BsUpload size="md" />
+                                  )}
+                                </Flex>
+                                <FormErrorMessage
+                                  // border="2px solid red"
+                                  fontSize={["10px", "sm", "sm"]}
+                                  ml={["10%", "0px", "20%"]}
+                                >
+                                  {form.errors.document || errorMessage}{" "}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                          </Field>
                           <Field name="pnumber">
                             {({ field, form }) => (
                               <FormControl
@@ -1344,6 +1514,7 @@ function Card() {
                                 }
                               >
                                 <Input
+                                  isDisabled={true}
                                   type="number"
                                   placeholder="Secondary Phone Number"
                                   marginTop={15}
@@ -1352,8 +1523,37 @@ function Card() {
                                   variant="outline"
                                   focusBorderColor="#88E000"
                                   color={textColor}
-                                  {...field}
                                 />
+                                <InfoIcon
+                                  color="red.200"
+                                  pos="absolute"
+                                  right="20px"
+                                  top="50%"
+                                  bottom="50%"
+                                />
+                                <Box
+                                  cursor="pointer"
+                                  as={Center}
+                                  bg="red.400"
+                                  // h="100%"
+                                  borderRadius="8px"
+                                  color={textColor}
+                                  textAlign="center"
+                                  // border="2px solid red"
+                                  right="50px"
+                                  top="45%"
+                                  bottom="55%"
+                                  pos="absolute"
+                                  // w="50%"
+                                  p="6px"
+                                  h="25px"
+                                  display="none"
+                                  _groupHover={{ display: "flex" }}
+                                >
+                                  <Text onClick={() => Router.push("/pricing")}>
+                                    Only for Premium User
+                                  </Text>
+                                </Box>
                                 <FormErrorMessage>
                                   {form.errors.snumber || errorMessage}{" "}
                                 </FormErrorMessage>
@@ -1390,9 +1590,14 @@ function Card() {
                           </Field>
                           <Field name="designation">
                             {({ field, form }) => (
-                              <FormControl>
+                              <FormControl
+                                isInvalid={
+                                  (form.errors.designation &&
+                                    form.touched.designation) ||
+                                  errorMessage
+                                }
+                              >
                                 <Input
-                                  isDisabled={true}
                                   placeholder="Designation"
                                   marginTop={15}
                                   size="lg"
@@ -1402,36 +1607,9 @@ function Card() {
                                   color={textColor}
                                   {...field}
                                 />
-                                <InfoIcon
-                                  color="red.200"
-                                  pos="absolute"
-                                  right="20px"
-                                  top="50%"
-                                  bottom="50%"
-                                />
-                                <Box
-                                  cursor="pointer"
-                                  as={Center}
-                                  bg="red.400"
-                                  // h="100%"
-                                  borderRadius="8px"
-                                  color={textColor}
-                                  textAlign="center"
-                                  // border="2px solid red"
-                                  right="50px"
-                                  top="45%"
-                                  bottom="55%"
-                                  pos="absolute"
-                                  // w="50%"
-                                  p="6px"
-                                  h="25px"
-                                  display="none"
-                                  _groupHover={{ display: "flex" }}
-                                >
-                                  <Text onClick={() => Router.push("/pricing")}>
-                                    Only for Premium User
-                                  </Text>
-                                </Box>
+                                <FormErrorMessage>
+                                  {form.errors.designation || errorMessage}{" "}
+                                </FormErrorMessage>
                               </FormControl>
                             )}
                           </Field>

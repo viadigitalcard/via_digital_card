@@ -6,7 +6,7 @@ const instance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY,
   key_secret: process.env.RAZORPAY_SECRET,
 });
-
+import User from "../../../models/User";
 export default function handler(req, res) {
   try {
     // const { price } = req.params;
@@ -27,6 +27,7 @@ export default function handler(req, res) {
           message: "Something Went Wrong",
         });
       }
+
       return res.status(200).json(order);
     });
   } catch (err) {

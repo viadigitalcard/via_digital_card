@@ -24,6 +24,9 @@ export default async function handler(req, res) {
       const data = JSON.parse(JSON.stringify(user));
       console.log(data);
       let subId = data.paymentDetails?.subscription_id;
+      let cancelAtNextBilling = data.cancelAtNextBilling;
+      console.log("Cancel at billing ", cancelAtNextBilling);
+
       if (subId == null) {
         res.status(402).json({});
         return;
@@ -38,7 +41,11 @@ export default async function handler(req, res) {
           }
           if (order) {
             console.log(order);
-            return res.status(200).json(order);
+            const data = {
+              ...order,
+              cancelAtNextBilling,
+            };
+            return res.status(200).json(data);
           }
         });
       } else {

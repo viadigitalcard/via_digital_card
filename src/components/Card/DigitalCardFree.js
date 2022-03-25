@@ -31,28 +31,20 @@ import NextLink from "next/link";
 import { RWebShare } from "react-web-share";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
-export const DigitalCard = ({ data }) => {
+export const DigitalCardFree = ({ data }) => {
   const bgColor = useColorModeValue("white", "black.200");
-  const bgViews = useColorModeValue(
-    data?.theme ? `${data.theme}.100` : "greenBrand.100",
-    data?.theme ? `${data.theme}.100` : "greenBrand.100"
-  );
+  const bgViews = useColorModeValue("greenBrand.100", "black.100");
   const textColor = useColorModeValue("black", "white");
   const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
   const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
   const dividerColor = useColorModeValue("#E7E7E7", "#353647");
-  const bgDashIcons = useColorModeValue(
-    data?.theme ? `${data?.theme}.100` : "greenBrand.100",
-    "black.200"
-  );
+  const bgDashIcons = useColorModeValue("greenBrand.100", "black.200");
   const bgDash = useColorModeValue("white", "black.100");
   const borderColor = useColorModeValue("#E3E3E3", "#353647");
   const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
-  const bgDashIconMobile = useColorModeValue(
-    data?.theme ? `${data?.theme}.100` : "greenBrand.100",
-    "black.100"
-  );
+  const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [socialData, setSocialData] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
   const router = useRouter();
   let url = router.asPath;
@@ -73,7 +65,6 @@ FN:${data.name}
 TITLE:${data.name}
 EMAIL;type=Email;type=pref:${data.email} 
 TEL;type=MAIN:${data?.pnumber}
-TEL;type=CELL;type=VOICE;type=pref:${data?.snumber}
 ADR;type=WORK;type=pref:;;;${data.address};;;
 END:VCARD
 `,
@@ -113,7 +104,6 @@ END:VCARD
       return true;
     }
   }
-
   let check = checkEmpty();
 
   return (
@@ -125,31 +115,12 @@ END:VCARD
       minH={"100vh"}
     >
       <Box
-        display={["block", "block", "block"]}
+        display={["block", "block", "none"]}
         position="fixed"
         bottom="2rem"
         right="1rem"
         zIndex={5}
-      >
-        <RWebShare
-          data={{
-            text: "Via Digital Card",
-            url: process.env.NEXTAUTH_URL + url,
-            title: data.designation,
-          }}
-          onClick={() => console.log("shared successfully!")}
-        >
-          <Button
-            variant={data?.theme ? data.theme : "solid"}
-            boxSize={"50px"}
-            borderRadius="full"
-            as={Center}
-            fontSize={"1.7rem"}
-          >
-            <AiOutlineShareAlt />
-          </Button>
-        </RWebShare>
-      </Box>
+      ></Box>
       <DarkModeSwitch />
       <Tabs
         display={{ base: "none", "2sm": "block" }}
@@ -339,14 +310,6 @@ END:VCARD
                 <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
                   {" Let's Connect"}
                 </Text>
-
-                {check ? (
-                  ""
-                ) : (
-                  <Box h="100px" w="300px" as={Center}>
-                    No Soical Links Available
-                  </Box>
-                )}
                 <Box
                   mt="15px"
                   ml="-22px"
@@ -354,6 +317,13 @@ END:VCARD
                   flexWrap="wrap"
                   fontSize={"1.125rem"}
                 >
+                  {check ? (
+                    ""
+                  ) : (
+                    <Box h="100px" w="300px" as={Center}>
+                      No Soical Links Available
+                    </Box>
+                  )}
                   {data?.socialLinks.whatsapp != "" ? (
                     <Flex alignItems={"center"} m="22px">
                       <Center
@@ -398,7 +368,6 @@ END:VCARD
                   ) : (
                     ""
                   )}
-
                   {data.socialLinks.instagram != "" ? (
                     <Flex alignItems={"center"} m="22px">
                       <Center
@@ -469,13 +438,7 @@ END:VCARD
                   ) : (
                     " "
                   )}
-                  <Button
-                    variant={data?.theme ? data.theme : "solid"}
-                    w="173px"
-                    h="62px"
-                    m="22px"
-                    onClick={onOpen}
-                  >
+                  <Button w="173px" h="62px" m="22px" onClick={onOpen}>
                     Send Message
                   </Button>
                   <SendMessage isOpen={isOpen} onClose={onClose} />
@@ -516,18 +479,9 @@ END:VCARD
                     <Box fontSize={"1.7rem"}>
                       <FiPhone />
                     </Box>
-                    <Text ml="27px">
-                      {data?.pnumber}{" "}
-                      {data?.snumber != "" ? `| ${data.snumber}` : ""}
-                      {/* data?.snumber} */}
-                    </Text>
+                    <Text ml="27px">{data?.pnumber}</Text>
                     <Link href={`tel:${data?.pnumber}`}>
-                      <Button
-                        variant={data?.theme ? data.theme : "solid"}
-                        fontWeight={400}
-                        w="142px"
-                        ml="75px"
-                      >
+                      <Button fontWeight={400} w="142px" ml="75px">
                         Call Now
                       </Button>
                     </Link>
@@ -592,10 +546,10 @@ END:VCARD
                 onClick={handleSave}
                 // onClick={handleSave}
               >
-                <Button
-                  as={Center}
-                  variant={data?.theme ? data.theme : "solid"}
+                <Center
+                  as={Button}
                   boxSize={"87px"}
+                  bgColor={bgDashIcons}
                   borderRadius={"17px"}
                   mr="22px"
                 >
@@ -605,7 +559,7 @@ END:VCARD
                       alt=""
                     />
                   </Center>
-                </Button>
+                </Center>
                 <Text fontSize={"1.125rem"} color={textColor}>
                   Save Contact
                 </Text>
@@ -758,14 +712,12 @@ END:VCARD
             // justifyContent={"space-between"}
           >
             <VStack spacing={"10px"}>
-              <Button
+              <Center
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
-                // bgColor={bgDashIconMobile}
+                bgColor={bgDashIconMobile}
                 onClick={handleSave}
-                as={Center}
-                // variant="solid"
-                variant={data.theme && data?.theme ? data.theme : "solid"}
+                as={Button}
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
@@ -773,7 +725,7 @@ END:VCARD
                     alt=""
                   />
                 </Box>
-              </Button>
+              </Center>
               <Text
                 color={"#ABABAB"}
                 fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
@@ -903,7 +855,7 @@ END:VCARD
               {check ? (
                 ""
               ) : (
-                <Box h="100px" w="300px" as={Center}>
+                <Box h="100px" w="100%" as={Center}>
                   No Soical Links Available
                 </Box>
               )}
@@ -1070,16 +1022,11 @@ END:VCARD
                     </Box>
                     <Box ml="27px">
                       <Text>{data?.pnumber}</Text>
-                      <Text>{data?.snumber}</Text>
                     </Box>
                   </Flex>
 
                   <Link href={`tel:${data?.pnumber}`}>
-                    <Button
-                      variant={data?.theme ? data.theme : "solid"}
-                      fontWeight={400}
-                      w="100px"
-                    >
+                    <Button fontWeight={400} w="100px">
                       Call Now
                     </Button>
                   </Link>

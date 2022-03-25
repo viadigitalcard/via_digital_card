@@ -55,6 +55,9 @@ const CardSchema = new mongoose.Schema({
   views: {
     type: Number,
   },
+  theme: {
+    type: String,
+  },
 });
 
 export default mongoose.models.Card ||

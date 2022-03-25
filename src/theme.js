@@ -26,6 +26,18 @@ const theme = extendTheme({
     body: "Open Sans",
   },
   colors: {
+    orange: {
+      100: "#ff8533",
+    },
+    red: {
+      100: "#f73131",
+    },
+    lightblue: {
+      100: "#60d7f7",
+    },
+    purple: {
+      100: "#d063ff",
+    },
     brand: {
       500: "#7ECE05",
     },
@@ -58,6 +70,42 @@ const theme = extendTheme({
   components: {
     Button: {
       variants: {
+        red: {
+          bg: "#f73131",
+          _hover: {
+            bg: "#f73131",
+          },
+          _active: {
+            bg: "#eb1515",
+          },
+        },
+        lightblue: {
+          bg: "#60d7f7",
+          _hover: {
+            bg: "#60d7f7 ",
+          },
+          _active: {
+            bg: "60d7f7 ",
+          },
+        },
+        orange: {
+          bg: "#ff8533",
+          _hover: {
+            bg: "#ff8533",
+          },
+          _active: {
+            bg: "#ff8533",
+          },
+        },
+        purple: {
+          bg: "#d063ff",
+          _hover: {
+            bg: "#d063ff",
+          },
+          _active: {
+            bg: "#d063ff",
+          },
+        },
         solid: (props) => ({
           bg: "linear-gradient(97.21deg, #88E000 29.8%, #77C208 69.57%)",
           color: "white",
@@ -86,16 +134,6 @@ const theme = extendTheme({
         },
       },
     },
-    // FormLabel: {
-    //   solid: (props) => ({
-    //     color: props.colorMode === "dark" ? "red.300" : "red.500",
-    //   }),
-    //   variants: {},
-    // },
-    // Image: {
-    //   width: "100%",
-    //   height: "100%",
-    // },
     Steps,
   },
   breakpoints,

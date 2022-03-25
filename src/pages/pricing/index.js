@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import {
   Box,
@@ -33,8 +33,76 @@ import { useRouter } from "next/router";
 
 const Payment = () => {
   const router = useRouter();
+  const toast = useToast();
+  function Toast(title, message, status) {
+    return toast({
+      title: title || "",
+      description: message,
+      status: status,
+      position: "top",
+      duration: 2000,
+      // isClosable: true,
+    });
+  }
+
+  const [isPremium, setIsPremium] = useState(false);
+
+  const [isNFC, setIsNFC] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const [Plan, setPlan] = useState("");
+  const [NFC, setNFC] = useState("");
   console.log(Plan);
+  const contentType = "application/json";
+  useEffect(() => {
+    async function fetchAPI() {
+      setIsFetching(true);
+      const res = await fetch("/api/auth/getnfc");
+
+      const data = await res.json();
+      console.log(data);
+      if (res.status === 200) {
+        Toast("Success", "You Allready have a NFC Subscription ", "success");
+        return Router.push("/subscription");
+        setIsNFC(true);
+        console.log("Premium Yes");
+      }
+      if (res.status === 400) {
+        setIsNFC(false);
+        console.log("Not Premium");
+      }
+      if (res.status === 500) {
+        setIsNFC(false);
+        console.log("Error");
+      }
+    }
+    fetchAPI().then(() => setIsFetching(false));
+    async function fetchAPIPremimum() {
+      setIsFetching(true);
+      const res = await fetch("/api/auth/getpremiumuser");
+      const data = await res.json();
+      console.log(data);
+      if (res.status === 200) {
+        Toast(
+          "Success",
+          "You Allready have a Premimum Subscription ",
+          "success"
+        );
+        Router.push("/subscription");
+        setIsPremium(true);
+        console.log("Premium Yes");
+      }
+      if (res.status === 400) {
+        setIsPremium(false);
+        console.log("Not Premium");
+      }
+      if (res.status === 500) {
+        setIsPremium(false);
+        console.log("Error");
+      }
+    }
+    fetchAPIPremimum().then(() => setIsFetching(false));
+  }, []);
+
   const { colorMode, toggleColorMode } = useColorMode();
   const customStyles = {
     option: (provided, state) => ({
@@ -63,22 +131,13 @@ const Payment = () => {
     { value: "1y", label: "1 Year" },
   ];
   const { data: session } = useSession();
-  const toast = useToast();
-  function Toast(title, message, status) {
-    return toast({
-      title: title || "",
-      description: message,
-      status: status,
-      position: "top",
-      duration: 2000,
-      // isClosable: true,
-    });
-  }
+
   const logo = useColorModeValue(
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
   );
   const [Loading, setLoading] = useState(false);
+  const [LoadingNFC, setLoadingNFC] = useState(false);
   const textColor = useColorModeValue("black", "white");
   const bg = useColorModeValue("white", "black.100");
   const textColor1 = useColorModeValue("#7C7C7C", "#C8C8C8");
@@ -92,23 +151,23 @@ const Payment = () => {
     "1y": "plan_JA8WiOJbrw4r1i",
   };
 
-  console.log(planId[Plan]);
-
   // const history = useRouter();
   const paymentHandler = async (e) => {
-    if (Plan == "") {
-      return Toast("Error", "Please select a plan", "error");
-    }
+    // if (Plan == "") {
+    //   return Toast("Error", "Please select a plan", "error");
+    // }
 
     setLoading(true);
     e.preventDefault();
+    console.log(NFC);
     try {
       const response = await fetch("/api/razorpay", {
-        // method: "POST",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        // body: JSON.stringify(Plan && planId[Plan]),
+        body: JSON.stringify(Plan && planId[Plan]),
+        // body: JSON.stringify(NFC),
       });
       const data = await response.json();
       if (response.status === 200) {
@@ -165,9 +224,6 @@ const Payment = () => {
             setLoading(false);
           }
         },
-        theme: {
-          color: "#528FF0",
-        },
       };
       setLoading(false);
 
@@ -175,6 +231,88 @@ const Payment = () => {
       rzp1.open();
     } catch (err) {
       setLoading(false);
+      console.log(err);
+    }
+  };
+  const paymentHandlerNFC = async (e) => {
+    // if (Plan == "") {
+    //   return Toast("Error", "Please select a plan", "error");
+    // }
+
+    setLoadingNFC(true);
+    e.preventDefault();
+    console.log(NFC);
+    try {
+      const response = await fetch("/api/razorpay/NFC", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(Plan && planId[Plan]),
+        body: JSON.stringify("plan_JAtBAxzaltOUtD"),
+      });
+      const data = await response.json();
+      if (response.status === 200) {
+        Toast("Payment", "Payment has initialized", "success");
+      }
+      if (response.status === 400) {
+        return Toast("Payment", "Payment has failed", "error");
+      }
+      if (response.status === 500) {
+        return Toast("Payment", "Payment has failed", "error");
+      }
+
+      console.log("sub object", data);
+
+      const options = {
+        key: process.env.RAZORPAY_KEY,
+        subscription_id: data.id,
+        name: "Premium Plan",
+        description: "Test Payment",
+
+        handler: async (response) => {
+          try {
+            const temp = {
+              subscription_id: data.id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              createdAt: Date.now(),
+            };
+
+            const res = await fetch("/api/razorpay/verify_nfc", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(temp),
+            });
+            const data1 = await res.json();
+            if (res.status === 200) {
+              setLoadingNFC(false);
+              Toast("Success", "Payment Successful", "success");
+              return Router.replace("/subscription");
+            }
+            if (res.status === 400) {
+              setLoadingNFC(false);
+              return Toast("Error", "Payment Failed", "error");
+            }
+            if (res.status === 500) {
+              setLoadingNFC(false);
+              return Toast("Error", "Payment Failed", "error");
+            }
+            setLoadingNFC(false);
+          } catch (err) {
+            console.log("err", err);
+            setLoadingNFC(false);
+          }
+        },
+      };
+      setLoadingNFC(false);
+
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (err) {
+      setLoadingNFC(false);
       console.log(err);
     }
   };
@@ -191,32 +329,6 @@ const Payment = () => {
           // p={{ base: "50px 0px", sm: "100px 0px", lg: "150px 0px" }}
           color={textColor}
         >
-          {/* <Box
-            pos="absolute"
-            boxSize={{ base: "36px", sm: "auto" }}
-            left={"5%"}
-            top={{ base: "5%", sm: "20%" }}
-          >
-            <Image
-              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033631/digital%20card/landing-page/doodle-two_sfme7d.png"
-              alt="candy"
-              className="react-floater-animated"
-            />
-          </Box>
-
-          <Box
-            pos="absolute"
-            boxSize={{ base: "36px", sm: "auto" }}
-            top="20%"
-            right="15%"
-          >
-            <Image
-              src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646033627/digital%20card/landing-page/doodle-one_zanfpm.png"
-              alt="ribbon"
-              className="react-floater-animated"
-            />
-          </Box> */}
-
           <Box
             zIndex={2}
             w="100%"
@@ -497,6 +609,7 @@ const Payment = () => {
                   >
                     <Select
                       onChange={(e) => {
+                        setNFC("");
                         setPlan(e.value);
                       }}
                       styles={
@@ -612,9 +725,11 @@ const Payment = () => {
                     </Text>
                     <Button
                       w="183px"
+                      isLoading={LoadingNFC}
                       h="60px"
                       fontWeight={"600"}
                       fontSize="1.125rem"
+                      onClick={paymentHandlerNFC}
                     >
                       Buy Now
                     </Button>

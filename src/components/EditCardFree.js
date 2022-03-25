@@ -19,13 +19,11 @@ import {
   Spacer,
   Icon,
   Text,
-  useColorMode,
-  HStack,
 } from "@chakra-ui/react";
 import { mixed, number, object, string } from "yup";
 import { BsUpload } from "react-icons/bs";
 import { useS3Upload } from "next-s3-upload";
-import Select from "react-select";
+import { InfoIcon } from "@chakra-ui/icons";
 
 export default function Card({ inputData }) {
   const toast = useToast();
@@ -48,12 +46,13 @@ export default function Card({ inputData }) {
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
   let { FileInput: FileInputBrochure, openFileDialog: openFileDialogBrochure } =
     useS3Upload();
+
   const [value, setValue] = useState("");
 
   const [profile, setProfile] = useState(null);
   const [document, setDocument] = useState(null);
   const [docvalue, setDocValue] = useState("");
-  const [Color, setColor] = useState("");
+
   const [Loading, setLoading] = useState(false);
   const textColor = useColorModeValue("gray.800", "white");
   const [errorMessage, seterrorMessage] = useState("");
@@ -78,94 +77,7 @@ export default function Card({ inputData }) {
     youtube: inputData.socialLinks.youtube,
     facebook: inputData.socialLinks.facebook,
     payment: inputData.payment,
-    theme: inputData.theme,
   });
-
-  const { colorMode, toggleColorMode } = useColorMode();
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor:
-        (state.isFocused && "#353647") ||
-        (state.isSelected && "transparent") ||
-        "transparent",
-    }),
-  };
-  const customStylesLight = {
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor:
-        (state.isFocused && "#F4FFE2") ||
-        (state.isSelected && "transparent") ||
-        "transparent",
-      color: "black",
-    }),
-  };
-  const select = useColorModeValue("custom-select-light", "custom-select");
-
-  const options = [
-    {
-      value: "red",
-      label: (
-        <>
-          <HStack textColor={textColor}>
-            <Box bg="#f73131" h="30px" borderRadius="10px" w="30px"></Box>
-            <Text>Red</Text>
-          </HStack>
-        </>
-      ),
-    },
-    {
-      value: "lightblue",
-      label: (
-        <>
-          <HStack textColor={textColor}>
-            <Box bg="#60d7f7 " h="30px" borderRadius="10px" w="30px"></Box>
-            <Text>Light Blue</Text>
-          </HStack>
-        </>
-      ),
-    },
-    {
-      value: "orange",
-      label: (
-        <>
-          <HStack textColor={textColor}>
-            <Box bg="#ff8533 " h="30px" borderRadius="10px" w="30px"></Box>
-            <Text>Orange</Text>
-          </HStack>
-        </>
-      ),
-    },
-    {
-      value: "purple",
-      label: (
-        <>
-          <HStack textColor={textColor}>
-            <Box bg="#d063ff" h="30px" borderRadius="10px" w="30px"></Box>
-            <Text>Purple</Text>
-          </HStack>
-        </>
-      ),
-    },
-    {
-      value: "",
-      label: (
-        <>
-          <HStack textColor={textColor}>
-            <Box
-              bg="greenBrand.100"
-              h="30px"
-              borderRadius="10px"
-              w="30px"
-            ></Box>
-            <Text>Default</Text>
-          </HStack>
-        </>
-      ),
-    },
-  ];
-
   function handleChangePhoto(e) {
     setProfile(e);
     setValue(e.size);
@@ -188,6 +100,7 @@ export default function Card({ inputData }) {
   //handle submit
   const handleSubmit = async () => {
     setLoading(true);
+
     let photoUrl = "";
     if (profile) {
       let { url } = await uploadToS3(profile);
@@ -196,14 +109,16 @@ export default function Card({ inputData }) {
     if (photoUrl === "") {
       photoUrl = data.profilePhoto;
     }
+
     let docUrl = "";
     if (document) {
-      let { url } = await uploadToS3(document);
-      docUrl = url;
+      let { url: docurl } = await uploadToS3(document);
+      docUrl = docurl;
     }
     if (docUrl === "") {
       docUrl = data.brochure;
     }
+
     console.log(photoUrl);
 
     const values = {
@@ -230,9 +145,7 @@ export default function Card({ inputData }) {
         youtube: data.youtube || "",
       },
       payment: data.payment || "",
-      theme: Color != "" ? Color : Color == "" ? "" : data.theme,
     };
-    console.log("datttaaa", values);
 
     const response = await fetch("/api/cards", {
       method: "PUT",
@@ -251,67 +164,6 @@ export default function Card({ inputData }) {
     }
   };
 
-  let validationShape;
-
-  if (profile === null) {
-    validationShape = {
-      normal: Yup.object().shape({
-        name: Yup.string().required("Required"),
-        email: Yup.string().email("Enter Valid Email").required("Required"),
-        username: Yup.string().required("Required"),
-        pnumber: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number")
-          .required("Required"),
-        snumber: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number"),
-        address: Yup.string().required("Required"),
-        designation: Yup.string(),
-        tagline: Yup.string(),
-        bio: Yup.string().required("Required"),
-        whatsapp: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number"),
-          website: Yup.string().url().label('Example: https://www.john.com/ Path'),
-          linkedin: Yup.string().url().label('Example: https://www.linkedin.com/ Path'),
-          instagram: Yup.string().url().label('Example: https://www.instagram.com/ Path'),
-          youtube: Yup.string().url().label('Example: https://www.youtube.com/ Path'),
-          facebook: Yup.string().url().label('Example: https://www.facebook.com/ Path'),
-          payment: Yup.string().url().label('Example: https://www.instagram.com/ Path'),
-      }),
-    };
-  } else {
-    validationShape = {
-      normal: Yup.object().shape({
-        profilePhoto: Yup.mixed()
-          .notRequired()
-          .test(
-            "profilePhoto",
-            "File size is too large, Must be less than 1MB",
-            (value) => value && value <= 1024 * 1024
-          )
-          .notRequired(),
-        name: Yup.string().required("Required"),
-        email: Yup.string().email("Enter Valid Email").required("Required"),
-        username: Yup.string().required("Required"),
-        address: Yup.string().required("Required"),
-        designation: Yup.string(),
-        tagline: Yup.string().required("Required"),
-        bio: Yup.string().required("Required"),
-        whatsapp: string()
-          .min(10, "Must be Valid Phone Number")
-          .max(10, "Must be Valid Phone Number"),
-          website: Yup.string().url().label('Example: https://www.johndoe.com/ Path'),
-          linkedin: Yup.string().url().label('Example: https://www.linkedin.com/ Path'),
-          instagram: Yup.string().url().label('Example: https://www.instagram.com/ Path'),
-          youtube: Yup.string().url().label('Example: https://www.youtube.com/ Path'),
-          facebook: Yup.string().url().label('Example: https://www.facebook.com/ Path'),
-          payment: Yup.string().url().label('Example: https://www.instagram.com/ Path'),
-      }),
-    };
-  }
-  console.log(Color);
   return (
     <div>
       <Box w="full">
@@ -331,7 +183,6 @@ export default function Card({ inputData }) {
             name: Yup.string().required("Required"),
             email: Yup.string().email("Enter Valid Email").required("Required"),
             username: Yup.string().required("Required"),
-            address: Yup.string().required("Required"),
             document:
               document != null
                 ? Yup.mixed()
@@ -347,21 +198,18 @@ export default function Card({ inputData }) {
               .min(10, "Must be Valid Phone Number")
               .max(10, "Must be Valid Phone Number")
               .required("Required"),
-            snumber: string()
-              .min(10, "Must be Valid Phone Number")
-              .max(10, "Must be Valid Phone Number"),
+
+            address: string().required("Required"),
             designation: Yup.string(),
-            tagline: Yup.string(),
-            bio: Yup.string().required("Required"),
+            tagline: string(),
+            bio: string().required("Required"),
             whatsapp: string()
               .min(10, "Must be Valid Phone Number")
               .max(10, "Must be Valid Phone Number"),
-
             website: Yup.string().url().label("Path"),
             linkedin: Yup.string().url().label("Path"),
             twitter: Yup.string().url().label("Path"),
             instagram: Yup.string().url().label("Path"),
-            youtube: Yup.string().url().label("Path"),
             facebook: Yup.string().url().label("Path"),
             payment: Yup.string().url().label("Path"),
           })}
@@ -369,11 +217,9 @@ export default function Card({ inputData }) {
             name: inputData.name,
             email: inputData.email,
             username: inputData.username,
-            document: inputData.document,
             pnumber: inputData.pnumber,
-            snumber: inputData.snumber,
-            address: inputData.address,
             designation: inputData.designation,
+            address: inputData.address,
             tagline: inputData.tagline,
             bio: inputData.bio,
             website: inputData.website,
@@ -381,7 +227,6 @@ export default function Card({ inputData }) {
             twitter: inputData.socialLinks.twitter,
             linkedin: inputData.socialLinks.linkedin,
             instagram: inputData.socialLinks.instagram,
-            youtube: inputData.socialLinks.youtube,
             facebook: inputData.socialLinks.facebook,
             payment: inputData.payment,
           }}
@@ -670,7 +515,57 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
-              <Field name="snumber">
+              <Field>
+                {({ field, form }) => (
+                  <FormControl>
+                    <FormLabel color={textColor} htmlFor="number" mt="20px">
+                      Secondary Phone Number:
+                    </FormLabel>
+                    <Input
+                      isDisabled={true}
+                      type="number"
+                      placeholder="Secondary Phone Number"
+                      marginTop={15}
+                      size="lg"
+                      h="60px"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                    />
+                    <InfoIcon
+                      color="red.200"
+                      pos="absolute"
+                      right="20px"
+                      top="50%"
+                      bottom="50%"
+                    />
+                    <Box
+                      cursor="pointer"
+                      as={Center}
+                      bg="red.400"
+                      // h="100%"
+                      borderRadius="8px"
+                      color={textColor}
+                      textAlign="center"
+                      // border="2px solid red"
+                      right="50px"
+                      top="45%"
+                      bottom="55%"
+                      pos="absolute"
+                      // w="50%"
+                      p="6px"
+                      h="25px"
+                      display="none"
+                      _groupHover={{ display: "flex" }}
+                    >
+                      <Text onClick={() => Router.push("/pricing")}>
+                        Only for Premium User
+                      </Text>
+                    </Box>
+                  </FormControl>
+                )}
+              </Field>
+              {/* <Field name="snumber">
                 {({ field, form }) => (
                   <FormControl
                     onChange={(e) => handleChange(e)}
@@ -698,7 +593,7 @@ export default function Card({ inputData }) {
                     </FormErrorMessage>
                   </FormControl>
                 )}
-              </Field>
+              </Field> */}
               <Field name="address">
                 {({ field, form }) => (
                   <FormControl
@@ -728,6 +623,60 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
+              {/* <Field>
+                {({ field, form }) => (
+                  <FormControl>
+                    <FormLabel
+                      color={textColor}
+                      htmlFor="designation"
+                      mt="20px"
+                    >
+                      Designation:
+                    </FormLabel>
+                    <Input
+                      isDisabled={true}
+                      placeholder="Designation"
+                      marginTop={15}
+                      size="lg"
+                      h="60px"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                      {...field}
+                    />
+                    <InfoIcon
+                      color="red.200"
+                      pos="absolute"
+                      right="20px"
+                      top="50%"
+                      bottom="50%"
+                    />
+                    <Box
+                      cursor="pointer"
+                      as={Center}
+                      bg="red.400"
+                      // h="100%"
+                      borderRadius="8px"
+                      color={textColor}
+                      textAlign="center"
+                      // border="2px solid red"
+                      right="50px"
+                      top="45%"
+                      bottom="55%"
+                      pos="absolute"
+                      // w="50%"
+                      p="6px"
+                      h="25px"
+                      display="none"
+                      _groupHover={{ display: "flex" }}
+                    >
+                      <Text onClick={() => Router.push("/pricing")}>
+                        Only for Premium User
+                      </Text>
+                    </Box>
+                  </FormControl>
+                )}
+              </Field> */}
               <Field name="designation">
                 {({ field, form }) => (
                   <FormControl
@@ -815,23 +764,6 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
-
-              <FormLabel color={textColor} htmlFor="name" marginTop={15}>
-                Name:
-              </FormLabel>
-              <Select
-                onChange={(e) => {
-                  setColor(e.value);
-                }}
-                styles={colorMode === "dark" ? customStyles : customStylesLight}
-                options={options}
-                isSearchable={false}
-                hideSelectedOptions={false}
-                placeholder={"Select A Theme"}
-                className="react-select"
-                classNamePrefix={select}
-              />
-
               <Field name="website">
                 {({ field, form }) => (
                   <FormControl
@@ -975,6 +907,65 @@ export default function Card({ inputData }) {
               <Field name="youtube">
                 {({ field, form }) => (
                   <FormControl
+                    isInvalid={
+                      (form.errors.youtube && form.touched.youtube) ||
+                      errorMessage
+                    }
+                  >
+                    <FormLabel color={textColor} htmlFor="facebook" mt="20px">
+                      Youtube :
+                    </FormLabel>
+                    <Input
+                      isDisabled={true}
+                      placeholder="https://youtube.com/link"
+                      marginTop={15}
+                      size="lg"
+                      h="60px"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                      {...field}
+                    />
+
+                    <InfoIcon
+                      color="red.200"
+                      pos="absolute"
+                      right="20px"
+                      top="50%"
+                      bottom="50%"
+                    />
+                    <Box
+                      cursor="pointer"
+                      as={Center}
+                      bg="red.400"
+                      // h="100%"
+                      borderRadius="8px"
+                      color={textColor}
+                      textAlign="center"
+                      // border="2px solid red"
+                      right="50px"
+                      top="45%"
+                      bottom="55%"
+                      pos="absolute"
+                      // w="50%"
+                      p="6px"
+                      h="25px"
+                      display="none"
+                      _groupHover={{ display: "flex" }}
+                    >
+                      <Text onClick={() => Router.push("/pricing")}>
+                        Only for Premium User
+                      </Text>
+                    </Box>
+                    <FormErrorMessage>
+                      {form.errors.youtube || errorMessage}{" "}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              {/* <Field name="youtube">
+                {({ field, form }) => (
+                  <FormControl
                     onChange={(e) => handleChange(e)}
                     isInvalid={
                       (form.errors.youtube && form.touched.youtube) ||
@@ -999,7 +990,7 @@ export default function Card({ inputData }) {
                     </FormErrorMessage>
                   </FormControl>
                 )}
-              </Field>
+              </Field> */}
               <Field name="facebook">
                 {({ field, form }) => (
                   <FormControl

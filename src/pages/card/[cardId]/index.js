@@ -23,20 +23,31 @@ import {
   ModalCloseButton,
   useDisclosure,
   useColorModeValue,
+  Container,
+  Flex,
+  Spacer,
+  Center,
+  Skeleton,
+  HStack,
+  VStack,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import dbConnect from "../../../lib/dbConnect";
 import EditCard from "../../../components/EditCard";
+import EditCardFree from "../../../components/EditCardFree";
 import { default as ModalCard } from "../../../models/Card";
 import { DigitalCard } from "../../../components/Card/DigitalCard";
+import { DigitalCardFree } from "../../../components/Card/DigitalCardFree";
 import { DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 
 const Cards = ({ Card }) => {
+  const [isPremium, setIsPremium] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const contentType = "application/json";
 
   function updateViews(params) {
@@ -62,12 +73,41 @@ const Cards = ({ Card }) => {
   }
 
   useEffect(() => {
+    setIsFetching(true);
+    async function fetchAPI() {
+      const res = await fetch("/api/auth/getpremimumcard", {
+        method: "POST",
+        headers: {
+          Accept: contentType,
+          "Content-Type": contentType,
+        },
+        body: JSON.stringify({ card_id: Card?.card_id }),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 200) {
+        setIsPremium(true);
+        console.log("Premium Yes");
+      }
+      if (res.status === 400) {
+        setIsPremium(false);
+        console.log("Not Premium");
+      }
+      if (res.status === 500) {
+        setIsPremium(false);
+        console.log("Error");
+      }
+    }
+    fetchAPI().then(() => setIsFetching(false));
     if ((Card && Card?.name === "") || !Card) {
       router.replace("/");
     }
     const updatedViews = updateViews(Card && Card.views);
     updateviewsDB(updatedViews);
-  });
+  }, []);
+
+  const scolor = useColorModeValue("black", "white");
 
   const handleDelete = async () => {
     const cardId = router.query.cardId;
@@ -89,7 +129,45 @@ const Cards = ({ Card }) => {
       <>
         {Card?.name != "CastError" ? (
           Card && Card ? (
-            <DigitalCard data={Card} />
+            isFetching ? (
+              <>
+                <Container maxWidth="90%" h="100vh">
+                  <Center h="100px" mt="30px" w="100%">
+                    <Flex w="100%" justifyContent="space-around">
+                      <Skeleton w="20%" height="40px" />
+                      <Spacer />
+                      <Spacer />
+                      <Spacer />
+                      <Spacer />
+                      <Skeleton w="10%" height="40px" />
+                      <Spacer />
+                      <Skeleton w="10%" height="40px" />
+                      <Spacer />
+                      <Skeleton w="10%" height="40px" />
+                    </Flex>
+                  </Center>
+
+                  <HStack as={Center} w="100%" h="80%">
+                    <Box h="full" w="50%">
+                      <Box boxSize="200px" mt="50px">
+                        <Skeleton borderRadius="10px" w="100%" height="100%" />
+                      </Box>
+                      <Skeleton mt="100px" w="300px" h="40px" />
+                    </Box>
+                    <Box as={Center} h="full" w="50%">
+                      <VStack w="100%">
+                        <Skeleton w="70%" h="100px" mb="50px" />
+                        <Skeleton w="70%" h="100px" />
+                      </VStack>
+                    </Box>
+                  </HStack>
+                </Container>
+              </>
+            ) : isPremium && isPremium ? (
+              <DigitalCard data={Card} />
+            ) : (
+              <DigitalCardFree data={Card} />
+            )
           ) : (
             <Box
               w="100%"
@@ -129,14 +207,15 @@ const Cards = ({ Card }) => {
             >
               <DrawerOverlay />
               <DrawerContent>
-                <DrawerCloseButton
-                  color={useColorModeValue("black", "white")}
-                />
+                <DrawerCloseButton color={scolor} />
 
                 <DrawerHeader color={bg}>{`${Card.name}'s card`}</DrawerHeader>
                 <DrawerBody>
-                  {" "}
-                  <EditCard inputData={Card} />
+                  {isPremium && isPremium ? (
+                    <EditCard inputData={Card} />
+                  ) : (
+                    <EditCardFree inputData={Card} />
+                  )}
                 </DrawerBody>
                 <DrawerFooter>
                   <Button variant="outline" mr={3} onClick={onClose}>
@@ -147,14 +226,21 @@ const Cards = ({ Card }) => {
             </Drawer>
 
             <Menu isLazy={true} computePositionOnMount={true}>
-              <MenuButton
-                as={IconButton}
-                size="sm"
-                variant="ghost"
-                border="2px solid #77C307"
-                icon={<HamburgerIcon />}
-              />
-              <MenuList bgColor="brand.100" color="white" w="20px">
+              {isFetching ? (
+                <>
+                  <Skeleton border="2px solid red" w="30px" h="30px" />
+                </>
+              ) : (
+                <MenuButton
+                  as={IconButton}
+                  size="sm"
+                  variant="ghost"
+                  border="2px solid #77C307"
+                  icon={<HamburgerIcon />}
+                />
+              )}
+
+              <MenuList bgColor={"brand.100"} color="white" w="20px">
                 <MenuItem onClick={handleDelete} icon={<DeleteIcon />}>
                   Delete
                 </MenuItem>
