@@ -85,7 +85,7 @@ export const CardList = ({ data }) => {
                   spacing={"22px"}
                   fontSize={{ base: "1rem", md: "1.2rem" }}
                 >
-                  {data?.socialMediaLinks?.facebook != "" ? (
+                  {data?.socialLinks?.facebook != "" ? (
                     <Box
                       bgColor={iconBg}
                       as={Link}
@@ -100,7 +100,7 @@ export const CardList = ({ data }) => {
                   ) : (
                     ""
                   )}
-                  {data?.socialMediaLinks?.twitter != "" ? (
+                  {data?.socialLinks?.twitter != "" ? (
                     <Box
                       bgColor={iconBg}
                       _groupHover={{ bgColor: "white" }}
@@ -108,23 +108,24 @@ export const CardList = ({ data }) => {
                       borderRadius="8px"
                       as={Link}
                       isExternal
-                      href={data.socialLinks.linkedin}
+                      href={data.socialLinks.twitter}
                     >
-                      <GrLinkedinOption />
+                      <FaTwitter />
                     </Box>
                   ) : (
                     ""
                   )}
-                  {data?.socialMediaLinks?.instagram != "" ? (
+                  {data?.socialLinks?.instagram != "" ? (
                     <Box
                       bgColor={iconBg}
                       _groupHover={{ bgColor: "white" }}
                       p="5px"
                       borderRadius="8px"
+                      as={Link}
                       isExternal
                       href={data.socialLinks.instagram}
                     >
-                      <FaTwitter />
+                      <FaInstagram />
                     </Box>
                   ) : (
                     ""

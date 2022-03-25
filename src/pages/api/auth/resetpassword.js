@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     let origin = `${process.env.NEXTAUTH_URL}/forget-password/${baseData}`;
 
     const existingUser = await User.findOne({
-      email: email,
+      email: email.trim(),
     }).exec();
     console.log(existingUser);
     if (!existingUser) {

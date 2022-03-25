@@ -28,8 +28,11 @@ import { signOut, useSession } from "next-auth/react";
 import NextLink from "next/link";
 import Select from "react-select";
 import Router from "next/router";
+import { useRouter } from "next/router";
+
 
 const Payment = () => {
+  const router = useRouter();
   const [Plan, setPlan] = useState("");
   console.log(Plan);
   const { colorMode, toggleColorMode } = useColorMode();
@@ -238,24 +241,26 @@ const Payment = () => {
                 flexDirection="row"
               >
                 <Box cursor="pointer">
-                  {/* <NextLink href="/" passHref> */}
-                  <Image src={logo} w={["80%", "80%", "100%"]} alt="" />
-                  {/* </NextLink> */}
+                  <NextLink href="/" passHref>
+                    <Image src={logo} w={["80%", "80%", "100%"]} alt="" />
+                  </NextLink>
                 </Box>
                 <Spacer />
                 <Box cursor="pointer" display={["none", "none", "flex"]}>
                   {/* <HStack p="0px 20px 0px 20px" h="40px"> */}
                   {/* </HStack> */}
                   {/* <NextLink href="/create" passHref> */}
-                  <Button
-                    leftIcon={<AddIcon />}
-                    mr={4}
-                    variant={"outline"}
-                    borderColor="greenBrand.100"
-                    color={textColor}
-                  >
-                    Create New Card
-                  </Button>
+                    <Button
+                      leftIcon={<AddIcon />}
+                      mr={4}
+                      variant={"outline"}
+                      borderColor="greenBrand.100"
+                      color={textColor}
+                      onClick={() => {router.push("/create")}}
+                    >
+                      Create New Card
+                    </Button>
+                  {/* </NextLink> */}
                   <NextLink href="/cards" passHref>
                     <Text
                       p="0px 10px 0px 10px"

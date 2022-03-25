@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
   Box,
   Flex,
@@ -24,6 +25,7 @@ import { signOut, useSession } from "next-auth/react";
 export const Navbar = () => {
   const { data: session } = useSession();
   const bg = useColorModeValue("white", "black.100");
+  const router = useRouter();
 
   const logo = useColorModeValue(
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
@@ -132,12 +134,25 @@ export const Navbar = () => {
           >
             Contact Us
           </Link>
-          {session ? (
+          <Link
+            p="5px"
+            m={{ base: "10px 0px", lg: "0px 20px" }}
+            _hover={{ textDecoration: "none" }}
+            _focus={{ borderBottom: "2px solid #77C208" }}
+            _active={{ borderBottom: "2px solid #77C208" }}
+            href="/pricing"
+          >
+            Pricing
+          </Link>
+          
+        </Flex>
+        <Box>
+        {session ? (
             <Menu isLazy={true} computePositionOnMount={true}>
-              <MenuButton as={Avatar} boxSize="40px" cursor="pointer" />
+              <MenuButton as={Avatar} boxSize="40px" cursor="pointer" zIndex={15} />
               {/* <Avatar boxSize="40px" as={MenuButton} /> */}
 
-              <MenuList color={textColor} w="20px">
+              <MenuList color={textColor} w="20px" zIndex={15}>
                 <MenuItem>
                   <NextLink href="/create" passHref>
                     <Button
@@ -150,10 +165,12 @@ export const Navbar = () => {
                   </NextLink>
                 </MenuItem>
 
-                <MenuItem cursor="pointer" as={Center}>
-                  <NextLink href="/cards" passHref>
-                    <Text>My Cards</Text>
-                  </NextLink>
+                <MenuItem
+                  cursor="pointer"
+                  as={Center}
+                  onClick={() => router.push("/cards")}
+                >
+                  My Cards
                 </MenuItem>
                 <MenuItem cursor="pointer" onClick={signOut} as={Center}>
                   Sign Out
@@ -171,7 +188,7 @@ export const Navbar = () => {
               </NextLink>
             </Flex>
           )}
-        </Flex>
+        </Box>
       </Flex>
     </Box>
   );

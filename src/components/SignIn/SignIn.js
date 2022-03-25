@@ -55,7 +55,7 @@ export const SignIn = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Enter Valid Email").required("Required"),
+    email: Yup.string().email("Enter Valid Email").required("Required").trim(),
     password: Yup.string()
       .matches(
         // , One Uppercase, One Lowercase, One Number and One Special Case Character
@@ -71,7 +71,7 @@ export const SignIn = () => {
         setLoading(true);
         const result = await signIn("credentials", {
           redirect: false,
-          email: values.email,
+          email: values.email.trim(),
           password: values.password,
         });
 

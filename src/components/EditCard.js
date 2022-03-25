@@ -180,13 +180,12 @@ export default function Card({ inputData }) {
         whatsapp: string()
           .min(10, "Must be Valid Phone Number")
           .max(10, "Must be Valid Phone Number"),
-        website: Yup.string().url().label("Path"),
-        linkedin: Yup.string().url().label("Path"),
-        twitter: Yup.string().url().label("Path"),
-        instagram: Yup.string().url().label("Path"),
-        youtube: Yup.string().url().label("Path"),
-        facebook: Yup.string().url().label("Path"),
-        payment: Yup.string().url().label("Path"),
+          website: Yup.string().url().label('Example: https://www.john.com/ Path'),
+          linkedin: Yup.string().url().label('Example: https://www.linkedin.com/ Path'),
+          instagram: Yup.string().url().label('Example: https://www.instagram.com/ Path'),
+          youtube: Yup.string().url().label('Example: https://www.youtube.com/ Path'),
+          facebook: Yup.string().url().label('Example: https://www.facebook.com/ Path'),
+          payment: Yup.string().url().label('Example: https://www.instagram.com/ Path'),
       }),
     };
   } else {
@@ -210,13 +209,12 @@ export default function Card({ inputData }) {
         whatsapp: string()
           .min(10, "Must be Valid Phone Number")
           .max(10, "Must be Valid Phone Number"),
-        website: Yup.string().url().label("Path"),
-        linkedin: Yup.string().url().label("Path"),
-        twitter: Yup.string().url().label("Path"),
-        instagram: Yup.string().url().label("Path"),
-        youtube: Yup.string().url().label("Path"),
-        facebook: Yup.string().url().label("Path"),
-        payment: Yup.string().url().label("Path"),
+          website: Yup.string().url().label('Example: https://www.johndoe.com/ Path'),
+          linkedin: Yup.string().url().label('Example: https://www.linkedin.com/ Path'),
+          instagram: Yup.string().url().label('Example: https://www.instagram.com/ Path'),
+          youtube: Yup.string().url().label('Example: https://www.youtube.com/ Path'),
+          facebook: Yup.string().url().label('Example: https://www.facebook.com/ Path'),
+          payment: Yup.string().url().label('Example: https://www.instagram.com/ Path'),
       }),
     };
   }
