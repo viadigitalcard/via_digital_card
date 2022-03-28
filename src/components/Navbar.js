@@ -144,12 +144,16 @@ export const Navbar = () => {
           >
             Pricing
           </Link>
-          
         </Flex>
         <Box>
-        {session ? (
+          {session ? (
             <Menu isLazy={true} computePositionOnMount={true}>
-              <MenuButton as={Avatar} boxSize="40px" cursor="pointer" zIndex={15} />
+              <MenuButton
+                as={Avatar}
+                boxSize="40px"
+                cursor="pointer"
+                zIndex={15}
+              />
               {/* <Avatar boxSize="40px" as={MenuButton} /> */}
 
               <MenuList color={textColor} w="20px" zIndex={15}>
@@ -184,7 +188,7 @@ export const Navbar = () => {
               alignItems={"center"}
             >
               <NextLink href="/auth/signin" passHref>
-                <Button>Sign In</Button>
+                <Button zIndex="10">Sign In</Button>
               </NextLink>
             </Flex>
           )}

@@ -49,8 +49,17 @@ import {
 import { useEffect, useState } from "react";
 
 const Cards = ({ Card }) => {
-  const toast = useToast();
+  const [Loading, setLoading] = useState(false);
+  const [isNFC, setisNFC] = useState(true);
+  const [isPremium, setIsPremium] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const contentType = "application/json";
 
+  const toast = useToast();
+  console.log("isNFC", isNFC);
   function Toast(title, message, status) {
     return toast({
       title: title || "",
@@ -61,15 +70,6 @@ const Cards = ({ Card }) => {
       // isClosable: true,
     });
   }
-
-  const [Loading, setLoading] = useState(false);
-  const [isNFC, setisNFC] = useState(false);
-  const [isPremium, setIsPremium] = useState(false);
-  const [isFetching, setIsFetching] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
-  const { data: session, status } = useSession();
-  const contentType = "application/json";
 
   function updateViews(params) {
     const views = params + 1;
@@ -105,17 +105,18 @@ const Cards = ({ Card }) => {
         },
         body: JSON.stringify({ card_id: Card?.card_id }),
       });
-
       const data = await res.json();
-      console.log(data);
+
+      console.log("dasttttttttttttttaa", data?.isNFC_Card_Selected?.isSelected);
       if (res.status === 200) {
-        if (data.isNFC_Card_Selected.isSelected == false) {
-          setisNFC(false);
-          console.log(isNFC);
-        }
-        if (data.isNFC_Card_Selected.isSelected == true) {
+        if (data?.isNFC_Card_Selected?.isSelected === undefined) {
           setisNFC(true);
-          console.log(isNFC);
+        }
+        if (data?.isNFC_Card_Selected?.isSelected === false) {
+          setisNFC(false);
+        }
+        if (data?.isNFC_Card_Selected?.isSelected === true) {
+          setisNFC(true);
         }
 
         setIsPremium(true);
@@ -157,6 +158,8 @@ const Cards = ({ Card }) => {
         fetchAPINFC().then(() => setIsFetching(false));
       }
     }
+    // fetchAPINFC().then(() => setIsFetching(false));
+
     fetchAPI().then(() => setIsFetching(false));
 
     if ((Card && Card?.name === "") || !Card) {
@@ -337,12 +340,13 @@ const Cards = ({ Card }) => {
                 <MenuItem onClick={onOpen} icon={<EditIcon />}>
                   Edit
                 </MenuItem>
-                {isNFC == true ? (
-                  ""
-                ) : (
+                {isNFC}
+                {isNFC == false ? (
                   <MenuItem onClick={handleNFCAssgin} icon={<AttachmentIcon />}>
                     Assign to NFC Card
                   </MenuItem>
+                ) : (
+                  ""
                 )}
               </MenuList>
             </Menu>

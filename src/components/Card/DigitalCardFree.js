@@ -38,11 +38,14 @@ export const DigitalCardFree = ({ data }) => {
   const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
   const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
   const dividerColor = useColorModeValue("#E7E7E7", "#353647");
-  const bgDashIcons = useColorModeValue("greenBrand.100", "black.200");
+  const bgDashIcons = useColorModeValue("greenBrand.100", "greenBrand.100");
   const bgDash = useColorModeValue("white", "black.100");
   const borderColor = useColorModeValue("#E3E3E3", "#353647");
   const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
-  const bgDashIconMobile = useColorModeValue("greenBrand.100", "black.100");
+  const bgDashIconMobile = useColorModeValue(
+    "greenBrand.100",
+    "greenBrand.100"
+  );
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [socialData, setSocialData] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);

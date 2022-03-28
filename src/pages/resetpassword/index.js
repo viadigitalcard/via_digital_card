@@ -246,7 +246,7 @@ function Reset() {
                   We have sent a password recover instruction to your email
                 </Text>
               </Flex>
-              <Button
+              {/* <Button
                 fontWeight={"600"}
                 h="62px"
                 mt="40px"
@@ -255,7 +255,7 @@ function Reset() {
                 w={{ base: "100%", xs: "388px" }}
               >
                 Check your Inbox
-              </Button>
+              </Button> */}
               <Flex direction="row" mt="10px">
                 <Text fontWeight="light" color={textColor}>
                   <NextLink href="/auth/signin" passHref>
