@@ -37,8 +37,33 @@ export default async function Signup(req, res) {
         to: email,
         subject: "Verify your email",
         text: "Click on the link to verify your email",
-        html: `<a href="${origin}" target="_blank">Verify Email</a>`,
+        html: `<span style="font-size: 15px; font-family: Calibri, Helvetica, Arial, Sans-Serif">
+        <br />
+        Hey ${email},<br />
+        <br />You have received a new message on you Via Digital
+        Card. Details are as follows:
+        <br /><br />
+          <b>Thank you for registering, Please Verify your Account! </b><br/><br/>
+          
+          <a href="${origin}" target="_blank">
+        <button style="width:120px; height:40px; background-color:#77C208;color:white;font-weight:bold;border-radius:5px;border:none">
+        Verify Email
+        </button></a><br /><br />
+      
+        
+        
+        Thanks &
+        Regards,<br /><a href="https://viadigitalcard.in">Via Digital Card Team</a><br />
+        (<a href="https://viacreativetech.com">Via Creative Tech LLP</a>)
+      </span>
+      <br />
+      <img src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png" alt="logo" />
+      
+      <br />
+      Shop-5, Poonam Park View, Global
+      City, Virar, Maharashtra, India-401303`,
       };
+
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           res.status(400).json({ error: error.message });

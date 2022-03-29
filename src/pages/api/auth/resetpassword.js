@@ -11,13 +11,20 @@ export default async function handler(req, res) {
     const { email } = req.body;
     console.log(email);
     const nodemailer = require("nodemailer");
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
+    var smtpConfig = {
+      service: "mail.hostinger.com",
+      port: 465,
+      // secureConnection: false,
+      secure: true,
+      // tls: {
+      //   rejectUnAuthorized: true,
+      // },
       auth: {
-        user: "testmymail03@gmail.com",
-        pass: "testM@123",
+        user: "no-reply@viadigitalcard.com",
+        pass: "VIATech.D@123",
       },
-    });
+    };
+    var transporter = nodemailer.createTransport(smtpConfig);
     let buffer = new Buffer(email);
     let baseData = buffer.toString("base64");
     let origin = `${process.env.NEXTAUTH_URL}/forget-password/${baseData}`;
@@ -46,11 +53,37 @@ export default async function handler(req, res) {
         .json({ message: "We have already sent you an email." });
     }
     const mailOptions = {
-      from: "testmymail03@gmail.com",
+      from: "no-reply@viadigitalcard.com",
       to: email,
       subject: "Reset Password",
       text: "Click on the link to reset your password",
-      html: `<a href="${origin}" target="_blank">Click</a>`,
+      html: `<span style="font-size: 15px; font-family: Calibri, Helvetica, Arial, Sans-Serif">
+      <br />
+      Hey ${email},<br />
+      <br />You have received a new message on you Via Digital
+      Card. Details are as follows:
+      <br /><br />
+        <b>Click below to Reset your password!</b><br/><br/>
+        
+        <a href="${origin}" target="_blank">
+      <button style="width:120px; height:40px; background-color:#77C208;color:white;font-weight:bold;border-radius:5px;border:none">
+      Reset Password
+      </button></a><br /><br />
+    
+      
+      
+      Thanks &
+      Regards,<br /><a href="https://viadigitalcard.in">Via Digital Card Team</a><br />
+      (<a href="https://viacreativetech.com">Via Creative Tech LLP</a>)
+    </span>
+    <br />
+    <img src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png" alt="logo" />
+    
+    <br />
+    Shop-5, Poonam Park View, Global
+    City, Virar, Maharashtra, India-401303
+    `,
+      // html: `<a href="${origin}" target="_blank">Click</a>`,
     };
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
