@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Progress } from "../components/progress/Progress";
 import { useProgressStore } from "../store";
+import Script from 'next/script';
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const setIsAnimating = useProgressStore((state) => state.setIsAnimating);
   const isAnimating = useProgressStore((state) => state.isAnimating);
@@ -29,18 +30,35 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     };
   }, [router]);
   return (
-    <SessionProvider session={session}>
-      <ChakraProvider theme={theme}>
-        <ColorModeProvider
-          options={{
-            useSystemColorMode: false,
-          }}
-        >
-          <Progress isAnimating={isAnimating} />
-          <Component {...pageProps} />
-        </ColorModeProvider>
-      </ChakraProvider>
-    </SessionProvider>
+    <>
+      <Script
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=G-MTB3GT7J8C`}
+      />
+
+      <Script strategy="lazyOnload">
+        {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MTB3GT7J8C', {
+        page_path: window.location.pathname,
+        });
+    `}
+      </Script>
+      <SessionProvider session={session}>
+        <ChakraProvider theme={theme}>
+          <ColorModeProvider
+            options={{
+              useSystemColorMode: false,
+            }}
+          >
+            <Progress isAnimating={isAnimating} />
+            <Component {...pageProps} />
+          </ColorModeProvider>
+        </ChakraProvider>
+      </SessionProvider>
+    </>
   );
 }
 

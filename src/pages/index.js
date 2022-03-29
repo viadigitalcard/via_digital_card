@@ -13,6 +13,7 @@ const Index = () => (
         sizes="32x32"
         href="/assets/images/favicon.ico"
       ></link>
+      
     </Head>
     <>
       <DarkModeSwitch />
