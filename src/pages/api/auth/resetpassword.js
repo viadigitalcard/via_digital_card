@@ -12,18 +12,19 @@ export default async function handler(req, res) {
     console.log(email);
     const nodemailer = require("nodemailer");
     var smtpConfig = {
-      service: "mail.hostinger.com",
+      service: "smtp.hostinger.comm",
       port: 465,
-      // secureConnection: false,
       secure: true,
       // tls: {
       //   rejectUnAuthorized: true,
       // },
+      // secureConnection: false,
       auth: {
         user: "no-reply@viadigitalcard.com",
         pass: "VIATech.D@123",
       },
     };
+
     var transporter = nodemailer.createTransport(smtpConfig);
     let buffer = new Buffer(email);
     let baseData = buffer.toString("base64");
@@ -85,6 +86,13 @@ export default async function handler(req, res) {
     `,
       // html: `<a href="${origin}" target="_blank">Click</a>`,
     };
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log("verifyyyyyyyyy", error);
+      } else {
+        console.log("Server is ready to take our messages");
+      }
+    });
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         res.status(500).json({ error: error.message });
