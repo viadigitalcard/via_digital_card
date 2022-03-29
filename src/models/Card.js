@@ -47,6 +47,7 @@ const CardSchema = new mongoose.Schema({
     facebook: { type: String },
     linkedin: { type: String },
     youtube: { type: String },
+    google: { type: String },
   },
 
   payment: {

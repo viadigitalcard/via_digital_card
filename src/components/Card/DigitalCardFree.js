@@ -441,6 +441,26 @@ END:VCARD
                   ) : (
                     " "
                   )}
+                  {data.socialLinks.google != "" ? (
+                    <Flex alignItems={"center"} m="22px">
+                      <Center
+                        boxSize={"72px"}
+                        borderRadius="12px"
+                        border={`2px solid ${borderColor}`}
+                      >
+                        <Box
+                          isExternal
+                          as={Link}
+                          href={data?.socialLinks?.google}
+                        >
+                          <Image src="/assets/images/greview.png" alt="" />
+                        </Box>
+                      </Center>
+                      <Text ml="35px">Google</Text>
+                    </Flex>
+                  ) : (
+                    " "
+                  )}
                   <Button w="173px" h="62px" m="22px" onClick={onOpen}>
                     Send Message
                   </Button>
@@ -962,11 +982,10 @@ END:VCARD
                   <Center
                     as={Link}
                     isExternal
-                    // href={data.socialLinks?.linkedin}
+                    href={data.socialLinks?.linkedin}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     border={`2px solid ${borderColor}`}
-                    // border="2px solid red"
                   >
                     <Box
                       flexShrink={"0"}
@@ -977,6 +996,25 @@ END:VCARD
                         src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LinkedIn.png"
                         alt=""
                       />
+                    </Box>
+                  </Center>
+                ) : (
+                  ""
+                )}
+                {data?.socialLinks.google != "" ? (
+                  <Center
+                    as={Link}
+                    isExternal
+                    href={data.socialLinks?.google}
+                    boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
+                    borderRadius="14px"
+                    border={`2px solid ${borderColor}`}
+                  >
+                    <Box
+                      flexShrink={"0"}
+                      boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
+                    >
+                      <Image w="100%" src="/assets/images/greview.png" alt="" />
                     </Box>
                   </Center>
                 ) : (

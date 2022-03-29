@@ -245,6 +245,7 @@ function Card() {
         facebook: values.facebook || "",
         linkedin: values.linkedin || "",
         youtube: values.youtube || "",
+        google: values.google || "",
       },
       payment: values.payment || "",
       views: 0,
@@ -508,7 +509,7 @@ function Card() {
                         linkedin: "",
                         youtube: "",
                         payment: "",
-                        // payment: "",
+                        google: "",
                       }}
                       onSubmit={handleSubmit}
                     >
@@ -961,6 +962,7 @@ function Card() {
                           youtube: string().url().label("Path"),
                           facebook: string().url().label("Path"),
                           payment: string().url().label("Path"),
+                          google: string().url().label("Path"),
                         })}
                         label="More Info"
                       >
@@ -1132,6 +1134,32 @@ function Card() {
                               </FormControl>
                             )}
                           </Field>
+                          <Field name="google">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  (form.errors.google &&
+                                    form.touched.google) ||
+                                  errorMessage
+                                }
+                              >
+                                <Input
+                                  placeholder="Google"
+                                  w="full"
+                                  h="60px"
+                                  marginTop={15}
+                                  size="lg"
+                                  variant="outline"
+                                  focusBorderColor="#88E000"
+                                  color={textColor}
+                                  {...field}
+                                />
+                                <FormErrorMessage>
+                                  {form.errors.google || errorMessage}{" "}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                          </Field>
                           <Field name="payment">
                             {({ field, form }) => (
                               <FormControl
@@ -1237,6 +1265,7 @@ function Card() {
                         linkedin: "",
                         youtube: "",
                         payment: "",
+                        google: "",
                       }}
                       onSubmit={handleSubmit}
                     >
@@ -1890,6 +1919,32 @@ function Card() {
                                 />
                                 <FormErrorMessage>
                                   {form.errors.facebook || errorMessage}{" "}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                          </Field>
+                          <Field name="google">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  (form.errors.google &&
+                                    form.touched.google) ||
+                                  errorMessage
+                                }
+                              >
+                                <Input
+                                  placeholder="Google Link"
+                                  w="full"
+                                  h="60px"
+                                  marginTop={15}
+                                  size="lg"
+                                  variant="outline"
+                                  focusBorderColor="#88E000"
+                                  color={textColor}
+                                  {...field}
+                                />
+                                <FormErrorMessage>
+                                  {form.errors.google || errorMessage}{" "}
                                 </FormErrorMessage>
                               </FormControl>
                             )}
