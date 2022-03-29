@@ -30,6 +30,7 @@ import { SendMessage } from "../modals/SendMessage";
 import NextLink from "next/link";
 import { RWebShare } from "react-web-share";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import moment from "moment";
 
 export const DigitalCard = ({ data }) => {
   const bgColor = useColorModeValue("white", "black.200");
@@ -116,6 +117,25 @@ END:VCARD
   }
 
   let check = checkEmpty();
+
+  async function handelupdate(params) {
+    const user = data?.card_id;
+    console.log(user, params);
+    const res = await fetch("/api/cards/insights", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: params,
+        user: user,
+      }),
+    });
+    // const data = await res.json();
+    // if (res.status === 200) {
+    //   console.log("updated");
+    // }
+  }
 
   return (
     <Box
@@ -401,7 +421,12 @@ END:VCARD
                   )}
 
                   {data.socialLinks.instagram != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex
+                      onClick={() => handelupdate("instagram")}
+                      border="2px solid red"
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
