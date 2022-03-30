@@ -2,7 +2,6 @@ import { hashPassword } from "../../../lib/auth/auth";
 import dbConnect from "../../../lib/dbConnect";
 import Token from "../../../models/Token";
 import User from "../../../models/User";
-import logo from "../../../../public/assets/images/logo.png";
 
 export default async function handler(req, res) {
   const { method } = req;
