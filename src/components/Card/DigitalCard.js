@@ -372,12 +372,11 @@ END:VCARD
 
                     <iframe
                       src={`https://www.youtube.com/embed/${youtubeEmbed}`}
-                      // frameborder="0"
                       allow="autoplay; encrypted-media"
-                      allowfullscreen="true"
                       title="video"
                       width="60%"
                       height="100%"
+                      allowFullScreen
                     />
                   </Box>
                 ) : (
@@ -1007,7 +1006,7 @@ END:VCARD
                     src={`https://www.youtube.com/embed/${youtubeEmbed}`}
                     // frameborder="0"
                     allow="autoplay; encrypted-media"
-                    allowfullscreen="true"
+                    allowFullScreen
                     title="video"
                     width="100%"
                     height="100%"
