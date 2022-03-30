@@ -374,7 +374,7 @@ END:VCARD
                       src={`https://www.youtube.com/embed/${youtubeEmbed}`}
                       // frameborder="0"
                       allow="autoplay; encrypted-media"
-                      // allowfullscreen
+                      allowfullscreen="true"
                       title="video"
                       width="60%"
                       height="100%"
@@ -1005,9 +1005,9 @@ END:VCARD
                 {data && data.socialLinks.youtube != "" ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${youtubeEmbed}`}
-                    frameborder="0"
+                    // frameborder="0"
                     allow="autoplay; encrypted-media"
-                    allowfullscreen
+                    allowfullscreen="true"
                     title="video"
                     width="100%"
                     height="100%"
