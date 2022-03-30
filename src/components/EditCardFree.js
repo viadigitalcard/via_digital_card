@@ -77,6 +77,7 @@ export default function Card({ inputData }) {
     youtube: inputData.socialLinks.youtube,
     facebook: inputData.socialLinks.facebook,
     payment: inputData.payment,
+    google: inputData.google,
   });
   function handleChangePhoto(e) {
     setProfile(e);
@@ -212,6 +213,7 @@ export default function Card({ inputData }) {
             instagram: Yup.string().url().label("Path"),
             facebook: Yup.string().url().label("Path"),
             payment: Yup.string().url().label("Path"),
+            google: Yup.string().url().label("Path"),
           })}
           initialValues={{
             name: inputData.name,
@@ -229,6 +231,7 @@ export default function Card({ inputData }) {
             instagram: inputData.socialLinks.instagram,
             facebook: inputData.socialLinks.facebook,
             payment: inputData.payment,
+            google: inputData.google,
           }}
           onSubmit={handleSubmit}
         >
@@ -1043,6 +1046,34 @@ export default function Card({ inputData }) {
                     />
                     <FormErrorMessage>
                       {form.errors.payment || errorMessage}{" "}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name="google">
+                {({ field, form }) => (
+                  <FormControl
+                    onChange={(e) => handleChange(e)}
+                    isInvalid={
+                      (form.errors.google && form.touched.google) ||
+                      errorMessage
+                    }
+                  >
+                    <FormLabel color={textColor} htmlFor="payment" mt="20px">
+                      Google:
+                    </FormLabel>
+                    <Input
+                      id="payment"
+                      placeholder="Link"
+                      w="full"
+                      size="lg"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                      {...field}
+                    />
+                    <FormErrorMessage>
+                      {form.errors.google || errorMessage}{" "}
                     </FormErrorMessage>
                   </FormControl>
                 )}

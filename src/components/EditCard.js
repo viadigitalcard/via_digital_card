@@ -78,6 +78,7 @@ export default function Card({ inputData }) {
     youtube: inputData.socialLinks.youtube,
     facebook: inputData.socialLinks.facebook,
     payment: inputData.payment,
+    payment: inputData.google,
     theme: inputData.theme,
   });
 
@@ -228,6 +229,7 @@ export default function Card({ inputData }) {
         facebook: data.facebook || "",
         linkedin: data.linkedin || "",
         youtube: data.youtube || "",
+        google: data.google || "",
       },
       payment: data.payment || "",
       theme: Color != "" ? Color : Color == "" ? "" : data.theme,
@@ -303,6 +305,7 @@ export default function Card({ inputData }) {
             instagram: Yup.string().url().label("Path"),
             youtube: Yup.string().url().label("Path"),
             facebook: Yup.string().url().label("Path"),
+            google: Yup.string().url().label("Path"),
             payment: Yup.string().url().label("Path"),
           })}
           initialValues={{
@@ -323,6 +326,7 @@ export default function Card({ inputData }) {
             instagram: inputData.socialLinks.instagram,
             youtube: inputData.socialLinks.youtube,
             facebook: inputData.socialLinks.facebook,
+            google: inputData.socialLinks.google,
             payment: inputData.payment,
           }}
           onSubmit={handleSubmit}
@@ -983,6 +987,34 @@ export default function Card({ inputData }) {
                     <Input
                       id="payment"
                       placeholder="payment link"
+                      w="full"
+                      size="lg"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                      {...field}
+                    />
+                    <FormErrorMessage>
+                      {form.errors.payment || errorMessage}{" "}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name="google">
+                {({ field, form }) => (
+                  <FormControl
+                    onChange={(e) => handleChange(e)}
+                    isInvalid={
+                      (form.errors.google && form.touched.google) ||
+                      errorMessage
+                    }
+                  >
+                    <FormLabel color={textColor} htmlFor="google" mt="20px">
+                      Google:
+                    </FormLabel>
+                    <Input
+                      id="google"
+                      placeholder="Link"
                       w="full"
                       size="lg"
                       variant="outline"

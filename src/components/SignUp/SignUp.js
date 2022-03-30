@@ -17,6 +17,14 @@ import {
   Center,
   Checkbox,
   useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  useDisclosure,
+  ModalCloseButton,
+  Heading,
+  VStack,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
@@ -24,8 +32,12 @@ import { useRouter } from "next/router";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 
 export default function SignUp() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const router = useRouter();
+  const bgColor = useColorModeValue("black.200", "white");
+  const buttonColor = useColorModeValue("white", "black.200");
+  const border = useColorModeValue("white", "#242734");
 
   function Toast(title, message, status) {
     return toast({
@@ -299,7 +311,12 @@ export default function SignUp() {
                           errorMessage
                         }
                       >
-                        <Checkbox size="md" colorScheme="green" {...field}>
+                        <HStack>
+                          <Checkbox
+                            size="md"
+                            colorScheme="green"
+                            {...field}
+                          ></Checkbox>
                           <Text
                             color={textColor}
                             ml={["5px", "5px", "15px"]}
@@ -307,19 +324,97 @@ export default function SignUp() {
                           >
                             Creating an account means you’re okay with our{" "}
                             <br />
-                            <NextLink href="/tos" passHref>
-                              <Link fontWeight="bold" pr="4px" color="#0038FF">
-                                Terms of Service
-                              </Link>
-                            </NextLink>
+                            <Modal
+                              isOpen={isOpen}
+                              onClose={onClose}
+                              size={{ base: "sm", md: "md", lg: "sm" }}
+                            >
+                              <ModalOverlay />
+                              <ModalContent
+                                w={{ base: "80%", md: "50%", lg: "50%" }}
+                                borderRadius={"35px"}
+                                bgColor={bgColor}
+                              >
+                                <ModalCloseButton
+                                  color={buttonColor}
+                                  borderRadius="50%"
+                                  right="35px"
+                                  top="35px"
+                                  border={`2px solid ${border}`}
+                                />
+                                <ModalBody
+                                  as={Center}
+                                  color={"white"}
+                                  flexDir="column"
+                                >
+                                  <VStack spacing="20px">
+                                    <Heading>Terms of Services</Heading>
+                                    <Text>
+                                      Last updated: December 24, 2021 Please
+                                      read these Terms of Use (“Terms”, “Terms
+                                      of Use”) carefully before using the
+                                      http://viadigitalcard.in website (the
+                                      “Service”) operated by Via Creative Tech
+                                      LLP (“us”, “we”, or “our”). Your access to
+                                      and use of the Service is conditioned on
+                                      your acceptance of and compliance with
+                                      these Terms. These Terms apply to all
+                                      visitors, users and others who access or
+                                      use the Service. By accessing or using the
+                                      Service you agree to be bound by these
+                                      Terms. If you disagree with any part of
+                                      the terms then you may not access the
+                                      Service.
+                                    </Text>
+                                    <Heading>Privacy Policy</Heading>
+                                    <Text>
+                                      Last updated: July 26, 2021 Via Creative
+                                      Tech (“us”, “we”, or “our”) operates the
+                                      Via Digital Card website (the “Service”).
+                                      This page informs you of our policies
+                                      regarding the collection, use and
+                                      disclosure of Personal Information when
+                                      you use our Service. We will not use or
+                                      share your information with anyone except
+                                      as described in this Privacy Policy. We
+                                      use your Personal Information for
+                                      providing and improving the Service. By
+                                      using the Service, you agree to the
+                                      collection and use of information in
+                                      accordance with this policy. Unless
+                                      otherwise defined in this Privacy Policy,
+                                      terms used in this Privacy Policy have the
+                                      same meanings as in our Terms and
+                                      Conditions, accessible at
+                                      http://viadigitalcard.in
+                                    </Text>
+                                  </VStack>
+                                </ModalBody>
+                              </ModalContent>
+                            </Modal>
+                            <Link
+                              onClick={onOpen}
+                              onClose={onClose}
+                              fontWeight="bold"
+                              pl="4px"
+                              color="#0038FF"
+                              zIndex={5}
+                              mr="5px"
+                            >
+                              TOS
+                            </Link>
                             and our
-                            <NextLink href="/privacy" passHref>
-                              <Link fontWeight="bold" pl="4px" color="#0038FF">
-                                Privacy Policy.
-                              </Link>
-                            </NextLink>
+                            <Link
+                              onClick={onOpen}
+                              onClose={onClose}
+                              fontWeight="bold"
+                              pl="4px"
+                              color="#0038FF"
+                            >
+                              Privacy Policy.
+                            </Link>
                           </Text>
-                        </Checkbox>
+                        </HStack>
                         <FormErrorMessage>
                           {form.errors.terms || errorMessage}{" "}
                         </FormErrorMessage>
