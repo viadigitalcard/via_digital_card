@@ -372,9 +372,9 @@ END:VCARD
 
                     <iframe
                       src={`https://www.youtube.com/embed/${youtubeEmbed}`}
-                      frameborder="0"
+                      // frameborder="0"
                       allow="autoplay; encrypted-media"
-                      allowfullscreen
+                      // allowfullscreen
                       title="video"
                       width="60%"
                       height="100%"
