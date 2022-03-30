@@ -35,7 +35,7 @@ import { signOut } from "next-auth/react";
 import NextLink from "next/link";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 
-export default function index() {
+export default function Insights() {
   const [selectedData, setSelectedData] = useState({});
 
   console.log(selectedData);
