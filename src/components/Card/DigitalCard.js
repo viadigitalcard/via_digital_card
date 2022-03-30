@@ -454,7 +454,6 @@ END:VCARD
                   {data.socialLinks.instagram != "" ? (
                     <Flex
                       onClick={() => handelupdate("instagram")}
-                      border="2px solid red"
                       alignItems={"center"}
                       m="22px"
                     >
