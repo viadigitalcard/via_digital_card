@@ -57,13 +57,6 @@ export const Contact = () => {
     }),
   };
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-    { value: "india", label: "india" },
-  ];
-
   const handleChange = (e) => {
     const target = e.target;
     const value = target.value;

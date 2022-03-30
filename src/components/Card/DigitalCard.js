@@ -33,6 +33,16 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import moment from "moment";
 
 export const DigitalCard = ({ data }) => {
+  if (data?.socialLinks.youtube != "") {
+    function getId(url) {
+      let regex =
+        /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/gm;
+      return regex.exec(url)[3];
+    }
+    const youtubeEmbed = getId(data?.socialLinks?.youtube);
+    console.log(youtubeEmbed);
+  }
+
   const bgColor = useColorModeValue("white", "black.200");
   const bgViews = useColorModeValue(
     data?.theme ? `${data.theme}.100` : "greenBrand.100",
@@ -107,8 +117,7 @@ END:VCARD
       data.socialLinks.instagram == "" &&
       data.socialLinks.facebook == "" &&
       data.socialLinks.twitter == "" &&
-      data.socialLinks.linkedin == "" &&
-      data.socialLinks.youtube == ""
+      data.socialLinks.linkedin == ""
     ) {
       return false;
     } else {
@@ -355,6 +364,25 @@ END:VCARD
                 <Text mt="33px" fontSize={"1.25rem"}>
                   {data?.bio}
                 </Text>
+                {data && data.socialLinks.youtube != "" ? (
+                  <Box mb="40px" pt="50px" h="380px">
+                    <Text mb="20px" fontWeight={"500"} fontSize={"1.5rem"}>
+                      Youtube Video
+                    </Text>
+
+                    <iframe
+                      src={`https://www.youtube.com/embed/${youtubeEmbed}`}
+                      frameborder="0"
+                      allow="autoplay; encrypted-media"
+                      allowfullscreen
+                      title="video"
+                      width="60%"
+                      height="100%"
+                    />
+                  </Box>
+                ) : (
+                  ""
+                )}
               </TabPanel>
               <TabPanel p="0" color={textColor}>
                 <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
@@ -398,7 +426,11 @@ END:VCARD
                     ""
                   )}
                   {data?.socialLinks.twitter != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex
+                      onClick={() => handelupdate("twitter")}
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         as={Link}
                         isExternal
@@ -450,7 +482,11 @@ END:VCARD
                     ""
                   )}
                   {data.socialLinks.facebook != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex
+                      onClick={() => handelupdate("facebook")}
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
@@ -473,7 +509,11 @@ END:VCARD
                     ""
                   )}
                   {data.socialLinks.linkedin != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex
+                      onClick={() => handelupdate("linkedin")}
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
@@ -496,7 +536,11 @@ END:VCARD
                     " "
                   )}
                   {data.socialLinks.google != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex
+                      onClick={() => handelupdate("google")}
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
@@ -524,7 +568,11 @@ END:VCARD
                   >
                     Send Message
                   </Button>
-                  <SendMessage isOpen={isOpen} onClose={onClose} />
+                  <SendMessage
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    card_id={data?.card_id}
+                  />
                 </Box>
               </TabPanel>
               <TabPanel p="0" w="100%" color={textColor}>
@@ -538,6 +586,7 @@ END:VCARD
                   fontSize={"1.125rem"}
                 >
                   <Flex
+                    onClick={() => handelupdate("location")}
                     p="0px 0px 25px 0"
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
@@ -581,6 +630,7 @@ END:VCARD
                   </Flex>
                   {data.website != "" ? (
                     <Flex
+                      onClick={() => handelupdate("website")}
                       p="25px 0px"
                       alignItems={"center"}
                       borderBottom={`2px solid ${borderColor}`}
@@ -602,6 +652,7 @@ END:VCARD
                   )}
                   <Flex
                     p="25px 0px"
+                    onClick={() => handelupdate("email")}
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
                   >
@@ -628,6 +679,7 @@ END:VCARD
             </Text>
             <VStack spacing={"30px"} alignItems="flex-start">
               <Center
+                onClick={() => handelupdate("vcf")}
                 w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
                 h="117px"
                 justifyContent={"flex-start"}
@@ -636,11 +688,12 @@ END:VCARD
                 borderRadius={"18px"}
                 boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
                 // as={Button}
-                onClick={handleSave}
+
                 // onClick={handleSave}
               >
                 <Button
                   as={Center}
+                  onClick={handleSave}
                   variant={data?.theme ? data.theme : "solid"}
                   boxSize={"87px"}
                   borderRadius={"17px"}
@@ -657,9 +710,11 @@ END:VCARD
                   Save Contact
                 </Text>
               </Center>
+
               {data && data.brochure ? (
                 <>
                   <Center
+                    onClick={() => handelupdate("document")}
                     w={{ sm: "498px", lg: "350px", xl: "498px" }}
                     h="117px"
                     justifyContent={"flex-start"}
@@ -699,6 +754,7 @@ END:VCARD
               )}
               {data && data.payment ? (
                 <Center
+                  onClick={() => handelupdate("payment")}
                   w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
                   h="117px"
                   justifyContent={"flex-start"}
@@ -804,7 +860,7 @@ END:VCARD
             justifyContent="space-evenly"
             // justifyContent={"space-between"}
           >
-            <VStack spacing={"10px"}>
+            <VStack onClick={() => handelupdate("vcf")} spacing={"10px"}>
               <Button
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
@@ -829,7 +885,7 @@ END:VCARD
               </Text>
             </VStack>
             {data && data.brochure ? (
-              <VStack spacing={"10px"}>
+              <VStack spacing={"10px"} onClick={() => handelupdate("document")}>
                 <Center
                   as={Link}
                   href={data?.brochure}
@@ -857,7 +913,7 @@ END:VCARD
               ""
             )}
             {data && data.payment ? (
-              <VStack spacing={"10px"}>
+              <VStack onClick={() => handelupdate("payment")} spacing={"10px"}>
                 <Center
                   boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                   borderRadius="8px"
@@ -945,6 +1001,21 @@ END:VCARD
               >
                 {data?.bio}
               </Text>
+              <Box pt="50px" h="200px">
+                {data && data.socialLinks.youtube != "" ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${youtubeEmbed}`}
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                    title="video"
+                    width="100%"
+                    height="100%"
+                  />
+                ) : (
+                  ""
+                )}
+              </Box>
             </TabPanel>
             <TabPanel p="0">
               {check ? (
@@ -980,6 +1051,7 @@ END:VCARD
                 )}
                 {data?.socialLinks.twitter != "" ? (
                   <Center
+                    onClick={() => handelupdate("twitter")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     border={`2px solid ${borderColor}`}
@@ -1004,6 +1076,7 @@ END:VCARD
 
                 {data?.socialLinks.instagram != "" ? (
                   <Center
+                    onClick={() => handelupdate("instagram")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     as={Link}
@@ -1028,6 +1101,7 @@ END:VCARD
 
                 {data?.socialLinks.facebook != "" ? (
                   <Center
+                    onClick={() => handelupdate("facebook")}
                     as={Link}
                     isExternal
                     href={data.socialLinks?.facebook}
@@ -1052,6 +1126,7 @@ END:VCARD
 
                 {data?.socialLinks.linkedin != "" ? (
                   <Center
+                    onClick={() => handelupdate("linkedin")}
                     as={Link}
                     isExternal
                     href={data.socialLinks?.linkedin}
@@ -1075,6 +1150,7 @@ END:VCARD
                 )}
                 {data?.socialLinks.google != "" ? (
                   <Center
+                    onClick={() => handelupdate("google")}
                     as={Link}
                     isExternal
                     href={data.socialLinks?.google}
@@ -1095,6 +1171,23 @@ END:VCARD
 
                 {/* <Spacer /> */}
               </SimpleGrid>
+              <Center>
+                <Button
+                  variant={data?.theme ? data.theme : "solid"}
+                  // w="80px"
+                  // h="30px"
+                  m="2px"
+                  onClick={onOpen}
+                >
+                  Send Message
+                </Button>
+                <SendMessage
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  card_id={data?.card_id}
+                />
+              </Center>
+
               {/* <Center mt="50px">
                 <Button w="173px" h="62px" fontWeight={"400"}>
                   Send Message
@@ -1109,6 +1202,7 @@ END:VCARD
                 fontSize={{ base: "0.75rem", xs: "0.875rem", sm: "1rem" }}
               >
                 <Flex
+                  onClick={() => handelupdate("location")}
                   p="0px 0px 25px 0"
                   alignItems={"center"}
                   borderBottom={`2px solid ${borderColor}`}
@@ -1152,6 +1246,7 @@ END:VCARD
                 </Flex>
                 {data?.website != "" ? (
                   <Flex
+                    onClick={() => handelupdate("website")}
                     p="25px 0px"
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
@@ -1169,6 +1264,7 @@ END:VCARD
                 )}
 
                 <Flex
+                  onClick={() => handelupdate("email")}
                   p="25px 0px"
                   alignItems={"center"}
                   borderBottom={`2px solid ${borderColor}`}

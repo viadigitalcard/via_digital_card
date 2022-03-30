@@ -4,21 +4,20 @@ import InsightsSchema from "../../../models/Insights";
 export default async function handler(req, res) {
   const { method } = req;
   console.log(req.body);
-  const { user } = req.body;
-  //   console.log(data, user);
+  const { user, data } = req.body;
+
   await dbConnect();
 
   if (method === "POST") {
     //if user scheme exist then update else create new
-
     const userSchema = await InsightsSchema.findOne({ user: user });
     if (userSchema) {
-      const data = {
-        instagram: [...userSchema.instagram, { createdAt: new Date() }],
+      const addData = {
+        [`${data}`]: [...userSchema[`${data}`], { createdAt: new Date() }],
       };
       const users = await InsightsSchema.findOneAndUpdate(
         { user: user },
-        data,
+        addData,
         {
           new: true,
         }
@@ -28,11 +27,11 @@ export default async function handler(req, res) {
       }
       res.status(200).json({ message: "User is Updated" });
     } else {
-      const data = {
+      const newData = {
         user: user,
-        instagram: [{ createdAt: new Date() }],
+        [`${data}`]: [{ createdAt: new Date() }],
       };
-      const users = await InsightsSchema.create(data);
+      const users = await InsightsSchema.create(newData);
       if (!users) {
         return res.status(400).json({ message: "Does not find User" });
       }

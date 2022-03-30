@@ -111,12 +111,12 @@ export const SignIn = () => {
           />
           <Text
             fontSize={{ base: "40px", md: "40px", lg: "45px" }}
-            py={5}
+            py={3}
             fontFamily="mono"
             fontWeight="normal"
             color={textColor}
           >
-            Welcome
+            Sign in
           </Text>
           <Flex>
             <Formik

@@ -22,10 +22,12 @@ export default async function Signup(req, res) {
       }
       const nodemailer = require("nodemailer");
       const transporter = nodemailer.createTransport({
-        service: "gmail",
+        port: 465,
+        host: "smtp.hostinger.com",
+        secure: true,
         auth: {
-          user: "testmymail03@gmail.com",
-          pass: "testM@123",
+          user: "no-reply@viadigitalcard.com",
+          pass: "VIATech.D@123",
         },
       });
       let buffer = new Buffer(req.body.email);
@@ -33,7 +35,7 @@ export default async function Signup(req, res) {
       let origin = `${process.env.NEXTAUTH_URL}/verify-email/${baseData}`;
 
       const mailOptions = {
-        from: "testmymail03@gmail.com",
+        from: "no-reply@viadigitalcard.com",
         to: email,
         subject: "Verify your email",
         text: "Click on the link to verify your email",
@@ -57,22 +59,43 @@ export default async function Signup(req, res) {
         (<a href="https://viacreativetech.com">Via Creative Tech LLP</a>)
       </span>
       <br />
-      <img src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png" alt="logo" />
+      <img src="cid:logo@1" />
       
       <br />
       Shop-5, Poonam Park View, Global
       City, Virar, Maharashtra, India-401303`,
+        attachments: [
+          {
+            filename: "logo.png",
+            path: "./public/assets/images/logo.png",
+            cid: "logo@1", //same cid value as in the html img src
+          },
+        ],
       };
 
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          res.status(400).json({ error: error.message });
-          console.log("this is error", error);
-          return;
-        } else {
-          console.log("Email sent: " + info.response);
-          res.status(200).json({ message: "Email sent" });
-        }
+      await new Promise((resolve, reject) => {
+        transporter.verify(function (error, success) {
+          if (error) {
+            console.log("verifyyyyyyyyy", error);
+            reject(error);
+          } else {
+            console.log("Server is ready to take our messages");
+            resolve(success);
+          }
+        });
+      });
+      await new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            res.status(500).json({ error: error.message });
+            console.log("this is error", error);
+            reject(error);
+          } else {
+            console.log("Email sent: " + info.response);
+            res.status(201).json({ message: "Email sent" });
+            resolve(info);
+          }
+        });
       });
 
       const hashedPassword = await hashPassword(password);

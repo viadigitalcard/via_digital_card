@@ -83,7 +83,7 @@ export default async function handler(req, res) {
     `,
       attachments: [
         {
-          filename: "Logo.png",
+          filename: "logo.png",
           path: "./public/assets/images/logo.png",
           cid: "logo@1", //same cid value as in the html img src
         },

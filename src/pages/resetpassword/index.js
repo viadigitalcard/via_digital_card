@@ -45,7 +45,7 @@ function Reset() {
 
     const res = await fetch("/api/auth/resetpassword", {
       method: "POST",
-      body: JSON.stringify({ email: values.email }),
+      body: JSON.stringify({ email: values.email.toLowerCase().trim() }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -79,7 +79,7 @@ function Reset() {
   };
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Enter Valid Email").required("Required"),
+    email: Yup.string().email("Enter Valid Email").required("Required").trim(),
   });
   const textColor = useColorModeValue("black", "white");
   const textColor1 = useColorModeValue("black", "#C8C8C8");
