@@ -29,7 +29,6 @@ import Select from "react-select";
 import Router from "next/router";
 import { useRouter } from "next/router";
 
-
 const Payment = () => {
   const router = useRouter();
   const toast = useToast();
@@ -145,11 +144,20 @@ const Payment = () => {
   const bg2 = useColorModeValue("white", "black.200");
   const bg1 = useColorModeValue("#F4FFE2", "#474856");
 
+  //testing plans
+  // const planId = {
+  //   "1m": "plan_J65cozB9BrOnYH",
+  //   "3m": "plan_JA8VRFVvlOiyLQ",
+  //   "6m": "plan_JA8W6HRkqxtOru",
+  //   "1y": "plan_JA8WiOJbrw4r1i",
+  // };
+
+  //live plans
   const planId = {
-    "1m": "plan_J65cozB9BrOnYH",
-    "3m": "plan_JA8VRFVvlOiyLQ",
-    "6m": "plan_JA8W6HRkqxtOru",
-    "1y": "plan_JA8WiOJbrw4r1i",
+    "1m": "plan_J2y8PR677stBzv",
+    "3m": "plan_JDGtDLZpacpubC",
+    "6m": "plan_JDGtYXP6LSuR6O",
+    "1y": "plan_JDGu4dR8J3T6Gk",
   };
 
   // const history = useRouter();
@@ -254,7 +262,11 @@ const Payment = () => {
           "Content-Type": "application/json",
         },
         // body: JSON.stringify(Plan && planId[Plan]),
-        body: JSON.stringify("plan_JAtBAxzaltOUtD"),
+        //testing plan
+        // body: JSON.stringify("plan_JAtBAxzaltOUtD"),
+
+        //live plan
+        body: JSON.stringify("plan_JDGuSxV9STsHsw"),
       });
       const data = await response.json();
       if (response.status === 200) {
@@ -367,16 +379,18 @@ const Payment = () => {
                   {/* <HStack p="0px 20px 0px 20px" h="40px"> */}
                   {/* </HStack> */}
                   {/* <NextLink href="/create" passHref> */}
-                    <Button
-                      leftIcon={<AddIcon />}
-                      mr={4}
-                      variant={"outline"}
-                      borderColor="greenBrand.100"
-                      color={textColor}
-                      onClick={() => {router.push("/create")}}
-                    >
-                      Create New Card
-                    </Button>
+                  <Button
+                    leftIcon={<AddIcon />}
+                    mr={4}
+                    variant={"outline"}
+                    borderColor="greenBrand.100"
+                    color={textColor}
+                    onClick={() => {
+                      router.push("/create");
+                    }}
+                  >
+                    Create New Card
+                  </Button>
                   {/* </NextLink> */}
                   <NextLink href="/cards" passHref>
                     <Text
@@ -635,13 +649,13 @@ const Payment = () => {
                       mb="10px"
                     >
                       {Plan === "1m"
-                        ? "₹ 100"
+                        ? "₹ 99"
                         : Plan === "3m"
-                        ? "₹ 150"
+                        ? "₹ 249"
                         : Plan === "6m"
-                        ? "₹ 300"
+                        ? "₹ 349"
                         : Plan === "1y"
-                        ? "₹ 600"
+                        ? "₹ 799"
                         : "Select a Plan"}
                     </Text>
                     <Button
@@ -726,7 +740,7 @@ const Payment = () => {
                     bgColor={bg1}
                   >
                     <Text fontWeight={"600"} fontSize="2.25rem" mb="28px">
-                      Free
+                      ₹ 2399
                     </Text>
                     <Button
                       w="183px"

@@ -207,6 +207,13 @@ export default function index() {
                       Create New Card
                     </NextLink>
                   </MenuItem>
+                  <MenuItem
+                    fontWeight="bold"
+                    onClick={() => router.push("/cards")}
+                    as={Center}
+                  >
+                    My Cards
+                  </MenuItem>
                   <MenuItem fontWeight="bold" onClick={signOut} as={Center}>
                     Sign Out
                   </MenuItem>
@@ -225,7 +232,7 @@ export default function index() {
               }}
               styles={colorMode === "dark" ? customStyles : customStylesLight}
               options={options}
-              // defaultValue={options[0]}
+              defaultValue={options[0]}
               isSearchable={false}
               hideSelectedOptions={false}
               placeholder={"Select a time period"}
