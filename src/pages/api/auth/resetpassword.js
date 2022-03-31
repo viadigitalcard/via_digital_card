@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       secure: true,
       auth: {
         user: "no-reply@viadigitalcard.com",
-        pass: "VIATech.D@123",
+        pass: "VIATech.D@02062021",
       },
     });
     let buffer = new Buffer(email);

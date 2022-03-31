@@ -2,7 +2,6 @@ import { hashPassword } from "../../../lib/auth/auth";
 import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/User";
 import Token from "../../../models/Token";
-
 export default async function Signup(req, res) {
   const { firstName, lastName, email, password } = req.body;
 
@@ -20,14 +19,15 @@ export default async function Signup(req, res) {
         res.status(422).json({ error: "User already exists" });
         return;
       }
+
       const nodemailer = require("nodemailer");
-      const transporter = nodemailer.createTransport({
+      var transporter = nodemailer.createTransport({
         port: 465,
         host: "smtp.hostinger.com",
         secure: true,
         auth: {
           user: "no-reply@viadigitalcard.com",
-          pass: "VIATech.D@123",
+          pass: "VIATech.D@02062021",
         },
       });
       let buffer = new Buffer(req.body.email);
