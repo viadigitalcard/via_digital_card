@@ -818,7 +818,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="whatsapp"
-                      placeholder="Link"
+                      placeholder="Number"
                       size="lg"
                       h="60px"
                       variant="outline"
