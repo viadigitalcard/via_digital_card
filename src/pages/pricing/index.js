@@ -145,20 +145,20 @@ const Payment = () => {
   const bg1 = useColorModeValue("#F4FFE2", "#474856");
 
   //testing plans
-  // const planId = {
-  //   "1m": "plan_J65cozB9BrOnYH",
-  //   "3m": "plan_JA8VRFVvlOiyLQ",
-  //   "6m": "plan_JA8W6HRkqxtOru",
-  //   "1y": "plan_JA8WiOJbrw4r1i",
-  // };
+  const planId = {
+    "1m": "plan_JDc9K4JUisQ346",
+    "3m": "plan_JDc9K4JUisQ346",
+    "6m": "plan_JDc9K4JUisQ346",
+    "1y": "plan_JDc9K4JUisQ346",
+  };
 
   //live plans
-  const planId = {
-    "1m": "plan_J2y8PR677stBzv",
-    "3m": "plan_JDGtDLZpacpubC",
-    "6m": "plan_JDGtYXP6LSuR6O",
-    "1y": "plan_JDGu4dR8J3T6Gk",
-  };
+  // const planId = {
+  //   "1m": "plan_J2y8PR677stBzv",
+  //   "3m": "plan_JDGtDLZpacpubC",
+  //   "6m": "plan_JDGtYXP6LSuR6O",
+  //   "1y": "plan_JDGu4dR8J3T6Gk",
+  // };
 
   // const history = useRouter();
 
@@ -266,7 +266,8 @@ const Payment = () => {
         // body: JSON.stringify("plan_JAtBAxzaltOUtD"),
 
         //live plan
-        body: JSON.stringify("plan_JDGuSxV9STsHsw"),
+        // body: JSON.stringify("plan_JDGuSxV9STsHsw"),
+        body: JSON.stringify("plan_JDc9a5GgVsrYnj"),
       });
       const data = await response.json();
       if (response.status === 200) {
