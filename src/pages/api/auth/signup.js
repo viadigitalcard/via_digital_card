@@ -73,30 +73,30 @@ export default async function Signup(req, res) {
         ],
       };
 
-      await new Promise((resolve, reject) => {
-        transporter.verify(function (error, success) {
-          if (error) {
-            console.log("verifyyyyyyyyy", error);
-            reject(error);
-          } else {
-            console.log("Server is ready to take our messages");
-            resolve(success);
-          }
-        });
+      // await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.log("verifyyyyyyyyy", error);
+          // reject(error);
+        } else {
+          console.log("Server is ready to take our messages");
+          // resolve(success);
+        }
       });
-      await new Promise((resolve, reject) => {
-        transporter.sendMail(mailOptions, function (error, info) {
-          if (error) {
-            res.status(500).json({ error: error.message });
-            console.log("this is error", error);
-            reject(error);
-          } else {
-            console.log("Email sent: " + info.response);
-            res.status(201).json({ message: "Email sent" });
-            resolve(info);
-          }
-        });
+      // });
+      // await new Promise((resolve, reject) => {
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          res.status(500).json({ error: error.message });
+          console.log("this is error", error);
+          // reject(error);
+        } else {
+          console.log("Email sent: " + info.response);
+          res.status(201).json({ message: "Email sent" });
+          // resolve(info);
+        }
       });
+      // });
 
       const hashedPassword = await hashPassword(password);
 
