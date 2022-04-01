@@ -1,3 +1,5 @@
+import SMTPConnection from "nodemailer/lib/smtp-connection";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 import { hashPassword } from "../../../lib/auth/auth";
 import dbConnect from "../../../lib/dbConnect";
 import Token from "../../../models/Token";
@@ -14,13 +16,19 @@ export default async function handler(req, res) {
     // var smtpConfig = {};
 
     var transporter = nodemailer.createTransport({
-      port: 465,
+      // name: "www.hostinger.com",
       host: "smtp.hostinger.com",
-      secure: true,
+      port: 465,
+      // secure: true,
       auth: {
         user: "no-reply@viadigitalcard.com",
         pass: "VIATech.D@02062021",
       },
+      // connection: { secure: true },
+      // requireTLS: false,
+      // tls: {
+      //   rejectUnauthorized: false,
+      // },
     });
     let buffer = new Buffer(email);
     let baseData = buffer.toString("base64");
@@ -90,30 +98,30 @@ export default async function handler(req, res) {
       // html: `<a href="${origin}" target="_blank">Click</a>`,
     };
 
-    // await new Promise((resolve, reject) => {
-    transporter.verify(function (error, success) {
-      if (error) {
-        console.log("verifyyyyyyyyy", error);
-        // reject(error);
-      } else {
-        console.log("Server is ready to take our messages");
-        // resolve(success);
-      }
+    await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.log("verifyyyyyyyyy", error);
+          reject(error);
+        } else {
+          console.log("Server is ready to take our messages");
+          resolve(success);
+        }
+      });
     });
-    // });
-    // await new Promise((resolve, reject) => {
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        res.status(500).json({ error: error.message });
-        console.log("this is error", error);
-        // reject(error);
-      } else {
-        console.log("Email sent: " + info.response);
-        res.status(201).json({ message: "Email sent" });
-        // resolve(info);
-      }
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          res.status(500).json({ error: error.message });
+          console.log("this is error", error);
+          reject(error);
+        } else {
+          console.log("Email sent: " + info.response);
+          res.status(201).json({ message: "Email sent" });
+          resolve(info);
+        }
+      });
     });
-    // });
   }
 
   if (method === "PUT") {
