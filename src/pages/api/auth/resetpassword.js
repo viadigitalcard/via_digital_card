@@ -87,13 +87,13 @@ export default async function handler(req, res) {
     Shop-5, Poonam Park View, Global
     City, Virar, Maharashtra, India-401303
     `,
-      attachments: [
-        {
-          filename: "Logo.png",
-          path: __dirname + "./public/assets/images/Logo.png",
-          cid: "logo@1", //same cid value as in the html img src
-        },
-      ],
+      // attachments: [
+      //   {
+      //     filename: "Logo.png",
+      //     path: __dirname + "./public/assets/images/Logo.png",
+      //     cid: "logo@1", //same cid value as in the html img src
+      //   },
+      // ],
       // html: `<a href="${origin}" target="_blank">Click</a>`,
     };
 
