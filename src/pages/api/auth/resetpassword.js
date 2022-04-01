@@ -1,5 +1,3 @@
-import SMTPConnection from "nodemailer/lib/smtp-connection";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
 import { hashPassword } from "../../../lib/auth/auth";
 import dbConnect from "../../../lib/dbConnect";
 import Token from "../../../models/Token";
@@ -91,8 +89,8 @@ export default async function handler(req, res) {
     `,
       attachments: [
         {
-          filename: "logo.png",
-          path: "./public/assets/images/logo.png",
+          filename: "Logo.png",
+          path: "./public/assets/images/Logo.png",
           cid: "logo@1", //same cid value as in the html img src
         },
       ],
