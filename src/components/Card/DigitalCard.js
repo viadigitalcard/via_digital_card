@@ -33,6 +33,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import moment from "moment";
 
 export const DigitalCard = ({ data }) => {
+  console.log(data);
   if (data?.socialLinks.youtube != "") {
     function getId(url) {
       let regex =

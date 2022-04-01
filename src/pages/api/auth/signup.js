@@ -25,6 +25,7 @@ export default async function Signup(req, res) {
         port: 465,
         host: "smtp.hostinger.com",
         secure: true,
+        pool: true,
         auth: {
           user: "no-reply@viadigitalcard.com",
           pass: "VIATech.D@02062021",
@@ -59,18 +60,18 @@ export default async function Signup(req, res) {
         (<a href="https://viacreativetech.com">Via Creative Tech LLP</a>)
       </span>
       <br />
-      <img src="cid:logo@1" />
+      <img src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png" />
       
       <br />
       Shop-5, Poonam Park View, Global
       City, Virar, Maharashtra, India-401303`,
-        attachments: [
-          {
-            filename: "logo.png",
-            path: "./public/assets/images/logo.png",
-            cid: "logo@1", //same cid value as in the html img src
-          },
-        ],
+        // attachments: [
+        //   {
+        //     filename: "logo.png",
+        //     path: "./public/assets/images/logo.png",
+        //     cid: "logo@1", //same cid value as in the html img src
+        //   },
+        // ],
       };
 
       // await new Promise((resolve, reject) => {
@@ -92,6 +93,7 @@ export default async function Signup(req, res) {
           // reject(error);
         } else {
           console.log("Email sent: " + info.response);
+          console.log("this is info", info);
           res.status(201).json({ message: "Email sent" });
           // resolve(info);
         }

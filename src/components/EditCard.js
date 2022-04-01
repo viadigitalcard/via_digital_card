@@ -78,7 +78,7 @@ export default function Card({ inputData }) {
     youtube: inputData.socialLinks.youtube,
     facebook: inputData.socialLinks.facebook,
     payment: inputData.payment,
-    payment: inputData.google,
+    google: inputData.google,
     theme: inputData.theme,
   });
 
@@ -1023,7 +1023,7 @@ export default function Card({ inputData }) {
                       {...field}
                     />
                     <FormErrorMessage>
-                      {form.errors.payment || errorMessage}{" "}
+                      {form.errors.google || errorMessage}{" "}
                     </FormErrorMessage>
                   </FormControl>
                 )}

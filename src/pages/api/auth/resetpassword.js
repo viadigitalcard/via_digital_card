@@ -14,20 +14,15 @@ export default async function handler(req, res) {
     // var smtpConfig = {};
 
     var transporter = nodemailer.createTransport({
-      // name: "www.hostinger.com",
+      name: "www.hostinger.com",
       host: "smtp.hostinger.com",
       port: 465,
       secure: true,
-      pool: true,
+      ignoreTLS: true,
       auth: {
         user: "no-reply@viadigitalcard.com",
         pass: "VIATech.D@02062021",
       },
-      // connection: { secure: true },
-      // requireTLS: false,
-      // tls: {
-      //   rejectUnauthorized: false,
-      // },
     });
     let buffer = new Buffer(email);
     let baseData = buffer.toString("base64");
@@ -61,32 +56,26 @@ export default async function handler(req, res) {
       to: email,
       subject: "Reset Password",
       text: "Click on the link to reset your password",
-      html: `<span style="font-size: 15px; font-family: Calibri, Helvetica, Arial, Sans-Serif">
-      <br />
-      Hey ${email},<br />
-      <br />You have received a new message on you Via Digital
-      Card. Details are as follows:
-      <br /><br />
-        <b>Click below to Reset your password!</b><br/><br/>
-        
-        <a href="${origin}" target="_blank">
-      <button style="width:120px; height:40px; background-color:#77C208;color:white;font-weight:bold;border-radius:5px;border:none">
-      Reset Password
-      </button></a><br /><br />
-    
-      
-      
-      Thanks &
-      Regards,<br /><a href="https://viadigitalcard.in">Via Digital Card Team</a><br />
-      (<a href="https://viacreativetech.com">Via Creative Tech LLP</a>)
-    </span>
-    <br />
-    <img src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png" />
-    
-    <br />
-    Shop-5, Poonam Park View, Global
-    City, Virar, Maharashtra, India-401303
-    `,
+      html: `<span
+  style="font-size: 15px; font-family: Calibri, Helvetica, Arial, Sans-Serif"
+  >
+    <br />Hey there,<br /><br />We have received a request of password change for
+    your Via Digital Card account.Please enter the below code to proceed with
+    password reset process.<br /><br />
+    <a href="${origin}" target="_blank">
+    <button style="width:120px; height:40px; background-color:#77C208;color:white;font-weight:bold;border-radius:5px;border:none">
+    Reset Password
+    </button></a><br /><br />
+   <br /><br />
+    If it wasn't you, please do not share the above code with anyone.
+    <br /><br />Thanks & Regards,<br /><a href="https://viadigitalcard.in"
+      >Via Digital Card Team</a
+    ><br />(<a href="https://viacreativetech.com">Via Creative Tech LLP</a>)</span
+  >
+  <br /><img src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png" alt="logo" /><br />Shop-5, Poonam Park View, Global
+  City, Virar, Maharashtra, India-401303"`,
+
+      // `,
       // attachments: [
       //   {
       //     filename: "Logo.png",
@@ -97,17 +86,18 @@ export default async function handler(req, res) {
       // html: `<a href="${origin}" target="_blank">Click</a>`,
     };
 
+    // <img src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png" />
     // await new Promise((resolve, reject) => {
-    transporter.verify(function (error, success) {
-      if (error) {
-        console.log("verifyyyyyyyyy", error);
-        res.status(400).json({ message: "Error" });
-        // reject(error);
-      } else {
-        console.log("Server is ready to take our messages");
-        // resolve(success);
-      }
-    });
+    // transporter.verify(function (error, success) {
+    //   if (error) {
+    //     console.log("verifyyyyyyyyy", error);
+    //     res.status(400).json({ message: "Error" });
+    //     // reject(error);
+    //   } else {
+    //     console.log("Server is ready to take our messages");
+    //     // resolve(success);
+    //   }
+    // });
     // });
     // await new Promise((resolve, reject) => {
     transporter.sendMail(mailOptions, function (error, info) {
@@ -117,11 +107,12 @@ export default async function handler(req, res) {
         // reject(error);
       } else {
         console.log("Email sent: " + info.response);
-        res.status(201).json({ message: "Email sent" });
-        resolve(info);
+        console.log(info);
+        res.status(201).json({ message: "Email sent" }, info);
+        // resolve(info);
       }
     });
-    // });
+    // });f
   }
 
   if (method === "PUT") {

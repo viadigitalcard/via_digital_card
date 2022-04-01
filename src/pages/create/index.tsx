@@ -959,7 +959,10 @@ function Card() {
                           twitter: string().url().label("Path"),
                           linkedin: string().url().label("Path"),
                           instagram: string().url().label("Path"),
-                          youtube: string().url().label("Path"),
+                          youtube: string().matches(
+                            /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/gm,
+                            "Must be a valid Youtube link"
+                          ),
                           facebook: string().url().label("Path"),
                           payment: string().url().label("Path"),
                           google: string().url().label("Path"),
@@ -1138,8 +1141,7 @@ function Card() {
                             {({ field, form }) => (
                               <FormControl
                                 isInvalid={
-                                  (form.errors.google &&
-                                    form.touched.google) ||
+                                  (form.errors.google && form.touched.google) ||
                                   errorMessage
                                 }
                               >
@@ -1739,7 +1741,18 @@ function Card() {
                           </Field>
                         </VStack>
                       </FormikStep>
-                      <FormikStep label="More Info">
+                      <FormikStep
+                        // validationSchema={ object({
+                        //   website: string().url().label("Path"),
+                        //   twitter: string().url().label("Path"),
+                        //   linkedin: string().url().label("Path"),
+                        //   instagram: string().url().label("Path"),
+                        //   youtube: string().url().label("Path"),
+                        //   facebook: string().url().label("Path"),
+                        //   payment: string().url().label("Path"),
+                        //   google: string().url().label("Path"))}}
+                        label="More Info"
+                      >
                         <VStack spacing="20px" px="10%" py="30px">
                           <Field name="website">
                             {({ field, form }) => (
@@ -1927,8 +1940,7 @@ function Card() {
                             {({ field, form }) => (
                               <FormControl
                                 isInvalid={
-                                  (form.errors.google &&
-                                    form.touched.google) ||
+                                  (form.errors.google && form.touched.google) ||
                                   errorMessage
                                 }
                               >
