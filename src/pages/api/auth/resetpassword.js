@@ -16,10 +16,10 @@ export default async function handler(req, res) {
     // var smtpConfig = {};
 
     var transporter = nodemailer.createTransport({
-      // name: "www.hostinger.com",
+      name: "www.hostinger.com",
       host: "smtp.hostinger.com",
       port: 465,
-      // secure: true,
+      secure: true,
       auth: {
         user: "no-reply@viadigitalcard.com",
         pass: "VIATech.D@02062021",
@@ -102,6 +102,7 @@ export default async function handler(req, res) {
       transporter.verify(function (error, success) {
         if (error) {
           console.log("verifyyyyyyyyy", error);
+          res.status(400).json({ message: "Error" });
           reject(error);
         } else {
           console.log("Server is ready to take our messages");
@@ -112,7 +113,7 @@ export default async function handler(req, res) {
     await new Promise((resolve, reject) => {
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          res.status(500).json({ error: error.message });
+          res.status(500).json({ error: error.message }, error);
           console.log("this is error", error);
           reject(error);
         } else {
