@@ -599,6 +599,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       type="number"
+                      min="0"
                       id="number"
                       placeholder="Primary Phone Number"
                       size="lg"
@@ -629,6 +630,7 @@ export default function Card({ inputData }) {
                     <Input
                       id="number"
                       type="number"
+                      min="0"
                       placeholder="Secondary Phone Number"
                       size="lg"
                       h="60px"
@@ -760,8 +762,8 @@ export default function Card({ inputData }) {
                 )}
               </Field>
 
-              <FormLabel color={textColor} htmlFor="name" marginTop={15}>
-                Name:
+              <FormLabel color={textColor} htmlFor="Theme" marginTop={15}>
+                Theme:
               </FormLabel>
               <Select
                 onChange={(e) => {

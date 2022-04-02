@@ -782,6 +782,7 @@ function Card() {
                               >
                                 <Input
                                   type="number"
+                                  min="0"
                                   placeholder="Primary Phone Number"
                                   marginTop={15}
                                   size="lg"
@@ -1540,6 +1541,7 @@ function Card() {
                               >
                                 <Input
                                   type="number"
+                                  min="0"
                                   placeholder="Primary Phone Number"
                                   marginTop={15}
                                   size="lg"
@@ -1567,6 +1569,7 @@ function Card() {
                                 <Input
                                   isDisabled={true}
                                   type="number"
+                                  min="0"
                                   placeholder="Secondary Phone Number"
                                   marginTop={15}
                                   size="lg"
@@ -1724,6 +1727,7 @@ function Card() {
                               >
                                 <Input
                                   type="number"
+                                  min="0"
                                   placeholder="Whatsapp Number"
                                   marginTop={15}
                                   size="lg"

@@ -503,6 +503,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       type="number"
+                      min="0"
                       id="number"
                       placeholder="Primary Phone Number"
                       size="lg"
@@ -527,6 +528,7 @@ export default function Card({ inputData }) {
                     <Input
                       isDisabled={true}
                       type="number"
+                      min="0"
                       placeholder="Secondary Phone Number"
                       marginTop={15}
                       size="lg"
@@ -809,6 +811,8 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="whatsapp"
+                      type="number"
+                      min="0"
                       placeholder="Number"
                       size="lg"
                       h="60px"
