@@ -178,7 +178,7 @@ export const Contact = () => {
                 w={{ base: "100%", "2sm": "47%" }}
                 flexShrink={"0"}
                 fontSize={{ base: "0.875rem", md: "1.125rem" }}
-                mb={{ base: "20px", "2sm": "0" }}
+                // mb={{ base: "20px", "2sm": "0" }}
               />
             </Flex>
             <Textarea
