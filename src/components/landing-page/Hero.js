@@ -60,6 +60,7 @@ export const Hero = () => {
             mt="40px"
             w={{ base: "188px", lg: "281px" }}
             h="60px"
+            zIndex="20"
           >
             Create Now
           </Button>

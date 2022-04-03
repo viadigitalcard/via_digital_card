@@ -708,7 +708,7 @@ END:VCARD
                 </Center>
               </Box>
             </Box>
-            <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}>
+            <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }} mt={"15px"}>
               <Text
                 fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                 fontWeight={{ base: "600", "2sm": "500" }}
@@ -722,6 +722,7 @@ END:VCARD
                   "2sm": "1.5rem",
                 }}
                 color={"gray.100"}
+                mt={"15px"}
               >
                 {data?.designation}
               </Text>
@@ -751,6 +752,7 @@ END:VCARD
               <Text
                 color={"#ABABAB"}
                 fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
+                textAlign="center"
               >
                 Save Contact
               </Text>

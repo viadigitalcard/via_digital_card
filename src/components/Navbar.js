@@ -134,16 +134,17 @@ export const Navbar = () => {
           >
             Contact Us
           </Link>
-          <Link
-            p="5px"
-            m={{ base: "10px 0px", lg: "0px 20px" }}
-            _hover={{ textDecoration: "none" }}
-            _focus={{ borderBottom: "2px solid #77C208" }}
-            _active={{ borderBottom: "2px solid #77C208" }}
-            href="/pricing"
-          >
-            Pricing
-          </Link>
+          <NextLink href="/pricing" passHref>
+            <Link
+              p="5px"
+              m={{ base: "10px 0px", lg: "0px 20px" }}
+              _hover={{ textDecoration: "none" }}
+              _focus={{ borderBottom: "2px solid #77C208" }}
+              _active={{ borderBottom: "2px solid #77C208" }}
+            >
+              Pricing
+            </Link>
+          </NextLink>
         </Flex>
         <Box>
           {session ? (
@@ -183,6 +184,13 @@ export const Navbar = () => {
                   onClick={() => router.push("/cards")}
                 >
                   My Cards
+                </MenuItem>
+                <MenuItem
+                  cursor="pointer"
+                  as={Center}
+                  onClick={() => router.push("/insights")}
+                >
+                  Insights
                 </MenuItem>
                 <MenuItem cursor="pointer" onClick={signOut} as={Center}>
                   Sign Out

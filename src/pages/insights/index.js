@@ -34,6 +34,7 @@ import Select from "react-select";
 import { signOut } from "next-auth/react";
 import NextLink from "next/link";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
+import Head from "next/head";
 
 export default function Insights() {
   const [selectedData, setSelectedData] = useState({});
@@ -139,6 +140,9 @@ export default function Insights() {
 
   return (
     <>
+      <Head>
+        <title> Insights </title>
+      </Head>
       <DarkModeSwitch />
       <Box bg={bg} textColor={textColor}>
         <Container bg={bg} maxW={["100%", "90%", "80%"]}>
