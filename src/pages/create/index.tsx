@@ -809,6 +809,7 @@ function Card() {
                               >
                                 <Input
                                   type="number"
+                                  min="0"
                                   placeholder="Secondary Phone Number"
                                   marginTop={15}
                                   size="lg"
@@ -956,17 +957,31 @@ function Card() {
                       </FormikStep>
                       <FormikStep
                         validationSchema={object({
-                          website: string().url().label("Path"),
-                          twitter: string().url().label("Path"),
-                          linkedin: string().url().label("Path"),
-                          instagram: string().url().label("Path"),
+                          website: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          twitter: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          linkedin: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          instagram: string()
+                            .url()
+                            .label("Please Include 'https://',"),
                           youtube: string().matches(
                             /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/gm,
                             "Must be a valid Youtube link"
                           ),
-                          facebook: string().url().label("Path"),
-                          payment: string().url().label("Path"),
-                          google: string().url().label("Path"),
+                          facebook: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          payment: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          google: string()
+                            .url()
+                            .label("Please Include 'https://',"),
                         })}
                         label="More Info"
                       >
@@ -997,7 +1012,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="Website"
+                                  placeholder="https://www.website.com"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1023,7 +1038,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="Twitter"
+                                  placeholder="https://www.twitter.com"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1048,7 +1063,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="LinkedIn"
+                                  placeholder="https://www.linkedin.com"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1073,7 +1088,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="Instagram"
+                                  placeholder="https://www.instagram.com"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1098,7 +1113,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="Youtube"
+                                  placeholder="https://www.youtube.com/example"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1123,7 +1138,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="Facebook"
+                                  placeholder="https://www.facebook.com"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1147,7 +1162,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="Google"
+                                  placeholder="https://www.google.com"
                                   w="full"
                                   h="60px"
                                   marginTop={15}
@@ -1746,15 +1761,29 @@ function Card() {
                         </VStack>
                       </FormikStep>
                       <FormikStep
-                        // validationSchema={ object({
-                        //   website: string().url().label("Path"),
-                        //   twitter: string().url().label("Path"),
-                        //   linkedin: string().url().label("Path"),
-                        //   instagram: string().url().label("Path"),
-                        //   youtube: string().url().label("Path"),
-                        //   facebook: string().url().label("Path"),
-                        //   payment: string().url().label("Path"),
-                        //   google: string().url().label("Path"))}}
+                        validationSchema={object({
+                          website: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          twitter: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          linkedin: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          instagram: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          facebook: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          payment: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                          google: string()
+                            .url()
+                            .label("Please Include 'https://',"),
+                        })}
                         label="More Info"
                       >
                         <VStack spacing="20px" px="10%" py="30px">
@@ -1768,7 +1797,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="https://example.com"
+                                  placeholder="https://www.example.com"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1794,7 +1823,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="https://twitter.com/username"
+                                  placeholder="https://www.twitter.com/username"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1819,7 +1848,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="https://linkedin.com/in/username"
+                                  placeholder="https://www.linkedin.com/in/username"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1844,7 +1873,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="https://instagram.com/username"
+                                  placeholder="https://www.instagram.com/username"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1870,7 +1899,7 @@ function Card() {
                               >
                                 <Input
                                   isDisabled={true}
-                                  placeholder="https://youtube.com/link"
+                                  placeholder="https://www.youtube.com/link"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1925,7 +1954,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="https://facebook.com/username"
+                                  placeholder="https://www.facebook.com/username"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
@@ -1949,7 +1978,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="Google Link"
+                                  placeholder="https://google.com/"
                                   w="full"
                                   h="60px"
                                   marginTop={15}

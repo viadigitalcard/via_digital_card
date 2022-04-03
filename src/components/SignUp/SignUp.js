@@ -65,7 +65,7 @@ export default function SignUp() {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
-    email: Yup.string().email("Enter Valid Email").required("Required"),
+    email: Yup.string().email("Enter Valid Email").required("Required").trim(),
     password: Yup.string()
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
@@ -87,7 +87,7 @@ export default function SignUp() {
         method: "POST",
         body: JSON.stringify({
           firstName: values.name,
-          email: values.email.trim(),
+          email: values.email.toLowerCase(),
           password: values.password,
         }),
         headers: {

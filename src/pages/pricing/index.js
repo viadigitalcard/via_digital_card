@@ -145,25 +145,29 @@ const Payment = () => {
   const bg1 = useColorModeValue("#F4FFE2", "#474856");
 
   //testing plans
-  const planId = {
-    "1m": "plan_JDc9K4JUisQ346",
-    "3m": "plan_JDc9K4JUisQ346",
-    "6m": "plan_JDc9K4JUisQ346",
-    "1y": "plan_JDc9K4JUisQ346",
-  };
+  // const planId = {
+  //   "1m": "plan_JDc9K4JUisQ346",
+  //   "3m": "plan_JDc9K4JUisQ346",
+  //   "6m": "plan_JDc9K4JUisQ346",
+  //   "1y": "plan_JDc9K4JUisQ346",
+  // };
 
   //live plans
-  // const planId = {
-  //   "1m": "plan_J2y8PR677stBzv",
-  //   "3m": "plan_JDGtDLZpacpubC",
-  //   "6m": "plan_JDGtYXP6LSuR6O",
-  //   "1y": "plan_JDGu4dR8J3T6Gk",
-  // };
+  const planId = {
+    "1m": "plan_J2y8PR677stBzv",
+    "3m": "plan_JDGtDLZpacpubC",
+    "6m": "plan_JDGtYXP6LSuR6O",
+    "1y": "plan_JDGu4dR8J3T6Gk",
+  };
 
   // const history = useRouter();
 
   //premimum
   const paymentHandler = async (e) => {
+    if (!session) {
+      Toast("Error", "Please login to continue", "error");
+      return router.push("/auth/signin");
+    }
     // if (Plan == "") {
     //   return Toast("Error", "Please select a plan", "error");
     // }
@@ -248,6 +252,10 @@ const Payment = () => {
 
   //nfc
   const paymentHandlerNFC = async (e) => {
+    if (!session) {
+      Toast("Error", "Please login to continue", "error");
+      return router.push("/auth/signin");
+    }
     // if (Plan == "") {
     //   return Toast("Error", "Please select a plan", "error");
     // }
@@ -266,8 +274,8 @@ const Payment = () => {
         // body: JSON.stringify("plan_JAtBAxzaltOUtD"),
 
         //live plan
-        // body: JSON.stringify("plan_JDGuSxV9STsHsw"),
-        body: JSON.stringify("plan_JDc9a5GgVsrYnj"),
+        body: JSON.stringify("plan_JDGuSxV9STsHsw"),
+        // body: JSON.stringify("plan_JDc9a5GgVsrYnj"),
       });
       const data = await response.json();
       if (response.status === 200) {
@@ -337,6 +345,7 @@ const Payment = () => {
   return (
     <>
       <Head>
+        <title>Pricing</title>
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
       </Head>
       <>

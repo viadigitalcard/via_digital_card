@@ -1,4 +1,5 @@
 import { AddIcon, HamburgerIcon } from "@chakra-ui/icons";
+import Head from "next/head";
 import {
   Box,
   Center,
@@ -141,7 +142,7 @@ export default function Insights() {
   return (
     <>
       <Head>
-        <title> Insights </title>
+        <title>Insights</title>
       </Head>
       <DarkModeSwitch />
       <Box bg={bg} textColor={textColor}>

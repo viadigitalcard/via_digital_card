@@ -298,15 +298,14 @@ export default function Card({ inputData }) {
             whatsapp: string()
               .min(10, "Must be Valid Phone Number")
               .max(10, "Must be Valid Phone Number"),
-
-            website: Yup.string().url().label("Path"),
-            linkedin: Yup.string().url().label("Path"),
-            twitter: Yup.string().url().label("Path"),
-            instagram: Yup.string().url().label("Path"),
-            youtube: Yup.string().url().label("Path"),
-            facebook: Yup.string().url().label("Path"),
-            google: Yup.string().url().label("Path"),
-            payment: Yup.string().url().label("Path"),
+            website: Yup.string().url().label("Please Include 'https://',"),
+            linkedin: Yup.string().url().label("Please Include 'https://',"),
+            twitter: Yup.string().url().label("Please Include 'https://',"),
+            instagram: Yup.string().url().label("Please Include 'https://',"),
+            youtube: Yup.string().url().label("Please Include 'https://',"),
+            facebook: Yup.string().url().label("Please Include 'https://',"),
+            google: Yup.string().url().label("Please Include 'https://',"),
+            payment: Yup.string().url().label("Please Include 'https://',"),
           })}
           initialValues={{
             name: inputData.name,
@@ -792,7 +791,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="website"
-                      placeholder="website"
+                      placeholder="https://example.com"
                       width="full"
                       size="lg"
                       variant="outline"
@@ -819,6 +818,8 @@ export default function Card({ inputData }) {
                       Whatsapp:
                     </FormLabel>
                     <Input
+                      type="number"
+                      min="0"
                       id="whatsapp"
                       placeholder="Number"
                       size="lg"
@@ -848,7 +849,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="twitter"
-                      placeholder="Link"
+                      placeholder="https://twitter.com/example"
                       size="lg"
                       h="60px"
                       variant="outline"
@@ -876,7 +877,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="linkedin"
-                      placeholder="Link"
+                      placeholder="https://linkedin.com/example"
                       size="lg"
                       width="full"
                       variant="outline"
@@ -904,7 +905,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="instagram"
-                      placeholder="Link"
+                      placeholder="https://instagram.com/example"
                       width="full"
                       size="lg"
                       variant="outline"
@@ -932,7 +933,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="youtube"
-                      placeholder="Link"
+                      placeholder="https://youtube.com/example"
                       width="full"
                       size="lg"
                       variant="outline"
@@ -960,7 +961,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="facebook"
-                      placeholder="Link"
+                      placeholder="https://facebook.com/example"
                       width="full"
                       size="lg"
                       variant="outline"
@@ -1016,7 +1017,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="google"
-                      placeholder="Link"
+                      placeholder="https://google.com/example"
                       w="full"
                       size="lg"
                       variant="outline"

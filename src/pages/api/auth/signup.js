@@ -60,7 +60,7 @@ export default async function Signup(req, res) {
         (<a href="https://viacreativetech.com">Via Creative Tech LLP</a>)
       </span>
       <br />
-      <img src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png" />
+      <img src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Mail.jpg" />
       
       <br />
       Shop-5, Poonam Park View, Global

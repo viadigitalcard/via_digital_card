@@ -53,12 +53,11 @@ export const About = () => {
           </Text>
         </Box>
 
-        <Flex alignItems={"center"}  flexDir={{base:"column",md:"row"}}>
+        <Flex alignItems={"center"} flexDir={{ base: "column", md: "row" }}>
           <Box
             w={{ base: "319px", xl: "381px" }}
             h={{ base: "431px", xl: "515px" }}
             flexShrink={"0"}
-           
           >
             <Image
               src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646078081/digital%20card/landing-page/about_mqf8ls.png"
@@ -67,13 +66,28 @@ export const About = () => {
               h="100%"
             />
           </Box>
-          <VStack ml={{base:"0",md:"45px"}}  p={{base:"20px",md:"0"}} transform={{base:"translateY(-50px)",md:"translateY(0)"}} borderRadius='23px' bgColor={{base:bg,md:'transparent'}} spacing={"30px"} alignItems={"flex-start"} >
-            <Box fontWeight={"500"} fontSize={{base:"1.5rem",md:"2.25rem"}} color={{base:'greenBrand.100',md:textColor}}>
+          <VStack
+            ml={{ base: "0", md: "45px" }}
+            p={{ base: "20px", md: "0" }}
+            transform={{ base: "translateY(-50px)", md: "translateY(0)" }}
+            borderRadius="23px"
+            bgColor={{ base: bg, md: "transparent" }}
+            spacing={"30px"}
+            alignItems={"flex-start"}
+          >
+            <Box
+              fontWeight={"500"}
+              fontSize={{ base: "1.5rem", md: "2.25rem" }}
+              color={{ base: "greenBrand.100", md: textColor }}
+            >
               <Text>Contact-less, Paper-.</Text>
               <Text>less and Effort-less.</Text>
             </Box>
             <Box w={{ base: "90%", xl: "630px" }}>
-              <Text fontSize={{base:"1rem",md:"1.125rem"}} lineHeight="35px">
+              <Text
+                fontSize={{ base: "1rem", md: "1.125rem" }}
+                lineHeight="35px"
+              >
                 Contact sharing has never been easier and more simplified. Via
                 Digital Card comes with integrated NFC technology which enables
                 quick and instant sharing of information. At Via Digital Card,
@@ -81,10 +95,22 @@ export const About = () => {
                 one.{" "}
               </Text>
             </Box>
-            <Button display={{base:"none",md:"block"}} fontSize={"1.125rem"} mt="20px" w="214px" h="73px">
+            <Button
+              display={{ base: "none", md: "block" }}
+              fontSize={"1.125rem"}
+              mt="20px"
+              w="214px"
+              h="73px"
+            >
               Read More
             </Button>
-            <Text display={{base:"block",md:'none'}} fontWeight={'500'} color='greenBrand.100'>Read More</Text>
+            <Text
+              display={{ base: "block", md: "none" }}
+              fontWeight={"500"}
+              color="greenBrand.100"
+            >
+              Read More
+            </Text>
           </VStack>
         </Flex>
       </Box>

@@ -376,7 +376,7 @@ END:VCARD
                   {data?.bio}
                 </Text>
                 {data && data.socialLinks.youtube != "" ? (
-                  <Box mb="40px" pt="50px" h="380px">
+                  <Box mb="40px" w="500px" pt="50px" h="340px">
                     <Text mb="20px" fontWeight={"500"} fontSize={"1.5rem"}>
                       Youtube Video
                     </Text>
@@ -385,7 +385,7 @@ END:VCARD
                       src={`https://www.youtube.com/embed/${youtubeEmbed}`}
                       allow="autoplay; encrypted-media"
                       title="video"
-                      width="60%"
+                      width="100%"
                       height="100%"
                       allowFullScreen
                     />
