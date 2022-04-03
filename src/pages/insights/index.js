@@ -35,7 +35,6 @@ import Select from "react-select";
 import { signOut } from "next-auth/react";
 import NextLink from "next/link";
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
-import Head from "next/head";
 
 export default function Insights() {
   const [selectedData, setSelectedData] = useState({});

@@ -42,7 +42,7 @@ export const Navbar = () => {
         alignItems={"center"}
         justifyContent="space-between"
       >
-        <Box flexShrink={"0"}>
+        <Box flexShrink={"0"} zIndex={5}>
           <NextLink href="/" passHref>
             <Link>
               <Image src={logo} />
