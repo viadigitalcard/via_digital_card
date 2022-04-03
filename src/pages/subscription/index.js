@@ -273,21 +273,21 @@ export default function Subscription() {
             flexDirection="row"
           >
             <Box cursor="pointer">
-              {/* <NextLink href="/" passHref> */}
+              <NextLink href="/" passHref>
               <Image src={logo} w={["80%", "80%", "100%"]} alt="" />
-              {/* </NextLink> */}
+              </NextLink>
             </Box>
             <Spacer />
             <Box cursor="pointer" display={["none", "none", "flex"]}>
               {/* <HStack p="0px 20px 0px 20px" h="40px"> */}
               {/* </HStack> */}
-              {/* <NextLink href="/create" passHref> */}
               <Button
                 leftIcon={<AddIcon />}
                 mr={4}
                 variant={"outline"}
                 borderColor="greenBrand.100"
                 color={textColor}
+                onClick={() => router.push("/create")}
               >
                 Create New Card
               </Button>
@@ -301,7 +301,6 @@ export default function Subscription() {
                   My Cards
                 </Text>
               </NextLink>
-              {/* </NextLink> */}
 
               <HStack p="0px 20px 0px 20px" h="40px">
                 {/* <Avatar boxSize="35px" /> */}
