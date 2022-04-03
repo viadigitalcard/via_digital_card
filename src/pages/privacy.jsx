@@ -1,11 +1,17 @@
 import React from "react";
 import { Navbar } from "../components/Navbar";
-import { Text, Box } from "@chakra-ui/react";
+import { Text, Box, useColorModeValue } from "@chakra-ui/react";
+import { DarkModeSwitch } from "../components/DarkModeSwitch";
+
 function privacy() {
+  const bgColor = useColorModeValue("white", "black.200");
+  const textColor = useColorModeValue("black", "white");
+
   return (
     <div>
+      <DarkModeSwitch />
       <Navbar />
-      <Box p="30px">
+      <Box p="30px" bg={bgColor} color={textColor}>
         <Text fontSize={"xl"} fontWeight="bold">
           Terms of Services
         </Text>
