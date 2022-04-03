@@ -93,7 +93,14 @@ function Reset() {
       </Head>
       <DarkModeSwitch />
       {!emailSent ? (
-        <Flex w="100%" p="15px 20px" bgColor={bg} minH={"700px"} h="100vh">
+        <Flex
+          bg={bg}
+          w="100%"
+          p="15px 20px"
+          bgColor={bg}
+          minH={"700px"}
+          h="100vh"
+        >
           <Box
             h="100%"
             w="max-content"
@@ -209,6 +216,8 @@ function Reset() {
         </Flex>
       ) : (
         <Flex
+          bg={bg}
+          h="100vh"
           justifyContent={"space-between"}
           flexDir={"column"}
           pl={{ base: "0", lg: "8vw" }}

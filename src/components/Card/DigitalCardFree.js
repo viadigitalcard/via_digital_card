@@ -712,7 +712,10 @@ END:VCARD
                 </Center>
               </Box>
             </Box>
-            <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }} mt={"15px"}>
+            <Box
+              ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}
+              mt={"15px"}
+            >
               <Text
                 fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                 fontWeight={{ base: "600", "2sm": "500" }}

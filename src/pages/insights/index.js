@@ -227,7 +227,7 @@ export default function Insights() {
           </Flex>
         </Container>
       </Box>
-      <Box bg={bg} textColor={textColor} pt="50px" w="100%" h="100vh">
+      <Box bg={bg} textColor={textColor} pt="50px" w="100%">
         <Center>
           <Box as={Center} w={["80%", "50%", "50%"]}>
             <Select
