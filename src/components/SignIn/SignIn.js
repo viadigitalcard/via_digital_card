@@ -144,6 +144,7 @@ export const SignIn = () => {
                           variant="outline"
                           {...field}
                           color={textColor}
+                          autoComplete="off"
                         />
                         <FormErrorMessage>
                           {form.errors.email || errorMessage}{" "}

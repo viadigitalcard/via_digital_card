@@ -18,7 +18,12 @@ import {
   useDisclosure,
   Link,
   SimpleGrid,
-  Spacer,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 import FileSaver from "file-saver";
 import { FiPhone } from "react-icons/fi";
@@ -33,6 +38,11 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import moment from "moment";
 
 export const DigitalCard = ({ data }) => {
+  const {
+    isOpen: isOpen1,
+    onOpen: onOpen1,
+    onClose: onClose1,
+  } = useDisclosure();
   console.log(data);
   if (data?.socialLinks.youtube != "") {
     function getId(url) {
@@ -165,7 +175,7 @@ END:VCARD
         <RWebShare
           data={{
             text: "Via Digital Card",
-            url: process.env.NEXTAUTH_URL + url,
+            url: "https://viadigitalcard.com" + url,
             title: data.designation,
           }}
           onClick={() => console.log("shared successfully!")}
@@ -701,7 +711,11 @@ END:VCARD
                     />
                   </Center>
                 </Button>
-                <Text fontSize={"1.125rem"} color={textColor}>
+                <Text
+                  fontSize={"1.125rem"}
+                  color={textColor}
+                  textAlign="center"
+                >
                   Save Contact
                 </Text>
               </Center>
@@ -738,6 +752,7 @@ END:VCARD
                       href={data?.brochure}
                       fontSize={"1.125rem"}
                       color={textColor}
+                      textAlign="center"
                     >
                       {/* {data?.brochure} */}
                       Download brochure
@@ -856,13 +871,11 @@ END:VCARD
             // justifyContent={"space-between"}
           >
             <VStack onClick={() => handelupdate("vcf")} spacing={"10px"}>
-              <Button
+              <Center
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
-                // bgColor={bgDashIconMobile}
+                bgColor={bgDashIconMobile}
                 onClick={handleSave}
-                as={Center}
-                // variant="solid"
                 variant={data.theme && data?.theme ? data.theme : "solid"}
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
@@ -871,10 +884,11 @@ END:VCARD
                     alt=""
                   />
                 </Box>
-              </Button>
+              </Center>
               <Text
                 color={"#ABABAB"}
                 fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
+                textAlign="center"
               >
                 Save Contact
               </Text>
@@ -900,6 +914,7 @@ END:VCARD
                   href={data?.brochure}
                   fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                   color={"#ABABAB"}
+                  textAlign="center"
                 >
                   Download brochure
                 </Text>
@@ -929,6 +944,7 @@ END:VCARD
                   isExternal
                   fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                   color={"#ABABAB"}
+                  textAlign="center"
                 >
                   Make payment
                 </Text>
@@ -1229,17 +1245,25 @@ END:VCARD
                       <Text>{data?.snumber}</Text>
                     </Box>
                   </Flex>
+                  <Button onClick={onOpen1}>Call Now</Button>
 
-                  <Link href={`tel:${data?.pnumber}`}>
-                    <Button
-                      // color={textColor2}
-                      variant={data?.theme ? data.theme : "solid"}
-                      fontWeight={400}
-                      w="100px"
-                    >
-                      Call Now
-                    </Button>
-                  </Link>
+                  <Modal isOpen={isOpen1} onClose={onClose1}>
+                    <ModalOverlay />
+                    <ModalContent>
+                      <ModalHeader>Select the number to call</ModalHeader>
+                      <ModalCloseButton />
+                      <ModalBody>
+                        <VStack justifyContent={"center"} alignItems="center">
+                          <Link href={`tel:${data?.pnumber}`}>
+                            <Text>{data?.pnumber}</Text>
+                          </Link>
+                          <Link href={`tel:${data?.snumber}`}>
+                            <Text>{data?.snumber}</Text>
+                          </Link>
+                        </VStack>
+                      </ModalBody>
+                    </ModalContent>
+                  </Modal>
                 </Flex>
                 {data?.website != "" ? (
                   <Flex

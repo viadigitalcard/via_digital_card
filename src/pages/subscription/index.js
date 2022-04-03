@@ -25,10 +25,12 @@ import { signOut, useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
 import Router from "next/router";
+import { useRouter } from 'next/router'
 import { DarkModeSwitch } from "../../components/DarkModeSwitch";
 import Head from "next/head";
 
 export default function Subscription() {
+  const router = useRouter()
   const logo = useColorModeValue(
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
@@ -271,21 +273,21 @@ export default function Subscription() {
             flexDirection="row"
           >
             <Box cursor="pointer">
-              {/* <NextLink href="/" passHref> */}
+              <NextLink href="/" passHref>
               <Image src={logo} w={["80%", "80%", "100%"]} alt="" />
-              {/* </NextLink> */}
+              </NextLink>
             </Box>
             <Spacer />
             <Box cursor="pointer" display={["none", "none", "flex"]}>
               {/* <HStack p="0px 20px 0px 20px" h="40px"> */}
               {/* </HStack> */}
-              {/* <NextLink href="/create" passHref> */}
               <Button
                 leftIcon={<AddIcon />}
                 mr={4}
                 variant={"outline"}
                 borderColor="greenBrand.100"
                 color={textColor}
+                onClick={() => router.push("/create")}
               >
                 Create New Card
               </Button>
@@ -299,7 +301,6 @@ export default function Subscription() {
                   My Cards
                 </Text>
               </NextLink>
-              {/* </NextLink> */}
 
               <HStack p="0px 20px 0px 20px" h="40px">
                 {/* <Avatar boxSize="35px" /> */}

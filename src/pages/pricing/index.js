@@ -59,7 +59,7 @@ const Payment = () => {
       const data = await res.json();
       console.log(data);
       if (res.status === 200) {
-        Toast("Success", "You Allready have a NFC Subscription ", "success");
+        Toast("Success", "You Already have a NFC Subscription ", "success");
         setIsNFC(true);
         console.log("NFC Yes");
         return Router.push("/subscription");
@@ -83,7 +83,7 @@ const Payment = () => {
       if (res.status === 200) {
         Toast(
           "Success",
-          "You Allready have a Premimum Subscription ",
+          "You Already have a Premimum Subscription ",
           "success"
         );
         setIsPremium(true);
