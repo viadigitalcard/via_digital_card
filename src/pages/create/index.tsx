@@ -782,6 +782,7 @@ function Card() {
                               >
                                 <Input
                                   type="number"
+                                  min="0"
                                   placeholder="Primary Phone Number"
                                   marginTop={15}
                                   size="lg"
@@ -808,6 +809,7 @@ function Card() {
                               >
                                 <Input
                                   type="number"
+                                  min="0"
                                   placeholder="Secondary Phone Number"
                                   marginTop={15}
                                   size="lg"
@@ -955,17 +957,17 @@ function Card() {
                       </FormikStep>
                       <FormikStep
                         validationSchema={object({
-                          website: string().url().label("Path"),
-                          twitter: string().url().label("Path"),
-                          linkedin: string().url().label("Path"),
-                          instagram: string().url().label("Path"),
+                          website: string().url(),
+                          twitter: string().url(),
+                          linkedin: string().url(),
+                          instagram: string().url(),
                           youtube: string().matches(
                             /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/gm,
                             "Must be a valid Youtube link"
                           ),
-                          facebook: string().url().label("Path"),
-                          payment: string().url().label("Path"),
-                          google: string().url().label("Path"),
+                          facebook: string().url(),
+                          payment: string().url(),
+                          google: string().url(),
                         })}
                         label="More Info"
                       >
