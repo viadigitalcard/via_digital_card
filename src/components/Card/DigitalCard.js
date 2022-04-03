@@ -625,17 +625,27 @@ END:VCARD
                       {data?.snumber != "" ? `| ${data.snumber}` : ""}
                       {/* data?.snumber} */}
                     </Text>
-                    <Link href={`tel:${data?.pnumber}`}>
-                      <Button
-                        // color={textColor2}
-                        variant={data?.theme ? data.theme : "solid"}
-                        fontWeight={400}
-                        w="142px"
-                        ml="75px"
-                      >
-                        Call Now
-                      </Button>
-                    </Link>
+                    <Button onClick={onOpen1} w="142px" ml="75px">
+                      Call Now
+                    </Button>
+
+                    <Modal isOpen={isOpen1} onClose={onClose1}>
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>Select the number to call</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                          <VStack justifyContent={"center"} alignItems="center">
+                            <Link href={`tel:${data?.pnumber}`}>
+                              <Text>{data?.pnumber}</Text>
+                            </Link>
+                            <Link href={`tel:${data?.snumber}`}>
+                              <Text>{data?.snumber}</Text>
+                            </Link>
+                          </VStack>
+                        </ModalBody>
+                      </ModalContent>
+                    </Modal>
                   </Flex>
                   {data.website != "" ? (
                     <Flex
