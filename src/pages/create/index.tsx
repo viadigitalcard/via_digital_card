@@ -1188,7 +1188,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="Payment Link"
+                                  placeholder="https://example.com/payment"
                                   w="full"
                                   h="60px"
                                   marginTop={15}
@@ -2004,7 +2004,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="Payment Link"
+                                  placeholder="https://example.com/payment"
                                   w="full"
                                   h="60px"
                                   marginTop={15}

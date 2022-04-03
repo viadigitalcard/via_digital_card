@@ -100,6 +100,7 @@ END:VCARD
       data.socialLinks.facebook == "" &&
       data.socialLinks.twitter == "" &&
       data.socialLinks.linkedin == "" &&
+      data.socialLinks.google == "" &&
       data.socialLinks.youtube == ""
     ) {
       return false;
@@ -442,17 +443,20 @@ END:VCARD
                     " "
                   )}
                   {data.socialLinks.google != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex
+                      isExternal
+                      as={Link}
+                      href={data?.socialLinks?.google}
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
                         border={`2px solid ${borderColor}`}
                       >
-                        <Box
-                          isExternal
-                          as={Link}
-                          href={data?.socialLinks?.google}
-                        >
+                        <Box>
+                          {" "}
                           <Image src="/assets/images/greview.png" alt="" />
                         </Box>
                       </Center>
@@ -464,7 +468,11 @@ END:VCARD
                   <Button w="173px" h="62px" m="22px" onClick={onOpen}>
                     Send Message
                   </Button>
-                  <SendMessage isOpen={isOpen} onClose={onClose} />
+                  <SendMessage
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    card_id={data?.card_id}
+                  />
                 </Box>
               </TabPanel>
               <TabPanel p="0" w="100%" color={textColor}>
@@ -518,11 +526,7 @@ END:VCARD
                       <Box fontSize={"1.7rem"}>
                         <VscGlobe />
                       </Box>
-                      <Link
-                        href={"https://" + data?.website}
-                        isExternal
-                        ml="27px"
-                      >
+                      <Link href={data?.website} isExternal ml="27px">
                         {data?.website} <ExternalLinkIcon mx="2px" />
                       </Link>
                       {/* <Text ml="27px"></Text> */}
@@ -1024,6 +1028,22 @@ END:VCARD
 
                 {/* <Spacer /> */}
               </SimpleGrid>
+              <Center>
+                <Button
+                  variant={"solid"}
+                  // w="80px"
+                  // h="30px"
+                  mt="22px"
+                  onClick={onOpen}
+                >
+                  Send Message
+                </Button>
+                <SendMessage
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  card_id={data?.card_id}
+                />
+              </Center>
               {/* <Center mt="50px">
                 <Button w="173px" h="62px" fontWeight={"400"}>
                   Send Message

@@ -989,7 +989,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="payment"
-                      placeholder="payment link"
+                      placeholder="https://example.com/payment"
                       w="full"
                       size="lg"
                       variant="outline"

@@ -144,6 +144,7 @@ export default function Card({ inputData }) {
         facebook: data.facebook || "",
         linkedin: data.linkedin || "",
         youtube: data.youtube || "",
+        google: data.google || "",
       },
       payment: data.payment || "",
     };
@@ -230,8 +231,8 @@ export default function Card({ inputData }) {
             linkedin: inputData.socialLinks.linkedin,
             instagram: inputData.socialLinks.instagram,
             facebook: inputData.socialLinks.facebook,
+            google: inputData.socialLinks.google,
             payment: inputData.payment,
-            google: inputData.google,
           }}
           onSubmit={handleSubmit}
         >
@@ -541,7 +542,7 @@ export default function Card({ inputData }) {
                       color="red.200"
                       pos="absolute"
                       right="20px"
-                      top="50%"
+                      top="60%"
                       bottom="50%"
                     />
                     <Box
@@ -554,7 +555,7 @@ export default function Card({ inputData }) {
                       textAlign="center"
                       // border="2px solid red"
                       right="50px"
-                      top="45%"
+                      top="55%"
                       bottom="55%"
                       pos="absolute"
                       // w="50%"
@@ -938,20 +939,18 @@ export default function Card({ inputData }) {
                       color="red.200"
                       pos="absolute"
                       right="20px"
-                      top="50%"
+                      top="60%"
                       bottom="50%"
                     />
                     <Box
                       cursor="pointer"
                       as={Center}
                       bg="red.400"
-                      // h="100%"
                       borderRadius="8px"
                       color={textColor}
                       textAlign="center"
-                      // border="2px solid red"
                       right="50px"
-                      top="45%"
+                      top="55%"
                       bottom="55%"
                       pos="absolute"
                       // w="50%"
@@ -1040,7 +1039,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="payment"
-                      placeholder="payment link"
+                      placeholder="https://example.com/payment"
                       w="full"
                       size="lg"
                       variant="outline"
