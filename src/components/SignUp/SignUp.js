@@ -35,8 +35,8 @@ export default function SignUp() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const router = useRouter();
-  const bgColor = useColorModeValue("black.200", "white");
-  const buttonColor = useColorModeValue("white", "black.200");
+  const bgColor = useColorModeValue("white", "black.200");
+  const buttonColor = useColorModeValue("black.200", "white");
   const border = useColorModeValue("white", "#242734");
 
   function Toast(title, message, status) {
@@ -347,7 +347,7 @@ export default function SignUp() {
                                   color={"white"}
                                   flexDir="column"
                                 >
-                                  <VStack spacing="20px">
+                                  <VStack spacing="20px" color={textColor}>
                                     <Heading>Terms of Services</Heading>
                                     <Text>
                                       Last updated: December 24, 2021 Please

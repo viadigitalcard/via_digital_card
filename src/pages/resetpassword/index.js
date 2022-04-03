@@ -130,12 +130,13 @@ function Reset() {
               </NextLink>
               <Text
                 fontSize={{ base: "1.125rem", lg: "1.7rem", xl: "2.25rem" }}
+                color={textColor}
               >
                 Recovery password
               </Text>
             </Flex>
 
-            <Box w="100%" maxW={"473px"}>
+            <Box w="100%" maxW={"473px"} color={textColor}>
               <Text mt="21px">
                 Enter the email associated with your account we’ll send an email
                 with instruction to reset your password.
@@ -217,8 +218,12 @@ function Reset() {
           color={textColor}
         >
           <Box>
-            <Flex alignItems={"center"}>
-              <Box fontSize={"2rem"} display={{ base: "block", lg: "none" }}>
+            <Flex alignItems={"center"} color={textColor}>
+              <Box
+                fontSize={"2rem"}
+                display={{ base: "block", lg: "none" }}
+                color={textColor}
+              >
                 <BsArrowLeftShort />
               </Box>
               <Text
@@ -238,7 +243,12 @@ function Reset() {
               >
                 <AiOutlineMail />
               </Center>
-              <Text fontWeight={"500"} fontSize="1.5rem" mt="40px">
+              <Text
+                fontWeight={"500"}
+                fontSize="1.5rem"
+                mt="40px"
+                color={textColor}
+              >
                 Check your email
               </Text>
               <Flex>

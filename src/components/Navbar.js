@@ -172,6 +172,14 @@ export const Navbar = () => {
                 <MenuItem
                   cursor="pointer"
                   as={Center}
+                  onClick={() => router.push("/subscription")}
+                >
+                  Subscriptions
+                </MenuItem>
+
+                <MenuItem
+                  cursor="pointer"
+                  as={Center}
                   onClick={() => router.push("/cards")}
                 >
                   My Cards

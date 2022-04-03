@@ -918,7 +918,10 @@ END:VCARD
                   borderRadius="8px"
                   bgColor={bgDashIconMobile}
                 >
-                  <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
+                  <Box
+                    boxSize={{ base: "20px", xs: "40px", sm: "60px" }}
+                    href={data?.payment}
+                  >
                     <Image
                       src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
                       alt=""
@@ -928,7 +931,6 @@ END:VCARD
                 <Text
                   as={Link}
                   isExternal
-                  href={data?.payment}
                   fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                   color={"#ABABAB"}
                 >

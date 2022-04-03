@@ -109,7 +109,7 @@ export const SignIn = () => {
             // p="10px"
             src={logo}
           />
-          <Text
+          {/* <Text
             fontSize={{ base: "40px", md: "40px", lg: "45px" }}
             py={3}
             fontFamily="mono"
@@ -117,7 +117,7 @@ export const SignIn = () => {
             color={textColor}
           >
             Sign in
-          </Text>
+          </Text> */}
           <Flex>
             <Formik
               validationSchema={validationSchema}
