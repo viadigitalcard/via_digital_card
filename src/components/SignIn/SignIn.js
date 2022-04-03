@@ -71,7 +71,7 @@ export const SignIn = () => {
         setLoading(true);
         const result = await signIn("credentials", {
           redirect: false,
-          email: values.email.trim(),
+          email: values.email.toLowerCase(),
           password: values.password,
         });
 

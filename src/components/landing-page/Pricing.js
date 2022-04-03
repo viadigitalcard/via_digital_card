@@ -11,7 +11,7 @@ import {
   useColorModeValue,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { BiCheck } from 'react-icons/bi';
+import { BiCheck } from "react-icons/bi";
 export const Pricing = () => {
   const textColor = useColorModeValue("black", "white");
   const textColor1 = useColorModeValue("#7C7C7C", "#C8C8C8");
@@ -60,44 +60,78 @@ export const Pricing = () => {
           w="100%"
           mt="54px"
           color={textColor}
-          p={{base:"15px",sm:"30px",lg:"60px",xl:"90px"}}
-          minChildWidth={{base:"320px",sm:"396px"}}
+          p={{ base: "15px", sm: "30px", lg: "60px", xl: "90px" }}
+          minChildWidth={{ base: "320px", sm: "396px" }}
           spacing="1.625rem"
         >
-           <Center pt='25px' boxShadow='8px 0px 33px 0px #0000000F' flexDir={"column"} bgColor={bg} borderRadius="27px">
-            <Text p='0px 25px' fontSize={"1.5rem"} fontWeight="500">
-            Starter
+          <Center
+            pt="25px"
+            boxShadow="8px 0px 33px 0px #0000000F"
+            flexDir={"column"}
+            bgColor={bg}
+            borderRadius="27px"
+          >
+            <Text p="0px 25px" fontSize={"1.5rem"} fontWeight="500">
+              Starter
             </Text>
-            <Text p='0px 25px'  mt="10px" textAlign={'center'} fontSize={{base:"1rem",sm:'1.125rem'}} lineHeight='35px'>The basics for personal projects experiments.</Text>
-            <VStack p='0px 25px' alignItems={'flex-start'} mt='50px' mb='50px' color={textColor1} spacing='8px' fontSize={{base:"1rem",sm:'1.125rem'}}>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-               
-               
+            <Text
+              p="0px 25px"
+              mt="10px"
+              textAlign={"center"}
+              fontSize={{ base: "1rem", sm: "1.125rem" }}
+              lineHeight="35px"
+            >
+              The basics for personal projects experiments.
+            </Text>
+            <VStack
+              p="0px 25px"
+              alignItems={"flex-start"}
+              mt="50px"
+              mb="50px"
+              color={textColor1}
+              spacing="8px"
+              fontSize={{ base: "1rem", sm: "1.125rem" }}
+            >
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
             </VStack>
-            <Center borderBottomRadius={'27px'} flexDir={"column"} w="100%" h="234px" bgColor={bg1}>
+            <Center
+              borderBottomRadius={"27px"}
+              flexDir={"column"}
+              w="100%"
+              h="234px"
+              bgColor={bg1}
+            >
               <Text fontWeight={"600"} fontSize="2.25rem" mb="28px">
                 Free
               </Text>
@@ -106,91 +140,158 @@ export const Pricing = () => {
               </Button>
             </Center>
           </Center>
-          <Center pt='25px' boxShadow='8px 0px 33px 0px #0000000F' flexDir={"column"} bgColor={bg} borderRadius="27px">
-            <Text p='0px 25px' fontSize={"1.5rem"} fontWeight="500">
-           Premium
+          <Center
+            pt="25px"
+            boxShadow="8px 0px 33px 0px #0000000F"
+            flexDir={"column"}
+            bgColor={bg}
+            borderRadius="27px"
+          >
+            <Text p="0px 25px" fontSize={"1.5rem"} fontWeight="500">
+              Premium
             </Text>
-            <Text p='0px 25px'  mt="10px" textAlign={'center'} fontSize={{base:"1rem",sm:'1.125rem'}} lineHeight='35px'>The basics for personal projects experiments.</Text>
-            <VStack p='0px 25px' alignItems={'flex-start'} mt='50px' mb='50px' color={textColor1} spacing='8px' fontSize={{base:"1rem",sm:'1.125rem'}}>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-               
-               
+            <Text
+              p="0px 25px"
+              mt="10px"
+              textAlign={"center"}
+              fontSize={{ base: "1rem", sm: "1.125rem" }}
+              lineHeight="35px"
+            >
+              The basics for personal projects experiments.
+            </Text>
+            <VStack
+              p="0px 25px"
+              alignItems={"flex-start"}
+              mt="50px"
+              mb="50px"
+              color={textColor1}
+              spacing="8px"
+              fontSize={{ base: "1rem", sm: "1.125rem" }}
+            >
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
             </VStack>
-            <Center borderBottomRadius={'27px'} flexDir={"column"} w="100%" h="234px" bgColor={bg1}>
+            <Center
+              borderBottomRadius={"27px"}
+              flexDir={"column"}
+              w="100%"
+              h="234px"
+              bgColor={bg1}
+            >
               <Text fontWeight={"600"} fontSize="2.25rem" mb="28px">
-                Free
+                Buy Now
               </Text>
               <Button w="183px" h="60px" fontWeight={"600"} fontSize="1.125rem">
-                Buy Now
+                Go to Pricing
               </Button>
             </Center>
           </Center>
-          <Center pt='25px' boxShadow='8px 0px 33px 0px #0000000F' flexDir={"column"} bgColor={bg} borderRadius="27px">
-            <Text p='0px 25px' fontSize={"1.5rem"} fontWeight="500">
-             NFC Card
+          <Center
+            pt="25px"
+            boxShadow="8px 0px 33px 0px #0000000F"
+            flexDir={"column"}
+            bgColor={bg}
+            borderRadius="27px"
+          >
+            <Text p="0px 25px" fontSize={"1.5rem"} fontWeight="500">
+              NFC Card
             </Text>
-            <Text p='0px 25px'  mt="10px" textAlign={'center'} fontSize={{base:"1rem",sm:'1.125rem'}} lineHeight='35px'>The basics for personal projects experiments.</Text>
-            <VStack p='0px 25px' alignItems={'flex-start'} mt='50px' mb='50px' color={textColor1} spacing='8px' fontSize={{base:"1rem",sm:'1.125rem'}}>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-                <Flex alignItems={'center'}>
-                   <Box fontSize={'1.5rem'} color='greenBrand.100'>
-                       <BiCheck/>
-                   </Box>
-                   <Text ml='27px' lineHeight='31px'>The basics for personal projects experiments.</Text>
-                </Flex>
-               
-               
+            <Text
+              p="0px 25px"
+              mt="10px"
+              textAlign={"center"}
+              fontSize={{ base: "1rem", sm: "1.125rem" }}
+              lineHeight="35px"
+            >
+              The basics for personal projects experiments.
+            </Text>
+            <VStack
+              p="0px 25px"
+              alignItems={"flex-start"}
+              mt="50px"
+              mb="50px"
+              color={textColor1}
+              spacing="8px"
+              fontSize={{ base: "1rem", sm: "1.125rem" }}
+            >
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
+              <Flex alignItems={"center"}>
+                <Box fontSize={"1.5rem"} color="greenBrand.100">
+                  <BiCheck />
+                </Box>
+                <Text ml="27px" lineHeight="31px">
+                  The basics for personal projects experiments.
+                </Text>
+              </Flex>
             </VStack>
-            <Center borderBottomRadius={'27px'} flexDir={"column"} w="100%" h="234px" bgColor={bg1}>
+            <Center
+              borderBottomRadius={"27px"}
+              flexDir={"column"}
+              w="100%"
+              h="234px"
+              bgColor={bg1}
+            >
               <Text fontWeight={"600"} fontSize="2.25rem" mb="28px">
-                Free
+                Buy Now
               </Text>
               <Button w="183px" h="60px" fontWeight={"600"} fontSize="1.125rem">
-                Buy Now
+                Go to Pricing
               </Button>
             </Center>
           </Center>
-        
         </SimpleGrid>
       </Box>
     </Center>

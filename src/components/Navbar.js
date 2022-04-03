@@ -58,7 +58,9 @@ export const Navbar = () => {
         >
           <BiMenu />
         </Box>
+
         <Flex
+          zIndex={openNavbar ? "5" : "0"}
           pos={{ base: "absolute", lg: "static" }}
           top="0"
           right="0"
@@ -75,7 +77,7 @@ export const Navbar = () => {
           minH={{ base: "500px", lg: "0" }}
           pl={{ base: "40px", lg: "0" }}
           fontWeight="500"
-          zIndex={3}
+          // zIndex={3}
         >
           <Flex
             d="flex"

@@ -1,12 +1,16 @@
-import React from 'react';
-import SignUp from '../../components/SignUp/SignUp';
+import Head from "next/head";
+import React from "react";
+import SignUp from "../../components/SignUp/SignUp";
 
-function signin() {
+function signUp() {
   return (
-      <>
-      <SignUp/>
-      </>
+    <>
+      <Head>
+        <title>Sign Up</title>
+      </Head>
+      <SignUp />
+    </>
   );
 }
 
-export default signin;
+export default signUp;

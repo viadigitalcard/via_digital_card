@@ -72,7 +72,7 @@ export default async function handler(req, res) {
       >Via Digital Card Team</a
     ><br />(<a href="https://viacreativetech.com">Via Creative Tech LLP</a>)</span
   >
-  <br /><img src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png" alt="logo" /><br />Shop-5, Poonam Park View, Global
+  <br /><img src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Mail.jpg" alt="logo" /><br />Shop-5, Poonam Park View, Global
   City, Virar, Maharashtra, India-401303"`,
 
       // `,

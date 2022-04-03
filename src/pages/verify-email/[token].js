@@ -6,6 +6,7 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import dbConnect from "../../lib/dbConnect";
@@ -69,6 +70,9 @@ export default function VerifyEmail({ token, valid }) {
 
   return (
     <>
+      <Head>
+        <title> Verify Email </title>
+      </Head>
       <Box as={Center} h="100vh" w="full" bg={color}>
         <Center h="50%" w="50%" border="2px solid gray" borderRadius="25px">
           <Button
