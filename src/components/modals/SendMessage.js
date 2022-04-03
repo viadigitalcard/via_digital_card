@@ -35,6 +35,7 @@ export const SendMessage = ({ isOpen, onClose, card_id }) => {
   const buttonColor = useColorModeValue("black", "white");
   const border = useColorModeValue("black", "white");
   const textColor = useColorModeValue("white", "#747474");
+  const textColor1 = useColorModeValue("black", "white");
 
   const handleChange = (e) => {
     const target = e.target;
@@ -93,7 +94,7 @@ export const SendMessage = ({ isOpen, onClose, card_id }) => {
         />
         <ModalBody w="100%" as={Center} color={textColor} flexDir="column">
           <form onSubmit={handleSubmit}>
-            <VStack w="100%" spacing="20px">
+            <VStack w="100%" spacing="20px" color={textColor1}>
               <Input
                 onChange={(e) => handleChange(e)}
                 w="272px"

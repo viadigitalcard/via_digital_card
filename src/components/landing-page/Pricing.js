@@ -12,7 +12,9 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { BiCheck } from "react-icons/bi";
+import { useRouter } from "next/router";
 export const Pricing = () => {
+  const router = useRouter();
   const textColor = useColorModeValue("black", "white");
   const textColor1 = useColorModeValue("#7C7C7C", "#C8C8C8");
   const bg = useColorModeValue("white", "black.100");
@@ -284,10 +286,21 @@ export const Pricing = () => {
               h="234px"
               bgColor={bg1}
             >
-              <Text fontWeight={"600"} fontSize="2.25rem" mb="28px">
+              <Text
+                fontWeight={"600"}
+                fontSize="2.25rem"
+                mb="28px"
+                onClick={() => useRouter.push("/pricing")}
+              >
                 Buy Now
               </Text>
-              <Button w="183px" h="60px" fontWeight={"600"} fontSize="1.125rem">
+              <Button
+                onClick={() => useRouter.push("/pricing")}
+                w="183px"
+                h="60px"
+                fontWeight={"600"}
+                fontSize="1.125rem"
+              >
                 Go to Pricing
               </Button>
             </Center>

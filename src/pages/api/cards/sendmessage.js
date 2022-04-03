@@ -10,23 +10,25 @@ export default async function handler(req, res) {
   if (method === "POST") {
     const { data, card_id } = req.body;
     const { email, message, name } = data;
+    console.log(card_id);
 
     const nodemailer = require("nodemailer");
     var transporter = nodemailer.createTransport({
       port: 465,
       host: "smtp.hostinger.com",
       secure: true,
+      pool: true,
       auth: {
         user: "no-reply@viadigitalcard.com",
-        pass: "VIATech.D@123",
+        pass: "VIATech.D@02062021",
       },
     });
 
     const user = await User.findOne({
       _id: card_id,
     }).exec();
-
-    const toSendemail = user.email;
+    console.log(user);
+    const toSendemail = user?.email;
 
     const mailOptions = {
       from: "no-reply@viadigitalcard.com",
@@ -66,29 +68,29 @@ export default async function handler(req, res) {
       ],
     };
 
-    await new Promise((resolve, reject) => {
-      transporter.verify(function (error, success) {
-        if (error) {
-          console.log("verifyyyyyyyyy", error);
-          reject(error);
-        } else {
-          console.log("Server is ready to take our messages");
-          resolve(success);
-        }
-      });
+    // await new Promise((resolve, reject) => {
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log("verifyyyyyyyyy", error);
+        // reject(error);
+      } else {
+        console.log("Server is ready to take our messages");
+        // resolve(success);
+      }
     });
-    await new Promise((resolve, reject) => {
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          res.status(500).json({ error: error.message });
-          console.log("this is error", error);
-          reject(error);
-        } else {
-          console.log("Email sent: " + info.response);
-          res.status(201).json({ message: "Email sent" });
-          resolve(info);
-        }
-      });
+    // });
+    // await new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        res.status(500).json({ error: error.message }, info);
+        console.log("this is error", info);
+        // reject(error);
+      } else {
+        console.log("Email sent: " + info.response);
+        res.status(201).json({ message: "Email sent" });
+        // resolve(info);
+      }
     });
+    // });
   }
 }

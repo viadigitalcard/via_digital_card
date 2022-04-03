@@ -657,11 +657,7 @@ END:VCARD
                       <Box fontSize={"1.7rem"}>
                         <VscGlobe />
                       </Box>
-                      <Link
-                        href={"https://" + data?.website}
-                        isExternal
-                        ml="27px"
-                      >
+                      <Link href={data?.website} isExternal ml="27px">
                         {data?.website} <ExternalLinkIcon mx="2px" />
                       </Link>
                       {/* <Text ml="27px"></Text> */}
@@ -1203,7 +1199,7 @@ END:VCARD
                   variant={data?.theme ? data.theme : "solid"}
                   // w="80px"
                   // h="30px"
-                  m="22px"
+                  mt="22px"
                   onClick={onOpen}
                 >
                   Send Message
@@ -1289,7 +1285,7 @@ END:VCARD
                     <Box fontSize={"1.7rem"}>
                       <VscGlobe />
                     </Box>
-
+                    Next
                     <Link isExternal href={data.website} ml="27px">
                       {data?.website}
                     </Link>
