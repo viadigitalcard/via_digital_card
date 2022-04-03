@@ -632,9 +632,9 @@ END:VCARD
                     <Modal isOpen={isOpen1} onClose={onClose1}>
                       <ModalOverlay />
                       <ModalContent>
-                        <ModalHeader>Select the number to call</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody>
+                        <ModalHeader color={textColor}>Select the number to call</ModalHeader>
+                        <ModalCloseButton color={textColor}/>
+                        <ModalBody color={textColor}>
                           <VStack justifyContent={"center"} alignItems="center">
                             <Link href={`tel:${data?.pnumber}`}>
                               <Text>{data?.pnumber}</Text>
@@ -1260,9 +1260,9 @@ END:VCARD
                   <Modal isOpen={isOpen1} onClose={onClose1}>
                     <ModalOverlay />
                     <ModalContent>
-                      <ModalHeader>Select the number to call</ModalHeader>
-                      <ModalCloseButton />
-                      <ModalBody>
+                      <ModalHeader color={textColor}>Select the number to call</ModalHeader>
+                      <ModalCloseButton color={textColor}/>
+                      <ModalBody color={textColor}>
                         <VStack justifyContent={"center"} alignItems="center">
                           <Link href={`tel:${data?.pnumber}`}>
                             <Text>{data?.pnumber}</Text>
