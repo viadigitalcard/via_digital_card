@@ -58,7 +58,7 @@ function About() {
           <Box w="100%" mt="60px" mb="60px">
             <Text fontWeight={"500"} textAlign="center" fontSize="2.25rem">
               {" "}
-              Quote
+              " Quote"
             </Text>
           </Box>
 
@@ -111,22 +111,12 @@ function About() {
             </VStack>
           </Flex>
           <Flex
+            w="100%"
             mt="100px"
             alignItems={"center"}
+            justifyContent="space-evenly"
             flexDir={{ base: "column", md: "row" }}
           >
-            <Box
-              w={{ base: "319px", xl: "381px" }}
-              h={{ base: "431px", xl: "515px" }}
-              flexShrink={"0"}
-            >
-              <Image
-                src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646078081/digital%20card/landing-page/about_mqf8ls.png"
-                alt=""
-                w="100%"
-                h="100%"
-              />
-            </Box>
             <VStack
               ml={{ base: "0", md: "45px" }}
               p={{ base: "20px", md: "0" }}
@@ -161,6 +151,19 @@ function About() {
                 </Text>
               </Box>
             </VStack>
+            <Spacer />
+            <Box
+              w={{ base: "319px", xl: "381px" }}
+              h={{ base: "431px", xl: "515px" }}
+              flexShrink={"0"}
+            >
+              <Image
+                src="https://res.cloudinary.com/dbm7us31s/image/upload/v1646078081/digital%20card/landing-page/about_mqf8ls.png"
+                alt=""
+                w="100%"
+                h="100%"
+              />
+            </Box>
           </Flex>
         </Box>
       </Box>

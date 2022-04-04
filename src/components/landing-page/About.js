@@ -10,7 +10,9 @@ import {
   Button,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 export const About = () => {
+  const router = useRouter();
   const textColor = useColorModeValue("black", "white");
   const bg = useColorModeValue("white", "black.100");
   return (
@@ -101,10 +103,12 @@ export const About = () => {
               mt="20px"
               w="214px"
               h="73px"
+              onClick={() => router.push("/about")}
             >
               Read More
             </Button>
             <Text
+              onClick={() => router.push("/about")}
               display={{ base: "block", md: "none" }}
               fontWeight={"500"}
               color="greenBrand.100"

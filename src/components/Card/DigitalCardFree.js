@@ -119,12 +119,31 @@ END:VCARD
       minH={"100vh"}
     >
       <Box
-        display={["block", "block", "none"]}
+        display={["block", "block", "block"]}
         position="fixed"
         bottom="2rem"
         right="1rem"
         zIndex={5}
-      ></Box>
+      >
+        <RWebShare
+          data={{
+            text: "Via Digital Card",
+            url: "https://viadigitalcard.com" + url,
+            title: data.designation,
+          }}
+          onClick={() => console.log("shared successfully!")}
+        >
+          <Button
+            variant={"solid"}
+            boxSize={"50px"}
+            borderRadius="full"
+            as={Center}
+            fontSize={"1.7rem"}
+          >
+            <AiOutlineShareAlt />
+          </Button>
+        </RWebShare>
+      </Box>
       <DarkModeSwitch />
       <Tabs
         display={{ base: "none", "2sm": "block" }}

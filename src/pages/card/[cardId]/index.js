@@ -227,7 +227,7 @@ const Cards = ({ Card }) => {
               <>
                 <Box h="100vh" as={Center}>
                   <Image
-                    boxSize={["200px", "200px", "400px"]}
+                    boxSize={["100px", "100px", "200px"]}
                     src="/assets/images/Loading.png"
                     alt="Loading"
                   />
