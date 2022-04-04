@@ -29,6 +29,7 @@ import {
   Center,
   Skeleton,
   HStack,
+  Image,
   VStack,
   useToast,
 } from "@chakra-ui/react";
@@ -224,7 +225,14 @@ const Cards = ({ Card }) => {
           Card && Card ? (
             isFetching ? (
               <>
-                <Container maxWidth="90%" h="100vh">
+                <Box h="100vh" as={Center}>
+                  <Image
+                    boxSize={["200px", "200px", "400px"]}
+                    src="/assets/images/Loading.png"
+                    alt="Loading"
+                  />
+                </Box>
+                {/* <Container maxWidth="90%" h="100vh">
                   <Center h="100px" mt="30px" w="100%">
                     <Flex w="100%" justifyContent="space-around">
                       <Skeleton w="20%" height="40px" />
@@ -254,7 +262,7 @@ const Cards = ({ Card }) => {
                       </VStack>
                     </Box>
                   </HStack>
-                </Container>
+                </Container> */}
               </>
             ) : isPremium && isPremium ? (
               <DigitalCard data={Card} />
@@ -320,9 +328,7 @@ const Cards = ({ Card }) => {
 
             <Menu isLazy={true} computePositionOnMount={true}>
               {isFetching ? (
-                <>
-                  <Skeleton border="2px solid red" w="30px" h="30px" />
-                </>
+                ""
               ) : (
                 <MenuButton
                   as={IconButton}

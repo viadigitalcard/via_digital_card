@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
   Box,
@@ -15,6 +15,7 @@ import {
   MenuItem,
   Center,
   IconButton,
+  useToast,
 } from "@chakra-ui/react";
 import { MdClose } from "react-icons/md";
 import { BiMenu } from "react-icons/bi";
@@ -24,6 +25,67 @@ import { signOut, useSession } from "next-auth/react";
 
 export const Navbar = () => {
   const { data: session } = useSession();
+
+  const toast = useToast();
+
+  function Toast(title, message, status) {
+    return toast({
+      title: title || "",
+      description: message,
+      status: status,
+      position: "top",
+      duration: 2000,
+      // isClosable: true,
+    });
+  }
+
+  const [isPremium, setIsPremium] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    setIsFetching(true);
+    async function fetchAPINFC() {
+      const res = await fetch("/api/auth/getnfc");
+      console.log("res", res);
+      const data = await res.json();
+      console.log("data", data);
+      if (res.status === 200) {
+        setIsPremium(true);
+        console.log("Premium Yes");
+      }
+      if (res.status === 400) {
+        setIsPremium(false);
+        console.log("Not Premium");
+      }
+      if (res.status === 500) {
+        setIsPremium(false);
+        console.log("Error");
+      }
+    }
+    async function fetchAPI() {
+      const res = await fetch("/api/auth/getpremiumuser");
+      console.log("res", res);
+      const data = await res.json();
+      console.log("data", data);
+      if (res.status === 200) {
+        setIsPremium(true);
+        console.log("Premium Yes");
+      }
+      if (res.status === 400) {
+        // setIsPremium(false);
+        console.log("Not Premium");
+        fetchAPINFC().then(() => setIsFetching(false));
+      }
+      if (res.status === 500) {
+        // setIsPremium(false);
+        console.log("Error");
+        fetchAPINFC().then(() => setIsFetching(false));
+      }
+    }
+    fetchAPI().then(() => setIsFetching(false));
+    return () => {};
+  }, []);
+
   const bg = useColorModeValue("white", "black.100");
   const router = useRouter();
 
@@ -187,13 +249,34 @@ export const Navbar = () => {
                 >
                   My Cards
                 </MenuItem>
-                <MenuItem
-                  cursor="pointer"
-                  as={Center}
-                  onClick={() => router.push("/insights")}
-                >
-                  Insights
-                </MenuItem>
+
+                {isFetching ? (
+                  ""
+                ) : isPremium ? (
+                  <MenuItem
+                    cursor="pointer"
+                    as={Center}
+                    onClick={() => router.push("/insights")}
+                  >
+                    Insights ⭐
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    cursor="pointer"
+                    as={Center}
+                    onClick={() => {
+                      Toast(
+                        "⭐ Upgrade to Premium to access Insights",
+                        "",
+                        "warning"
+                      );
+                      router.push("/pricing");
+                    }}
+                  >
+                    Insights ⭐
+                  </MenuItem>
+                )}
+
                 <MenuItem cursor="pointer" onClick={signOut} as={Center}>
                   Sign Out
                 </MenuItem>

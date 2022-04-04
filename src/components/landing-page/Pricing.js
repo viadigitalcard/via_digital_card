@@ -13,13 +13,14 @@ import {
 } from "@chakra-ui/react";
 import { BiCheck } from "react-icons/bi";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 export const Pricing = () => {
   const router = useRouter();
   const textColor = useColorModeValue("black", "white");
   const textColor1 = useColorModeValue("#7C7C7C", "#C8C8C8");
   const bg = useColorModeValue("white", "black.100");
   const bg1 = useColorModeValue("#F4FFE2", "#474856");
-
+  const { data: session } = useSession();
   return (
     <Center
       pos="relative"
@@ -138,7 +139,7 @@ export const Pricing = () => {
                 Free
               </Text>
               <Button w="183px" h="60px" fontWeight={"600"} fontSize="1.125rem">
-                Buy Now
+                {session ? "Active Plan" : "Sign Up"}
               </Button>
             </Center>
           </Center>
@@ -213,7 +214,13 @@ export const Pricing = () => {
               <Text fontWeight={"600"} fontSize="2.25rem" mb="28px">
                 Buy Now
               </Text>
-              <Button w="183px" h="60px" fontWeight={"600"} fontSize="1.125rem">
+              <Button
+                onClick={() => router.push("/pricing")}
+                w="183px"
+                h="60px"
+                fontWeight={"600"}
+                fontSize="1.125rem"
+              >
                 Go to Pricing
               </Button>
             </Center>
@@ -286,16 +293,11 @@ export const Pricing = () => {
               h="234px"
               bgColor={bg1}
             >
-              <Text
-                fontWeight={"600"}
-                fontSize="2.25rem"
-                mb="28px"
-                onClick={() => useRouter.push("/pricing")}
-              >
+              <Text fontWeight={"600"} fontSize="2.25rem" mb="28px">
                 Buy Now
               </Text>
               <Button
-                onClick={() => useRouter.push("/pricing")}
+                onClick={() => router.push("/pricing")}
                 w="183px"
                 h="60px"
                 fontWeight={"600"}

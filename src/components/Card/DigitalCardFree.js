@@ -735,19 +735,14 @@ END:VCARD
               </Text>
             </Box>
           </Flex>
-          <HStack
-            w="100%"
-            spacing="30px"
-            justifyContent="space-evenly"
-            // justifyContent={"space-between"}
-          >
+          <HStack w="100%" spacing="30px" justifyContent="space-evenly">
             <VStack spacing={"10px"}>
               <Center
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
                 bgColor={bgDashIconMobile}
                 onClick={handleSave}
-                as={Button}
+                cursor="pointer"
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
@@ -781,6 +776,7 @@ END:VCARD
                   </Box>
                 </Center>
                 <Text
+                  textAlign="center"
                   as={Link}
                   href={data?.brochure}
                   fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
@@ -795,6 +791,9 @@ END:VCARD
             {data && data.payment ? (
               <VStack spacing={"10px"}>
                 <Center
+                  as={Link}
+                  isExternal
+                  href={data?.payment}
                   boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                   borderRadius="8px"
                   bgColor={bgDashIconMobile}
@@ -812,6 +811,10 @@ END:VCARD
                   </Box>
                 </Center>
                 <Text
+                  as={Link}
+                  isExternal
+                  textAlign="center"
+                  href={data?.payment}
                   fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                   color={"#ABABAB"}
                 >

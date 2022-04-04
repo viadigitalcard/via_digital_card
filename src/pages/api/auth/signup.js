@@ -47,7 +47,7 @@ export default async function Signup(req, res) {
         Card. Details are as follows:
         <br /><br />
           <b>Thank you for registering, Please Verify your Account! </b><br/><br/>
-          
+          <b>Please note that this link expires in 1 hour.  </b><br /><br />
           <a href="${origin}" target="_blank">
         <button style="width:120px; height:40px; background-color:#77C208;color:white;font-weight:bold;border-radius:5px;border:none">
         Verify Email

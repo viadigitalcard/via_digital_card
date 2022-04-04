@@ -53,19 +53,11 @@ export default async function handler(req, res) {
       (<a href="https://viacreativetech.com">Via Creative Tech LLP</a>)
     </span>
     <br />
-    <img src="cid:logo@1" />
-
+    <img src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Mail.jpg" />
     <br />
     Shop-5, Poonam Park View, Global
     City, Virar, Maharashtra, India-401303
     `,
-      attachments: [
-        {
-          filename: "logo.png",
-          path: "./public/assets/images/logo.png",
-          cid: "logo@1", //same cid value as in the html img src
-        },
-      ],
     };
 
     // await new Promise((resolve, reject) => {
