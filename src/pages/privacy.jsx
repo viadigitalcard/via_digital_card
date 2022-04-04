@@ -3,7 +3,7 @@ import { Navbar } from "../components/Navbar";
 import { Text, Box, useColorModeValue } from "@chakra-ui/react";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 
-function privacy() {
+function Privacy() {
   const bgColor = useColorModeValue("white", "black.200");
   const textColor = useColorModeValue("black", "white");
 
@@ -110,16 +110,16 @@ function privacy() {
         </Text>
         <Text>
           • Via Creative Tech LLP hereby grants you permission to use the
-          Website as set forth in these Terms of Use, provided that: (i) you
+          Website as set forth in these Terms of Use, provided that: {"(i)"} you
           will not copy or distribute any part of the Website in any medium
-          without Via Creative Tech’s prior written authorization; (ii) you will
-          otherwise comply with the terms and conditions of these Terms of Use.
-          • You will need to create an account on the Website in order to access
-          some of its features. You are not authorized to use another user’s
-          account with the user’s permission. When you create your account, you
-          must provide information that is accurate. You are solely responsible
-          for the activity that occurs on your account. • You shall be
-          responsible for maintaining the confidentiality of your password,
+          without Via Creative Tech’s prior written authorization;{" (ii)"} you
+          will otherwise comply with the terms and conditions of these Terms of
+          Use. • You will need to create an account on the Website in order to
+          access some of its features. You are not authorized to use another
+          user’s account with the user’s permission. When you create your
+          account, you must provide information that is accurate. You are solely
+          responsible for the activity that occurs on your account. • You shall
+          be responsible for maintaining the confidentiality of your password,
           which you will not be under an obligation to reveal to any
           representative or agent of Via Creative tech. Via Creative Tech cannot
           and will not be liable for any loss or damage arising from your
@@ -166,12 +166,12 @@ function privacy() {
           Usage of our Digital Cards
         </Text>
         <Text>
-          Our cards are not compatible with NFC (Near-field communication)
+          Our cards are not compatible with NFC {"(Near-field communication)"}
           phones. In case of non-NFC phones, QR codes will be provided for the
           Digital Card usage.
         </Text>
         <Text fontSize={"xl"} fontWeight="bold">
-          Copyright, Trademark Compliance & Complaints
+          Copyright, Trademark Compliance &#38; Complaints
         </Text>
         <Text>
           We honor the intellectual property rights of others. If you believe
@@ -190,26 +190,27 @@ function privacy() {
           Content has been copied in a way that constitutes copyright and/or
           trademark infringement, please notify Via Creative Tech at
           customercare@viadigitalcard.in, and provide the following information
-          (“Notice”): a) an electronic or physical signature of the person
+          (“Notice”): {"a)"} an electronic or physical signature of the person
           authorized to act on behalf of the owner of the copyright/trademark
-          interest; b) a description of the copyrighted work and/or trademark
-          claimed to have been infringed; c) a description of where the claimed
-          infringing Content is located on our Site; d) your address, telephone
-          number, and email address; e) a statement by you that you have a good
-          faith belief that the disputed use is not authorized by the
-          copyright/trademark owner, its agent, or the law; f) a statement by
-          you, made under penalty of perjury, that the above information in your
-          Notice is accurate and that you are authorized to act on behalf of the
-          owner of the copyright/trademark interest involved. The Notice of
-          claims of copyright or other intellectual property infringement can be
-          reached as follows: VIA CREATIVE TECH LLP – Plot C/106, Poonam Park
-          View, Global City, Virar (W), Maharashtra, India – 401303. Third Party
-          Websites The Website may contain links to third party websites that
-          are not owned or controlled by Via Creative Tech. Via Creative Tech
-          has no control over, and assumes no responsibility for, the content,
-          privacy policies, or practices of any third-party websites. By using
-          the Website, you specifically release Via Creative Tech from any and
-          all liability arising from your use of any third-party website.
+          interest; {"b)"} a description of the copyrighted work and/or
+          trademark claimed to have been infringed;{" c)"} a description of
+          where the claimed infringing Content is located on our Site;{" d)"}{" "}
+          your address, telephone number, and email address; {"e)"} a statement
+          by you that you have a good faith belief that the disputed use is not
+          authorized by the copyright/trademark owner, its agent, or the law;
+          {" f) "}a statement by you, made under penalty of perjury, that the
+          above information in your Notice is accurate and that you are
+          authorized to act on behalf of the owner of the copyright/trademark
+          interest involved. The Notice of claims of copyright or other
+          intellectual property infringement can be reached as follows: VIA
+          CREATIVE TECH LLP – Plot C/106, Poonam Park View, Global City, Virar{" "}
+          {"(W)"}, Maharashtra, India – 401303. Third Party Websites The Website
+          may contain links to third party websites that are not owned or
+          controlled by Via Creative Tech. Via Creative Tech has no control
+          over, and assumes no responsibility for, the content, privacy
+          policies, or practices of any third-party websites. By using the
+          Website, you specifically release Via Creative Tech from any and all
+          liability arising from your use of any third-party website.
         </Text>
         <Text fontSize={"xl"} fontWeight="bold">
           Termination
@@ -239,7 +240,7 @@ function privacy() {
           CREATIVE TECH, DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, IN
           CONNECTION WITH THE WEBSITE AND YOUR USE THEREOF. VIA CREATIVE TECH
           MAKES NO WARRANTIES OR REPRESENTATIONS ABOUT THE ACCURACY OR
-          COMPLETENESS OF THE WEBSITE’S CONTENT OR THE CONTENT OF ANY SITES
+          COMPLETENESS OF THE{" WEBSITE’S "}CONTENT OR THE CONTENT OF ANY SITES
           LINKED TO THIS SITE AND ASSUMES NO LIABILITY OR RESPONSIBILITY FOR ANY
           (I) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT, (II) PERSONAL INJURY
           OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR
@@ -270,21 +271,23 @@ function privacy() {
           AFFILIATE, DIRECTOR, OFFICER, EMPLOYEE, LICENSOR, DISTRIBUTOR,
           SUPPLIER, AGENT, RESELLER, OWNER, OR OPERATOR OF VIA CREATIVE TECH, BE
           LIABLE TO YOU FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE,
-          OR CONSEQUENTIAL DAMAGES WHATSOEVER RESULTING FROM ANY, (I) ERRORS,
-          MISTAKES, OR INACCURACIES OF CONTENT, (II) PERSONAL INJURY OR PROPERTY
-          DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR ACCESS TO AND
-          USE OF OUR WEBSITE, (III) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR
-          SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION STORED THEREIN,
-          (IV) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM OUR
-          WEBSITE, (V) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE, WHICH MAY
-          BE TRANSMITTED TO OR THROUGH OUR WEBSITE BY ANY THIRD PARTY, AND/OR
-          (VI) ANY ERRORS OR OMISSIONS IN ANY CONTENT OR FOR ANY LOSS OR DAMAGE
-          OF ANY KIND INCURRED AS A RESULT OF YOUR USE OF ANY CONTENT POSTED,
-          EMAILED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE WEBSITE,
-          WHETHER BASED ON WARRANTY, CONTRACT, TORT, OR ANY OTHER LEGAL THEORY,
-          AND WHETHER OR NOT THE COMPANY IS ADVISED OF THE POSSIBILITY OF SUCH
-          DAMAGES. THE FOREGOING LIMITATION OF LIABILITY SHALL APPLY TO THE
-          FULLEST EXTENT PERMITTED BY LAW IN THE APPLICABLE JURISDICTION.YOU
+          OR CONSEQUENTIAL DAMAGES WHATSOEVER RESULTING FROM ANY, {"(I)"}{" "}
+          ERRORS, MISTAKES, OR INACCURACIES OF CONTENT, {"(II)"} PERSONAL INJURY
+          OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR
+          ACCESS TO AND USE OF OUR WEBSITE, {"(III) "}ANY UNAUTHORIZED ACCESS TO
+          OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION
+          STORED THEREIN,
+          {"(IV)"} ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM OUR
+          WEBSITE,{" (V) "}ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE, WHICH
+          MAY BE TRANSMITTED TO OR THROUGH OUR WEBSITE BY ANY THIRD PARTY,
+          AND/OR
+          {"(VI)"} ANY ERRORS OR OMISSIONS IN ANY CONTENT OR FOR ANY LOSS OR
+          DAMAGE OF ANY KIND INCURRED AS A RESULT OF YOUR USE OF ANY CONTENT
+          POSTED, EMAILED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE
+          WEBSITE, WHETHER BASED ON WARRANTY, CONTRACT, TORT, OR ANY OTHER LEGAL
+          THEORY, AND WHETHER OR NOT THE COMPANY IS ADVISED OF THE POSSIBILITY
+          OF SUCH DAMAGES. THE FOREGOING LIMITATION OF LIABILITY SHALL APPLY TO
+          THE FULLEST EXTENT PERMITTED BY LAW IN THE APPLICABLE JURISDICTION.YOU
           SPECIFICALLY ACKNOWLEDGE THAT VIA CREATIVE TECH SHALL NOT BE LIABLE
           FOR USER SUBMISSIONS OR FOR ANY DEFAMATORY, OFFENSIVE, OR ILLEGAL
           CONDUCT OF ANY THIRD PARTY AND THAT THE RISK OF HARM OR DAMAGE FROM
@@ -304,13 +307,14 @@ function privacy() {
           licensor, distributor, supplier, agent, reseller, owner, or operator
           of Via Creative Tech, from and against any and all claims, damages,
           obligations, losses, liabilities, costs or debt, and expenses
-          (including but not limited to attorney’s fees) arising from: (i) your
-          use of and access to the Website; (ii) your violation of any term of
-          these Terms of Use; (iii) your violation of any third party right,
-          including without limitation any copyright, property, or privacy
-          right; or (iv) any claim that one of your User Submissions caused
-          damage to a third party. This defense and indemnification obligation
-          will survive these Terms of Use and your use of the Website.
+          {"  (including but not limited to attorneys fees)"} arising from
+          {": (i) "}your use of and access to the Website; {"(ii)"} your
+          violation of any term of these Terms of Use;{" (iii)"} your violation
+          of any third party right, including without limitation any copyright,
+          property, or privacy right; or{" (iv)"} any claim that one of your
+          User Submissions caused damage to a third party. This defense and
+          indemnification obligation will survive these Terms of Use and your
+          use of the Website.
         </Text>
         <Text fontSize={"xl"} fontWeight="bold">
           General
@@ -321,7 +325,7 @@ function privacy() {
           affect the validity of the remaining provisions of these Terms of Use,
           which shall remain in full force and effect. No waiver of any term of
           this these Terms of Use shall be deemed a further or continuing waiver
-          of such term or any other term, and Via Creative Tech’s failure to
+          of such term or any other term, and Via Creative {"Tech’s"} failure to
           assert any right or provision under these Terms of Use shall not
           constitute a waiver of such right or provision.
         </Text>
@@ -349,4 +353,4 @@ function privacy() {
   );
 }
 
-export default privacy;
+export default Privacy;

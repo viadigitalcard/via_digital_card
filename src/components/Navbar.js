@@ -258,7 +258,7 @@ export const Navbar = () => {
                     as={Center}
                     onClick={() => router.push("/insights")}
                   >
-                    Insights ⭐
+                    Insights
                   </MenuItem>
                 ) : (
                   <MenuItem
