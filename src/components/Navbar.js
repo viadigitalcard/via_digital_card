@@ -28,8 +28,8 @@ export const Navbar = () => {
   const router = useRouter();
 
   const logo = useColorModeValue(
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo-final.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark-final.png"
   );
   const textColor = useColorModeValue("black", "white");
   const [openNavbar, setOpenNavbar] = useState(false);
@@ -42,10 +42,10 @@ export const Navbar = () => {
         alignItems={"center"}
         justifyContent="space-between"
       >
-        <Box flexShrink={"0"} zIndex={5}>
+        <Box flexShrink={"0"} zIndex={5} width="205px">
           <NextLink href="/" passHref>
             <Link>
-              <Image src={logo} />
+              <Image src={logo} height="100%" width="100%" />
             </Link>
           </NextLink>
         </Box>

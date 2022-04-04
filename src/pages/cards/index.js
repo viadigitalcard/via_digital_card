@@ -41,8 +41,8 @@ const Usercard = ({ Cards }) => {
 
   const router = useRouter();
   const logo = useColorModeValue(
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo-final.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark-final.png"
   );
   const { data: session } = useSession();
 

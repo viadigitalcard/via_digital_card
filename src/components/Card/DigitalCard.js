@@ -632,8 +632,10 @@ END:VCARD
                     <Modal isOpen={isOpen1} onClose={onClose1}>
                       <ModalOverlay />
                       <ModalContent>
-                        <ModalHeader color={textColor}>Select the number to call</ModalHeader>
-                        <ModalCloseButton color={textColor}/>
+                        <ModalHeader color={textColor}>
+                          Select the number to call
+                        </ModalHeader>
+                        <ModalCloseButton color={textColor} />
                         <ModalBody color={textColor}>
                           <VStack justifyContent={"center"} alignItems="center">
                             <Link href={`tel:${data?.pnumber}`}>
@@ -774,6 +776,9 @@ END:VCARD
               )}
               {data && data.payment ? (
                 <Center
+                  as={Link}
+                  isExternal
+                  href={data?.payment}
                   onClick={() => handelupdate("payment")}
                   w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
                   h="117px"
@@ -784,9 +789,6 @@ END:VCARD
                   boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
                 >
                   <Center
-                    as={Link}
-                    isExternal
-                    href={data?.payment}
                     boxSize={"87px"}
                     bgColor={bgDashIcons}
                     borderRadius={"17px"}
@@ -802,7 +804,7 @@ END:VCARD
                   <Text
                     as={Link}
                     isExternal
-                    href={data?.payment}
+                    // href={data?.payment}
                     fontSize={"1.125rem"}
                     color={textColor}
                   >
@@ -1260,8 +1262,10 @@ END:VCARD
                   <Modal isOpen={isOpen1} onClose={onClose1}>
                     <ModalOverlay />
                     <ModalContent>
-                      <ModalHeader color={textColor}>Select the number to call</ModalHeader>
-                      <ModalCloseButton color={textColor}/>
+                      <ModalHeader color={textColor}>
+                        Select the number to call
+                      </ModalHeader>
+                      <ModalCloseButton color={textColor} />
                       <ModalBody color={textColor}>
                         <VStack justifyContent={"center"} alignItems="center">
                           <Link href={`tel:${data?.pnumber}`}>
