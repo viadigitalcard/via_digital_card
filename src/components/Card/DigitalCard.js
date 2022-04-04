@@ -81,8 +81,8 @@ export const DigitalCard = ({ data }) => {
   let url = router.asPath;
 
   const logo = useColorModeValue(
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
-    "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034356/digital%20card/landing-page/logo-dark_yijgxs.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo-final.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark-final.png"
   );
   //Vcard
   function handleSave(e) {
