@@ -58,7 +58,7 @@ function About() {
           <Box w="100%" mt="60px" mb="60px">
             <Text fontWeight={"500"} textAlign="center" fontSize="2.25rem">
               {" "}
-              " Quote"
+              Quote
             </Text>
           </Box>
 
