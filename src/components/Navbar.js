@@ -170,36 +170,39 @@ export const Navbar = () => {
               Home
             </Link>
           </NextLink>
-          <Link
-            p="5px"
-            m={{ base: "10px 0px", lg: "0px 20px" }}
-            _hover={{ textDecoration: "none" }}
-            _focus={{ borderBottom: "2px solid #77C208" }}
-            _active={{ borderBottom: "2px solid #77C208" }}
-            href="#howitworks"
-          >
-            How it works?
-          </Link>
-          <Link
-            p="5px"
-            m={{ base: "10px 0px", lg: "0px 20px" }}
-            _hover={{ textDecoration: "none" }}
-            _focus={{ borderBottom: "2px solid #77C208" }}
-            _active={{ borderBottom: "2px solid #77C208" }}
-            href="#about"
-          >
-            About Us
-          </Link>
-          <Link
-            p="5px"
-            m={{ base: "10px 0px", lg: "0px 20px" }}
-            _hover={{ textDecoration: "none" }}
-            _focus={{ borderBottom: "2px solid #77C208" }}
-            _active={{ borderBottom: "2px solid #77C208" }}
-            href="#contact"
-          >
-            Contact Us
-          </Link>
+          <NextLink href="/#howitworks" passHref>
+            <Link
+              p="5px"
+              m={{ base: "10px 0px", lg: "0px 20px" }}
+              _hover={{ textDecoration: "none" }}
+              _focus={{ borderBottom: "2px solid #77C208" }}
+              _active={{ borderBottom: "2px solid #77C208" }}
+            >
+              How it works?
+            </Link>
+          </NextLink>
+          <NextLink href="/#about" passHref>
+            <Link
+              p="5px"
+              m={{ base: "10px 0px", lg: "0px 20px" }}
+              _hover={{ textDecoration: "none" }}
+              _focus={{ borderBottom: "2px solid #77C208" }}
+              _active={{ borderBottom: "2px solid #77C208" }}
+            >
+              About Us
+            </Link>
+          </NextLink>
+          <NextLink href="/#contact" passHref>
+            <Link
+              p="5px"
+              m={{ base: "10px 0px", lg: "0px 20px" }}
+              _hover={{ textDecoration: "none" }}
+              _focus={{ borderBottom: "2px solid #77C208" }}
+              _active={{ borderBottom: "2px solid #77C208" }}
+            >
+              Contact Us
+            </Link>
+          </NextLink>
           <NextLink href="/pricing" passHref>
             <Link
               p="5px"
