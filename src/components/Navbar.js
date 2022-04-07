@@ -158,16 +158,17 @@ export const Navbar = () => {
               <MdClose />
             </Box>
           </Flex>
-          <NextLink
-            p="5px"
-            m={{ base: "10px 0px", lg: "0px 20px" }}
-            _hover={{ textDecoration: "none" }}
-            _focus={{ borderBottom: "2px solid #77C208" }}
-            _active={{ borderBottom: "2px solid #77C208" }}
-            href="/"
-            passHref
-          >
-            Home
+          <NextLink href="/" passHref>
+            <Link
+              p="5px"
+              m={{ base: "10px 0px", lg: "0px 20px" }}
+              _hover={{ textDecoration: "none" }}
+              _focus={{ borderBottom: "2px solid #77C208" }}
+              _active={{ borderBottom: "2px solid #77C208" }}
+              href="/"
+            >
+              Home
+            </Link>
           </NextLink>
           <Link
             p="5px"
