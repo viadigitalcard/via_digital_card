@@ -386,41 +386,49 @@ const Payment = () => {
                 </Box>
                 <Spacer />
                 <Box cursor="pointer" display={["none", "none", "flex"]}>
-                  {/* <HStack p="0px 20px 0px 20px" h="40px"> */}
-                  {/* </HStack> */}
-                  {/* <NextLink href="/create" passHref> */}
-                  <Button
-                    leftIcon={<AddIcon />}
-                    mr={4}
-                    variant={"outline"}
-                    borderColor="greenBrand.100"
-                    color={textColor}
-                    onClick={() => {
-                      router.push("/create");
-                    }}
-                  >
-                    Create New Card
-                  </Button>
-                  {/* </NextLink> */}
-                  <NextLink href="/cards" passHref>
-                    <Text
-                      p="0px 10px 0px 10px"
-                      h="40px"
-                      fontWeight="bold"
-                      as={Center}
+                  {session ? (
+                    <Menu isLazy={true} computePositionOnMount={true}>
+                      <MenuButton as={Avatar} boxSize="40px" cursor="pointer" />
+                      {/* <Avatar boxSize="40px" as={MenuButton} /> */}
+
+                      <MenuList color={textColor} w="20px">
+                        <MenuItem>
+                          <NextLink href="/create" passHref>
+                            <Button
+                              ml={4}
+                              variant={"outline"}
+                              borderColor="greenBrand.100"
+                            >
+                              Create New Card +
+                            </Button>
+                          </NextLink>
+                        </MenuItem>
+
+                        <MenuItem cursor="pointer" as={Center}>
+                          <NextLink href="/cards" passHref>
+                            <Text>My Cards</Text>
+                          </NextLink>
+                        </MenuItem>
+                        <MenuItem
+                          cursor="pointer"
+                          onClick={signOut}
+                          as={Center}
+                        >
+                          Sign Out
+                        </MenuItem>
+                      </MenuList>
+                    </Menu>
+                  ) : (
+                    <Flex
+                      p="5px"
+                      m={{ base: "10px 0px", lg: "0px 20px" }}
+                      alignItems={"center"}
                     >
-                      My Cards
-                    </Text>
-                  </NextLink>
-                  {/* </NextLink> */}
-
-                  <HStack p="0px 20px 0px 20px" h="40px">
-                    {/* <Avatar boxSize="35px" /> */}
-
-                    <Text onClick={signOut} cursor="pointer" fontWeight="bold">
-                      Sign Out
-                    </Text>
-                  </HStack>
+                      <NextLink href="/auth/signin" passHref>
+                        <Button>Sign In</Button>
+                      </NextLink>
+                    </Flex>
+                  )}
                 </Box>
                 <Box display={["block", "block", "none"]}>
                   {session ? (
