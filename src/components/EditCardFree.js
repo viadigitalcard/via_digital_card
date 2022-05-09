@@ -912,7 +912,7 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
-              <Field name="youtube">
+              {/* <Field name="youtube">
                 {({ field, form }) => (
                   <FormControl
                     isInvalid={
@@ -968,7 +968,7 @@ export default function Card({ inputData }) {
                     </FormErrorMessage>
                   </FormControl>
                 )}
-              </Field>
+              </Field> */}
               {/* <Field name="youtube">
                 {({ field, form }) => (
                   <FormControl
