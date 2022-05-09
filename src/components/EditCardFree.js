@@ -520,57 +520,57 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
-//               <Field>
-//                 {({ field, form }) => (
-//                   <FormControl>
-//                     <FormLabel color={textColor} htmlFor="number" mt="20px">
-//                       Secondary Phone Number:
-//                     </FormLabel>
-//                     <Input
-//                       isDisabled={true}
-//                       type="number"
-//                       min="0"
-//                       placeholder="Secondary Phone Number"
-//                       marginTop={15}
-//                       size="lg"
-//                       h="60px"
-//                       variant="outline"
-//                       focusBorderColor="#88E000"
-//                       color={textColor}
-//                     />
-//                     <InfoIcon
-//                       color="red.200"
-//                       pos="absolute"
-//                       right="20px"
-//                       top="60%"
-//                       bottom="50%"
-//                     />
-//                     <Box
-//                       cursor="pointer"
-//                       as={Center}
-//                       bg="red.400"
-//                       // h="100%"
-//                       borderRadius="8px"
-//                       color={textColor}
-//                       textAlign="center"
-//                       // border="2px solid red"
-//                       right="50px"
-//                       top="55%"
-//                       bottom="55%"
-//                       pos="absolute"
-//                       // w="50%"
-//                       p="6px"
-//                       h="25px"
-//                       display="none"
-//                       _groupHover={{ display: "flex" }}
-//                     >
-//                       <Text onClick={() => router.push("/pricing")}>
-//                         Only for Premium User
-//                       </Text>
-//                     </Box>
-//                   </FormControl>
-//                 )}
-//               </Field>
+              {/* <Field>
+                {({ field, form }) => (
+                  <FormControl>
+                    <FormLabel color={textColor} htmlFor="number" mt="20px">
+                      Secondary Phone Number:
+                    </FormLabel>
+                    <Input
+                      isDisabled={true}
+                      type="number"
+                      min="0"
+                      placeholder="Secondary Phone Number"
+                      marginTop={15}
+                      size="lg"
+                      h="60px"
+                      variant="outline"
+                      focusBorderColor="#88E000"
+                      color={textColor}
+                    />
+                    <InfoIcon
+                      color="red.200"
+                      pos="absolute"
+                      right="20px"
+                      top="60%"
+                      bottom="50%"
+                    />
+                    <Box
+                      cursor="pointer"
+                      as={Center}
+                      bg="red.400"
+                      // h="100%"
+                      borderRadius="8px"
+                      color={textColor}
+                      textAlign="center"
+                      // border="2px solid red"
+                      right="50px"
+                      top="55%"
+                      bottom="55%"
+                      pos="absolute"
+                      // w="50%"
+                      p="6px"
+                      h="25px"
+                      display="none"
+                      _groupHover={{ display: "flex" }}
+                    >
+                      <Text onClick={() => router.push("/pricing")}>
+                        Only for Premium User
+                      </Text>
+                    </Box>
+                  </FormControl>
+                )}
+              </Field> */}
               {/* <Field name="snumber">
                 {({ field, form }) => (
                   <FormControl
