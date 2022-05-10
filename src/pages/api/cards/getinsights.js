@@ -11,6 +11,23 @@ export default async function handler(req, res) {
   const insights = await Insights.findOne({ user: id });
   console.log(insights);
   
+  //call
+  const callToday = insights?.call.filter(
+    (insight) => insight.createdAt.getDate() === new Date().getDate()
+  );
+  const callYesterday = insights?.call.filter((insight) =>
+    moment(insight.createdAt).isAfter(moment().subtract(1, "day"))
+  );
+  const callSevenDay = insights?.call.filter((insight) =>
+    moment(insight.createdAt).isAfter(moment().subtract(7, "days"))
+  );
+  const callOneMonth = insights?.call.filter((insight) =>
+    moment(insight.createdAt).isAfter(moment().subtract(1, "month"))
+  );
+  const callOneYear = insights?.call.filter((insight) =>
+    moment(insight.createdAt)?.isAfter(moment().subtract(1, "year"))
+  );
+  
   //whatsapp
     const whatsappToday = insights?.whatsapp.filter(
     (insight) => insight.createdAt.getDate() === new Date().getDate()
