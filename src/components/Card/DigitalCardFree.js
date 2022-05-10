@@ -553,6 +553,7 @@ END:VCARD
                     </Link>
                   </Flex>
                   <Flex
+                  onClick={() => handelupdate("call")}
                     p="25px 0px"
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
@@ -1143,6 +1144,7 @@ END:VCARD
                   </Link>
                 </Flex>
                 <Flex
+                  onClick={() => handelupdate("call")}
                   p="25px 0px"
                   alignItems={"center"}
                   justifyContent="space-between"
