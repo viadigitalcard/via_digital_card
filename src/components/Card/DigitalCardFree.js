@@ -367,7 +367,9 @@ END:VCARD
                     </Box>
                   )}
                   {data?.socialLinks.whatsapp != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex 
+                    onClick={() => handelupdate("whatsapp")}
+                    alignItems={"center"} m="22px">
                       <Center
                         as={Link}
                         isExternal
@@ -389,7 +391,9 @@ END:VCARD
                     ""
                   )}
                   {data?.socialLinks.twitter != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex 
+                    onClick={() => handelupdate("twitter")}
+                    alignItems={"center"} m="22px">
                       <Center
                         as={Link}
                         isExternal
