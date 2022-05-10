@@ -10,6 +10,24 @@ export default async function handler(req, res) {
   //find all insights for the id
   const insights = await Insights.findOne({ user: id });
   console.log(insights);
+  
+  //whatsapp
+    const whatsappToday = insights?.whatsapp.filter(
+    (insight) => insight.createdAt.getDate() === new Date().getDate()
+  );
+  const whatsappYesterday = insights?.whatsapp.filter((insight) =>
+    moment(insight.createdAt).isAfter(moment().subtract(1, "day"))
+  );
+  const whatsappSevenDay = insights?.whatsapp.filter((insight) =>
+    moment(insight.createdAt).isAfter(moment().subtract(7, "days"))
+  );
+  const whatsappOneMonth = insights?.whatsapp.filter((insight) =>
+    moment(insight.createdAt).isAfter(moment().subtract(1, "month"))
+  );
+  const whatsappOneYear = insights?.whatsapp.filter((insight) =>
+    moment(insight.createdAt)?.isAfter(moment().subtract(1, "year"))
+  );
+
 
   //instragram
   const instaToday = insights?.instagram.filter(
@@ -193,6 +211,7 @@ export default async function handler(req, res) {
 
   res.status(200).json({
     today: {
+      whatsapp:whatsappToday,
       insta: instaToday,
       twitter: twitterToday,
       facebook: facebookToday,
@@ -207,6 +226,7 @@ export default async function handler(req, res) {
     },
 
     yesterday: {
+      whatsapp:whatsappYesterday,
       insta: instaYesterday,
       twitter: twitterYeserday,
       facebook: facebookYeserday,
@@ -220,6 +240,7 @@ export default async function handler(req, res) {
       payment: paymentYeserday,
     },
     sevenDay: {
+      whatsapp:whatsappSevenDay,
       insta: instaSevenDay,
       twitter: twitterSevenDay,
       facebook: facebookSevenDay,
@@ -233,6 +254,7 @@ export default async function handler(req, res) {
       payment: paymentSevenDay,
     },
     oneMonth: {
+      whatsapp:whatsappOneMonth,
       insta: instaOneMonth,
       twitter: twitterOneMonth,
       facebook: facebookOneMonth,
@@ -246,6 +268,7 @@ export default async function handler(req, res) {
       payment: paymentOneMonth,
     },
     oneYear: {
+      whatsapp:whatsappOneYear,
       insta: instaOneYear,
       twitter: twitterOneYear,
       facebook: facebookOneYear,
@@ -259,6 +282,7 @@ export default async function handler(req, res) {
       payment: paymentOneYear,
     },
     insights: {
+      whatsapp: insights?.whatsapp,
       insta: insights?.instagram,
       twitter: insights?.twitter,
       facebook: insights?.facebook,
