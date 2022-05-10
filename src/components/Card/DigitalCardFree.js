@@ -109,6 +109,25 @@ END:VCARD
     }
   }
   let check = checkEmpty();
+  
+   async function handelupdate(params) {
+    const user = data?.card_id;
+    console.log(user, params);
+    const res = await fetch("/api/cards/insights", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: params,
+        user: user,
+      }),
+    });
+    // const data = await res.json();
+    // if (res.status === 200) {
+    //   console.log("updated");
+    // }
+  }
 
   return (
     <Box
