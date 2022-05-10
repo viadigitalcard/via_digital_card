@@ -255,9 +255,9 @@ export const Navbar = () => {
                   My Cards
                 </MenuItem>
 
-                {isFetching ? (
+                /*{isFetching ? (
                   ""
-                ) : isPremium ? (
+                ) : isPremium ? (*/
                   <MenuItem
                     cursor="pointer"
                     as={Center}
@@ -265,7 +265,7 @@ export const Navbar = () => {
                   >
                     Insights
                   </MenuItem>
-                ) : (
+                /*) : (
                   <MenuItem
                     cursor="pointer"
                     as={Center}
@@ -280,7 +280,7 @@ export const Navbar = () => {
                   >
                     Insights ⭐
                   </MenuItem>
-                )}
+                )}*/
 
                 <MenuItem cursor="pointer" onClick={signOut} as={Center}>
                   Sign Out
