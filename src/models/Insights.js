@@ -4,6 +4,13 @@ const InsightsSchema = new mongoose.Schema({
   user: {
     type: String,
   },
+  whatsapp: {
+    type: Array,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
   instagram: {
     type: Array,
     createdAt: {
