@@ -256,29 +256,14 @@ export const Navbar = () => {
                 </MenuItem>
 
 
-                  <MenuItem
+                <MenuItem
                     cursor="pointer"
                     as={Center}
                     onClick={() => router.push("/insights")}
                   >
                     Insights
-                  </MenuItem>
-                /*) : (
-                  <MenuItem
-                    cursor="pointer"
-                    as={Center}
-                    onClick={() => {
-                      Toast(
-                        "⭐ Upgrade to Premium to access Insights",
-                        "",
-                        "warning"
-                      );
-                      router.push("/pricing");
-                    }}
-                  >
-                    Insights ⭐
-                  </MenuItem>
-                )}*/
+                </MenuItem>
+             
 
                 <MenuItem cursor="pointer" onClick={signOut} as={Center}>
                   Sign Out
