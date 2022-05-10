@@ -257,6 +257,10 @@ export default function Insights() {
                 </Thead>
                 <Tbody>
                   <Tr>
+                    <Td>Whatsapp</Td>
+                    <Td textAlign="center">{selectedData?.whatsapp?.length}</Td>
+                  </Tr>
+                  <Tr>
                     <Td>Instagram</Td>
                     <Td textAlign="center">{selectedData?.insta?.length}</Td>
                   </Tr>
