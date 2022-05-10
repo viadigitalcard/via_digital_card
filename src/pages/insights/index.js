@@ -257,6 +257,10 @@ export default function Insights() {
                 </Thead>
                 <Tbody>
                   <Tr>
+                    <Td>Call Attempts</Td>
+                    <Td textAlign="center">{selectedData?.call?.length}</Td>
+                  </Tr>                      
+                  <Tr>
                     <Td>Whatsapp</Td>
                     <Td textAlign="center">{selectedData?.whatsapp?.length}</Td>
                   </Tr>
