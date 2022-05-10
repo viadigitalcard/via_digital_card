@@ -255,9 +255,7 @@ export const Navbar = () => {
                   My Cards
                 </MenuItem>
 
-                /*{isFetching ? (
-                  ""
-                ) : isPremium ? ( */
+
                   <MenuItem
                     cursor="pointer"
                     as={Center}
