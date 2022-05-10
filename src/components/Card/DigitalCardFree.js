@@ -415,7 +415,9 @@ END:VCARD
                     ""
                   )}
                   {data.socialLinks.instagram != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex 
+                    onClick={() => handelupdate("instagram")}
+                    alignItems={"center"} m="22px">
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
@@ -439,7 +441,9 @@ END:VCARD
                     ""
                   )}
                   {data.socialLinks.facebook != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex 
+                    onClick={() => handelupdate("facebook")}
+                    alignItems={"center"} m="22px">
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
@@ -462,7 +466,9 @@ END:VCARD
                     ""
                   )}
                   {data.socialLinks.linkedin != "" ? (
-                    <Flex alignItems={"center"} m="22px">
+                    <Flex 
+                    onClick={() => handelupdate("linkedin")}
+                    alignItems={"center"} m="22px">
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
@@ -486,6 +492,7 @@ END:VCARD
                   )}
                   {data.socialLinks.google != "" ? (
                     <Flex
+                    onClick={() => handelupdate("google")}
                       isExternal
                       as={Link}
                       href={data?.socialLinks?.google}
@@ -528,6 +535,7 @@ END:VCARD
                   fontSize={"1.125rem"}
                 >
                   <Flex
+                  onClick={() => handelupdate("location")}
                     p="0px 0px 25px 0"
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
@@ -561,6 +569,7 @@ END:VCARD
                   </Flex>
                   {data.website != "" ? (
                     <Flex
+                    onClick={() => handelupdate("website")}
                       p="25px 0px"
                       alignItems={"center"}
                       borderBottom={`2px solid ${borderColor}`}
@@ -577,6 +586,7 @@ END:VCARD
                     ""
                   )}
                   <Flex
+                   onClick={() => handelupdate("email")}
                     p="25px 0px"
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
@@ -604,6 +614,7 @@ END:VCARD
             </Text>
             <VStack spacing={"30px"} alignItems="flex-start">
               <Center
+              onClick={() => handelupdate("vcf")}
                 w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
                 h="117px"
                 justifyContent={"flex-start"}
@@ -636,6 +647,7 @@ END:VCARD
               {data && data.brochure ? (
                 <>
                   <Center
+                  onClick={() => handelupdate("document")}
                     w={{ sm: "498px", lg: "350px", xl: "498px" }}
                     h="117px"
                     justifyContent={"flex-start"}
@@ -675,6 +687,7 @@ END:VCARD
               )}
               {data && data.payment ? (
                 <Center
+                onClick={() => handelupdate("payment")}
                   w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
                   h="117px"
                   justifyContent={"flex-start"}
@@ -778,7 +791,7 @@ END:VCARD
             </Box>
           </Flex>
           <HStack w="100%" spacing="30px" justifyContent="space-evenly">
-            <VStack spacing={"10px"}>
+            <VStack onClick={() => handelupdate("vcf")} spacing={"10px"}>
               <Center
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
@@ -802,7 +815,7 @@ END:VCARD
               </Text>
             </VStack>
             {data && data.brochure ? (
-              <VStack spacing={"10px"}>
+              <VStack onClick={() => handelupdate("document")} spacing={"10px"}>
                 <Center
                   as={Link}
                   href={data?.brochure}
@@ -831,7 +844,7 @@ END:VCARD
               ""
             )}
             {data && data.payment ? (
-              <VStack spacing={"10px"}>
+              <VStack onClick={() => handelupdate("payment")} spacing={"10px"}>
                 <Center
                   as={Link}
                   isExternal
@@ -940,6 +953,7 @@ END:VCARD
               <SimpleGrid columns={3} spacing={8}>
                 {data?.socialLinks.whatsapp != "" ? (
                   <Center
+                  onClick={() => handelupdate("whatsapp")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     border={`2px solid ${borderColor}`}
@@ -963,6 +977,7 @@ END:VCARD
                 )}
                 {data?.socialLinks.twitter != "" ? (
                   <Center
+                  onClick={() => handelupdate("twitter")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     border={`2px solid ${borderColor}`}
@@ -987,6 +1002,7 @@ END:VCARD
 
                 {data?.socialLinks.instagram != "" ? (
                   <Center
+                  onClick={() => handelupdate("instagram")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     as={Link}
@@ -1011,6 +1027,7 @@ END:VCARD
 
                 {data?.socialLinks.facebook != "" ? (
                   <Center
+                  onClick={() => handelupdate("facebook")}
                     as={Link}
                     isExternal
                     href={data.socialLinks?.facebook}
@@ -1035,6 +1052,7 @@ END:VCARD
 
                 {data?.socialLinks.linkedin != "" ? (
                   <Center
+                  onClick={() => handelupdate("linkedin")}
                     as={Link}
                     isExternal
                     href={data.socialLinks?.linkedin}
@@ -1058,6 +1076,7 @@ END:VCARD
                 )}
                 {data?.socialLinks.google != "" ? (
                   <Center
+                  onClick={() => handelupdate("google")}
                     as={Link}
                     isExternal
                     href={data.socialLinks?.google}
@@ -1108,6 +1127,7 @@ END:VCARD
                 fontSize={{ base: "0.75rem", xs: "0.875rem", sm: "1rem" }}
               >
                 <Flex
+                onClick={() => handelupdate("location")}
                   p="0px 0px 25px 0"
                   alignItems={"center"}
                   borderBottom={`2px solid ${borderColor}`}
@@ -1145,6 +1165,7 @@ END:VCARD
                 </Flex>
                 {data?.website != "" ? (
                   <Flex
+                  onClick={() => handelupdate("website")}
                     p="25px 0px"
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
@@ -1162,6 +1183,7 @@ END:VCARD
                 )}
 
                 <Flex
+                onClick={() => handelupdate("email")}
                   p="25px 0px"
                   alignItems={"center"}
                   borderBottom={`2px solid ${borderColor}`}
