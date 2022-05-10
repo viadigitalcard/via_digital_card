@@ -257,7 +257,7 @@ export const Navbar = () => {
 
                 /*{isFetching ? (
                   ""
-                ) : isPremium ? (*/
+                ) : isPremium ? ( */
                   <MenuItem
                     cursor="pointer"
                     as={Center}
