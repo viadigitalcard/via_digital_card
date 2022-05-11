@@ -121,10 +121,13 @@ const Usercard = ({ Cards }) => {
                       <NextLink href="/create" passHref>
                         Create New Card
                       </NextLink>
-                      <NextLink href="/insights" passHref>
-                        Insights
-                      </NextLink>
-                    </MenuItem>
+                     </MenuItem>
+                      <MenuItem fontWeight="bold" as={Center}>
+                        <Link href="/insights">
+                        <a>Insights</a>
+                        </Link>
+                      </MenuItem>
+                   
                     <MenuItem fontWeight="bold" onClick={signOut} as={Center}>
                       Sign Out
                     </MenuItem>
