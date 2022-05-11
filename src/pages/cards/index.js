@@ -94,9 +94,11 @@ const Usercard = ({ Cards }) => {
                   <Text onClick={signOut} cursor="pointer" fontWeight="bold">
                     Sign Out
                   </Text>
+                  <Text cursor="pointer" fontWeight="bold">
                   <Link href="/insights">
-                  <a fontWeight ="bold">Insights</a>
+                  <a>Insights</a>
                   </Link>
+                  </Text>
                 </HStack>
               </Box>
               <Box display={["block", "block", "none"]}>
