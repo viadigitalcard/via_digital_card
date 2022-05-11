@@ -87,14 +87,7 @@ const Usercard = ({ Cards }) => {
                 ) : (
                   " "
                 )}
-
-                <HStack p="0px 20px 0px 20px" h="40px">
-                  {/* <Avatar boxSize="35px" /> */}
-
-                  <Text onClick={signOut} cursor="pointer" fontWeight="bold">
-                    Sign Out
-                  </Text> 
-                </HStack>
+                
                 <HStack p="0px 20px 0px 20px" h="40px">
                   <Text cursor="pointer" fontWeight="bold">
                   <Link href="/insights">
@@ -102,6 +95,14 @@ const Usercard = ({ Cards }) => {
                   </Link>
                   </Text>
                 </HStack>
+                <HStack p="0px 20px 0px 20px" h="40px">
+                  {/* <Avatar boxSize="35px" /> */}
+
+                  <Text onClick={signOut} cursor="pointer" fontWeight="bold">
+                    Sign Out
+                  </Text> 
+                </HStack>
+
               </Box>
               <Box display={["block", "block", "none"]}>
                 <Menu isLazy={true} computePositionOnMount={true}>
