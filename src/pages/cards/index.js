@@ -95,7 +95,7 @@ const Usercard = ({ Cards }) => {
                     Sign Out
                   </Text>
                   <Link href="/insights">
-                  <a>Insights</a>
+                  <a fontWeight ="bold">Insights</a>
                   </Link>
                 </HStack>
               </Box>
