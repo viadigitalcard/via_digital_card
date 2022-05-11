@@ -121,6 +121,9 @@ const Usercard = ({ Cards }) => {
                       <NextLink href="/create" passHref>
                         Create New Card
                       </NextLink>
+                      <NextLink href="/insights" passHref>
+                        Insights
+                      </NextLink>
                     </MenuItem>
                     <MenuItem fontWeight="bold" onClick={signOut} as={Center}>
                       Sign Out
