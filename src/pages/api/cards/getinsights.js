@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     (insight) => insight.createdAt.getDate() === new Date().getDate()
   );
   const whatsappYesterday = insights?.whatsapp.filter((insight) =>
-    moment(insight.createdAt).isAfter(moment().subtract(1, "day"))
+    moment(insight.createdAt).isAfter(moment().subtract(2, "days"))
   );
   const whatsappSevenDay = insights?.whatsapp.filter((insight) =>
     moment(insight.createdAt).isAfter(moment().subtract(7, "days"))
