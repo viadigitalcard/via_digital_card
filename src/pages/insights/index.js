@@ -157,7 +157,7 @@ export default function Insights() {
             flexDirection="row"
           >
             <Box cursor="pointer">
-              <NextLink href="/" passHref>
+              <NextLink href="https://www.viadigitalcard.com" passHref>
                 <Image src={logo} alt="" />
               </NextLink>
             </Box>
