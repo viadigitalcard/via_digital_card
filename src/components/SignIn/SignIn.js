@@ -104,6 +104,7 @@ export const SignIn = () => {
         <VStack as={Center} px={["", "80px"]}>
           <Image
             alt=""
+            href="https://www.viadigitalcard.com"
             h={["60px", "70px", "70px"]}
             // width={{ base: "150px", md: "200px", lg: "300px" }}
             // p="10px"
