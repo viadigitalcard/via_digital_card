@@ -116,10 +116,10 @@ export default function Insights() {
       value: today,
       label: "Today",
     },
-    {
+   /* {
       value: yesterday,
       label: "Yesterday",
-    },
+    }, */
     {
       value: sevenDays,
       label: "Last 7 days",
