@@ -147,7 +147,7 @@ END:VCARD
         <RWebShare
           data={{
             text: "Via Digital Card",
-            url: "https://viadigitalcard.com" + url,
+            url: "https://app.viadigitalcard.com" + url,
             title: data.designation,
           }}
           onClick={() => console.log("shared successfully!")}
@@ -202,7 +202,7 @@ END:VCARD
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-              Get in touch
+              Get In Touch
             </Tab>
           </Flex>
         </TabList>
@@ -363,7 +363,7 @@ END:VCARD
                     ""
                   ) : (
                     <Box h="100px" w="300px" as={Center}>
-                      No Soical Links Available
+                      No Social Links Available
                     </Box>
                   )}
                   {data?.socialLinks.whatsapp != "" ? (
@@ -526,7 +526,7 @@ END:VCARD
               </TabPanel>
               <TabPanel p="0" w="100%" color={textColor}>
                 <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
-                  About
+                  About 
                 </Text>
                 <Flex
                   mt="33px"
@@ -837,7 +837,7 @@ END:VCARD
                   fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                   color={"#ABABAB"}
                 >
-                  Download brochure
+                  Download Brochure
                 </Text>
               </VStack>
             ) : (
@@ -873,7 +873,7 @@ END:VCARD
                   fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                   color={"#ABABAB"}
                 >
-                  Make payment
+                  Make Payment
                 </Text>
               </VStack>
             ) : (
@@ -895,7 +895,7 @@ END:VCARD
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-              About Us
+              About
             </Tab>
             <Tab
               color={tabColorMobile}
