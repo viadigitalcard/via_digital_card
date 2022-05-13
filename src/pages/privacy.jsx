@@ -13,9 +13,9 @@ function Privacy() {
       <Head>
         <title>TOS & Privacy Policy</title>
       </Head>
-      <>
+      
         <DarkModeSwitch />
-        <Navbar />
+        
         <Box p="30px" bg={bgColor} color={textColor}>
           <Text fontSize={"xl"} fontWeight="bold">
             Terms of Services
