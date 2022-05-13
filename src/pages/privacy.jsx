@@ -13,6 +13,7 @@ function Privacy() {
       <Head>
         <title>TOS & Privacy Policy</title>
       </Head>
+    <>
       
         <DarkModeSwitch />
         
