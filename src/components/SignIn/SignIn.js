@@ -236,7 +236,7 @@ export const SignIn = () => {
           </Flex>
                        <Text
                         as={Flex}
-                        justifyContent="end"
+                        justifyContent="center"
                         color={textColor}
                         fontWeight="semibold"
                       >
