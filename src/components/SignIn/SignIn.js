@@ -233,6 +233,14 @@ export const SignIn = () => {
                 Create account now
               </Link>
             </NextLink>
+                      <Text
+                        as={Flex}
+                        justifyContent="end"
+                        color={textColor}
+                        fontWeight="semibold"
+                      >
+                        Note - Verification email can take upto 5 minutes to arrive
+                      </Text>
           </Flex>
         </VStack>
         <Flex display={["none", "none", "flex"]}>
