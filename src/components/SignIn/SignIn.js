@@ -203,10 +203,18 @@ export const SignIn = () => {
                         color={textColor}
                         fontWeight="semibold"
                       >
-                        Recovery password
+                        Recovery Password
                       </Text>
                     </Link>
                   </NextLink>
+                      <Text
+                        as={Flex}
+                        justifyContent="end"
+                        color={textColor}
+                        fontWeight="semibold"
+                      >
+                        Note - If you have just signed up, please verify your email. Verification email can take upto 5 minutes to arrive
+                      </Text>
 
                   <Center>
                     <Button
