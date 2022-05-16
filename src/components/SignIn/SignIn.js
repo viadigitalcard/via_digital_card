@@ -36,8 +36,8 @@ export const SignIn = () => {
     });
   }
   const logo = useColorModeValue(
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo-final.png",
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark-final.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LogoDarkFinal.png"
   );
 
   const color = useColorModeValue("white", "#302E2E");
