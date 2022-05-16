@@ -299,7 +299,7 @@ export default function Insights() {
                   </Tr>
 
                   <Tr>
-                    <Td>Contact Button</Td>
+                    <Td>Contact Saves</Td>
                     <Td textAlign="center">{selectedData?.vcf?.length}</Td>
                   </Tr>
 
