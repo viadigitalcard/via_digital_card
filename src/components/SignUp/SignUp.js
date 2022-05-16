@@ -141,7 +141,7 @@ export default function SignUp() {
         >
           <Image
             alt=""
-            h={["60px", "70px", "70px"]}
+            h={["90px", "110px", "110px"]}
             // width={{ base: "250px", md: "200px", lg: "300px" }}
             marginBottom={2}
             src={logo}
