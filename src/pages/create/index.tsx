@@ -798,7 +798,8 @@ function Card() {
                               </FormControl>
                             )}
                           </Field>
-                          <Field name="snumber">
+                         
+                        /* <Field name="snumber">
                             {({ field, form }) => (
                               <FormControl
                                 isInvalid={
@@ -824,7 +825,7 @@ function Card() {
                                 </FormErrorMessage>
                               </FormControl>
                             )}
-                          </Field>
+                          </Field> */
                           <Field name="address">
                             {({ field, form }) => (
                               <FormControl
