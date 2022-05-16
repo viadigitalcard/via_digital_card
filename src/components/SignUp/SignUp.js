@@ -42,7 +42,7 @@ export default function SignUp() {
   }
   const logo = useColorModeValue(
     "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark-final.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LogoDarkFinal.png"
   );
   // const logo = useColorModeValue(
   //   "https://res.cloudinary.com/dbm7us31s/image/upload/v1646034354/digital%20card/landing-page/logo_zt1jb4.png",
