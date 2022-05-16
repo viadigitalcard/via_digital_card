@@ -1104,7 +1104,7 @@ function Card() {
                               </FormControl>
                             )}
                           </Field>
-                          <Field name="youtube">
+                          {/*<Field name="youtube">
                             {({ field, form }) => (
                               <FormControl
                                 isInvalid={
@@ -1128,7 +1128,7 @@ function Card() {
                                 </FormErrorMessage>
                               </FormControl>
                             )}
-                          </Field>
+                          </Field> */}
                           <Field name="facebook">
                             {({ field, form }) => (
                               <FormControl
@@ -1889,7 +1889,7 @@ function Card() {
                               </FormControl>
                             )}
                           </Field>
-                          <Field name="youtube">
+                          {/* <Field name="youtube">
                             {({ field, form }) => (
                               <FormControl
                                 isInvalid={
@@ -1944,7 +1944,7 @@ function Card() {
                                 </FormErrorMessage>
                               </FormControl>
                             )}
-                          </Field>
+                          </Field> */}
                           <Field name="facebook">
                             {({ field, form }) => (
                               <FormControl
