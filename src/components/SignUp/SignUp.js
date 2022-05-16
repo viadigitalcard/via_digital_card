@@ -146,17 +146,7 @@ export default function SignUp() {
             marginBottom={2}
             src={logo}
           />
-          <Text
-            fontSize={{ base: "36px", md: "40px", lg: "45px" }}
-            py={3}
-            fontFamily="mono"
-            fontWeight="normal"
-            color={textColor}
-            textAlign="center"
-            alignSelf="center"
-          >
-            Sign Up
-          </Text>
+
           {/* validation for name */}
           <Formik
             validationSchema={validationSchema}
