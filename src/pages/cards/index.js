@@ -67,7 +67,7 @@ const Usercard = ({ Cards }) => {
             >
               <Box cursor="pointer">
                 <NextLink href="https://www.viadigitalcard.com" passHref>
-                  <Image src={logo} alt="" />
+                  <Image src={logo} alt="" h={["60px", "70px", "70px"]}/>
                 </NextLink>
               </Box>
               <Spacer />
