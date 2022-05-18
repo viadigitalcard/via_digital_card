@@ -172,7 +172,7 @@ END:VCARD
           <Box>
             <NextLink href="https://www.viadigitalcard.com" passHref>
               <Link>
-                <Image src={logo} h={["60px", "70px", "70px"]}/>
+                <Image src={logo} h={["50px", "60px", "60px"]}/>
               </Link>
             </NextLink>
           </Box>
