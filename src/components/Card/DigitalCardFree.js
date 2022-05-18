@@ -172,7 +172,7 @@ END:VCARD
           <Box>
             <NextLink href="https://www.viadigitalcard.com" passHref>
               <Link>
-                <Image src={logo} h={["25px", "15px", "15px"]}/>
+                <Image src={logo} h={["60px", "70px", "70px"]}/>
               </Link>
             </NextLink>
           </Box>
@@ -730,11 +730,11 @@ END:VCARD
       </Tabs>
       <Box display={{ base: "block", "2sm": "none" }} w="100%">
         <VStack spacing={"48px"} color={textColor}>
-          <NextLink href="/" passHref>
-            <Link>
-              <Image src={logo} />
-            </Link>
-          </NextLink>
+            <NextLink href="https://www.viadigitalcard.com" passHref>
+              <Link>
+                <Image src={logo} h={["60px", "70px", "70px"]}/>
+              </Link>
+            </NextLink>
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
             <Box
               w={{ base: "109px", xs: "193px" }}
