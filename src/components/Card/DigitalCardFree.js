@@ -732,7 +732,7 @@ END:VCARD
         <VStack spacing={"48px"} color={textColor}>
             <NextLink href="https://www.viadigitalcard.com" passHref>
               <Link>
-                <Image src={logo} h={["20px", "30px", "30px"]}/>
+                <Image src={logo} h={["60px", "70px", "70px"]}/>
               </Link>
             </NextLink>
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
