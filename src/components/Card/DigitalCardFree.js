@@ -200,7 +200,9 @@ END:VCARD
           <Box>
             <NextLink href="/" passHref>
               <Link>
-                <Image src={logo} />
+                <Image 
+                 h={["60px", "70px", "70px"]}
+                 src={logo} />
               </Link>
             </NextLink>
           </Box>
