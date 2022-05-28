@@ -18,7 +18,12 @@ import {
   useDisclosure,
   Link,
   SimpleGrid,
-  Spacer,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 import FileSaver from "file-saver";
 import { FiPhone } from "react-icons/fi";
@@ -30,31 +35,54 @@ import { SendMessage } from "../modals/SendMessage";
 import NextLink from "next/link";
 import { RWebShare } from "react-web-share";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import moment from "moment";
 
 export const DigitalCardFree = ({ data }) => {
+  const {
+    isOpen: isOpen1,
+    onOpen: onOpen1,
+    onClose: onClose1,
+  } = useDisclosure();
+  console.log(data);
+  if (data?.socialLinks.youtube != "") {
+    function getId(url) {
+      let regex =
+        /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/gm;
+      return regex.exec(url)[3];
+    }
+    const youtubeEmbed = getId(data?.socialLinks?.youtube);
+    console.log(youtubeEmbed);
+  }
+
   const bgColor = useColorModeValue("white", "black.200");
-  const bgViews = useColorModeValue("greenBrand.100", "black.100");
+  const bgViews = useColorModeValue(
+    data?.theme ? `${data.theme}.100` : "greenBrand.100",
+    data?.theme ? `${data.theme}.100` : "greenBrand.100"
+  );
   const textColor = useColorModeValue("black", "white");
+  const textColor2 = useColorModeValue("white", "black");
   const tabColor = useColorModeValue("rgba(23, 23, 23, 0.38)", "gray.300");
   const tabColorMobile = useColorModeValue("#ABABAB", "#4B4C5E");
   const dividerColor = useColorModeValue("#E7E7E7", "#353647");
-  const bgDashIcons = useColorModeValue("greenBrand.100", "greenBrand.100");
+  const bgDashIcons = useColorModeValue(
+    data?.theme ? `${data?.theme}.100` : "greenBrand.100",
+    data?.theme ? `${data?.theme}.100` : "greenBrand.100"
+  );
   const bgDash = useColorModeValue("white", "black.100");
   const borderColor = useColorModeValue("#E3E3E3", "#353647");
   const activeTabBorder = useColorModeValue("#353647", "#c4c4c4");
   const bgDashIconMobile = useColorModeValue(
-    "greenBrand.100",
-    "greenBrand.100"
+    data?.theme ? `${data?.theme}.100` : "greenBrand.100",
+    data?.theme ? `${data?.theme}.100` : "greenBrand.100"
   );
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [socialData, setSocialData] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
   const router = useRouter();
   let url = router.asPath;
 
   const logo = useColorModeValue(
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo.png",
-    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/LogoDarkFinal.png"
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo-final.png",
+    "https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Logo+Dark-final.png"
   );
   //Vcard
   function handleSave(e) {
@@ -68,6 +96,7 @@ FN:${data.name}
 TITLE:${data.name}
 EMAIL;type=Email;type=pref:${data.email} 
 TEL;type=MAIN:${data?.pnumber}
+TEL;type=CELL;type=VOICE;type=pref:${data?.snumber}
 ADR;type=WORK;type=pref:;;;${data.address};;;
 END:VCARD
 `,
@@ -99,18 +128,17 @@ END:VCARD
       data.socialLinks.instagram == "" &&
       data.socialLinks.facebook == "" &&
       data.socialLinks.twitter == "" &&
-      data.socialLinks.linkedin == "" &&
-      data.socialLinks.google == "" &&
-      data.socialLinks.youtube == ""
+      data.socialLinks.linkedin == ""
     ) {
       return false;
     } else {
       return true;
     }
   }
+
   let check = checkEmpty();
-  
-   async function handelupdate(params) {
+
+  async function handelupdate(params) {
     const user = data?.card_id;
     console.log(user, params);
     const res = await fetch("/api/cards/insights", {
@@ -147,13 +175,13 @@ END:VCARD
         <RWebShare
           data={{
             text: "Via Digital Card",
-            url: "https://app.viadigitalcard.com" + url,
+            url: "https://viadigitalcard.com" + url,
             title: data.designation,
           }}
           onClick={() => console.log("shared successfully!")}
         >
           <Button
-            variant={"solid"}
+            variant={data?.theme ? data.theme : "solid"}
             boxSize={"50px"}
             borderRadius="full"
             as={Center}
@@ -170,9 +198,9 @@ END:VCARD
       >
         <TabList border={"none"} justifyContent="space-between">
           <Box>
-            <NextLink href="https://www.viadigitalcard.com" passHref>
+            <NextLink href="/" passHref>
               <Link>
-                <Image src={logo} h={["60px", "70px", "70px"]}/>
+                <Image src={logo} />
               </Link>
             </NextLink>
           </Box>
@@ -202,7 +230,7 @@ END:VCARD
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-              Get In Touch
+              Get in touch
             </Tab>
           </Flex>
         </TabList>
@@ -347,11 +375,37 @@ END:VCARD
                 <Text mt="33px" fontSize={"1.25rem"}>
                   {data?.bio}
                 </Text>
+                {data && data.socialLinks.youtube != "" ? (
+                  <Box mb="40px" w="500px" pt="50px" h="340px">
+                    <Text mb="20px" fontWeight={"500"} fontSize={"1.5rem"}>
+                      Youtube Video
+                    </Text>
+
+                    <iframe
+                      src={`https://www.youtube.com/embed/${youtubeEmbed}`}
+                      allow="autoplay; encrypted-media"
+                      title="video"
+                      width="100%"
+                      height="100%"
+                      allowFullScreen
+                    />
+                  </Box>
+                ) : (
+                  ""
+                )}
               </TabPanel>
               <TabPanel p="0" color={textColor}>
                 <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
                   {" Let's Connect"}
                 </Text>
+
+                {check ? (
+                  ""
+                ) : (
+                  <Box h="100px" w="300px" as={Center}>
+                    No Soical Links Available
+                  </Box>
+                )}
                 <Box
                   mt="15px"
                   ml="-22px"
@@ -359,23 +413,15 @@ END:VCARD
                   flexWrap="wrap"
                   fontSize={"1.125rem"}
                 >
-                  {check ? (
-                    ""
-                  ) : (
-                    <Box h="100px" w="300px" as={Center}>
-                      No Social Links Available
-                    </Box>
-                  )}
                   {data?.socialLinks.whatsapp != "" ? (
-                    <Flex 
-                    onClick={() => handelupdate("whatsapp")}
-                    alignItems={"center"} m="22px">
+                    <Flex alignItems={"center"} m="22px"
+                    onClick={() => handelupdate("whatsapp")}>
                       <Center
                         as={Link}
                         isExternal
                         boxSize={"72px"}
                         borderRadius="12px"
-                        href={`https://api.whatsapp.com/send?phone=${data?.socialLinks.whatsapp}`}
+                        href={`https://api.whatsapp.com/send?phone=+91${data?.socialLinks.whatsapp}`}
                         border={`2px solid ${borderColor}`}
                       >
                         <Box>
@@ -391,9 +437,11 @@ END:VCARD
                     ""
                   )}
                   {data?.socialLinks.twitter != "" ? (
-                    <Flex 
-                    onClick={() => handelupdate("twitter")}
-                    alignItems={"center"} m="22px">
+                    <Flex
+                      onClick={() => handelupdate("twitter")}
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         as={Link}
                         isExternal
@@ -414,10 +462,13 @@ END:VCARD
                   ) : (
                     ""
                   )}
+
                   {data.socialLinks.instagram != "" ? (
-                    <Flex 
-                    onClick={() => handelupdate("instagram")}
-                    alignItems={"center"} m="22px">
+                    <Flex
+                      onClick={() => handelupdate("instagram")}
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
@@ -441,9 +492,11 @@ END:VCARD
                     ""
                   )}
                   {data.socialLinks.facebook != "" ? (
-                    <Flex 
-                    onClick={() => handelupdate("facebook")}
-                    alignItems={"center"} m="22px">
+                    <Flex
+                      onClick={() => handelupdate("facebook")}
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
@@ -466,9 +519,11 @@ END:VCARD
                     ""
                   )}
                   {data.socialLinks.linkedin != "" ? (
-                    <Flex 
-                    onClick={() => handelupdate("linkedin")}
-                    alignItems={"center"} m="22px">
+                    <Flex
+                      onClick={() => handelupdate("linkedin")}
+                      alignItems={"center"}
+                      m="22px"
+                    >
                       <Center
                         boxSize={"72px"}
                         borderRadius="12px"
@@ -492,10 +547,7 @@ END:VCARD
                   )}
                   {data.socialLinks.google != "" ? (
                     <Flex
-                    onClick={() => handelupdate("google")}
-                      isExternal
-                      as={Link}
-                      href={data?.socialLinks?.google}
+                      onClick={() => handelupdate("google")}
                       alignItems={"center"}
                       m="22px"
                     >
@@ -504,8 +556,11 @@ END:VCARD
                         borderRadius="12px"
                         border={`2px solid ${borderColor}`}
                       >
-                        <Box>
-                          {" "}
+                        <Box
+                          isExternal
+                          as={Link}
+                          href={data?.socialLinks?.google}
+                        >
                           <Image src="/assets/images/greview.png" alt="" />
                         </Box>
                       </Center>
@@ -514,7 +569,13 @@ END:VCARD
                   ) : (
                     " "
                   )}
-                  <Button w="173px" h="62px" m="22px" onClick={onOpen}>
+                  <Button
+                    variant={data?.theme ? data.theme : "solid"}
+                    w="173px"
+                    h="62px"
+                    m="22px"
+                    onClick={onOpen}
+                  >
                     Send Message
                   </Button>
                   <SendMessage
@@ -526,7 +587,7 @@ END:VCARD
               </TabPanel>
               <TabPanel p="0" w="100%" color={textColor}>
                 <Text mt="43px" fontWeight={"500"} fontSize={"1.5rem"}>
-                  About 
+                  About
                 </Text>
                 <Flex
                   mt="33px"
@@ -535,7 +596,7 @@ END:VCARD
                   fontSize={"1.125rem"}
                 >
                   <Flex
-                  onClick={() => handelupdate("location")}
+                    onClick={() => handelupdate("location")}
                     p="0px 0px 25px 0"
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
@@ -560,16 +621,43 @@ END:VCARD
                     <Box fontSize={"1.7rem"}>
                       <FiPhone />
                     </Box>
-                    <Text ml="27px">{data?.pnumber}</Text>
-                    <Link href={`tel:${data?.pnumber}`}>
-                      <Button fontWeight={400} w="142px" ml="75px">
-                        Call Now
-                      </Button>
-                    </Link>
+                    <Text ml="27px">
+                      {data?.pnumber}{" "}
+                      {data?.snumber != "" ? `| ${data.snumber}` : ""}
+                      {/* data?.snumber} */}
+                    </Text>
+                    <Button
+                      onClick={onOpen1}
+                      w="142px"
+                      variant={data?.theme ? data.theme : "solid"}
+                      ml="75px"
+                    >
+                      Call Now
+                    </Button>
+
+                    <Modal isOpen={isOpen1} onClose={onClose1}>
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader color={textColor}>
+                          Select the number to call
+                        </ModalHeader>
+                        <ModalCloseButton color={textColor} />
+                        <ModalBody color={textColor}>
+                          <VStack justifyContent={"center"} alignItems="center">
+                            <Link href={`tel:${data?.pnumber}`}>
+                              <Text>{data?.pnumber}</Text>
+                            </Link>
+                            <Link href={`tel:${data?.snumber}`}>
+                              <Text>{data?.snumber}</Text>
+                            </Link>
+                          </VStack>
+                        </ModalBody>
+                      </ModalContent>
+                    </Modal>
                   </Flex>
                   {data.website != "" ? (
                     <Flex
-                    onClick={() => handelupdate("website")}
+                      onClick={() => handelupdate("website")}
                       p="25px 0px"
                       alignItems={"center"}
                       borderBottom={`2px solid ${borderColor}`}
@@ -586,8 +674,8 @@ END:VCARD
                     ""
                   )}
                   <Flex
-                   onClick={() => handelupdate("email")}
                     p="25px 0px"
+                    onClick={() => handelupdate("email")}
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
                   >
@@ -614,7 +702,7 @@ END:VCARD
             </Text>
             <VStack spacing={"30px"} alignItems="flex-start">
               <Center
-              onClick={() => handelupdate("vcf")}
+                onClick={() => handelupdate("vcf")}
                 w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
                 h="117px"
                 justifyContent={"flex-start"}
@@ -623,13 +711,14 @@ END:VCARD
                 borderRadius={"18px"}
                 boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
                 // as={Button}
-                // onClick={handleSave}
+
                 // onClick={handleSave}
               >
-                <Center
-                  as={Button}
+                <Button
+                  as={Center}
+                  onClick={handleSave}
+                  variant={data?.theme ? data.theme : "solid"}
                   boxSize={"87px"}
-                  bgColor={bgDashIcons}
                   borderRadius={"17px"}
                   mr="22px"
                 >
@@ -639,15 +728,20 @@ END:VCARD
                       alt=""
                     />
                   </Center>
-                </Center>
-                <Text fontSize={"1.125rem"} color={textColor}>
+                </Button>
+                <Text
+                  fontSize={"1.125rem"}
+                  color={textColor}
+                  textAlign="center"
+                >
                   Save Contact
                 </Text>
               </Center>
+
               {data && data.brochure ? (
                 <>
                   <Center
-                  onClick={() => handelupdate("document")}
+                    onClick={() => handelupdate("document")}
                     w={{ sm: "498px", lg: "350px", xl: "498px" }}
                     h="117px"
                     justifyContent={"flex-start"}
@@ -676,6 +770,7 @@ END:VCARD
                       href={data?.brochure}
                       fontSize={"1.125rem"}
                       color={textColor}
+                      textAlign="center"
                     >
                       {/* {data?.brochure} */}
                       Download brochure
@@ -687,7 +782,10 @@ END:VCARD
               )}
               {data && data.payment ? (
                 <Center
-                onClick={() => handelupdate("payment")}
+                  as={Link}
+                  isExternal
+                  href={data?.payment}
+                  onClick={() => handelupdate("payment")}
                   w={{ "2sm": "498px", lg: "350px", xl: "498px" }}
                   h="117px"
                   justifyContent={"flex-start"}
@@ -697,9 +795,6 @@ END:VCARD
                   boxShadow="8px 8px 16px 0px rgba(0, 0, 0, 0.1)"
                 >
                   <Center
-                    as={Link}
-                    isExternal
-                    href={data?.payment}
                     boxSize={"87px"}
                     bgColor={bgDashIcons}
                     borderRadius={"17px"}
@@ -715,6 +810,7 @@ END:VCARD
                   <Text
                     as={Link}
                     isExternal
+                    // href={data?.payment}
                     fontSize={"1.125rem"}
                     color={textColor}
                   >
@@ -730,11 +826,11 @@ END:VCARD
       </Tabs>
       <Box display={{ base: "block", "2sm": "none" }} w="100%">
         <VStack spacing={"48px"} color={textColor}>
-            <NextLink href="https://www.viadigitalcard.com" passHref>
-              <Link>
-                <Image src={logo} h={["60px", "70px", "70px"]}/>
-              </Link>
-            </NextLink>
+          <NextLink href="/" passHref>
+            <Link>
+              <Image src={logo} />
+            </Link>
+          </NextLink>
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
             <Box
               w={{ base: "109px", xs: "193px" }}
@@ -767,10 +863,7 @@ END:VCARD
                 </Center>
               </Box>
             </Box>
-            <Box
-              ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}
-              mt={"15px"}
-            >
+            <Box ml={{ "2sm": "50px", lg: "0", xl: "3.4vw", "2xl": "50px" }}>
               <Text
                 fontSize={{ base: "1.5rem", xs: "1.8rem", "2sm": "2.25rem" }}
                 fontWeight={{ base: "600", "2sm": "500" }}
@@ -784,20 +877,24 @@ END:VCARD
                   "2sm": "1.5rem",
                 }}
                 color={"gray.100"}
-                mt={"15px"}
               >
                 {data?.designation}
               </Text>
             </Box>
           </Flex>
-          <HStack w="100%" spacing="30px" justifyContent="space-evenly">
+          <HStack
+            w="100%"
+            spacing="30px"
+            justifyContent="space-evenly"
+            // justifyContent={"space-between"}
+          >
             <VStack onClick={() => handelupdate("vcf")} spacing={"10px"}>
               <Center
                 boxSize={{ base: "45px", xs: "90px", sm: "120px" }}
                 borderRadius="8px"
                 bgColor={bgDashIconMobile}
                 onClick={handleSave}
-                cursor="pointer"
+                variant={data.theme && data?.theme ? data.theme : "solid"}
               >
                 <Box boxSize={{ base: "20px", xs: "40px", sm: "60px" }}>
                   <Image
@@ -815,7 +912,7 @@ END:VCARD
               </Text>
             </VStack>
             {data && data.brochure ? (
-              <VStack onClick={() => handelupdate("document")} spacing={"10px"}>
+              <VStack spacing={"10px"} onClick={() => handelupdate("document")}>
                 <Center
                   as={Link}
                   href={data?.brochure}
@@ -831,13 +928,13 @@ END:VCARD
                   </Box>
                 </Center>
                 <Text
-                  textAlign="center"
                   as={Link}
                   href={data?.brochure}
                   fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                   color={"#ABABAB"}
+                  textAlign="center"
                 >
-                  Download Brochure
+                  Download brochure
                 </Text>
               </VStack>
             ) : (
@@ -854,10 +951,8 @@ END:VCARD
                   bgColor={bgDashIconMobile}
                 >
                   <Box
-                    as={Link}
-                    isExternal
-                    href={data?.payment}
                     boxSize={{ base: "20px", xs: "40px", sm: "60px" }}
+                    href={data?.payment}
                   >
                     <Image
                       src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/payment.png"
@@ -868,12 +963,11 @@ END:VCARD
                 <Text
                   as={Link}
                   isExternal
-                  textAlign="center"
-                  href={data?.payment}
                   fontSize={{ base: "0.6875rem", xs: "0.85rem", sm: "1rem" }}
                   color={"#ABABAB"}
+                  textAlign="center"
                 >
-                  Make Payment
+                  Make payment
                 </Text>
               </VStack>
             ) : (
@@ -895,7 +989,7 @@ END:VCARD
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-              About
+              About Us
             </Tab>
             <Tab
               color={tabColorMobile}
@@ -941,19 +1035,34 @@ END:VCARD
               >
                 {data?.bio}
               </Text>
+              <Box pt="50px" h="200px">
+                {data && data.socialLinks.youtube != "" ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${youtubeEmbed}`}
+                    // frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    title="video"
+                    width="100%"
+                    height="100%"
+                  />
+                ) : (
+                  ""
+                )}
+              </Box>
             </TabPanel>
             <TabPanel p="0">
               {check ? (
                 ""
               ) : (
-                <Box h="100px" w="100%" as={Center}>
-                  No Soical Links Available
+                <Box h="100px" w="300px" as={Center}>
+                  No Social Links Available
                 </Box>
               )}
               <SimpleGrid columns={3} spacing={8}>
                 {data?.socialLinks.whatsapp != "" ? (
                   <Center
-                  onClick={() => handelupdate("whatsapp")}
+                    onClick={() => handelupdate("whatsapp")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     border={`2px solid ${borderColor}`}
@@ -977,7 +1086,7 @@ END:VCARD
                 )}
                 {data?.socialLinks.twitter != "" ? (
                   <Center
-                  onClick={() => handelupdate("twitter")}
+                    onClick={() => handelupdate("twitter")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     border={`2px solid ${borderColor}`}
@@ -1002,7 +1111,7 @@ END:VCARD
 
                 {data?.socialLinks.instagram != "" ? (
                   <Center
-                  onClick={() => handelupdate("instagram")}
+                    onClick={() => handelupdate("instagram")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     as={Link}
@@ -1027,7 +1136,7 @@ END:VCARD
 
                 {data?.socialLinks.facebook != "" ? (
                   <Center
-                  onClick={() => handelupdate("facebook")}
+                    onClick={() => handelupdate("facebook")}
                     as={Link}
                     isExternal
                     href={data.socialLinks?.facebook}
@@ -1052,7 +1161,7 @@ END:VCARD
 
                 {data?.socialLinks.linkedin != "" ? (
                   <Center
-                  onClick={() => handelupdate("linkedin")}
+                    onClick={() => handelupdate("linkedin")}
                     as={Link}
                     isExternal
                     href={data.socialLinks?.linkedin}
@@ -1076,7 +1185,7 @@ END:VCARD
                 )}
                 {data?.socialLinks.google != "" ? (
                   <Center
-                  onClick={() => handelupdate("google")}
+                    onClick={() => handelupdate("google")}
                     as={Link}
                     isExternal
                     href={data.socialLinks?.google}
@@ -1099,7 +1208,7 @@ END:VCARD
               </SimpleGrid>
               <Center>
                 <Button
-                  variant={"solid"}
+                  variant={data?.theme ? data.theme : "solid"}
                   // w="80px"
                   // h="30px"
                   mt="22px"
@@ -1113,6 +1222,7 @@ END:VCARD
                   card_id={data?.card_id}
                 />
               </Center>
+
               {/* <Center mt="50px">
                 <Button w="173px" h="62px" fontWeight={"400"}>
                   Send Message
@@ -1127,7 +1237,7 @@ END:VCARD
                 fontSize={{ base: "0.75rem", xs: "0.875rem", sm: "1rem" }}
               >
                 <Flex
-                onClick={() => handelupdate("location")}
+                  onClick={() => handelupdate("location")}
                   p="0px 0px 25px 0"
                   alignItems={"center"}
                   borderBottom={`2px solid ${borderColor}`}
@@ -1143,7 +1253,6 @@ END:VCARD
                   </Link>
                 </Flex>
                 <Flex
-                  onClick={() => handelupdate("call")}
                   p="25px 0px"
                   alignItems={"center"}
                   justifyContent="space-between"
@@ -1155,18 +1264,34 @@ END:VCARD
                     </Box>
                     <Box ml="27px">
                       <Text>{data?.pnumber}</Text>
+                      <Text>{data?.snumber}</Text>
                     </Box>
                   </Flex>
+                  <Button onClick={onOpen1}>Call Now</Button>
 
-                  <Link href={`tel:${data?.pnumber}`}>
-                    <Button fontWeight={400} w="100px">
-                      Call Now
-                    </Button>
-                  </Link>
+                  <Modal isOpen={isOpen1} onClose={onClose1}>
+                    <ModalOverlay />
+                    <ModalContent>
+                      <ModalHeader color={textColor}>
+                        Select the number to call
+                      </ModalHeader>
+                      <ModalCloseButton color={textColor} />
+                      <ModalBody color={textColor}>
+                        <VStack justifyContent={"center"} alignItems="center">
+                          <Link href={`tel:${data?.pnumber}`}>
+                            <Text>{data?.pnumber}</Text>
+                          </Link>
+                          <Link href={`tel:${data?.snumber}`}>
+                            <Text>{data?.snumber}</Text>
+                          </Link>
+                        </VStack>
+                      </ModalBody>
+                    </ModalContent>
+                  </Modal>
                 </Flex>
                 {data?.website != "" ? (
                   <Flex
-                  onClick={() => handelupdate("website")}
+                    onClick={() => handelupdate("website")}
                     p="25px 0px"
                     alignItems={"center"}
                     borderBottom={`2px solid ${borderColor}`}
@@ -1174,7 +1299,6 @@ END:VCARD
                     <Box fontSize={"1.7rem"}>
                       <VscGlobe />
                     </Box>
-
                     <Link isExternal href={data.website} ml="27px">
                       {data?.website}
                     </Link>
@@ -1184,7 +1308,7 @@ END:VCARD
                 )}
 
                 <Flex
-                onClick={() => handelupdate("email")}
+                  onClick={() => handelupdate("email")}
                   p="25px 0px"
                   alignItems={"center"}
                   borderBottom={`2px solid ${borderColor}`}
