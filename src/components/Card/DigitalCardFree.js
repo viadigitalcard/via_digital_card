@@ -232,7 +232,7 @@ END:VCARD
               _active={{ border: "none" }}
               _focus={{ border: "none" }}
             >
-              Get in touch
+              Get In Touch
             </Tab>
           </Flex>
         </TabList>
@@ -629,6 +629,7 @@ END:VCARD
                       {/* data?.snumber} */}
                     </Text>
                     <Button
+                    variant={data?.theme ? data.theme : "solid"}
                       onClick={onOpen1}
                       w="142px"
                       variant={data?.theme ? data.theme : "solid"}
