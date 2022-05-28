@@ -830,7 +830,9 @@ END:VCARD
         <VStack spacing={"48px"} color={textColor}>
           <NextLink href="/" passHref>
             <Link>
-              <Image src={logo} />
+              <Image 
+              h={["60px", "70px", "70px"]}
+              src={logo} />
             </Link>
           </NextLink>
           <Flex alignItems={"center"} textAlign="center" flexDir="column">
