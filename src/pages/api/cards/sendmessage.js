@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       pool: true,
       auth: {
         user: "no-reply@viadigitalcard.com",
-        pass: "VIATech.D@02062021",
+        pass: "VIATechD@02062021",
       },
     });
 
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
       text: "You have received a new message from " + name + ".",
       html: `<span style="font-size: 15px; font-family: Calibri, Helvetica, Arial, Sans-Serif">
       <br />
-      Hey ${email},<br />
+      Hey #SmartUser,<br />
       <br />You have received a new message on you Via Digital
       Card. Details are as follows:
       <br /><br />
