@@ -78,7 +78,7 @@ export default function Card({ inputData }) {
     youtube: inputData.socialLinks.youtube,
     facebook: inputData.socialLinks.facebook,
     payment: inputData.payment,
-    google: inputData.google,
+    google: inputData.socialLinks.google,
     theme: inputData.theme,
   });
 
@@ -280,8 +280,8 @@ export default function Card({ inputData }) {
                     .notRequired()
                     .test(
                       "document",
-                      `File size is too large, Must be less than 20MB`,
-                      (value) => value && value <= 1024 * 20000
+                      "File size is too large, Must be less than 20MB",
+                      (value) => value && value <= 1024 * 1024 * 20
                     )
                     .notRequired()
                 : null,
@@ -1017,7 +1017,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="google"
-                      placeholder="https://google.com/example"
+                      placeholder="https://g.page/"
                       w="full"
                       size="lg"
                       variant="outline"
