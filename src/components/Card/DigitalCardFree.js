@@ -262,7 +262,7 @@ END:VCARD
                     w="100%"
                     alt=""
                     borderTopRadius="20px"
-                    objectFit={"fill"}
+                    objectFit={"responsive"}
                     src={
                       data?.profilePhoto
                         ? data.profilePhoto
