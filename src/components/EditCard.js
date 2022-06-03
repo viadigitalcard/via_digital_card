@@ -78,7 +78,7 @@ export default function Card({ inputData }) {
     youtube: inputData.socialLinks.youtube,
     facebook: inputData.socialLinks.facebook,
     payment: inputData.payment,
-    google: inputData.google,
+    google: inputData.socialLinks.google,
     theme: inputData.theme,
   });
 
