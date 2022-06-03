@@ -263,6 +263,7 @@ END:VCARD
                     alt=""
                     borderTopRadius="20px"
                     objectFit={"responsive"}
+                    objectPosition={"50% 50%"}
                     src={
                       data?.profilePhoto
                         ? data.profilePhoto
