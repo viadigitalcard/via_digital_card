@@ -174,7 +174,7 @@ END:VCARD
       >
         <RWebShare
           data={{
-            text: "Hey there, check out" + data.name + "'s Via Digital Card",
+            text: "Hey there, check out " + data.name + "'s Via Digital Card",
             url: "https://app.viadigitalcard.com" + url,
             title: data.name,
           }}
