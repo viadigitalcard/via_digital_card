@@ -127,8 +127,8 @@ END:VCARD
       >
         <RWebShare
           data={{
-            text: "Via Digital Card",
-            url: "https://viadigitalcard.com" + url,
+            text: data.name + "'s Via Digital Card",
+            url: "https://app.viadigitalcard.com" + url,
             title: data.designation,
           }}
           onClick={() => console.log("shared successfully!")}
