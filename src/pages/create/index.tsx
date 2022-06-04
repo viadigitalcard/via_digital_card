@@ -337,10 +337,10 @@ function Card() {
           .notRequired()
           .test(
             "document",
-            `File size is too large, Must be less than 20 MB`,
+            `File size is too large, Must be less than 5 MB`,
 
             (value) =>
-              value && value <= (20 * 1024 * 1024)
+              value && value <= (5 * 1024 * 1024)
           )
           .notRequired(),
         pnumber: string()
