@@ -28,16 +28,6 @@ export default function MenuTop() {
         <MenuButton as={IconButton} icon={<HamburgerIcon />} />
         <MenuList color={bg} w="20px">
           <MenuItem>
-            <NextLink href="/create" passHref>
-              <Button
-                ml={4}
-                variant={"outline"}
-                borderColor="greenBrand.100"
-                color="black"
-              >
-                Create New Card +
-              </Button>
-            </NextLink>
           </MenuItem>
           {session && (
             <MenuItem onClick={signOut} as={Center} color="black">
