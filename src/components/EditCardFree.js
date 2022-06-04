@@ -280,8 +280,8 @@ export default function Card({ inputData }) {
                     .notRequired()
                     .test(
                       "document",
-                      "File size is too large, Must be less than 6MB",
-                      (value) => value && value <= 1024 * 1024 * 6
+                      "File size is too large, Must be less than 5MB",
+                      (value) => value && value <= 1024 * 1024 * 5
                     )
                     .notRequired()
                 : null,
