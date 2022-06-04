@@ -72,21 +72,6 @@ const Usercard = ({ Cards }) => {
               </Box>
               <Spacer />
               <Box display={["none", "none", "flex"]}>
-                {Cards && Cards.length ? (
-                  <NextLink href="/create" passHref>
-                    <Button
-                      leftIcon={<AddIcon />}
-                      ml={4}
-                      variant={"outline"}
-                      borderColor="greenBrand.100"
-                      color={textColor}
-                    >
-                      Create New Card
-                    </Button>
-                  </NextLink>
-                ) : (
-                  " "
-                )}
                 
                 <HStack p="0px 20px 0px 20px" h="40px">
                   <Text cursor="pointer" fontWeight="bold">
