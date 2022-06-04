@@ -477,35 +477,7 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
-              <Field name="username">
-                {({ field, form }) => (
-                  <FormControl
-                    onChange={(e) => handleChange(e)}
-                    isInvalid={
-                      (form.errors.username && form.touched.username) ||
-                      errorMessage
-                    }
-                  >
-                    <FormLabel color={textColor} htmlFor="username" mt="20px">
-                      Username:
-                    </FormLabel>
-                    <Input
-                      placeholder="Enter Username"
-                      id="username"
-                      w="full"
-                      h="60px"
-                      size="lg"
-                      variant="outline"
-                      focusBorderColor="#88E000"
-                      color={textColor}
-                      {...field}
-                    />
-                    <FormErrorMessage>
-                      {form.errors.name || errorMessage}{" "}
-                    </FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
+
               <Field name="document">
                 {({ field, form }) => (
                   <FormControl
