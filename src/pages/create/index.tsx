@@ -662,31 +662,6 @@ function Card() {
                                 </FormControl>
                               )}
                             </Field>
-                            <Field name="username">
-                              {({ field, form }) => (
-                                <FormControl
-                                  isInvalid={
-                                    (form.errors.username &&
-                                      form.touched.username) ||
-                                    errorMessage
-                                  }
-                                >
-                                  <Input
-                                    h="60px"
-                                    placeholder="Enter username"
-                                    marginTop={15}
-                                    size="lg"
-                                    variant="outline"
-                                    focusBorderColor="#88E000"
-                                    // color={textColor}
-                                    {...field}
-                                  />
-                                  <FormErrorMessage>
-                                    {form.errors.username || errorMessage}{" "}
-                                  </FormErrorMessage>
-                                </FormControl>
-                              )}
-                            </Field>
                           </Stack>
                         </VStack>
                       </FormikStep>
