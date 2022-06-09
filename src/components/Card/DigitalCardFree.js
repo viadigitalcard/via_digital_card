@@ -50,7 +50,7 @@ export const DigitalCardFree = ({ data }) => {
         /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/gm;
       return regex.exec(url)[3];
     }
-    const youtubeEmbed = getId(data?.socialLinks?.youtube);
+    const youtubeEmbed = getId(data?.socialLinks.youtube);
     console.log(youtubeEmbed);
   }
 
