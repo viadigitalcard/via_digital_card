@@ -174,7 +174,7 @@ const Usercard = ({ Cards }) => {
                         </Text>
                       </Box>
 
-                      <NextLink href="/create" passHref>
+                      <NextLink href="/cr" passHref>
                         <Button
                           mt={["20px", "10px", "0px"]}
                           leftIcon={<AddIcon />}
