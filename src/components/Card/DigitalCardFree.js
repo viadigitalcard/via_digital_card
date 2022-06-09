@@ -415,6 +415,7 @@ END:VCARD
                   as={Flex}
                   flexWrap="wrap"
                   fontSize={"1.125rem"}
+                  alignItems={"center"}
                 >
                   {data?.socialLinks.whatsapp != "" ? (
                     <Flex alignItems={"center"} m="22px"
@@ -564,10 +565,10 @@ END:VCARD
                           as={Link}
                           href={data?.socialLinks?.google}
                         >
-                          <Image src="/assets/images/greview.png" alt="" />
+                          <Image src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/RateIcon.png" alt="" />
                         </Box>
                       </Center>
-                      <Text ml="35px">Google</Text>
+                      <Text ml="35px">Rate Us</Text>
                     </Flex>
                   ) : (
                     " "
