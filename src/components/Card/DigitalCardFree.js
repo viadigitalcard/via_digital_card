@@ -1202,8 +1202,7 @@ END:VCARD
                       flexShrink={"0"}
                       boxSize={{ base: "29px", xs: "45px", sm: "60px" }}
                     >
-                      <Image w="100%" src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/RateIcon.png"   
-                      h={["10px", "10px"]}
+                      <Image w="100%" src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/RateIcon.png"                         
                       alt="" />
                     </Box>
                   </Center>
