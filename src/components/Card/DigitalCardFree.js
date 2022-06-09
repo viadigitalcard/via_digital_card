@@ -44,13 +44,13 @@ export const DigitalCardFree = ({ data }) => {
     onClose: onClose1,
   } = useDisclosure();
   console.log(data);
-  if (data?.socialLinks.youtube != "") {
+  if (data?.socialLinks?.youtube != "") {
     function getId(url) {
       let regex =
         /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/gm;
       return regex.exec(url)[3];
     }
-    const youtubeEmbed = getId(data?.socialLinks.youtube);
+    const youtubeEmbed = getId(data?.socialLinks?.youtube);
     console.log(youtubeEmbed);
   }
 
