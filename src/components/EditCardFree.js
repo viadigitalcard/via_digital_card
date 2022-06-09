@@ -891,7 +891,7 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
-              <Field name="youtube">
+             /* <Field name="youtube">
                 {({ field, form }) => (
                   <FormControl
                     onChange={(e) => handleChange(e)}
@@ -918,7 +918,7 @@ export default function Card({ inputData }) {
                     </FormErrorMessage>
                   </FormControl>
                 )}
-              </Field>
+              </Field> */
               <Field name="facebook">
                 {({ field, form }) => (
                   <FormControl
