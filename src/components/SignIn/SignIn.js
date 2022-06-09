@@ -224,7 +224,7 @@ export const SignIn = () => {
               )}
             </Formik>
           </Flex>
-          <Flex direction="row" py="40px">
+{/* <Flex direction="row" py="40px">
             <Text fontWeight="light" color={textColor}>
               Not a member ?
             </Text>
@@ -233,7 +233,7 @@ export const SignIn = () => {
                 Create account now
               </Link>
             </NextLink>                      
-          </Flex>
+          </Flex> */}
                        <Text
                         as={Flex}
                         justifyContent="center"
