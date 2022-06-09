@@ -565,7 +565,9 @@ END:VCARD
                           as={Link}
                           href={data?.socialLinks?.google}
                         >
-                          <Image src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/RateIcon.png" alt="" />
+                          <Image src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/RateIcon.png" 
+                          h={["60px", "60px"]}
+                          alt="" />
                         </Box>
                       </Center>
                       <Text ml="35px">Rate Us</Text>
