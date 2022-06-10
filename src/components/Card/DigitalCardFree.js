@@ -566,7 +566,7 @@ END:VCARD
                           href={data?.socialLinks?.google}
                         >
                           <Image src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/RateIcon.png" 
-                          h={["45px", "45px"]}
+                          h={["40px", "40px"]}
                           alt="" />
                         </Box>
                       </Center>
