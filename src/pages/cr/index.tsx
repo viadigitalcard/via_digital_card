@@ -548,7 +548,8 @@ function Card() {
                                     {...field}
                                   />
                                   <FileInput
-                                    accept="image/jpeg,image/png"
+                                    accept="image/jpg,image/png"
+                                    restrict="image/jpeg"
                                     onChange={(e) => {
                                       handleChange(e);
                                       form.setFieldValue(
