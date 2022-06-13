@@ -340,9 +340,6 @@ const Cards = ({ Card }) => {
               )}
 
               <MenuList bgColor={"brand.100"} color="white" w="20px">
-                <MenuItem onClick={handleDelete} icon={<DeleteIcon />}>
-                  Delete
-                </MenuItem>
                 <MenuItem onClick={onOpen} icon={<EditIcon />}>
                   Edit
                 </MenuItem>
