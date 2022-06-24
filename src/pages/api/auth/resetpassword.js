@@ -50,7 +50,6 @@ export default async function handler(req, res) {
       return res
          .status(402)
          .json({ message: "We have already sent you an email." });
-      });
     }
     const mailOptions = {
       from: "no-reply@viadigitalcard.com",
