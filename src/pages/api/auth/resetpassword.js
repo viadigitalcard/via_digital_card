@@ -37,10 +37,6 @@ export default async function handler(req, res) {
       return;
     }
 
-    const existingToekn = await Token.findOne({
-      userId: existingUser._id,
-    }).exec();
-
     const uploadToken = await Token.create({
       _id: baseData,
       creatorId: existingUser._id,
