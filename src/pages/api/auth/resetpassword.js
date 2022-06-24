@@ -37,13 +37,10 @@ export default async function handler(req, res) {
       return;
     }
 
-        if (!existingToekn) {
+       if (!existingToekn) {
        const uploadToken = await Token.create({
          _id: baseData,
          creatorId: existingUser._id,
-     const uploadToken = await Token.create({
-       _id: baseData,
-       creatorId: existingUser._id,
        });
      } else {
        return res
