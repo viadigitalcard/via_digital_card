@@ -37,10 +37,19 @@ export default async function handler(req, res) {
       return;
     }
 
-    const uploadToken = await Token.create({
-      _id: baseData,
-      creatorId: existingUser._id,
-      });
+        if (!existingToekn) {
+       const uploadToken = await Token.create({
+         _id: baseData,
+         creatorId: existingUser._id,
+     const uploadToken = await Token.create({
+       _id: baseData,
+       creatorId: existingUser._id,
+       });
+     } else {
+       return res
+          .status(402)
+          .json({ message: "We have already sent you an email." });
+     }
     
     const mailOptions = {
       from: "no-reply@viadigitalcard.com",
