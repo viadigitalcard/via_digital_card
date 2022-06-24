@@ -36,6 +36,10 @@ export default async function handler(req, res) {
       res.status(400).json({ message: " User does not exist " });
       return;
     }
+    
+      const existingToekn = await Token.findOne({
+       userId: existingUser._id,
+     }).exec();
 
        if (!existingToekn) {
        const uploadToken = await Token.create({
