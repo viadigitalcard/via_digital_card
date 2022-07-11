@@ -127,7 +127,7 @@ END:VCARD
       data.socialLinks.whatsapp == "" &&
       data.socialLinks.instagram == "" &&
       data.socialLinks.facebook == "" &&
-      data.socialLinks.twitter == "" &&
+      data.socialLinks.youtube == "" &&
       data.socialLinks.linkedin == ""
     ) {
       return false;
@@ -456,12 +456,12 @@ END:VCARD
                       >
                         <Box>
                           <Image
-                            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
+                            src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/YouTube.png"
                             alt=""
                           />
                         </Box>
                       </Center>
-                      <Text ml="35px">Twitter</Text>
+                      <Text ml="35px">YouTube</Text>
                     </Flex>
                   ) : (
                     ""
@@ -1092,15 +1092,15 @@ END:VCARD
                 ) : (
                   ""
                 )}
-                {data?.socialLinks.twitter != "" ? (
+                {data?.socialLinks.youtube != "" ? (
                   <Center
-                    onClick={() => handelupdate("twitter")}
+                    onClick={() => handelupdate("youtube")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
                     borderRadius="14px"
                     border={`2px solid ${borderColor}`}
                     as={Link}
                     isExternal
-                    href={data?.socialLinks.twitter}
+                    href={data?.socialLinks.youtube}
                   >
                     <Box
                       flexShrink={"0"}
@@ -1108,7 +1108,7 @@ END:VCARD
                     >
                       <Image
                         w="100%"
-                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/Twitter.png"
+                        src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/YouTube.png"
                         alt=""
                       />
                     </Box>
