@@ -74,7 +74,6 @@ export default function Card({ inputData }) {
     whatsapp: inputData.socialLinks.whatsapp,
     linkedin: inputData.socialLinks.linkedin,
     instagram: inputData.socialLinks.instagram,
-    twitter: inputData.socialLinks.twitter,
     youtube: inputData.socialLinks.youtube,
     facebook: inputData.socialLinks.facebook,
     payment: inputData.payment,
@@ -807,7 +806,7 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
-              <Field name="twitter">
+              <Field name="youtube">
                 {({ field, form }) => (
                   <FormControl
                     onChange={(e) => handleChange(e)}
@@ -817,11 +816,11 @@ export default function Card({ inputData }) {
                     }
                   >
                     <FormLabel color={textColor} htmlFor="twitter" mt="20px">
-                      Twitter:
+                      Youtube:
                     </FormLabel>
                     <Input
                       id="twitter"
-                      placeholder="https://twitter.com/example"
+                      placeholder="https://youtube.com/example"
                       size="lg"
                       h="60px"
                       variant="outline"
