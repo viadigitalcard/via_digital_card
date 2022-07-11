@@ -806,7 +806,7 @@ export default function Card({ inputData }) {
                   </FormControl>
                 )}
               </Field>
-              <Field name="youtube">
+              <Field name="twitter">
                 {({ field, form }) => (
                   <FormControl
                     onChange={(e) => handleChange(e)}
