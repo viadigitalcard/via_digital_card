@@ -195,18 +195,6 @@ export const SignIn = () => {
                       </FormControl>
                     )}
                   </Field>
-                  <NextLink href="/resetpassword" passHref>
-                    <Link fontWeight="bold" px={2} color={textColor}>
-                      <Text
-                        as={Flex}
-                        justifyContent="end"
-                        color={textColor}
-                        fontWeight="semibold"
-                      >
-                        Recovery Password
-                      </Text>
-                    </Link>
-                  </NextLink>
 
 
                   <Center>
