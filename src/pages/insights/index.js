@@ -265,7 +265,7 @@ export default function Insights() {
                     <Td textAlign="center">{selectedData?.insta?.length}</Td>
                   </Tr>
                   <Tr>
-                    <Td>Twitter</Td>
+                    <Td>Youtube</Td>
                     <Td textAlign="center">{selectedData?.twitter?.length}</Td>
                   </Tr>
                   <Tr>
