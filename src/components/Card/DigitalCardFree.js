@@ -457,7 +457,7 @@ END:VCARD
                         <Box>
                           <Image
                             src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/YouTube.png"
-                            h={["30px", "30px"]}
+                            h={["35px", "35px"]}
                             alt=""
                           />
                         </Box>
