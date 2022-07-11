@@ -1013,7 +1013,7 @@ function Card() {
                                 }
                               >
                                 <Input
-                                  placeholder="https://www.twitter.com"
+                                  placeholder="https://www.youtube.com/"
                                   marginTop={15}
                                   size="lg"
                                   h="60px"
