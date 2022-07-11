@@ -1093,7 +1093,7 @@ END:VCARD
                 ) : (
                   ""
                 )}
-                {data?.socialLinks.youtube != "" ? (
+                {data?.socialLinks.twitter != "" ? (
                   <Center
                     onClick={() => handelupdate("youtube")}
                     boxSize={{ base: "48px", xs: "64px", sm: "80px" }}
@@ -1101,7 +1101,7 @@ END:VCARD
                     border={`2px solid ${borderColor}`}
                     as={Link}
                     isExternal
-                    href={data?.socialLinks.youtube}
+                    href={data?.socialLinks.twitter}
                   >
                     <Box
                       flexShrink={"0"}
