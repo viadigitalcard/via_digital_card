@@ -1109,6 +1109,7 @@ END:VCARD
                     >
                       <Image
                         w="100%"
+                        h="100%"
                         src="https://file-upload-via-digital.s3.ap-south-1.amazonaws.com/assets/YouTube.png"
                         align="center"
                         alt=""
