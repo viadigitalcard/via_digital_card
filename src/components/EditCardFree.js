@@ -567,7 +567,7 @@ export default function Card({ inputData }) {
                       Primary Phone Number:
                     </FormLabel>
                     <Input
-                      type="number"
+                      type="string"
                       min="0"
                       id="number"
                       placeholder="Primary Phone Number"
@@ -598,7 +598,7 @@ export default function Card({ inputData }) {
                     </FormLabel>
                     <Input
                       id="number"
-                      type="number"
+                      type="string"
                       min="0"
                       placeholder="Secondary Phone Number"
                       size="lg"
