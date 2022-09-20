@@ -286,8 +286,7 @@ export default function Card({ inputData }) {
                 : null,
             pnumber: string()
               .min(13, "Must be Valid Phone Number")
-              .max(13, "Must be Valid Phone Number")
-              .required("Required"),
+              .max(13, "Must be Valid Phone Number"),
             snumber: string()
               .min(13, "Must be Valid Phone Number")
               .max(13, "Must be Valid Phone Number"),
