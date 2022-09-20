@@ -285,16 +285,16 @@ export default function Card({ inputData }) {
                     .notRequired()
                 : null,
             pnumber: string()
-              .min(13, "Must be Valid Phone Number")
+              .min(10, "Must be Valid Phone Number")
               .max(13, "Must be Valid Phone Number"),
             snumber: string()
-              .min(13, "Must be Valid Phone Number")
+              .min(10, "Must be Valid Phone Number")
               .max(13, "Must be Valid Phone Number"),
             designation: Yup.string(),
             tagline: Yup.string(),
             bio: Yup.string().required("Required"),
             whatsapp: string()
-              .min(13, "Must be Valid Phone Number")
+              .min(10, "Must be Valid Phone Number")
               .max(13, "Must be Valid Phone Number"),
             website: Yup.string().url().label("Please Include 'https://',"),
             linkedin: Yup.string().url().label("Please Include 'https://',"),
