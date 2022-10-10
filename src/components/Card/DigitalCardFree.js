@@ -833,7 +833,7 @@ END:VCARD
       </Tabs>
       <Box display={{ base: "block", "2sm": "none" }} w="100%">
         <VStack spacing={"48px"} color={textColor}>
-          <NextLink href="/" passHref>
+          <NextLink href="https://viadigitalcard.com" passHref>
             <Link>
               <Image 
               h={["60px", "70px", "70px"]}
