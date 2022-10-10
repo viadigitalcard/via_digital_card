@@ -198,7 +198,7 @@ END:VCARD
       >
         <TabList border={"none"} justifyContent="space-between">
           <Box>
-            <NextLink href="/" passHref>
+            <NextLink href="https://viadigitalcard.com" passHref>
               <Link>
                 <Image 
                  h={["60px", "70px", "70px"]}
