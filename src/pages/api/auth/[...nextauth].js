@@ -22,8 +22,7 @@ export default NextAuth({
             user.password
           );
           if (!isPasswordValid) throw new Error("Password is not valid");
-          if (user.verifyEmail === false)
-            throw new Error("Email is not verified");
+
 
           return {
             id: user._id,
