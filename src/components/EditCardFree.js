@@ -788,7 +788,7 @@ export default function Card({ inputData }) {
                       Whatsapp:
                     </FormLabel>
                     <Input
-                      type="number"
+                      type="string"
                       min="0"
                       id="whatsapp"
                       placeholder="Number"
