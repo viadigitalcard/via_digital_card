@@ -425,7 +425,7 @@ END:VCARD
                         isExternal
                         boxSize={"72px"}
                         borderRadius="12px"
-                        href={`https://api.whatsapp.com/send?phone=+91${data?.socialLinks.whatsapp}`}
+                        href={`https://api.whatsapp.com/send?phone=${data?.socialLinks.whatsapp}`}
                         border={`2px solid ${borderColor}`}
                       >
                         <Box>
