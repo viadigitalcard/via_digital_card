@@ -1077,7 +1077,7 @@ END:VCARD
                     border={`2px solid ${borderColor}`}
                     as={Link}
                     isExternal
-                    href={`https://api.whatsapp.com/send?phone=+91${data?.socialLinks.whatsapp}`}
+                    href={`https://api.whatsapp.com/send?phone=${data?.socialLinks.whatsapp}`}
                   >
                     <Box
                       flexShrink={"0"}
