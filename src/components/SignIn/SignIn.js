@@ -223,15 +223,7 @@ export const SignIn = () => {
               </Link>
             </NextLink>                      
           </Flex> */}
-                       <Text
-                        as={Flex}
-                        justifyContent="center"
-                        color={textColor}
-                        align="center"
-                        fontWeight="semibold"
-                      >
-                        Note - Verification email might take upto 5 minutes to arrive
-                      </Text>
+
         </VStack>
         <Flex display={["none", "none", "flex"]}>
           <Image
