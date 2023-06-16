@@ -62,7 +62,7 @@ export const SignIn = () => {
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
         "Must Contain 8 Characters"
       )
-      .required("Required"),
+      .required("Require"),
   });
 
   async function handleSubmit(values) {
